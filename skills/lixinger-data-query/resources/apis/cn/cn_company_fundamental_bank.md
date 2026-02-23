@@ -1,16 +1,16 @@
-# API 规范: cn/company/fundamental/other_financial (基本面数据)
+# API 规范: cn/company/fundamental/bank (基本面数据 - 银行)
 
-获取其他金融机构基本面数据
+获取银行类公司基本面数据
 
 ## 接口地址
-- **URL 后缀**: `cn/company/fundamental/other_financial`
-- **支持格式**: `cn.company.fundamental.other_financial`
+- **URL 后缀**: `cn/company/fundamental/bank`
+- **支持格式**: `cn.company.fundamental.bank`
 
 ## 查询参数 (query_params)
 | 参数名 | 类型 | 必填 | 说明 |
 | :--- | :--- | :--- | :--- |
 | `token` | string | 是 | 用户访问令牌 (工具自动注入) |
-| `stockCodes` | list | 是 | 股票代码列表，如 `["600000", "000001"]` |
+| `stockCodes` | list | 是 | 股票代码列表，如 `["601398", "601939"]` |
 | `date` | string | 否 | 指定日期 (YYYY-MM-DD) |
 | `startDate` | string | 否 | 起始时间 (YYYY-MM-DD) |
 | `endDate` | string | 否 | 结束时间 (YYYY-MM-DD) |
@@ -27,5 +27,5 @@
 
 ## 调用示例
 ```bash
-python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/fundamental/other_financial" --params '{"stockCodes": ["600015"], "date": "2024-12-31"}'
+python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/fundamental/bank" --params '{"stockCodes": ["600015"], "date": "2024-12-31"}'
 ```

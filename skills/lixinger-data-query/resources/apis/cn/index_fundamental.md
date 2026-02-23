@@ -13,6 +13,13 @@
 | `stockCodes` | list[string] | 是 | 指数代码列表 (e.g., `["000016"]` 为上证 50) |
 | `metricsList` | list[string] | 是 | 指标列表 (e.g., `["pe_ttm.mcw", "mc"]`) |
 
+## 返回字段 (data)
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `date` | date | 数据时间 |
+| `stockCode` | string | 代码 |
+| `[metrics]`| number | 动态返回 `metricsList` 中请求的指标值 |
+
 ## 调用示例
 ```bash
 /opt/anaconda3/bin/python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn.index.fundamental" --params '{"date": "2024-12-10", "stockCodes": ["000016"], "metricsList": ["pe_ttm.mcw", "mc"]}'

@@ -18,6 +18,13 @@
 | `endDate` | string | 否 | 结束时间 (YYYY-MM-DD) |
 | `metricsList` | list | 否 | 指标列表，如 `["pe_ttm", "mc"]` |
 
+## 返回字段 (data)
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `date` | date | 数据时间 |
+| `stockCode` | string | 代码 |
+| `[metrics]`| number | 动态返回 `metricsList` 中请求的指标值 |
+
 ## 调用示例
 ```bash
 python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/industry/hot-data" --params '{"stockCodes": ["801780"], "date": "2024-12-31"}'

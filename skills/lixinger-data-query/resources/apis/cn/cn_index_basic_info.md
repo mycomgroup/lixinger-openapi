@@ -10,7 +10,21 @@
 | 参数名 | 类型 | 必填 | 说明 |
 | :--- | :--- | :--- | :--- |
 | `token` | string | 是 | 用户访问令牌 (工具自动注入) |
-| `stockCodes` | list | 是 | 指数代码列表，如 `["000300", "000001"]` |
+| `stockCodes` | list | 否 | 指数代码列表，如 `["000300"]` |
+
+## 返回字段 (data)
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `areaCode` | string | 地域代码 |
+| `market` | string | 市场 |
+| `stockCode` | string | 指数代码 |
+| `source` | string | 来源 |
+| `fsTableType` | string | 财务附注表类型 |
+| `currency` | string | 货币 |
+| `name` | string | 指数名称 |
+| `launchDate` | date | 发布日期 |
+| `rebalancingFrequency` | string | 调仓频率 |
+| `series` | string | 系列 |
 
 ## 调用示例
 ```bash

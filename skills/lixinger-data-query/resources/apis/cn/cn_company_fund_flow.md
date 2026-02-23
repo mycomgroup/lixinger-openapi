@@ -18,6 +18,21 @@
 | `endDate` | string | 否 | 结束时间 (YYYY-MM-DD) |
 | `metricsList` | list | 否 | 指标列表，如 `["pe_ttm", "mc"]` |
 
+## 返回字段 (data)
+该接口主要返回互联互通（陆股通/港股通）持仓及资金流向数据：
+
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `stockCode` | string | 股票代码 |
+| `last_data_date` | date | 数据时间 |
+| `mm_sh` | number | 陆股通持仓 |
+| `mm_sha` | number | 陆股通持仓金额 |
+| `mm_sh_cap_r` | number | 陆股通持股占流通A股比例 |
+| `spc` | number | 涨跌幅 |
+| `mm_sh_nba_q1` | number | 过去1个季度净买入金额 |
+| `mm_sh_cap_rc_q1` | number | 过去1个季度持仓占流通A股比例 |
+| `mm_sh_nbv_q1` | number | 过去1个季度净买入股数 |
+
 ## 调用示例
 ```bash
 python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/fund-flow" --params '{"stockCodes": ["600519"], "date": "2024-12-31"}'

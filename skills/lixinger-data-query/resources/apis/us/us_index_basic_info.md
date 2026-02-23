@@ -1,6 +1,6 @@
-# API 规范: us/index (美股指数信息)
+# API 规范: us/index (美股指数基础信息)
 
-获取美股指数基本信息
+获取美股指数基础信息数据
 
 ## 接口地址
 - **URL 后缀**: `us/index`
@@ -11,7 +11,7 @@
 | 参数名 | 类型 | 必填 | 说明 |
 | :--- | :--- | :--- | :--- |
 | `token` | string | 是 | 用户访问令牌 (工具自动注入) |
-| `stockCodes` | list | 否 | 指数代码列表，如 `[".INX", ".DJI"]` |
+| `stockCodes` | list | 是 | 指数代码列表，如 `["SPX", "IXIC"]` |
 
 ## 返回字段
 
@@ -26,5 +26,5 @@
 
 ## 调用示例
 ```bash
-python skills/lixinger-data-query/scripts/query_tool.py --suffix "us/index/basic-info" --params '{"stockCodes": ["SPX"]}'
+python skills/lixinger-data-query/scripts/query_tool.py --suffix "us/index" --params '{"stockCodes": ["SPX"]}'
 ```

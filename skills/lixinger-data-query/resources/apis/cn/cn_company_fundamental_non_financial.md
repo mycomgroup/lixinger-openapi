@@ -17,6 +17,15 @@
 | `endDate` | string | 否 | 结束日期 (YYYY-MM-DD)。默认为最近一个周一。 |
 | `limit` | number | 否 | 返回记录条数限制。 |
 
+## 返回字段 (data)
+基本面接口返回动态指标，包含以下固定字段及 `metricsList` 中请求的指标：
+
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `stockCode` | string | 股票代码 |
+| `date` | date | 数据日期 |
+| `[metric]` | number | 请求的各项指标 (如 `pe_ttm`, `pb`, `mc` 等) |
+
 ## 调用示例
 ```bash
 python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/fundamental/non_financial" --params '{"stockCodes": ["600519"], "metricsList": ["pe_ttm", "mc"], "startDate": "2024-01-01"}'

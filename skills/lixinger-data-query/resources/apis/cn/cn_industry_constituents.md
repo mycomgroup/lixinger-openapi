@@ -7,18 +7,26 @@
 - **支持格式**: `cn.industry.constituents`
 
 ## 查询参数 (query_params)
-大多数 API 遵循以下参数结构，根据具体需求选择：
-
 | 参数名 | 类型 | 必填 | 说明 |
 | :--- | :--- | :--- | :--- |
 | `token` | string | 是 | 用户访问令牌 (工具自动注入) |
-| `stockCodes` | list | 是 | 股票代码列表，如 `["600519", "000001"]` |
+| `source` | string | 是 | 行业分类标准 (例如 'sw') |
+| `stockCodes` | list | 是 | 行业代码列表，如 `["110000"]` |
 | `date` | string | 否 | 指定日期 (YYYY-MM-DD) |
-| `startDate` | string | 否 | 起始时间 (YYYY-MM-DD) |
-| `endDate` | string | 否 | 结束时间 (YYYY-MM-DD) |
-| `metricsList` | list | 否 | 指标列表，如 `["pe_ttm", "mc"]` |
+
+## 返回字段 (data)
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `date` | date | 数据时间 |
+| `stockCode` | string | 行业代码 |
+| `name` | string | 行业名称 |
+| `weight` | number | 权重 |
+| `constituents` | list | 成分股列表 |
+| `constituents.$.stockCode` | string | 成分股股票代码 |
+| `constituents.$.areaCode` | string | 成分股地域代码 |
+| `constituents.$.market` | string | 成分股市场 |
 
 ## 调用示例
 ```bash
-python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/industry/constituents" --params '{"stockCodes": ["801780"], "date": "2024-12-31"}'
+python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/industry/constituents" --params '{"source": "sw", "stockCodes": ["110000"], "date": "2024-12-31"}'
 ```

@@ -16,6 +16,18 @@
 | `endDate` | string | 否 | 结束时间 (YYYY-MM-DD) |
 | `metricsList` | list | 否 | 指标列表，如 `["pe_ttm", "mc"]` |
 
+## 返回字段 (data)
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `date` | date | 数据时间 |
+| `stockCode` | string | 股票代码 |
+| `tradingPrice` | number | 成交价 |
+| `tradingAmount` | number | 成交金额 |
+| `tradingVolume` | number | 成交量 |
+| `buyBranch` | string | 买入营业部 |
+| `sellBranch` | string | 卖出营业部 |
+| `discountRate` | number | 折价率 |
+
 ## 调用示例
 ```bash
 python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/block-deal" --params '{"stockCodes": ["600519"], "startDate": "2024-01-01", "endDate": "2024-12-31"}'

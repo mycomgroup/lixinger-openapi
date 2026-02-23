@@ -63,7 +63,21 @@ https://open.lixinger.com/api/cn/company/k-line
 *API页面: https://www.lixinger.com/open/api/doc?api-key=cn/company/candlestick*
 
 
+## 返回字段 (data)
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `date` | date | 数据时间 |
+| `stockCode` | string | 代码 |
+| `open` | number | 开盘价 |
+| `close` | number | 收盘价 |
+| `high` | number | 最高价 |
+| `low` | number | 最低价 |
+| `volume` | number | 成交量 |
+| `amount` | number | 成交额 |
+| `change` | number | 涨跌幅 |
+| `to_r` | number | 换手率 |
+
 ## 调用示例
 ```bash
-python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/k-line" --params '{"stockCode": "600519", "startDate": "2024-01-01", "endDate": "2024-12-31"}'
+python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "startDate": "2024-01-01", "endDate": "2024-12-31"}'
 ```

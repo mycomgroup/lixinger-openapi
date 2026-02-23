@@ -18,6 +18,20 @@
 | `endDate` | string | 否 | 结束时间 (YYYY-MM-DD) |
 | `metricsList` | list | 否 | 指标列表，如 `["pe_ttm", "mc"]` |
 
+## 返回字段 (data)
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `date` | date | 数据时间 |
+| `reasonForDisclosure` | string | 披露原因 |
+| `buyList` | list | 买入列表 (包含 branchName, buyAmount, sellAmount) |
+| `institutionBuyCount` | number | 买入机构数 |
+| `institutionSellCount` | number | 卖出机构数 |
+| `institutionBuyAmount` | number | 机构买入金额 |
+| `institutionSellAmount` | number | 机构卖出金额 |
+| `totalPurchaseAmount` | number | 总买入金额 |
+| `totalSellAmount` | number | 总卖出金额 |
+| `sellList` | list | 卖出列表 (包含 branchName, buyAmount, sellAmount) |
+
 ## 调用示例
 ```bash
 python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/trading-abnormal" --params '{"stockCodes": ["600519"], "startDate": "2024-01-01", "endDate": "2024-12-31"}'
