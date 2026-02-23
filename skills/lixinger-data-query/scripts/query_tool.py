@@ -203,7 +203,14 @@ def main():
                 else:
                     print(df.to_string())
             else:
-                print(f"Error: {result.get('msg', 'Unknown error')} (Code: {result.get('code', -1)})", file=sys.stderr)
+                error_info = result.get('error', result.get('msg', 'Unknown error'))
+                if isinstance(error_info, dict):
+                    error_msg = error_info.get('message', str(error_info))
+                    if 'messages' in error_info:
+                        error_msg += " " + str(error_info['messages'])
+                else:
+                    error_msg = str(error_info)
+                print(f"Error: {error_msg} (Code: {result.get('code', -1)})", file=sys.stderr)
                 sys.exit(1)
 
     except json.JSONDecodeError:
