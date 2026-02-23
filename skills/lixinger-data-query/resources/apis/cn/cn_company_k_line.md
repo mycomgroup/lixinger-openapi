@@ -79,5 +79,5 @@ https://open.lixinger.com/api/cn/company/k-line
 
 ## 调用示例
 ```bash
-python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "startDate": "2024-01-01", "endDate": "2024-12-31"}'
+python skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "startDate": "2024-01-01", "endDate": "2024-12-31", "type": "normal"}'
 ```
