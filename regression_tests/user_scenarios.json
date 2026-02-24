@@ -4,9 +4,9 @@
     "description": "跟踪并解读A股大宗交易（折溢价、买卖方、金额、连续性），用于识别潜在建仓/派发、短期抛压与承接强弱，并输出可执行的跟踪清单与风控规则。当用户询问大宗交易、折价率、大额成交、机构接盘、或想用大宗交易做信号时使用。",
     "market": "China-market",
     "questions": [
-      "使用 block-deal-monitor 分析一下当前市场情况",
-      "block-deal-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，block-deal-monitor 有什么具体的建议？"
+      "贵州茅台最近有大宗交易吗？折价率怎么样？",
+      "帮我看看宁德时代最近的大宗交易情况，是不是有机构在减持？",
+      "最近哪些股票出现了大额折价的大宗交易？"
     ]
   },
   {
@@ -14,9 +14,9 @@
     "description": "扫描与分析北交所（BSE）标的，按流动性、成长性、行业景气与“专精特新”特征输出候选清单，并给出流动性与波动风险提示。当用户询问北交所精选、北交所选股、专精特新筛选、或需要北交所板块研究时使用。",
     "market": "China-market",
     "questions": [
-      "使用 bse-selection-analyzer 分析一下当前市场情况",
-      "bse-selection-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，bse-selection-analyzer 有什么具体的建议？"
+      "北交所有哪些值得关注的专精特新企业？",
+      "帮我筛选一下北交所流动性好、成长性高的股票",
+      "北交所最近有什么投资机会吗？"
     ]
   },
   {
@@ -24,9 +24,9 @@
     "description": "筛选可转债并评估溢价、流动性、条款风险与正股质量联动。当用户询问可转债机会、转债筛选、转债溢价/条款风险或需要转债清单时使用。",
     "market": "China-market",
     "questions": [
-      "使用 convertible-bond-scanner 分析一下当前市场情况",
-      "convertible-bond-scanner 能提供哪些核心数据分析？",
-      "针对目前的市场行情，convertible-bond-scanner 有什么具体的建议？"
+      "现在有哪些可转债的转股溢价率比较低？",
+      "帮我筛选一下双低可转债",
+      "可转债市场有什么投资机会吗？"
     ]
   },
   {
@@ -34,9 +34,9 @@
     "description": "梳理公司公告与信息披露（定期报告披露、重大事项）并生成事件清单、影响评估与监控要点。当用户询问公告梳理、信息披露、财报披露时间、重大事项清单或需要公告监控时使用。",
     "market": "China-market",
     "questions": [
-      "使用 disclosure-notice-monitor 分析一下当前市场情况",
-      "disclosure-notice-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，disclosure-notice-monitor 有什么具体的建议？"
+      "贵州茅台最近有什么重要公告吗？",
+      "帮我看看比亚迪最近披露了哪些重大事项",
+      "最近有哪些公司发布了业绩预告？"
     ]
   },
   {
@@ -44,9 +44,9 @@
     "description": "跟踪历史分红、分红配股方案、除权除息与交易提醒，评估股东回报与分红可持续性。当用户询问分红记录、配股方案、除权除息、股息率或需要分红跟踪时使用。",
     "market": "China-market",
     "questions": [
-      "使用 dividend-corporate-action-tracker 分析一下当前市场情况",
-      "dividend-corporate-action-tracker 能提供哪些核心数据分析？",
-      "针对目前的市场行情，dividend-corporate-action-tracker 有什么具体的建议？"
+      "查询贵州茅台的分红历史",
+      "工商银行的股息率怎么样？",
+      "帮我看看哪些股票最近要分红了"
     ]
   },
   {
@@ -54,9 +54,9 @@
     "description": "分析龙虎榜数据（机构席位、营业部、买卖动向、个股上榜统计）以识别资金偏好与异常成交风险。当用户询问龙虎榜、机构席位动向、游资营业部、上榜原因、或需要龙虎榜复盘时使用。",
     "market": "China-market",
     "questions": [
-      "使用 dragon-tiger-list-analyzer 分析一下当前市场情况",
-      "dragon-tiger-list-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，dragon-tiger-list-analyzer 有什么具体的建议？"
+      "今天龙虎榜上有哪些股票？",
+      "帮我看看最近游资在炒什么板块",
+      "某某股票上龙虎榜了，买方都是谁？"
     ]
   },
   {
@@ -64,9 +64,9 @@
     "description": "分析股权质押比例、质押分布、行业对比及结构特征，输出控制权与财务/流动性风险提示。当用户询问股权质押、质押比例、质押风险或需要质押风险扫描时使用。",
     "market": "China-market",
     "questions": [
-      "使用 equity-pledge-risk-monitor 分析一下当前市场情况",
-      "equity-pledge-risk-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，equity-pledge-risk-monitor 有什么具体的建议？"
+      "帮我查一下这几支股票有没有质押风险",
+      "哪些公司的股权质押比例比较高？",
+      "监控一下当前的股权质押平仓压力情况"
     ]
   },
   {
@@ -74,9 +74,9 @@
     "description": "编排完整个股研究流程：按需调用其他技能/工具包视图，并将输出整合为一份一致的研究交付物。当用户要求“从头到尾分析这只股票/给我完整研究包”时使用。",
     "market": "China-market",
     "questions": [
-      "使用 equity-research-orchestrator 分析一下当前市场情况",
-      "equity-research-orchestrator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，equity-research-orchestrator 有什么具体的建议？"
+      "帮我做一份贵州茅台的完整研究报告",
+      "我想深入分析一下宁德时代这只股票",
+      "给我一份比亚迪的投资分析报告"
     ]
   },
   {
@@ -84,9 +84,9 @@
     "description": "构建 ETF 配置方案并量化暴露（行业/风格/因子）、流动性与跟踪误差等关键约束。当用户要求用 ETF 做配置、或分析 ETF 暴露与风险时使用。",
     "market": "China-market",
     "questions": [
-      "使用 etf-allocator 分析一下当前市场情况",
-      "etf-allocator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，etf-allocator 有什么具体的建议？"
+      "帮我配置一个ETF组合，资金100万",
+      "现在沪深300和中证500哪个估值更低？",
+      "用ETF做资产配置，应该怎么分配比例？"
     ]
   },
   {
@@ -94,9 +94,9 @@
     "description": "识别和分析可能创造定价偏差的A股公司事件，包括并购重组、资产注入、回购增持、管理层变更和指数调整。当用户询问并购重组机会、资产注入、股份回购分析、国企改革、指数调整交易、特殊事件投资或事件驱动策略时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 event-driven-detector 分析一下当前市场情况",
-      "event-driven-detector 能提供哪些核心数据分析？",
-      "针对目前的市场行情，event-driven-detector 有什么具体的建议？"
+      "最近有哪些并购重组的投资机会？",
+      "哪些公司在回购股份？",
+      "最近有什么重大资产注入的事件吗？"
     ]
   },
   {
@@ -104,9 +104,9 @@
     "description": "对公司/宏观事件进行事件窗研究（事件前后收益、超额收益、同业/基准调整），用于量化事件影响。当用户询问某事件对价格的影响、或需要事件窗分析时使用。",
     "market": "China-market",
     "questions": [
-      "使用 event-study 分析一下当前市场情况",
-      "event-study 能提供哪些核心数据分析？",
-      "针对目前的市场行情，event-study 有什么具体的建议？"
+      "分析一下某公司发布业绩预告后股价的表现",
+      "并购重组公告对股价有什么影响？",
+      "定增完成后股价一般会怎么走？"
     ]
   },
   {
@@ -114,9 +114,9 @@
     "description": "监控因子拥挤度与因子收益分化，用于识别拥挤交易与风格挤压/轮动风险。当用户询问因子拥挤度、风格拥挤、或需要因子轮动风险提示时使用。",
     "market": "China-market",
     "questions": [
-      "使用 factor-crowding-monitor 分析一下当前市场情况",
-      "factor-crowding-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，factor-crowding-monitor 有什么具体的建议？"
+      "现在哪些因子比较拥挤？",
+      "价值因子和成长因子哪个更有效？",
+      "市场风格是不是要切换了？"
     ]
   },
   {
@@ -124,9 +124,9 @@
     "description": "对单个A股上市公司的财务报表进行深度分析，评估盈利质量、财务健康状况、财务造假风险和运营效率。当用户要求深入分析某家公司的财务报表、杜邦分析、盈利质量检查、资产负债表分析、现金流分析、Z值评分、M值评分、营运资本分析，或任何详细的单公司财务审视时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 financial-statement-analyzer 分析一下当前市场情况",
-      "financial-statement-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，financial-statement-analyzer 有什么具体的建议？"
+      "帮我分析一下贵州茅台的财务报表",
+      "宁德时代的盈利质量怎么样？",
+      "比亚迪的现金流情况如何？"
     ]
   },
   {
@@ -134,9 +134,9 @@
     "description": "A股金融数据工具包。提供脚本获取A股实时行情、财务指标、董监高增减持、北向资金、宏观经济数据（LPR、CPI/PPI、PMI、社融、M2）。用于需要实时A股市场数据支撑投资分析时。所有数据源免费，无需API密钥。",
     "market": "China-market",
     "questions": [
-      "使用 findata-toolkit-cn 分析一下当前市场情况",
-      "findata-toolkit-cn 能提供哪些核心数据分析？",
-      "针对目前的市场行情，findata-toolkit-cn 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -144,9 +144,9 @@
     "description": "整合个股/行业/概念/大盘/主力/大单资金流向，识别资金驱动、背离与拥挤风险。当用户询问资金流向、主力净流入、行业/概念资金、资金异动或需要资金监控面板时使用。",
     "market": "China-market",
     "questions": [
-      "使用 fund-flow-monitor 分析一下当前市场情况",
-      "fund-flow-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，fund-flow-monitor 有什么具体的建议？"
+      "今天北向资金流入了多少？",
+      "最近主力资金在买什么板块？",
+      "某某股票的资金流向怎么样？"
     ]
   },
   {
@@ -154,9 +154,9 @@
     "description": "分析A股高股息策略，评估红利股的收益可持续性与长期回报。当用户询问高股息股票、红利策略、A股分红分析、现金分红覆盖率、中证红利指数成分股、股息率排名或长期收入型投资时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 high-dividend-strategy 分析一下当前市场情况",
-      "high-dividend-strategy 能提供哪些核心数据分析？",
-      "针对目前的市场行情，high-dividend-strategy 有什么具体的建议？"
+      "帮我筛选一下高股息的股票",
+      "哪些银行股的股息率比较高？",
+      "红利策略现在还有效吗？"
     ]
   },
   {
@@ -164,9 +164,9 @@
     "description": "跟踪个股人气榜、热度趋势、关注度与投票等情绪代理，识别情绪背离与拥挤风险。当用户询问人气榜、热度、关注度、股评投票或需要热度监控时使用。",
     "market": "China-market",
     "questions": [
-      "使用 hot-rank-sentiment-monitor 分析一下当前市场情况",
-      "hot-rank-sentiment-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hot-rank-sentiment-monitor 有什么具体的建议？"
+      "最近市场情绪怎么样？",
+      "哪些股票的关注度最高？",
+      "散户都在买什么股票？"
     ]
   },
   {
@@ -174,9 +174,9 @@
     "description": "分析行业板块（行业指数、成分股、资金流排名、历史表现）用于行业强弱与轮动判断。当用户询问行业板块表现、行业轮动、行业资金流、行业成分、或需要行业板块对比时使用。",
     "market": "China-market",
     "questions": [
-      "使用 industry-board-analyzer 分析一下当前市场情况",
-      "industry-board-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，industry-board-analyzer 有什么具体的建议？"
+      "白酒行业现在的估值水平怎么样？",
+      "新能源汽车产业链哪个环节最景气？",
+      "哪些行业最近表现比较好？"
     ]
   },
   {
@@ -184,9 +184,9 @@
     "description": "构建产业链上下游映射并跟踪景气信号（价格、产能、订单、库存等可得代理）。当用户询问产业链分析、上下游联动、景气跟踪或需要产业链地图时使用。",
     "market": "China-market",
     "questions": [
-      "使用 industry-chain-mapper 分析一下当前市场情况",
-      "industry-chain-mapper 能提供哪些核心数据分析？",
-      "针对目前的市场行情，industry-chain-mapper 有什么具体的建议？"
+      "分析一下新能源汽车产业链的上下游",
+      "光伏产业链有哪些投资机会？",
+      "半导体产业链的景气度如何？"
     ]
   },
   {
@@ -194,9 +194,9 @@
     "description": "分析A股市场董监高及重要股东增减持行为，识别具有显著管理层信心信号的公司。当用户询问董监高增持、大股东买入、内部人交易分析、管理层增持信号、股东增减持动态时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 insider-trading-analyzer 分析一下当前市场情况",
-      "insider-trading-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，insider-trading-analyzer 有什么具体的建议？"
+      "最近有哪些公司的高管在增持？",
+      "某某公司的董事长减持了，是不是要跑？",
+      "内部人交易有什么信号意义吗？"
     ]
   },
   {
@@ -204,9 +204,9 @@
     "description": "分析分时/盘口/逐笔/分钟线与盘前数据，评估日内波动、量价结构与流动性风险。当用户询问分时、逐笔、盘口、分钟K、盘前/盘中结构或需要日内诊断时使用。",
     "market": "China-market",
     "questions": [
-      "使用 intraday-microstructure-analyzer 分析一下当前市场情况",
-      "intraday-microstructure-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，intraday-microstructure-analyzer 有什么具体的建议？"
+      "某某股票今天的分时走势怎么样？",
+      "帮我看看盘口数据，主力在干什么",
+      "今天尾盘拉升是真的还是假的？"
     ]
   },
   {
@@ -214,9 +214,9 @@
     "description": "基于结构化输入与数据生成机构风格投资备忘录（观点、估值、催化剂、风险与监控）。当用户要求撰写投资备忘录/研究简报/投资逻辑陈述时使用。",
     "market": "China-market",
     "questions": [
-      "使用 investment-memo-generator 分析一下当前市场情况",
-      "investment-memo-generator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，investment-memo-generator 有什么具体的建议？"
+      "帮我写一份贵州茅台的投资备忘录",
+      "生成一份宁德时代的投资逻辑陈述",
+      "我需要一份比亚迪的研究简报"
     ]
   },
   {
@@ -224,9 +224,9 @@
     "description": "跟踪 IPO 申报、新股上市、次新股与 IPO 受益股，输出事件清单与风险提示。当用户询问新股、次新、IPO 进展、IPO 受益股或需要新股日历/复盘时使用。",
     "market": "China-market",
     "questions": [
-      "使用 ipo-newlist-monitor 分析一下当前市场情况",
-      "ipo-newlist-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，ipo-newlist-monitor 有什么具体的建议？"
+      "最近有哪些新股上市？",
+      "下周有什么新股可以申购？",
+      "次新股有什么投资机会吗？"
     ]
   },
   {
@@ -234,9 +234,9 @@
     "description": "评估个股/组合的流动性与交易冲击成本代理（成交量/换手、价量结构、滑点与冲击成本启发式），用于仓位与交易可行性判断。当用户询问流动性风险、可交易性、滑点/冲击成本或下单规模建议时使用。",
     "market": "China-market",
     "questions": [
-      "使用 liquidity-impact-estimator 分析一下当前市场情况",
-      "liquidity-impact-estimator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，liquidity-impact-estimator 有什么具体的建议？"
+      "我要买1000万某某股票，会有多大的冲击成本？",
+      "这只股票的流动性怎么样？",
+      "小盘股的交易成本是不是很高？"
     ]
   },
   {
@@ -244,9 +244,9 @@
     "description": "跟踪宏观流动性指标（利率、通胀、信用、政策取向）并总结对资产/行业的影响。当用户询问流动性环境、政策对市场影响或需要宏观流动性仪表盘时使用。",
     "market": "China-market",
     "questions": [
-      "使用 macro-liquidity-monitor 分析一下当前市场情况",
-      "macro-liquidity-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，macro-liquidity-monitor 有什么具体的建议？"
+      "现在的流动性环境怎么样？",
+      "央行最近有什么货币政策动作吗？",
+      "利率对股市有什么影响？"
     ]
   },
   {
@@ -254,9 +254,9 @@
     "description": "监控市场宽度与市场内部结构（涨跌家数、新高新低、集中度、宽度动量），用于判断风险偏好与状态切换。当用户询问市场宽度、市场内部结构、风险偏好变化、或需要宽度监控面板时使用。",
     "market": "China-market",
     "questions": [
-      "使用 market-breadth-monitor 分析一下当前市场情况",
-      "market-breadth-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，market-breadth-monitor 有什么具体的建议？"
+      "今天涨停的股票有多少只？",
+      "市场宽度怎么样，是普涨还是结构性行情？",
+      "创新高的股票多不多？"
     ]
   },
   {
@@ -264,9 +264,9 @@
     "description": "汇总上交所/深交所市场总貌、成交概况、地区/行业统计与资金概览，用于快速把握市场状态。当用户询问市场总貌、交易所统计、成交概况、市场资金概览或需要市场仪表盘时使用。",
     "market": "China-market",
     "questions": [
-      "使用 market-overview-dashboard 分析一下当前市场情况",
-      "market-overview-dashboard 能提供哪些核心数据分析？",
-      "针对目前的市场行情，market-overview-dashboard 有什么具体的建议？"
+      "今天A股整体表现怎么样？",
+      "上证指数和深证成指哪个涨得多？",
+      "市场成交额有多少？"
     ]
   },
   {
@@ -274,9 +274,9 @@
     "description": "构建同业可比公司对比（估值、成长、盈利能力、杠杆、现金流质量）并解释差异来源。当用户要求同业对比、可比公司估值或同行比较时使用。",
     "market": "China-market",
     "questions": [
-      "使用 peer-comparison-analyzer 分析一下当前市场情况",
-      "peer-comparison-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，peer-comparison-analyzer 有什么具体的建议？"
+      "贵州茅台和五粮液哪个估值更便宜？",
+      "宁德时代和比亚迪的财务指标对比",
+      "同行业公司的估值水平对比"
     ]
   },
   {
@@ -284,9 +284,9 @@
     "description": "将政策/宏观数据发布映射到行业/风格敏感度，输出可监控清单与情景推演。当用户询问政策变化影响哪些行业、或需要政策影响简报时使用。",
     "market": "China-market",
     "questions": [
-      "使用 policy-sensitivity-brief 分析一下当前市场情况",
-      "policy-sensitivity-brief 能提供哪些核心数据分析？",
-      "针对目前的市场行情，policy-sensitivity-brief 有什么具体的建议？"
+      "最近的政策对哪些行业有利？",
+      "降准对股市有什么影响？",
+      "新能源政策变化会影响哪些公司？"
     ]
   },
   {
@@ -294,9 +294,9 @@
     "description": "诊断现有投资组合的风险和低效问题。当用户要求审查、审计或压力测试其当前持仓，评估组合集中度，检查因子暴露，评估相关性风险，识别隐性偏移，或获取其已有组合的改进建议时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 portfolio-health-check 分析一下当前市场情况",
-      "portfolio-health-check 能提供哪些核心数据分析？",
-      "针对目前的市场行情，portfolio-health-check 有什么具体的建议？"
+      "帮我诊断一下我的投资组合",
+      "我的持仓集中度是不是太高了？",
+      "组合的风险收益比怎么样？"
     ]
   },
   {
@@ -304,9 +304,9 @@
     "description": "编排组合监控：集中度、相关性/风格暴露、流动性、情景压力等，整合成一份监控报告。当用户要求“全面诊断/持续监控我的组合”时使用。",
     "market": "China-market",
     "questions": [
-      "使用 portfolio-monitor-orchestrator 分析一下当前市场情况",
-      "portfolio-monitor-orchestrator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，portfolio-monitor-orchestrator 有什么具体的建议？"
+      "全面监控一下我的投资组合",
+      "我的组合有什么风险需要注意？",
+      "帮我做一份组合监控报告"
     ]
   },
   {
@@ -314,9 +314,9 @@
     "description": "使用正式因子模型进行系统化多因子A股筛选，识别具有有利因子暴露的个股。当用户询问因子投资、多因子筛选、价值/动量/质量因子分析、因子打分、因子择时、Smart Beta策略、量化选股或基于学术因子的系统化选股时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 quant-factor-screener 分析一下当前市场情况",
-      "quant-factor-screener 能提供哪些核心数据分析？",
-      "针对目前的市场行情，quant-factor-screener 有什么具体的建议？"
+      "用多因子模型帮我选股",
+      "哪些股票的价值因子得分高？",
+      "量化选股有什么好的策略吗？"
     ]
   },
   {
@@ -324,9 +324,9 @@
     "description": "设计组合再平衡规则（阈值/定期）、约束条件与执行清单。当用户询问如何再平衡、何时调仓、或需要再平衡方案时使用。",
     "market": "China-market",
     "questions": [
-      "使用 rebalancing-planner 分析一下当前市场情况",
-      "rebalancing-planner 能提供哪些核心数据分析？",
-      "针对目前的市场行情，rebalancing-planner 有什么具体的建议？"
+      "我的组合需要再平衡吗？",
+      "什么时候应该调仓？",
+      "帮我制定一个再平衡计划"
     ]
   },
   {
@@ -334,9 +334,9 @@
     "description": "为中国投资者构建风险调整后收益最优的A股投资组合，根据资金规模、风险偏好和投资期限进行资产配置。当用户询问构建投资组合、资产配置、A股组合优化、仓位管理、再平衡策略，或要求根据特定金额和风险偏好提供组合构建建议时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 risk-adjusted-return-optimizer 分析一下当前市场情况",
-      "risk-adjusted-return-optimizer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，risk-adjusted-return-optimizer 有什么具体的建议？"
+      "帮我构建一个风险调整后收益最优的组合",
+      "我有100万，应该怎么配置？",
+      "如何优化我的投资组合？"
     ]
   },
   {
@@ -344,9 +344,9 @@
     "description": "通过分析中国宏观经济指标和经济周期定位，识别A股市场行业轮动信号，判断未来6–12个月哪些行业可能跑赢或跑输大盘。当用户询问行业轮动、宏观驱动的板块配置、经济周期投资、超配或低配哪些行业、利率/通胀对行业的影响、或A股宏观投资策略时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 sector-rotation-detector 分析一下当前市场情况",
-      "sector-rotation-detector 能提供哪些核心数据分析？",
-      "针对目前的市场行情，sector-rotation-detector 有什么具体的建议？"
+      "现在应该配置哪些行业？",
+      "行业轮动到哪个阶段了？",
+      "周期股和成长股哪个更有机会？"
     ]
   },
   {
@@ -354,9 +354,9 @@
     "description": "识别A股市场中被过度看空但基本面稳健的逆向投资机会。当用户询问逆向投资、超跌反弹、市场错误定价、情绪与基本面背离、被市场误解的公司、负面情绪过度反应、或者寻找\"市场错杀\"机会时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 sentiment-reality-gap 分析一下当前市场情况",
-      "sentiment-reality-gap 能提供哪些核心数据分析？",
-      "针对目前的市场行情，sentiment-reality-gap 有什么具体的建议？"
+      "哪些股票被市场错杀了？",
+      "市场情绪和基本面有背离吗？",
+      "有什么逆向投资的机会吗？"
     ]
   },
   {
@@ -364,9 +364,9 @@
     "description": "检查股东结构、股权质押、控制权稳定性等治理风险标签。当用户询问质押风险、股东结构、控制权风险或需要治理红旗检查时使用。",
     "market": "China-market",
     "questions": [
-      "使用 shareholder-risk-check 分析一下当前市场情况",
-      "shareholder-risk-check 能提供哪些核心数据分析？",
-      "针对目前的市场行情，shareholder-risk-check 有什么具体的建议？"
+      "某某公司的股东结构怎么样？",
+      "大股东有没有质押股权？",
+      "控制权稳定吗？"
     ]
   },
   {
@@ -374,9 +374,9 @@
     "description": "跟踪股东户数、十大股东/流通股东、机构/基金持股与持仓变化，输出筹码结构与供给冲击风险提示。当用户询问股东户数、股东结构、机构/基金持股、持仓变化或需要筹码分析时使用。",
     "market": "China-market",
     "questions": [
-      "使用 shareholder-structure-monitor 分析一下当前市场情况",
-      "shareholder-structure-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，shareholder-structure-monitor 有什么具体的建议？"
+      "某某公司的股东户数变化怎么样？",
+      "机构持仓有什么变化？",
+      "十大流通股东都是谁？"
     ]
   },
   {
@@ -384,9 +384,9 @@
     "description": "识别A股市场中被忽视的小市值高成长公司。当用户询问小盘成长股、低市值高增长公司、被忽略的小盘股、专精特新企业、或要求筛选市值小但增长快的A股时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 small-cap-growth-identifier 分析一下当前市场情况",
-      "small-cap-growth-identifier 能提供哪些核心数据分析？",
-      "针对目前的市场行情，small-cap-growth-identifier 有什么具体的建议？"
+      "帮我找一些小盘成长股",
+      "有哪些被低估的小市值公司？",
+      "专精特新企业有什么投资机会？"
     ]
   },
   {
@@ -394,9 +394,9 @@
     "description": "生成机构级投资适当性报告，包括投资理由、风险披露和客户适当性评估。当用户要求记录投资决策、创建合规报告、生成风险披露文件、准备面向客户的投资理由说明、撰写适当性评估报告，或为投资建议或组合出具信义义务文档时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 suitability-report-generator 分析一下当前市场情况",
-      "suitability-report-generator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，suitability-report-generator 有什么具体的建议？"
+      "帮我生成一份投资适当性报告",
+      "这个投资建议适合什么类型的投资者？",
+      "风险披露文件怎么写？"
     ]
   },
   {
@@ -404,9 +404,9 @@
     "description": "对比分析A股科技公司的估值泡沫与基本面，识别被高估和被低估的科技股。当用户询问科技股估值、A股科技泡沫、科创板估值是否合理、AI/芯片/新能源等热门科技板块的估值分析、或对比科技公司增长与估值时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 tech-hype-vs-fundamentals 分析一下当前市场情况",
-      "tech-hype-vs-fundamentals 能提供哪些核心数据分析？",
-      "针对目前的市场行情，tech-hype-vs-fundamentals 有什么具体的建议？"
+      "AI概念股是不是炒作过度了？",
+      "科技股的估值泡沫有多大？",
+      "哪些科技公司的基本面支撑估值？"
     ]
   },
   {
@@ -414,9 +414,9 @@
     "description": "扫描A股市场，筛选基本面强劲但市值被低估的上市公司。当用户询问低估值股票、价值投资筛选、A股便宜股票、低PE或低PB公司、基本面强但被低估的公司、或要求运行估值筛选器时使用此技能。",
     "market": "China-market",
     "questions": [
-      "使用 undervalued-stock-screener 分析一下当前市场情况",
-      "undervalued-stock-screener 能提供哪些核心数据分析？",
-      "针对目前的市场行情，undervalued-stock-screener 有什么具体的建议？"
+      "帮我筛选一些低估值的股票",
+      "哪些股票的PE和PB都很低？",
+      "价值投资有什么机会吗？"
     ]
   },
   {
@@ -424,9 +424,9 @@
     "description": "用历史/同业分位数识别估值中枢与极端状态，并结合宏观/利率信号解释估值变化。当用户询问某市场/行业/个股是否贵或便宜、或需要估值分位数分析时使用。",
     "market": "China-market",
     "questions": [
-      "使用 valuation-regime-detector 分析一下当前市场情况",
-      "valuation-regime-detector 能提供哪些核心数据分析？",
-      "针对目前的市场行情，valuation-regime-detector 有什么具体的建议？"
+      "市场现在的估值水平在什么位置？",
+      "沪深300的估值分位数是多少？",
+      "现在是高估还是低估？"
     ]
   },
   {
@@ -434,9 +434,9 @@
     "description": "评估波动率状态（实现波动/隐含波动、波动的波动、回撤）并给出风险开关判断与监控触发条件。当用户询问波动率状态、风险状态、或需要波动监控与预警时使用。",
     "market": "China-market",
     "questions": [
-      "使用 volatility-regime-monitor 分析一下当前市场情况",
-      "volatility-regime-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，volatility-regime-monitor 有什么具体的建议？"
+      "市场波动率怎么样？",
+      "现在是高波动还是低波动状态？",
+      "VIX指数在什么水平？"
     ]
   },
   {
@@ -444,9 +444,9 @@
     "description": "生成周度市场简报（表现、宏观、资金、风险、观察清单），输出固定结构与表格。当用户要求市场周报/周度复盘/周度监控摘要时使用。",
     "market": "China-market",
     "questions": [
-      "使用 weekly-market-brief-generator 分析一下当前市场情况",
-      "weekly-market-brief-generator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，weekly-market-brief-generator 有什么具体的建议？"
+      "帮我生成一份本周市场简报",
+      "这周市场表现怎么样？",
+      "给我一份周度市场复盘"
     ]
   },
   {
@@ -454,9 +454,9 @@
     "description": "A股金融数据工具包。提供脚本获取A股实时行情、财务指标、董监高增减持、北向资金、宏观经济数据（LPR、CPI/PPI、PMI、社融、M2）。用于需要实时A股市场数据支撑投资分析时。所有数据源免费，无需API密钥。",
     "market": "HK-market",
     "questions": [
-      "使用 findata-toolkit-cn 分析一下当前市场情况",
-      "findata-toolkit-cn 能提供哪些核心数据分析？",
-      "针对目前的市场行情，findata-toolkit-cn 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -464,9 +464,9 @@
     "description": "港股集中度风险监控器。监控投资组合的集中度风险、行业集中度、个股集中度等。用于管理投资组合的集中度风险。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-concentration-risk 分析一下当前市场情况",
-      "hk-concentration-risk 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-concentration-risk 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -474,9 +474,9 @@
     "description": "港股汇率风险监控器。监控港币汇率波动、汇率风险敞口、汇率对冲策略等。用于管理港股投资的汇率风险。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-currency-risk 分析一下当前市场情况",
-      "hk-currency-risk 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-currency-risk 有什么具体的建议？"
+      "港股汇率风险怎么样？",
+      "港币兑人民币汇率走势如何？",
+      "投资港股需要对冲汇率风险吗？"
     ]
   },
   {
@@ -484,9 +484,9 @@
     "description": "港股股息跟踪器。监控港股公司股息政策、分红历史、股息收益率等。用于收益投资和股息策略分析。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-dividend-tracker 分析一下当前市场情况",
-      "hk-dividend-tracker 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-dividend-tracker 有什么具体的建议？"
+      "查询腾讯控股的分红历史",
+      "港股哪些公司股息率高？",
+      "汇丰银行的分红情况如何？"
     ]
   },
   {
@@ -494,9 +494,9 @@
     "description": "港股ETF资金流向分析器。专门分析港股ETF的资金流向、持仓变化、溢价折价等。用于把握ETF投资机会和资金动向。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-etf-flow 分析一下当前市场情况",
-      "hk-etf-flow 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-etf-flow 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -504,9 +504,9 @@
     "description": "港股财务报表分析器。提供港股公司财务报表分析、财务比率计算、财务健康度评估等功能。用于价值投资和基本面分析。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-financial-statement 分析一下当前市场情况",
-      "hk-financial-statement 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-financial-statement 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -514,9 +514,9 @@
     "description": "港股外资流向分析器。专门分析外资通过港股通、QFII、直接投资等方式流入流出港股的资金动向。用于把握国际资金动向和投资机会。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-foreign-flow 分析一下当前市场情况",
-      "hk-foreign-flow 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-foreign-flow 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -524,9 +524,9 @@
     "description": "港股流动性风险监控器。监控港股市场流动性状况、个股流动性风险、市场深度分析等。用于识别流动性风险和制定交易策略。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-liquidity-risk 分析一下当前市场情况",
-      "hk-liquidity-risk 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-liquidity-risk 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -534,9 +534,9 @@
     "description": "港股市场广度监控器。监控港股市场广度指标、上涨下跌家数、新高新低比率等。用于评估市场整体健康状况和趋势强度。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-market-breadth 分析一下当前市场情况",
-      "hk-market-breadth 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-market-breadth 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -544,9 +544,9 @@
     "description": "港股市场概览分析器。提供港股市场整体表现、主要指数、板块轮动、市场情绪等综合分析。用于快速了解港股市场整体状况和趋势。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-market-overview 分析一下当前市场情况",
-      "hk-market-overview 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-market-overview 有什么具体的建议？"
+      "港股今天表现怎么样？",
+      "恒生指数涨了多少？",
+      "港股市场概况如何？"
     ]
   },
   {
@@ -554,9 +554,9 @@
     "description": "港股板块轮动检测器。监控港股各板块的资金流向、相对强度、轮动信号等。用于识别板块轮动机会和行业配置策略。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-sector-rotation 分析一下当前市场情况",
-      "hk-sector-rotation 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-sector-rotation 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -564,9 +564,9 @@
     "description": "港股南向资金流向分析器。专门分析内地投资者通过港股通投资港股的资金流向、持仓变化、行业偏好等。用于把握内地资金动向和投资机会。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-southbound-flow 分析一下当前市场情况",
-      "hk-southbound-flow 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-southbound-flow 有什么具体的建议？"
+      "今天南向资金流入了多少？",
+      "南向资金最近在买什么股票？",
+      "港股通资金流向怎么样？"
     ]
   },
   {
@@ -574,9 +574,9 @@
     "description": "港股估值分析器。提供港股市场整体估值水平、行业估值对比、个股估值分析等功能。支持多种估值方法和相对估值分析。",
     "market": "HK-market",
     "questions": [
-      "使用 hk-valuation-analyzer 分析一下当前市场情况",
-      "hk-valuation-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，hk-valuation-analyzer 有什么具体的建议？"
+      "港股估值水平怎么样？",
+      "恒生指数的PE分位数是多少？",
+      "港股是不是比A股便宜？"
     ]
   },
   {
@@ -584,9 +584,9 @@
     "description": "Analyze share repurchases (authorization, pace, dilution vs buybacks) and capital return sustainability. Use when the user asks about buybacks, shareholder yield, or capital return analysis.",
     "market": "US-market",
     "questions": [
-      "使用 buyback-monitor 分析一下当前市场情况",
-      "buyback-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，buyback-monitor 有什么具体的建议？"
+      "哪些美股公司在回购股票？",
+      "苹果公司的回购计划怎么样？",
+      "股票回购对股价有什么影响？"
     ]
   },
   {
@@ -594,9 +594,9 @@
     "description": "Track credit spreads (IG/HY), default risk proxies, and stress signals; summarize equity implications. Use when the user asks about credit conditions or spread widening/tightening.",
     "market": "US-market",
     "questions": [
-      "使用 credit-spread-monitor 分析一下当前市场情况",
-      "credit-spread-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，credit-spread-monitor 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -604,9 +604,9 @@
     "description": "Analyze Dividend Aristocrats (25+ years of consecutive dividend increases) for income reliability and total return. Use when the user asks to evaluate dividend aristocrats, calculate dividend reinvestment returns, assess dividend sustainability, compare income stocks, build a dividend growth portfolio, analyze payout ratios and free cash flow coverage, or rank stocks by dividend reliability and long-term total return.",
     "market": "US-market",
     "questions": [
-      "使用 dividend-aristocrat-calculator 分析一下当前市场情况",
-      "dividend-aristocrat-calculator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，dividend-aristocrat-calculator 有什么具体的建议？"
+      "哪些美股是股息贵族？",
+      "可口可乐连续分红多少年了？",
+      "美股高股息股票有哪些？"
     ]
   },
   {
@@ -614,9 +614,9 @@
     "description": "Analyze post-earnings reactions (gaps, drift, volatility), link to guidance/surprises, and define monitoring levels. Use when the user asks why a stock moved after earnings or wants an earnings reaction breakdown.",
     "market": "US-market",
     "questions": [
-      "使用 earnings-reaction-analyzer 分析一下当前市场情况",
-      "earnings-reaction-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，earnings-reaction-analyzer 有什么具体的建议？"
+      "特斯拉财报发布后股价表现如何？",
+      "财报超预期股价会涨多少？",
+      "分析一下英伟达的财报反应"
     ]
   },
   {
@@ -624,9 +624,9 @@
     "description": "Orchestrate a full equity research workflow by calling relevant skills/toolkit views and assembling a single coherent deliverable. Use when the user asks to 'analyze this stock end-to-end' or wants a full research pack.",
     "market": "US-market",
     "questions": [
-      "使用 equity-research-orchestrator 分析一下当前市场情况",
-      "equity-research-orchestrator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，equity-research-orchestrator 有什么具体的建议？"
+      "帮我做一份贵州茅台的完整研究报告",
+      "我想深入分析一下宁德时代这只股票",
+      "给我一份比亚迪的投资分析报告"
     ]
   },
   {
@@ -634,9 +634,9 @@
     "description": "Construct ETF allocations and quantify exposures (sector/style/factor), liquidity, and tracking considerations. Use when the user asks to build an ETF portfolio or analyze ETF exposures.",
     "market": "US-market",
     "questions": [
-      "使用 etf-allocator 分析一下当前市场情况",
-      "etf-allocator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，etf-allocator 有什么具体的建议？"
+      "帮我配置一个ETF组合，资金100万",
+      "现在沪深300和中证500哪个估值更低？",
+      "用ETF做资产配置，应该怎么分配比例？"
     ]
   },
   {
@@ -644,9 +644,9 @@
     "description": "Identify and analyze corporate events that create mispricing opportunities, including M&A, spinoffs, buybacks, restructurings, and index changes. Use when the user asks about merger arbitrage, spinoff opportunities, share buyback analysis, corporate restructuring plays, index rebalancing trades, special situations investing, or event-driven strategies.",
     "market": "US-market",
     "questions": [
-      "使用 event-driven-detector 分析一下当前市场情况",
-      "event-driven-detector 能提供哪些核心数据分析？",
-      "针对目前的市场行情，event-driven-detector 有什么具体的建议？"
+      "最近有哪些并购重组的投资机会？",
+      "哪些公司在回购股份？",
+      "最近有什么重大资产注入的事件吗？"
     ]
   },
   {
@@ -654,9 +654,9 @@
     "description": "Run an event study (pre/post windows, abnormal returns, peer/benchmark adjustment) for corporate or macro events. Use when the user asks how prices behaved around an event or wants an event-window analysis.",
     "market": "US-market",
     "questions": [
-      "使用 event-study 分析一下当前市场情况",
-      "event-study 能提供哪些核心数据分析？",
-      "针对目前的市场行情，event-study 有什么具体的建议？"
+      "分析一下某公司发布业绩预告后股价的表现",
+      "并购重组公告对股价有什么影响？",
+      "定增完成后股价一般会怎么走？"
     ]
   },
   {
@@ -664,9 +664,9 @@
     "description": "Monitor factor crowding and factor performance dispersion to identify crowded trades and rotation risk. Use when the user asks about factor crowding, style squeeze risk, or factor rotation signals.",
     "market": "US-market",
     "questions": [
-      "使用 factor-crowding-monitor 分析一下当前市场情况",
-      "factor-crowding-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，factor-crowding-monitor 有什么具体的建议？"
+      "现在哪些因子比较拥挤？",
+      "价值因子和成长因子哪个更有效？",
+      "市场风格是不是要切换了？"
     ]
   },
   {
@@ -674,9 +674,9 @@
     "description": "Perform forensic-level analysis of a single company's financial statements, evaluating earnings quality, financial health, fraud risk, and operational efficiency. Use when the user asks for a deep dive into a company's financials, DuPont analysis, earnings quality check, balance sheet analysis, cash flow analysis, Altman Z-score, Beneish M-score, working capital analysis, or any detailed single-company financial examination.",
     "market": "US-market",
     "questions": [
-      "使用 financial-statement-analyzer 分析一下当前市场情况",
-      "financial-statement-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，financial-statement-analyzer 有什么具体的建议？"
+      "帮我分析一下贵州茅台的财务报表",
+      "宁德时代的盈利质量怎么样？",
+      "比亚迪的现金流情况如何？"
     ]
   },
   {
@@ -684,9 +684,9 @@
     "description": "A股金融数据工具包。提供脚本获取A股实时行情、财务指标、董监高增减持、北向资金、宏观经济数据（LPR、CPI/PPI、PMI、社融、M2）。用于需要实时A股市场数据支撑投资分析时。所有数据源免费，无需API密钥。",
     "market": "US-market",
     "questions": [
-      "使用 findata-toolkit-cn 分析一下当前市场情况",
-      "findata-toolkit-cn 能提供哪些核心数据分析？",
-      "针对目前的市场行情，findata-toolkit-cn 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -694,9 +694,9 @@
     "description": "Aggregate insider buying/selling patterns across multiple tickers to identify management confidence signals. Use when the user asks for market-wide insider activity scans or insider sentiment dashboards.",
     "market": "US-market",
     "questions": [
-      "使用 insider-sentiment-aggregator 分析一下当前市场情况",
-      "insider-sentiment-aggregator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，insider-sentiment-aggregator 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -704,9 +704,9 @@
     "description": "Analyze insider trading patterns to surface companies with significant, meaningful insider buying activity. Use when the user asks to review insider trading activity, find stocks insiders are buying, analyze SEC Form 4 filings, detect insider buying clusters, assess management confidence through insider purchases, or identify bullish insider signals in a sector or industry.",
     "market": "US-market",
     "questions": [
-      "使用 insider-trading-analyzer 分析一下当前市场情况",
-      "insider-trading-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，insider-trading-analyzer 有什么具体的建议？"
+      "最近有哪些公司的高管在增持？",
+      "某某公司的董事长减持了，是不是要跑？",
+      "内部人交易有什么信号意义吗？"
     ]
   },
   {
@@ -714,9 +714,9 @@
     "description": "Generate an institutional-style investment memo (thesis, valuation, catalysts, risks, monitoring) from structured inputs and supporting data. Use when the user asks for an investment memo, write-up, or pitch.",
     "market": "US-market",
     "questions": [
-      "使用 investment-memo-generator 分析一下当前市场情况",
-      "investment-memo-generator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，investment-memo-generator 有什么具体的建议？"
+      "帮我写一份贵州茅台的投资备忘录",
+      "生成一份宁德时代的投资逻辑陈述",
+      "我需要一份比亚迪的研究简报"
     ]
   },
   {
@@ -724,9 +724,9 @@
     "description": "Estimate liquidity and trading impact (volume/turnover, bid-ask proxies, slippage/impact heuristics) for single names or portfolios. Use when the user asks about liquidity risk, tradability, or wants to size trades safely.",
     "market": "US-market",
     "questions": [
-      "使用 liquidity-impact-estimator 分析一下当前市场情况",
-      "liquidity-impact-estimator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，liquidity-impact-estimator 有什么具体的建议？"
+      "我要买1000万某某股票，会有多大的冲击成本？",
+      "这只股票的流动性怎么样？",
+      "小盘股的交易成本是不是很高？"
     ]
   },
   {
@@ -734,9 +734,9 @@
     "description": "Track macro liquidity indicators (rates, inflation, credit, central bank stance) and summarize implications for assets/sectors. Use when the user asks about liquidity conditions or policy-driven market impacts.",
     "market": "US-market",
     "questions": [
-      "使用 macro-liquidity-monitor 分析一下当前市场情况",
-      "macro-liquidity-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，macro-liquidity-monitor 有什么具体的建议？"
+      "现在的流动性环境怎么样？",
+      "央行最近有什么货币政策动作吗？",
+      "利率对股市有什么影响？"
     ]
   },
   {
@@ -744,9 +744,9 @@
     "description": "Monitor market breadth and internals (advance/decline, new highs/lows, concentration, breadth thrusts) to assess risk appetite and regime shifts. Use when the user asks about market breadth, internals, risk-on/off, or wants a breadth dashboard.",
     "market": "US-market",
     "questions": [
-      "使用 market-breadth-monitor 分析一下当前市场情况",
-      "market-breadth-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，market-breadth-monitor 有什么具体的建议？"
+      "今天涨停的股票有多少只？",
+      "市场宽度怎么样，是普涨还是结构性行情？",
+      "创新高的股票多不多？"
     ]
   },
   {
@@ -754,9 +754,9 @@
     "description": "Analyze options strategies (covered calls, puts, spreads), Greeks, payoff diagrams, and risk. Use when the user asks about options strategy selection, pricing, or hedging with options.",
     "market": "US-market",
     "questions": [
-      "使用 options-strategy-analyzer 分析一下当前市场情况",
-      "options-strategy-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，options-strategy-analyzer 有什么具体的建议？"
+      "期权策略有哪些？",
+      "covered call策略怎么做？",
+      "如何用期权对冲风险？"
     ]
   },
   {
@@ -764,9 +764,9 @@
     "description": "Build peer comps and explain differences in valuation, growth, profitability, leverage, and cash flow quality. Use when the user asks for comparable company analysis or peer-relative valuation.",
     "market": "US-market",
     "questions": [
-      "使用 peer-comparison-analyzer 分析一下当前市场情况",
-      "peer-comparison-analyzer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，peer-comparison-analyzer 有什么具体的建议？"
+      "贵州茅台和五粮液哪个估值更便宜？",
+      "宁德时代和比亚迪的财务指标对比",
+      "同行业公司的估值水平对比"
     ]
   },
   {
@@ -774,9 +774,9 @@
     "description": "Map policy/macro releases to likely sector/style sensitivities and produce a monitoring checklist. Use when the user asks which sectors are sensitive to a policy change or wants a policy-impact brief.",
     "market": "US-market",
     "questions": [
-      "使用 policy-sensitivity-brief 分析一下当前市场情况",
-      "policy-sensitivity-brief 能提供哪些核心数据分析？",
-      "针对目前的市场行情，policy-sensitivity-brief 有什么具体的建议？"
+      "最近的政策对哪些行业有利？",
+      "降准对股市有什么影响？",
+      "新能源政策变化会影响哪些公司？"
     ]
   },
   {
@@ -784,9 +784,9 @@
     "description": "Diagnose risks and inefficiencies in an existing investment portfolio. Use when the user asks to review, audit, or stress-test their current holdings, evaluate portfolio concentration, check factor exposures, assess correlation risks, identify hidden tilts, or get actionable improvement suggestions for a portfolio they already own.",
     "market": "US-market",
     "questions": [
-      "使用 portfolio-health-check 分析一下当前市场情况",
-      "portfolio-health-check 能提供哪些核心数据分析？",
-      "针对目前的市场行情，portfolio-health-check 有什么具体的建议？"
+      "帮我诊断一下我的投资组合",
+      "我的持仓集中度是不是太高了？",
+      "组合的风险收益比怎么样？"
     ]
   },
   {
@@ -794,9 +794,9 @@
     "description": "Orchestrate portfolio monitoring: risk, concentration, factor/style exposure, liquidity, and scenario checks into one report. Use when the user asks for an end-to-end portfolio review/monitoring report.",
     "market": "US-market",
     "questions": [
-      "使用 portfolio-monitor-orchestrator 分析一下当前市场情况",
-      "portfolio-monitor-orchestrator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，portfolio-monitor-orchestrator 有什么具体的建议？"
+      "全面监控一下我的投资组合",
+      "我的组合有什么风险需要注意？",
+      "帮我做一份组合监控报告"
     ]
   },
   {
@@ -804,9 +804,9 @@
     "description": "Systematic multi-factor stock screening using formal factor models to identify stocks with favorable factor exposures. Use when the user asks about factor investing, multi-factor screening, value/momentum/quality factor analysis, factor scoring, factor timing, smart beta strategies, quantitative stock screening, or systematic equity selection based on academic factors.",
     "market": "US-market",
     "questions": [
-      "使用 quant-factor-screener 分析一下当前市场情况",
-      "quant-factor-screener 能提供哪些核心数据分析？",
-      "针对目前的市场行情，quant-factor-screener 有什么具体的建议？"
+      "用多因子模型帮我选股",
+      "哪些股票的价值因子得分高？",
+      "量化选股有什么好的策略吗？"
     ]
   },
   {
@@ -814,9 +814,9 @@
     "description": "Design rebalancing rules (threshold/time-based), constraints, and an execution checklist. Use when the user asks how to rebalance a portfolio or wants a rebalancing plan.",
     "market": "US-market",
     "questions": [
-      "使用 rebalancing-planner 分析一下当前市场情况",
-      "rebalancing-planner 能提供哪些核心数据分析？",
-      "针对目前的市场行情，rebalancing-planner 有什么具体的建议？"
+      "我的组合需要再平衡吗？",
+      "什么时候应该调仓？",
+      "帮我制定一个再平衡计划"
     ]
   },
   {
@@ -824,9 +824,9 @@
     "description": "Build diversified portfolios optimized for risk-adjusted returns based on user-specified portfolio size, risk tolerance, and time horizon. Use when the user asks to build a portfolio, construct an asset allocation, optimize risk-adjusted returns, create a diversified investment plan, determine position sizing, design a rebalancing strategy, or requests portfolio construction advice for a specific dollar amount and risk profile.",
     "market": "US-market",
     "questions": [
-      "使用 risk-adjusted-return-optimizer 分析一下当前市场情况",
-      "risk-adjusted-return-optimizer 能提供哪些核心数据分析？",
-      "针对目前的市场行情，risk-adjusted-return-optimizer 有什么具体的建议？"
+      "帮我构建一个风险调整后收益最优的组合",
+      "我有100万，应该怎么配置？",
+      "如何优化我的投资组合？"
     ]
   },
   {
@@ -834,9 +834,9 @@
     "description": "Detect sector rotation signals by analyzing macroeconomic indicators and business cycle positioning to identify which sectors are likely to outperform or underperform over the next 6–12 months. Use when the user asks about sector rotation, macro-driven sector allocation, business cycle investing, which sectors to overweight or underweight, interest rate impact on sectors, inflation plays, or macro investment strategy.",
     "market": "US-market",
     "questions": [
-      "使用 sector-rotation-detector 分析一下当前市场情况",
-      "sector-rotation-detector 能提供哪些核心数据分析？",
-      "针对目前的市场行情，sector-rotation-detector 有什么具体的建议？"
+      "现在应该配置哪些行业？",
+      "行业轮动到哪个阶段了？",
+      "周期股和成长股哪个更有机会？"
     ]
   },
   {
@@ -844,9 +844,9 @@
     "description": "Identify stocks where market sentiment is significantly more negative than fundamentals warrant — the gap between narrative and reality. Use when the user asks to find contrarian opportunities, stocks with sentiment-fundamental misalignment, oversold but fundamentally strong companies, stocks punished by negative narratives, or wants to analyze whether market fear is justified for specific stocks or sectors.",
     "market": "US-market",
     "questions": [
-      "使用 sentiment-reality-gap 分析一下当前市场情况",
-      "sentiment-reality-gap 能提供哪些核心数据分析？",
-      "针对目前的市场行情，sentiment-reality-gap 有什么具体的建议？"
+      "哪些股票被市场错杀了？",
+      "市场情绪和基本面有背离吗？",
+      "有什么逆向投资的机会吗？"
     ]
   },
   {
@@ -854,9 +854,9 @@
     "description": "Identify high-growth small-cap stocks (market cap under $2B) with strong fundamentals, insider ownership, and low institutional coverage — the kind of overlooked opportunities that larger funds miss. Use when the user asks to find small-cap growth stocks, discover under-the-radar companies, screen for founder-led small caps, identify emerging growth companies, find low-institutional-ownership stocks, or seek multi-bagger candidates with strong fundamentals.",
     "market": "US-market",
     "questions": [
-      "使用 small-cap-growth-identifier 分析一下当前市场情况",
-      "small-cap-growth-identifier 能提供哪些核心数据分析？",
-      "针对目前的市场行情，small-cap-growth-identifier 有什么具体的建议？"
+      "帮我找一些小盘成长股",
+      "有哪些被低估的小市值公司？",
+      "专精特新企业有什么投资机会？"
     ]
   },
   {
@@ -864,9 +864,9 @@
     "description": "Generate institutional-grade investment suitability reports including rationale, risk disclosure, and client suitability assessment. Use when the user asks to document investment decisions, create compliance reports, generate risk disclosures, prepare client-facing investment justifications, write suitability assessments, or produce fiduciary documentation for an investment recommendation or portfolio.",
     "market": "US-market",
     "questions": [
-      "使用 suitability-report-generator 分析一下当前市场情况",
-      "suitability-report-generator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，suitability-report-generator 有什么具体的建议？"
+      "帮我生成一份投资适当性报告",
+      "这个投资建议适合什么类型的投资者？",
+      "风险披露文件怎么写？"
     ]
   },
   {
@@ -874,9 +874,9 @@
     "description": "Plan rebalancing with tax constraints (realized gains, lot selection, wash-sale awareness) and an execution checklist. Use when the user asks for tax-aware rebalancing or minimizing taxes while rebalancing.",
     "market": "US-market",
     "questions": [
-      "使用 tax-aware-rebalancing-planner 分析一下当前市场情况",
-      "tax-aware-rebalancing-planner 能提供哪些核心数据分析？",
-      "针对目前的市场行情，tax-aware-rebalancing-planner 有什么具体的建议？"
+      "最近市场有什么值得关注的情况吗？",
+      "帮我分析一下当前的投资机会",
+      "有什么风险需要注意的吗？"
     ]
   },
   {
@@ -884,9 +884,9 @@
     "description": "Compare leading tech stocks to distinguish hype-driven overvaluation from fundamentally justified pricing, and identify undervalued tech names the market is overlooking. Use when the user asks to evaluate tech stock valuations, find overvalued or undervalued tech companies, assess whether a tech stock's growth justifies its multiple, compare tech company fundamentals, analyze revenue growth vs. valuation, or identify mispriced technology stocks.",
     "market": "US-market",
     "questions": [
-      "使用 tech-hype-vs-fundamentals 分析一下当前市场情况",
-      "tech-hype-vs-fundamentals 能提供哪些核心数据分析？",
-      "针对目前的市场行情，tech-hype-vs-fundamentals 有什么具体的建议？"
+      "AI概念股是不是炒作过度了？",
+      "科技股的估值泡沫有多大？",
+      "哪些科技公司的基本面支撑估值？"
     ]
   },
   {
@@ -894,9 +894,9 @@
     "description": "Screen and identify undervalued stocks with strong fundamentals using professional equity research methodology. Use when the user asks to find undervalued stocks, screen for cheap or bargain stocks, identify value investing opportunities, perform fundamental stock analysis, find stocks trading below intrinsic value, or requests a stock screener based on financial metrics like P/E ratio, debt-to-equity, free cash flow, or ROIC.",
     "market": "US-market",
     "questions": [
-      "使用 undervalued-stock-screener 分析一下当前市场情况",
-      "undervalued-stock-screener 能提供哪些核心数据分析？",
-      "针对目前的市场行情，undervalued-stock-screener 有什么具体的建议？"
+      "帮我筛选一些低估值的股票",
+      "哪些股票的PE和PB都很低？",
+      "价值投资有什么机会吗？"
     ]
   },
   {
@@ -904,9 +904,9 @@
     "description": "Detect valuation regimes using percentiles vs history/peers and link them to macro/rates signals. Use when the user asks whether a market/sector/name is expensive/cheap relative to history or wants valuation percentile analysis.",
     "market": "US-market",
     "questions": [
-      "使用 valuation-regime-detector 分析一下当前市场情况",
-      "valuation-regime-detector 能提供哪些核心数据分析？",
-      "针对目前的市场行情，valuation-regime-detector 有什么具体的建议？"
+      "市场现在的估值水平在什么位置？",
+      "沪深300的估值分位数是多少？",
+      "现在是高估还是低估？"
     ]
   },
   {
@@ -914,9 +914,9 @@
     "description": "Assess volatility regimes (realized/implicit, vol-of-vol, drawdowns) and produce a risk-on/off assessment and monitoring triggers. Use when the user asks about volatility regime, risk regime, or volatility signals.",
     "market": "US-market",
     "questions": [
-      "使用 volatility-regime-monitor 分析一下当前市场情况",
-      "volatility-regime-monitor 能提供哪些核心数据分析？",
-      "针对目前的市场行情，volatility-regime-monitor 有什么具体的建议？"
+      "市场波动率怎么样？",
+      "现在是高波动还是低波动状态？",
+      "VIX指数在什么水平？"
     ]
   },
   {
@@ -924,9 +924,9 @@
     "description": "Produce a weekly market brief (performance, macro, flows, risks, watchlist) with consistent sections and tables. Use when the user asks for a weekly market update/brief.",
     "market": "US-market",
     "questions": [
-      "使用 weekly-market-brief-generator 分析一下当前市场情况",
-      "weekly-market-brief-generator 能提供哪些核心数据分析？",
-      "针对目前的市场行情，weekly-market-brief-generator 有什么具体的建议？"
+      "帮我生成一份本周市场简报",
+      "这周市场表现怎么样？",
+      "给我一份周度市场复盘"
     ]
   },
   {
@@ -934,9 +934,9 @@
     "description": "Assess yield curve shape, inversion signals, term premiums, and macro implications. Use when the user asks about the yield curve, inversion, or rate-regime impacts.",
     "market": "US-market",
     "questions": [
-      "使用 yield-curve-regime-detector 分析一下当前市场情况",
-      "yield-curve-regime-detector 能提供哪些核心数据分析？",
-      "针对目前的市场行情，yield-curve-regime-detector 有什么具体的建议？"
+      "美债收益率曲线倒挂了吗？",
+      "收益率曲线对股市有什么影响？",
+      "10年期和2年期国债利差是多少？"
     ]
   },
   {
@@ -945,7 +945,7 @@
     "market": "data-query",
     "questions": [
       "查询贵州茅台的基本面数据",
-      "获取恒生指数的估值数据",
+      "获取沪深300指数的估值数据",
       "查询美元兑人民币汇率"
     ]
   }
