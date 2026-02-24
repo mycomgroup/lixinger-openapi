@@ -1,6 +1,6 @@
 # 数据获取指南
 
-使用 `query_tool.py` 获取 insider-sentiment-aggregator 所需的数据。
+使用 `query_tool.py` 获取 findata-toolkit-us 所需的数据。
 
 ---
 

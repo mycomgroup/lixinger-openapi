@@ -1,15 +1,15 @@
 # 数据获取指南
 
-使用 `query_tool.py` 获取 insider-sentiment-aggregator 所需的数据。
+使用 `query_tool.py` 获取 hk-liquidity-risk 所需的数据。
 
 ---
 
 ## 查询示例
 
-### 查询美股市场数据
+### 查询港股市场数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "us.index.fundamental" --params '{"indexCode": "SPX", "date": "2024-12-31"}' --columns "date,pe,pb,roe,dividendYield" --limit 20
+python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "hk.company" --params '{"stockCodes": ["00700"]}' --columns "stockCode,name,market" --limit 20
 ```
 
 ---

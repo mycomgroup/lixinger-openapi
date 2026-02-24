@@ -1,53 +1,37 @@
-# Data Queries (Shared Scripts)
+# 数据获取指南
 
-Run commands from this skill directory. Shared scripts live in `../findata-toolkit/`. (Analyze insider trading patterns to surface companies with significant, meaningful insider buying activity. Use when the user asks to review insider trading activity, find stocks insiders are buying, analyze SEC Form 4 filings, detect insider buying clusters, assess management confidence through insider purchases, or identify bullish insider signals in a sector or industry.)
+使用 `query_tool.py` 获取 insider-trading-analyzer 所需的数据。
 
+---
 
-## Setup (One-Time)
+## 查询示例
 
-```bash
-# Activate repo-root venv (single .venv)
-source ../../.venv/bin/activate
-
-# Install US toolkit deps
-python -m pip install -r ../findata-toolkit/requirements.txt
-```
-
-## Data Dependencies (What this skill uses)
-
-| Script | Primary use |
-| --- | --- |
-| sec_edgar.py | SEC EDGAR filings / insider trades (Form 4) / corporate events. |
-
-## Common Recipes
+### 查询美股市场数据
 
 ```bash
-# Ensure venv is active
-source ../../.venv/bin/activate
-
-# Quotes / fundamentals / history
-python ../findata-toolkit/scripts/stock_data.py AAPL
-python ../findata-toolkit/scripts/stock_data.py AAPL --metrics
-python ../findata-toolkit/scripts/stock_data.py AAPL --history --period 1y
-
-# SEC EDGAR (insider trades / filings)
-python ../findata-toolkit/scripts/sec_edgar.py insider AAPL --days 90
-python ../findata-toolkit/scripts/sec_edgar.py filings AAPL --form-type 10-K
-
-# Macro (FRED)
-python ../findata-toolkit/scripts/macro_data.py --dashboard
-
-# Financial calculators
-python ../findata-toolkit/scripts/financial_calc.py AAPL --all
+python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "us.index.fundamental" --params '{"indexCode": "SPX", "date": "2024-12-31"}' --columns "date,pe,pb,roe,dividendYield" --limit 20
 ```
 
-## Discover More
+---
+
+## 参数说明
+
+- `--suffix`: API 路径
+- `--params`: JSON 格式参数
+- `--columns`: 指定返回字段（推荐使用，节省 30-40% token）
+- `--row-filter`: 过滤条件
+- `--limit`: 限制返回行数
+
+---
+
+## 查找更多 API
 
 ```bash
-python ../findata-toolkit/scripts/stock_data.py --help
-python ../findata-toolkit/scripts/sec_edgar.py --help
-python ../findata-toolkit/scripts/macro_data.py --help
-python ../findata-toolkit/scripts/financial_calc.py --help
-python ../findata-toolkit/scripts/portfolio_analytics.py --help
-python ../findata-toolkit/scripts/factor_screener.py --help
+# 查看 API 列表
+cat skills/lixinger-data-query/SKILL.md
+
+# 搜索关键字
+grep -r "关键字" skills/lixinger-data-query/api_new/api-docs/
 ```
+
+**相关文档**: `skills/lixinger-data-query/SKILL.md`
