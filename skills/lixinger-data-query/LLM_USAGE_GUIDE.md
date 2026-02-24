@@ -2,6 +2,22 @@
 
 本文档专门为大模型（LLM）设计，帮助你高效使用 lixinger-data-query skill。
 
+## 🎯 独立运行（重要）
+
+`query_tool.py` 是完全独立的工具：
+- ✅ **无需虚拟环境**：直接运行，不需要 `source .venv/bin/activate`
+- ✅ **无需安装依赖**：所有代码已内置在 `scripts/` 目录
+- ✅ **开箱即用**：只需 Python 3.x 和 `token.cfg` 文件
+
+**直接运行示例**：
+```bash
+# 不需要激活虚拟环境，直接运行
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.company" \
+  --params '{"fsTableType": "bank"}' \
+  --columns "stockCode,name"
+```
+
 ## 核心原则
 
 ### 1. 始终使用增强参数

@@ -14,6 +14,7 @@ inclusion: always
 - 提供 162 个 API 接口，覆盖 A股、港股、美股、宏观数据
 - 支持字段过滤（`--columns`）、数据筛选（`--row-filter`）、数组展开（`--flatten`）
 - CSV 格式输出，节省 30-40% token
+- **✅ 独立运行**：无需虚拟环境，无需安装依赖，开箱即用
 - **这是所有其他 skills 获取数据的基础工具**
 - **仅在找不到合适的分析 skill 时使用**
 
@@ -389,17 +390,24 @@ cat token.cfg
 
 ### Python 环境
 
-```bash
-# 激活虚拟环境
-source .venv/bin/activate
+**✅ 无需虚拟环境！**
 
-# 验证 query_tool.py 可用
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn.company" --params '{"stockCodes": ["600519"]}' --columns "stockCode,name"
+`query_tool.py` 已经是完全独立的工具：
+- 无需 `source .venv/bin/activate`
+- 无需 `pip install`
+- 直接运行即可
+
+```bash
+# 直接运行，无需激活虚拟环境
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.company" \
+  --params '{"stockCodes": ["600519"]}' \
+  --columns "stockCode,name"
 ```
 
 ---
 
-## � 重要提示
+## 💡 重要提示
 
 ### 0. Skill 使用优先级（最重要）
 

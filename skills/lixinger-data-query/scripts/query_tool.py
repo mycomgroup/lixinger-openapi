@@ -11,6 +11,10 @@ import json
 import argparse
 import pandas as pd
 from pathlib import Path
+
+# Add current directory to path for local imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from lixinger_openapi.query import query_json, query_dataframe
 from lixinger_openapi.token import set_token
 
