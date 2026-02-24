@@ -6,23 +6,19 @@
 
 ## 查询示例
 
-### 查询股权质押
+### 查询Cn.Company.Equity Pledge
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn.company.pledge" --params '{"stockCode": "600519"}' --columns "date,pledgeRatio"
-```
-
-### 查询股本变动
-
-```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn.company.equity-change" --params '{"stockCode": "600519"}' --columns "date,changeReason,capitalization"
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.company.equity-pledge" \
+  --params '{"stockCode": "600519", "startDate": "2020-01-01", "endDate": "2026-02-24"}'
 ```
 
 ---
 
 ## 参数说明
 
-- `--suffix`: API 路径
+- `--suffix`: API 路径（参考下方可用 API 列表）
 - `--params`: JSON 格式参数
 - `--columns`: 指定返回字段（推荐使用，节省 30-40% token）
 - `--row-filter`: 过滤条件
@@ -30,14 +26,23 @@ python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn.company.eq
 
 ---
 
+## 本 Skill 常用 API
+
+- `cn.company.equity-pledge`
+
+---
+
 ## 查找更多 API
 
 ```bash
-# 查看 API 列表
+# 查看完整 API 列表
 cat skills/lixinger-data-query/SKILL.md
 
 # 搜索关键字
 grep -r "关键字" skills/lixinger-data-query/api_new/api-docs/
+
+# 查看具体 API 文档
+cat skills/lixinger-data-query/api_new/api-docs/{api_name}.md
 ```
 
 **相关文档**: `skills/lixinger-data-query/SKILL.md`
