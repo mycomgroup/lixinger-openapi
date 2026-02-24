@@ -40,12 +40,121 @@ def get_lixinger_token() -> str:
         curr = curr.parent
     return ""
 
+def apply_row_filter(data: list, row_filter: dict) -> list:
+    """
+    Apply row filter to data.
+    
+    Filter format:
+    {
+        "field_name": {
+            "==": value,  # equals
+            "!=": value,  # not equals
+            ">": value,   # greater than
+            ">=": value,  # greater than or equal
+            "<": value,   # less than
+            "<=": value,  # less than or equal
+            "in": [values],  # in list
+            "not_in": [values],  # not in list
+            "startswith": value,  # string starts with
+            "endswith": value,  # string ends with
+            "contains": value  # string contains
+        }
+    }
+    """
+    if not row_filter:
+        return data
+    
+    filtered_data = []
+    for item in data:
+        match = True
+        for field, conditions in row_filter.items():
+            if field not in item:
+                match = False
+                break
+            
+            value = item[field]
+            
+            # Handle None values
+            if value is None:
+                if "==" in conditions and conditions["=="] is not None:
+                    match = False
+                    break
+                continue
+            
+            # Apply conditions
+            if isinstance(conditions, dict):
+                for op, target in conditions.items():
+                    try:
+                        if op == "==":
+                            if value != target:
+                                match = False
+                                break
+                        elif op == "!=":
+                            if value == target:
+                                match = False
+                                break
+                        elif op == ">":
+                            if not (float(value) > float(target)):
+                                match = False
+                                break
+                        elif op == ">=":
+                            if not (float(value) >= float(target)):
+                                match = False
+                                break
+                        elif op == "<":
+                            if not (float(value) < float(target)):
+                                match = False
+                                break
+                        elif op == "<=":
+                            if not (float(value) <= float(target)):
+                                match = False
+                                break
+                        elif op == "in":
+                            if value not in target:
+                                match = False
+                                break
+                        elif op == "not_in":
+                            if value in target:
+                                match = False
+                                break
+                        elif op == "startswith":
+                            if not str(value).startswith(str(target)):
+                                match = False
+                                break
+                        elif op == "endswith":
+                            if not str(value).endswith(str(target)):
+                                match = False
+                                break
+                        elif op == "contains":
+                            if str(target) not in str(value):
+                                match = False
+                                break
+                    except (ValueError, TypeError):
+                        match = False
+                        break
+                
+                if not match:
+                    break
+            else:
+                # Simple equality check
+                if value != conditions:
+                    match = False
+                    break
+        
+        if match:
+            filtered_data.append(item)
+    
+    return filtered_data
+
 def main():
     parser = argparse.ArgumentParser(description="Lixinger Data Query Tool")
     parser.add_argument("--suffix", required=True, help="API URL suffix (e.g., 'cn.company')")
     parser.add_argument("--params", required=True, help="JSON string of query parameters")
-    parser.add_argument("--format", choices=["json", "text", "csv"], default="text", help="Output format")
+    parser.add_argument("--format", choices=["json", "text", "csv"], default="csv", help="Output format (default: csv)")
     parser.add_argument("--limit", type=int, default=100, help="Limit number of rows returned (default: 100)")
+    parser.add_argument("--columns", help="Comma-separated list of columns to include (e.g., 'stockCode,name,pe_ttm')")
+    parser.add_argument("--row-filter", help="JSON string for row filtering (e.g., '{\"pe_ttm\": {\">=\": 10, \"<=\": 20}}')")
+    parser.add_argument("--flatten", help="Flatten nested array field (e.g., 'constituents' to extract nested items)")
     parser.add_argument("--cache", action=argparse.BooleanOptionalAction, default=True, help="Enable/disable caching")
     parser.add_argument("--save-list", help="Save the resulting stock codes to a named session list")
     parser.add_argument("--use-list", help="Use a previously saved session list as stockCodes")
@@ -61,18 +170,22 @@ def main():
     from cache_manager import CacheManager
     cache = CacheManager()
 
-    # Load metadata
-    metadata = {}
-    metadata_path = os.path.join(os.path.dirname(__file__), "../resources/metadata.json")
-    if os.path.exists(metadata_path):
-        try:
-            with open(metadata_path, 'r', encoding='utf-8') as f:
-                metadata = json.load(f)
-        except Exception as e:
-            print(f"Warning: Failed to load metadata: {str(e)}", file=sys.stderr)
-
     try:
         query_params = json.loads(args.params)
+        
+        # Parse row filter if provided
+        row_filter = None
+        if args.row_filter:
+            try:
+                row_filter = json.loads(args.row_filter)
+            except json.JSONDecodeError:
+                print("Error: Invalid JSON in --row-filter", file=sys.stderr)
+                sys.exit(1)
+        
+        # Parse columns if provided
+        columns = None
+        if args.columns:
+            columns = [c.strip() for c in args.columns.split(',')]
         
         # Handle Session Lists (Use)
         if args.use_list:
@@ -82,29 +195,11 @@ def main():
             else:
                 print(f"Warning: Session list '{args.use_list}' not found.", file=sys.stderr)
 
-        # Check for matching metadata
-        # Normalize suffix (replace . with / for lookup)
-        lookup_suffix = args.suffix.replace('.', '/')
-        # 美股接口适配
-        if lookup_suffix.startswith('us/'):
-            # 确保美股接口路径正确
-            pass
-        api_meta = metadata.get(lookup_suffix)
-
         # Handle Caching
         result = None
         if args.cache:
-            # Determine max_age based on metadata
+            # Default cache: 1 day
             max_age_days = 1
-            if api_meta:
-                freq = api_meta.get('update_frequency', 'daily')
-                if freq == 'realtime':
-                    max_age_days = 0.04 # ~1 hour
-                elif freq == 'weekly':
-                    max_age_days = 7
-                elif freq == 'monthly':
-                    max_age_days = 30
-            
             result = cache.get(args.suffix, query_params, max_age_days=max_age_days)
 
         if not result:
@@ -114,13 +209,8 @@ def main():
                 result = query_json(args.suffix, query_params)
             
             if args.cache and result and result.get('code') == 1:
-                expiry_days = 1
-                if api_meta:
-                    freq = api_meta.get('update_frequency', 'daily')
-                    if freq == 'realtime': expiry_days = 0.04
-                    elif freq == 'weekly': expiry_days = 7
-                    elif freq == 'monthly': expiry_days = 30
-                cache.set(args.suffix, query_params, result, expiry_days=expiry_days)
+                # Default cache expiry: 1 day
+                cache.set(args.suffix, query_params, result, expiry_days=1)
 
         # Handle Session Lists (Save)
         if args.save_list and result and result.get('code') == 1 and isinstance(result.get('data'), list):
@@ -137,62 +227,70 @@ def main():
                 print(f"# NOTE: Saved {len(unique_codes)} codes to session list '{args.save_list}'", file=sys.stdout)
 
         if args.format == "json":
-            # Apply conversions if it's a list of dictionaries
-            if api_meta and result.get('code') == 1 and isinstance(result.get('data'), list):
-                for item in result['data']:
-                    for conv in api_meta.get('conversions', []):
-                        field = conv['field']
-                        if field in item and item[field] is not None:
-                            try:
-                                val = float(item[field])
-                                if conv['operation'] == 'div':
-                                    val = val / conv['factor']
-                                elif conv['operation'] == 'mul':
-                                    val = val * conv['factor']
-                                
-                                if 'round' in conv:
-                                    val = round(val, conv['round'])
-                                item[conv.get('name', field)] = val
-                            except (ValueError, TypeError):
-                                pass
-
-            # Truncate data list
+            # Apply row filter and column filter
             if result.get('code') == 1 and isinstance(result.get('data'), list):
+                # Flatten nested arrays if specified
+                if args.flatten:
+                    flattened_data = []
+                    for item in result['data']:
+                        if args.flatten in item and isinstance(item[args.flatten], list):
+                            # Extract nested items
+                            for nested_item in item[args.flatten]:
+                                flattened_data.append(nested_item)
+                        else:
+                            flattened_data.append(item)
+                    result['data'] = flattened_data
+                
+                # Apply row filter
+                if row_filter:
+                    result['data'] = apply_row_filter(result['data'], row_filter)
+                
+                # Filter columns if specified
+                if columns:
+                    filtered_data = []
+                    for item in result['data']:
+                        filtered_item = {k: v for k, v in item.items() if k in columns}
+                        filtered_data.append(filtered_item)
+                    result['data'] = filtered_data
+                
+                # Truncate
                 if len(result['data']) > args.limit:
                     result['data'] = result['data'][:args.limit]
                     result['_note'] = f"Output truncated to {args.limit} rows."
             print(json.dumps(result, ensure_ascii=False, indent=2))
         else:
-            # Convert JSON result to DataFrame if it's not already (it isn't if we used query_json)
-            # We recreate the structure expected by query_dataframe logic
+            # Convert JSON result to DataFrame
             if result.get('code') == 1:
                 from pandas import json_normalize
-                df = json_normalize(result['data']) if result.get('data') else pd.DataFrame()
                 
-                # Apply conversions to DataFrame
-                if api_meta:
-                    for conv in api_meta.get('conversions', []):
-                        field = conv['field']
-                        if field in df.columns:
-                            try:
-                                # Convert to numeric if needed
-                                df[field] = pd.to_numeric(df[field], errors='coerce')
-                                
-                                new_val = df[field]
-                                if conv['operation'] == 'div':
-                                    new_val = new_val / conv['factor']
-                                elif conv['operation'] == 'mul':
-                                    new_val = new_val * conv['factor']
-                                
-                                # Use new column name if provided, otherwise overwrite
-                                target_col = conv.get('name', field)
-                                if 'round' in conv:
-                                    df[target_col] = new_val.round(conv['round'])
-                                else:
-                                    df[target_col] = new_val
-                            except Exception as conv_err:
-                                print(f"Warning: Conversion for {field} failed: {str(conv_err)}", file=sys.stderr)
-
+                # Flatten nested arrays if specified
+                data = result.get('data', [])
+                if args.flatten and data:
+                    flattened_data = []
+                    for item in data:
+                        if args.flatten in item and isinstance(item[args.flatten], list):
+                            # Extract nested items
+                            for nested_item in item[args.flatten]:
+                                flattened_data.append(nested_item)
+                        else:
+                            flattened_data.append(item)
+                    data = flattened_data
+                
+                # Apply row filter
+                if row_filter and data:
+                    data = apply_row_filter(data, row_filter)
+                
+                df = json_normalize(data) if data else pd.DataFrame()
+                
+                # Filter columns if specified
+                if columns and not df.empty:
+                    # Only keep columns that exist in the dataframe
+                    available_columns = [c for c in columns if c in df.columns]
+                    if available_columns:
+                        df = df[available_columns]
+                    else:
+                        print(f"Warning: None of the specified columns found in data. Available columns: {', '.join(df.columns)}", file=sys.stderr)
+                
                 # Truncate DataFrame
                 if len(df) > args.limit:
                     df = df.head(args.limit)
