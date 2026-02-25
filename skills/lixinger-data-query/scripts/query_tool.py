@@ -19,29 +19,57 @@ from lixinger_openapi.query import query_json, query_dataframe
 from lixinger_openapi.token import set_token
 
 def get_lixinger_token() -> str:
-    """Find token in environment or token.cfg in parent directories."""
+    """Find token in environment or token.cfg (current dir → root dir → parent dirs)."""
     token = os.getenv("LIXINGER_TOKEN")
     if token:
         return token
     
-    # Search upwards for token.cfg
-    curr = Path(os.getcwd()).resolve()
-    for _ in range(5): # Check up to 5 levels
+    def read_token_file(cfg_path: Path) -> str:
+        """Helper to read token from config file."""
+        try:
+            with open(cfg_path, 'r', encoding='utf-8') as f:
+                content = f.read().strip()
+                if content:
+                    if content.startswith("["):
+                        import configparser
+                        config = configparser.ConfigParser()
+                        config.read_string(content)
+                        return config.get("lixinger", "token", fallback="")
+                    return content
+        except Exception:
+            pass
+        return ""
+    
+    # 1. Check current working directory first
+    curr_dir = Path(os.getcwd()).resolve()
+    cfg_path = curr_dir / "token.cfg"
+    if cfg_path.exists():
+        token = read_token_file(cfg_path)
+        if token:
+            return token
+    
+    # 2. Check project root directory (where .git folder exists)
+    root_dir = curr_dir
+    while root_dir.parent != root_dir:
+        if (root_dir / ".git").exists():
+            cfg_path = root_dir / "token.cfg"
+            if cfg_path.exists():
+                token = read_token_file(cfg_path)
+                if token:
+                    return token
+            break
+        root_dir = root_dir.parent
+    
+    # 3. Search upwards in parent directories (up to 5 levels)
+    curr = curr_dir
+    for _ in range(5):
         cfg_path = curr / "token.cfg"
         if cfg_path.exists():
-            try:
-                with open(cfg_path, 'r', encoding='utf-8') as f:
-                    content = f.read().strip()
-                    if content:
-                        if content.startswith("["):
-                            import configparser
-                            config = configparser.ConfigParser()
-                            config.read_string(content)
-                            return config.get("lixinger", "token", fallback="")
-                        return content
-            except Exception:
-                pass
+            token = read_token_file(cfg_path)
+            if token:
+                return token
         curr = curr.parent
+    
     return ""
 
 def apply_row_filter(data: list, row_filter: dict) -> list:
