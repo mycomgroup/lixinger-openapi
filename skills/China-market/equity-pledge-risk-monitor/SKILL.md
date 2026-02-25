@@ -1,7 +1,6 @@
 ---
 name: equity-pledge-risk-monitor
 description: 分析股权质押比例、质押分布、行业对比及结构特征，输出控制权与财务/流动性风险提示。当用户询问股权质押、质押比例、质押风险或需要质押风险扫描时使用。
-license: Apache-2.0
 ---
 
 # 股权质押风险监控器

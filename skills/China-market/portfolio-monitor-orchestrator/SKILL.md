@@ -1,7 +1,6 @@
 ---
 name: portfolio-monitor-orchestrator
 description: 编排组合监控：集中度、相关性/风格暴露、流动性、情景压力等，整合成一份监控报告。当用户要求“全面诊断/持续监控我的组合”时使用。
-license: Apache-2.0
 ---
 
 # 组合监控流程编排器

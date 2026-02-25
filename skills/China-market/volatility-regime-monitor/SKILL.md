@@ -1,7 +1,6 @@
 ---
 name: volatility-regime-monitor
 description: 评估波动率状态（实现波动/隐含波动、波动的波动、回撤）并给出风险开关判断与监控触发条件。当用户询问波动率状态、风险状态、或需要波动监控与预警时使用。
-license: Apache-2.0
 ---
 
 # 波动率状态监控器

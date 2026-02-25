@@ -1,7 +1,6 @@
 ---
 name: hk-valuation-analyzer
 description: 港股估值分析器。提供港股市场整体估值水平、行业估值对比、个股估值分析等功能。支持多种估值方法和相对估值分析。
-license: Apache-2.0
 ---
 
 # 港股估值分析器

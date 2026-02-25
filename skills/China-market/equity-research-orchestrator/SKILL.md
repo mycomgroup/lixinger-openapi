@@ -1,7 +1,6 @@
 ---
 name: equity-research-orchestrator
 description: 编排完整个股研究流程：按需调用其他技能/工具包视图，并将输出整合为一份一致的研究交付物。当用户要求“从头到尾分析这只股票/给我完整研究包”时使用。
-license: Apache-2.0
 ---
 
 # 股票研究流程编排器

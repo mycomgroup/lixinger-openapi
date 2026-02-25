@@ -1,5 +1,5 @@
 {
-  "name": "insider-trading-analyzer",
+  "name": "us-insider-trading-analyzer",
   "version": "1.0.0",
   "metadata": {
     "description": "Analyze insider trading patterns to surface companies with significant, meaningful insider buying activity. Use when the user asks to review insider trading activity, find stocks insiders are buying, analyze SEC Form 4 filings, detect insider buying clusters, assess management confidence through insider purchases, or identify bullish insider signals in a sector or industry.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "insider-trading-analyzer-plugin",
+      "name": "us-insider-trading-analyzer-plugin",
       "description": "Analyze insider trading patterns to surface companies with significant, meaningful insider buying activity. Use when the user asks to review insider trading activity, find stocks insiders are buying, analyze SEC Form 4 filings, detect insider buying clusters, assess management confidence through insider purchases, or identify bullish insider signals in a sector or industry.",
       "source": "./",
       "skills": [

@@ -1,5 +1,5 @@
 {
-  "name": "liquidity-impact-estimator",
+  "name": "us-liquidity-impact-estimator",
   "version": "1.0.0",
   "metadata": {
     "description": "Estimate liquidity and trading impact (volume/turnover, bid-ask proxies, slippage/impact heuristics) for single names or portfolios. Use when the user asks about liquidity risk, tradability, or wants to size trades safely.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "liquidity-impact-estimator-plugin",
+      "name": "us-liquidity-impact-estimator-plugin",
       "description": "Estimate liquidity and trading impact (volume/turnover, bid-ask proxies, slippage/impact heuristics) for single names or portfolios. Use when the user asks about liquidity risk, tradability, or wants to size trades safely.",
       "source": "./",
       "skills": [

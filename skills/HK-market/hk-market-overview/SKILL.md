@@ -1,7 +1,6 @@
 ---
 name: hk-market-overview
 description: 港股市场概览分析器。提供港股市场整体表现、主要指数、板块轮动、市场情绪等综合分析。用于快速了解港股市场整体状况和趋势。
-license: Apache-2.0
 ---
 
 # 港股市场概览分析器

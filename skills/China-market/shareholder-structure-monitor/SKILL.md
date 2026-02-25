@@ -1,7 +1,6 @@
 ---
 name: shareholder-structure-monitor
 description: 跟踪股东户数、十大股东/流通股东、机构/基金持股与持仓变化，输出筹码结构与供给冲击风险提示。当用户询问股东户数、股东结构、机构/基金持股、持仓变化或需要筹码分析时使用。
-license: Apache-2.0
 ---
 
 # 股东结构与持仓变化监控器

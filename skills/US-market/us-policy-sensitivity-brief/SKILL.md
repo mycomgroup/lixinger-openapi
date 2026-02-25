@@ -1,7 +1,6 @@
 ---
-name: policy-sensitivity-brief
+name: us-policy-sensitivity-brief
 description: Map policy/macro releases to likely sector/style sensitivities and produce a monitoring checklist. Use when the user asks which sectors are sensitive to a policy change or wants a policy-impact brief.
-license: Apache-2.0
 ---
 
 # Policy Sensitivity Brief

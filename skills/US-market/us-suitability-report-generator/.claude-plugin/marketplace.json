@@ -1,5 +1,5 @@
 {
-  "name": "suitability-report-generator",
+  "name": "us-suitability-report-generator",
   "version": "1.0.0",
   "metadata": {
     "description": "Generate institutional-grade investment suitability reports including rationale, risk disclosure, and client suitability assessment. Use when the user asks to document investment decisions, create compliance reports, generate risk disclosures, prepare client-facing investment justifications, write suitability assessments, or produce fiduciary documentation for an investment recommendation or portfolio.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "suitability-report-generator-plugin",
+      "name": "us-suitability-report-generator-plugin",
       "description": "Generate institutional-grade investment suitability reports including rationale, risk disclosure, and client suitability assessment. Use when the user asks to document investment decisions, create compliance reports, generate risk disclosures, prepare client-facing investment justifications, write suitability assessments, or produce fiduciary documentation for an investment recommendation or portfolio.",
       "source": "./",
       "skills": [

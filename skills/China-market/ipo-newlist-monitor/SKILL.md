@@ -1,7 +1,6 @@
 ---
 name: ipo-newlist-monitor
 description: 跟踪 IPO 申报、新股上市、次新股与 IPO 受益股，输出事件清单与风险提示。当用户询问新股、次新、IPO 进展、IPO 受益股或需要新股日历/复盘时使用。
-license: Apache-2.0
 ---
 
 # IPO与新股/次新监控器

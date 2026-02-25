@@ -1,7 +1,6 @@
 ---
-name: valuation-regime-detector
+name: us-valuation-regime-detector
 description: Detect valuation regimes using percentiles vs history/peers and link them to macro/rates signals. Use when the user asks whether a market/sector/name is expensive/cheap relative to history or wants valuation percentile analysis.
-license: Apache-2.0
 ---
 
 # Valuation Regime Detector

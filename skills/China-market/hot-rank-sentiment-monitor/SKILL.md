@@ -1,7 +1,6 @@
 ---
 name: hot-rank-sentiment-monitor
 description: 跟踪个股人气榜、热度趋势、关注度与投票等情绪代理，识别情绪背离与拥挤风险。当用户询问人气榜、热度、关注度、股评投票或需要热度监控时使用。
-license: Apache-2.0
 ---
 
 # 人气与热度情绪监控器

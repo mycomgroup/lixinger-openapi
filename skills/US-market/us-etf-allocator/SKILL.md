@@ -1,7 +1,6 @@
 ---
-name: etf-allocator
+name: us-etf-allocator
 description: Construct ETF allocations and quantify exposures (sector/style/factor), liquidity, and tracking considerations. Use when the user asks to build an ETF portfolio or analyze ETF exposures.
-license: Apache-2.0
 ---
 
 # ETF Allocator & Exposure Analyzer

@@ -1,7 +1,6 @@
 ---
 name: peer-comparison-analyzer
 description: 构建同业可比公司对比（估值、成长、盈利能力、杠杆、现金流质量）并解释差异来源。当用户要求同业对比、可比公司估值或同行比较时使用。
-license: Apache-2.0
 ---
 
 # 同业可比公司对比分析器

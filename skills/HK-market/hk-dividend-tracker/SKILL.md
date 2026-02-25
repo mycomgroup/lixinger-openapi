@@ -1,7 +1,6 @@
 ---
 name: hk-dividend-tracker
 description: 港股股息跟踪器。监控港股公司股息政策、分红历史、股息收益率等。用于收益投资和股息策略分析。
-license: Apache-2.0
 ---
 
 # 港股股息跟踪器

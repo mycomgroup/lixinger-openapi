@@ -1,7 +1,6 @@
 ---
 name: policy-sensitivity-brief
 description: 将政策/宏观数据发布映射到行业/风格敏感度，输出可监控清单与情景推演。当用户询问政策变化影响哪些行业、或需要政策影响简报时使用。
-license: Apache-2.0
 ---
 
 # 政策敏感度简报生成器

@@ -1,7 +1,6 @@
 ---
 name: shareholder-risk-check
 description: 检查股东结构、股权质押、控制权稳定性等治理风险标签。当用户询问质押风险、股东结构、控制权风险或需要治理红旗检查时使用。
-license: Apache-2.0
 ---
 
 # 股东结构与质押风险检查器

@@ -1,7 +1,6 @@
 ---
-name: macro-liquidity-monitor
+name: us-macro-liquidity-monitor
 description: Track macro liquidity indicators (rates, inflation, credit, central bank stance) and summarize implications for assets/sectors. Use when the user asks about liquidity conditions or policy-driven market impacts.
-license: Apache-2.0
 ---
 
 # Macro Liquidity Monitor

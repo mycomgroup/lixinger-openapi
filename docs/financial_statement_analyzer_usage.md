@@ -27,7 +27,7 @@ cat skills/China-market/financial-statement-analyzer/SKILL.md
 cat skills/HK-market/hk-financial-statement/SKILL.md
 
 # 美股
-cat skills/US-market/financial-statement-analyzer/SKILL.md
+cat skills/US-market/us-financial-statement-analyzer/SKILL.md
 ```
 
 ### 步骤 2：查看数据获取指南
@@ -40,7 +40,7 @@ cat skills/China-market/financial-statement-analyzer/references/data-queries.md
 cat skills/HK-market/hk-financial-statement/references/data-queries.md
 
 # 美股
-cat skills/US-market/financial-statement-analyzer/references/data-queries.md
+cat skills/US-market/us-financial-statement-analyzer/references/data-queries.md
 ```
 
 ### 步骤 3：获取财务数据

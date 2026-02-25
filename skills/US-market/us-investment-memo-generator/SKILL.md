@@ -1,7 +1,6 @@
 ---
-name: investment-memo-generator
+name: us-investment-memo-generator
 description: Generate an institutional-style investment memo (thesis, valuation, catalysts, risks, monitoring) from structured inputs and supporting data. Use when the user asks for an investment memo, write-up, or pitch.
-license: Apache-2.0
 ---
 
 # Investment Memo Generator

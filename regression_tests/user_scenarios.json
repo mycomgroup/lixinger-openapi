@@ -620,7 +620,7 @@
     ]
   },
   {
-    "skill": "equity-research-orchestrator",
+    "skill": "us-equity-research-orchestrator",
     "description": "Orchestrate a full equity research workflow by calling relevant skills/toolkit views and assembling a single coherent deliverable. Use when the user asks to 'analyze this stock end-to-end' or wants a full research pack.",
     "market": "US-market",
     "questions": [
@@ -630,7 +630,7 @@
     ]
   },
   {
-    "skill": "etf-allocator",
+    "skill": "us-etf-allocator",
     "description": "Construct ETF allocations and quantify exposures (sector/style/factor), liquidity, and tracking considerations. Use when the user asks to build an ETF portfolio or analyze ETF exposures.",
     "market": "US-market",
     "questions": [
@@ -640,7 +640,7 @@
     ]
   },
   {
-    "skill": "event-driven-detector",
+    "skill": "us-event-driven-detector",
     "description": "Identify and analyze corporate events that create mispricing opportunities, including M&A, spinoffs, buybacks, restructurings, and index changes. Use when the user asks about merger arbitrage, spinoff opportunities, share buyback analysis, corporate restructuring plays, index rebalancing trades, special situations investing, or event-driven strategies.",
     "market": "US-market",
     "questions": [
@@ -650,7 +650,7 @@
     ]
   },
   {
-    "skill": "event-study",
+    "skill": "us-event-study",
     "description": "Run an event study (pre/post windows, abnormal returns, peer/benchmark adjustment) for corporate or macro events. Use when the user asks how prices behaved around an event or wants an event-window analysis.",
     "market": "US-market",
     "questions": [
@@ -660,7 +660,7 @@
     ]
   },
   {
-    "skill": "factor-crowding-monitor",
+    "skill": "us-factor-crowding-monitor",
     "description": "Monitor factor crowding and factor performance dispersion to identify crowded trades and rotation risk. Use when the user asks about factor crowding, style squeeze risk, or factor rotation signals.",
     "market": "US-market",
     "questions": [
@@ -670,7 +670,7 @@
     ]
   },
   {
-    "skill": "financial-statement-analyzer",
+    "skill": "us-financial-statement-analyzer",
     "description": "Perform forensic-level analysis of a single company's financial statements, evaluating earnings quality, financial health, fraud risk, and operational efficiency. Use when the user asks for a deep dive into a company's financials, DuPont analysis, earnings quality check, balance sheet analysis, cash flow analysis, Altman Z-score, Beneish M-score, working capital analysis, or any detailed single-company financial examination.",
     "market": "US-market",
     "questions": [
@@ -700,7 +700,7 @@
     ]
   },
   {
-    "skill": "insider-trading-analyzer",
+    "skill": "us-insider-trading-analyzer",
     "description": "Analyze insider trading patterns to surface companies with significant, meaningful insider buying activity. Use when the user asks to review insider trading activity, find stocks insiders are buying, analyze SEC Form 4 filings, detect insider buying clusters, assess management confidence through insider purchases, or identify bullish insider signals in a sector or industry.",
     "market": "US-market",
     "questions": [
@@ -710,7 +710,7 @@
     ]
   },
   {
-    "skill": "investment-memo-generator",
+    "skill": "us-investment-memo-generator",
     "description": "Generate an institutional-style investment memo (thesis, valuation, catalysts, risks, monitoring) from structured inputs and supporting data. Use when the user asks for an investment memo, write-up, or pitch.",
     "market": "US-market",
     "questions": [
@@ -720,7 +720,7 @@
     ]
   },
   {
-    "skill": "liquidity-impact-estimator",
+    "skill": "us-liquidity-impact-estimator",
     "description": "Estimate liquidity and trading impact (volume/turnover, bid-ask proxies, slippage/impact heuristics) for single names or portfolios. Use when the user asks about liquidity risk, tradability, or wants to size trades safely.",
     "market": "US-market",
     "questions": [
@@ -730,7 +730,7 @@
     ]
   },
   {
-    "skill": "macro-liquidity-monitor",
+    "skill": "us-macro-liquidity-monitor",
     "description": "Track macro liquidity indicators (rates, inflation, credit, central bank stance) and summarize implications for assets/sectors. Use when the user asks about liquidity conditions or policy-driven market impacts.",
     "market": "US-market",
     "questions": [
@@ -740,7 +740,7 @@
     ]
   },
   {
-    "skill": "market-breadth-monitor",
+    "skill": "us-market-breadth-monitor",
     "description": "Monitor market breadth and internals (advance/decline, new highs/lows, concentration, breadth thrusts) to assess risk appetite and regime shifts. Use when the user asks about market breadth, internals, risk-on/off, or wants a breadth dashboard.",
     "market": "US-market",
     "questions": [
@@ -760,7 +760,7 @@
     ]
   },
   {
-    "skill": "peer-comparison-analyzer",
+    "skill": "us-peer-comparison-analyzer",
     "description": "Build peer comps and explain differences in valuation, growth, profitability, leverage, and cash flow quality. Use when the user asks for comparable company analysis or peer-relative valuation.",
     "market": "US-market",
     "questions": [
@@ -770,7 +770,7 @@
     ]
   },
   {
-    "skill": "policy-sensitivity-brief",
+    "skill": "us-policy-sensitivity-brief",
     "description": "Map policy/macro releases to likely sector/style sensitivities and produce a monitoring checklist. Use when the user asks which sectors are sensitive to a policy change or wants a policy-impact brief.",
     "market": "US-market",
     "questions": [
@@ -780,7 +780,7 @@
     ]
   },
   {
-    "skill": "portfolio-health-check",
+    "skill": "us-portfolio-health-check",
     "description": "Diagnose risks and inefficiencies in an existing investment portfolio. Use when the user asks to review, audit, or stress-test their current holdings, evaluate portfolio concentration, check factor exposures, assess correlation risks, identify hidden tilts, or get actionable improvement suggestions for a portfolio they already own.",
     "market": "US-market",
     "questions": [
@@ -790,7 +790,7 @@
     ]
   },
   {
-    "skill": "portfolio-monitor-orchestrator",
+    "skill": "us-portfolio-monitor-orchestrator",
     "description": "Orchestrate portfolio monitoring: risk, concentration, factor/style exposure, liquidity, and scenario checks into one report. Use when the user asks for an end-to-end portfolio review/monitoring report.",
     "market": "US-market",
     "questions": [
@@ -800,7 +800,7 @@
     ]
   },
   {
-    "skill": "quant-factor-screener",
+    "skill": "us-quant-factor-screener",
     "description": "Systematic multi-factor stock screening using formal factor models to identify stocks with favorable factor exposures. Use when the user asks about factor investing, multi-factor screening, value/momentum/quality factor analysis, factor scoring, factor timing, smart beta strategies, quantitative stock screening, or systematic equity selection based on academic factors.",
     "market": "US-market",
     "questions": [
@@ -810,7 +810,7 @@
     ]
   },
   {
-    "skill": "rebalancing-planner",
+    "skill": "us-rebalancing-planner",
     "description": "Design rebalancing rules (threshold/time-based), constraints, and an execution checklist. Use when the user asks how to rebalance a portfolio or wants a rebalancing plan.",
     "market": "US-market",
     "questions": [
@@ -820,7 +820,7 @@
     ]
   },
   {
-    "skill": "risk-adjusted-return-optimizer",
+    "skill": "us-risk-adjusted-return-optimizer",
     "description": "Build diversified portfolios optimized for risk-adjusted returns based on user-specified portfolio size, risk tolerance, and time horizon. Use when the user asks to build a portfolio, construct an asset allocation, optimize risk-adjusted returns, create a diversified investment plan, determine position sizing, design a rebalancing strategy, or requests portfolio construction advice for a specific dollar amount and risk profile.",
     "market": "US-market",
     "questions": [
@@ -830,7 +830,7 @@
     ]
   },
   {
-    "skill": "sector-rotation-detector",
+    "skill": "us-sector-rotation-detector",
     "description": "Detect sector rotation signals by analyzing macroeconomic indicators and business cycle positioning to identify which sectors are likely to outperform or underperform over the next 6–12 months. Use when the user asks about sector rotation, macro-driven sector allocation, business cycle investing, which sectors to overweight or underweight, interest rate impact on sectors, inflation plays, or macro investment strategy.",
     "market": "US-market",
     "questions": [
@@ -840,7 +840,7 @@
     ]
   },
   {
-    "skill": "sentiment-reality-gap",
+    "skill": "us-sentiment-reality-gap",
     "description": "Identify stocks where market sentiment is significantly more negative than fundamentals warrant — the gap between narrative and reality. Use when the user asks to find contrarian opportunities, stocks with sentiment-fundamental misalignment, oversold but fundamentally strong companies, stocks punished by negative narratives, or wants to analyze whether market fear is justified for specific stocks or sectors.",
     "market": "US-market",
     "questions": [
@@ -850,7 +850,7 @@
     ]
   },
   {
-    "skill": "small-cap-growth-identifier",
+    "skill": "us-small-cap-growth-identifier",
     "description": "Identify high-growth small-cap stocks (market cap under $2B) with strong fundamentals, insider ownership, and low institutional coverage — the kind of overlooked opportunities that larger funds miss. Use when the user asks to find small-cap growth stocks, discover under-the-radar companies, screen for founder-led small caps, identify emerging growth companies, find low-institutional-ownership stocks, or seek multi-bagger candidates with strong fundamentals.",
     "market": "US-market",
     "questions": [
@@ -860,7 +860,7 @@
     ]
   },
   {
-    "skill": "suitability-report-generator",
+    "skill": "us-suitability-report-generator",
     "description": "Generate institutional-grade investment suitability reports including rationale, risk disclosure, and client suitability assessment. Use when the user asks to document investment decisions, create compliance reports, generate risk disclosures, prepare client-facing investment justifications, write suitability assessments, or produce fiduciary documentation for an investment recommendation or portfolio.",
     "market": "US-market",
     "questions": [
@@ -880,7 +880,7 @@
     ]
   },
   {
-    "skill": "tech-hype-vs-fundamentals",
+    "skill": "us-tech-hype-vs-fundamentals",
     "description": "Compare leading tech stocks to distinguish hype-driven overvaluation from fundamentally justified pricing, and identify undervalued tech names the market is overlooking. Use when the user asks to evaluate tech stock valuations, find overvalued or undervalued tech companies, assess whether a tech stock's growth justifies its multiple, compare tech company fundamentals, analyze revenue growth vs. valuation, or identify mispriced technology stocks.",
     "market": "US-market",
     "questions": [
@@ -890,7 +890,7 @@
     ]
   },
   {
-    "skill": "undervalued-stock-screener",
+    "skill": "us-undervalued-stock-screener",
     "description": "Screen and identify undervalued stocks with strong fundamentals using professional equity research methodology. Use when the user asks to find undervalued stocks, screen for cheap or bargain stocks, identify value investing opportunities, perform fundamental stock analysis, find stocks trading below intrinsic value, or requests a stock screener based on financial metrics like P/E ratio, debt-to-equity, free cash flow, or ROIC.",
     "market": "US-market",
     "questions": [
@@ -900,7 +900,7 @@
     ]
   },
   {
-    "skill": "valuation-regime-detector",
+    "skill": "us-valuation-regime-detector",
     "description": "Detect valuation regimes using percentiles vs history/peers and link them to macro/rates signals. Use when the user asks whether a market/sector/name is expensive/cheap relative to history or wants valuation percentile analysis.",
     "market": "US-market",
     "questions": [
@@ -910,7 +910,7 @@
     ]
   },
   {
-    "skill": "volatility-regime-monitor",
+    "skill": "us-volatility-regime-monitor",
     "description": "Assess volatility regimes (realized/implicit, vol-of-vol, drawdowns) and produce a risk-on/off assessment and monitoring triggers. Use when the user asks about volatility regime, risk regime, or volatility signals.",
     "market": "US-market",
     "questions": [
@@ -920,7 +920,7 @@
     ]
   },
   {
-    "skill": "weekly-market-brief-generator",
+    "skill": "us-weekly-market-brief-generator",
     "description": "Produce a weekly market brief (performance, macro, flows, risks, watchlist) with consistent sections and tables. Use when the user asks for a weekly market update/brief.",
     "market": "US-market",
     "questions": [

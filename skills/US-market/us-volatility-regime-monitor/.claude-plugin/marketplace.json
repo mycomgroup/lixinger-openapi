@@ -1,5 +1,5 @@
 {
-  "name": "volatility-regime-monitor",
+  "name": "us-volatility-regime-monitor",
   "version": "1.0.0",
   "metadata": {
     "description": "Assess volatility regimes (realized/implicit, vol-of-vol, drawdowns) and produce a risk-on/off assessment and monitoring triggers. Use when the user asks about volatility regime, risk regime, or volatility signals.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "volatility-regime-monitor-plugin",
+      "name": "us-volatility-regime-monitor-plugin",
       "description": "Assess volatility regimes (realized/implicit, vol-of-vol, drawdowns) and produce a risk-on/off assessment and monitoring triggers. Use when the user asks about volatility regime, risk regime, or volatility signals.",
       "source": "./",
       "skills": [

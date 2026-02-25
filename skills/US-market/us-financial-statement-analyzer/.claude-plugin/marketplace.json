@@ -1,5 +1,5 @@
 {
-  "name": "financial-statement-analyzer",
+  "name": "us-financial-statement-analyzer",
   "version": "1.0.0",
   "metadata": {
     "description": "Perform forensic-level analysis of a single company's financial statements, evaluating earnings quality, financial health, fraud risk, and operational efficiency. Use when the user asks for a deep dive into a company's financials, DuPont analysis, earnings quality check, balance sheet analysis, cash flow analysis, Altman Z-score, Beneish M-score, working capital analysis, or any detailed single-company financial examination.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "financial-statement-analyzer-plugin",
+      "name": "us-financial-statement-analyzer-plugin",
       "description": "Perform forensic-level analysis of a single company's financial statements, evaluating earnings quality, financial health, fraud risk, and operational efficiency. Use when the user asks for a deep dive into a company's financials, DuPont analysis, earnings quality check, balance sheet analysis, cash flow analysis, Altman Z-score, Beneish M-score, working capital analysis, or any detailed single-company financial examination.",
       "source": "./",
       "skills": [

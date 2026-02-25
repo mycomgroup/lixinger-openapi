@@ -1,7 +1,6 @@
 ---
-name: event-study
+name: us-event-study
 description: Run an event study (pre/post windows, abnormal returns, peer/benchmark adjustment) for corporate or macro events. Use when the user asks how prices behaved around an event or wants an event-window analysis.
-license: Apache-2.0
 ---
 
 # Event Study Analyzer

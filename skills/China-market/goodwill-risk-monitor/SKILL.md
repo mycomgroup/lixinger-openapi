@@ -1,7 +1,6 @@
 ---
 name: goodwill-risk-monitor
 description: 监控公司/行业商誉规模、减值明细与预警信号，识别潜在商誉减值风险与财报冲击。当用户询问商誉、商誉减值、商誉风险或需要商誉风险清单时使用。
-license: Apache-2.0
 ---
 
 # 商誉风险监控器

@@ -1,7 +1,6 @@
 ---
-name: market-breadth-monitor
+name: us-market-breadth-monitor
 description: Monitor market breadth and internals (advance/decline, new highs/lows, concentration, breadth thrusts) to assess risk appetite and regime shifts. Use when the user asks about market breadth, internals, risk-on/off, or wants a breadth dashboard.
-license: Apache-2.0
 ---
 
 # Market Breadth Monitor

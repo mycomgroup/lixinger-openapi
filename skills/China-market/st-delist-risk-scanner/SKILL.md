@@ -1,7 +1,6 @@
 ---
 name: st-delist-risk-scanner
 description: 扫描风险警示板(ST)与退市/两网相关标的，输出风险标签、触发原因与可交易性约束。当用户询问ST、退市风险、两网及退市板块、或需要退市风险清单时使用。
-license: Apache-2.0
 ---
 
 # ST与退市风险扫描器

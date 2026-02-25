@@ -1,7 +1,6 @@
 ---
 name: limit-up-limit-down-risk-checker
 description: 评估涨跌停/停牌等制度约束对可交易性的影响，输出风险标签与应对建议。当用户询问涨停板/跌停板风险、无法成交风险、或需要交易约束检查时使用。
-license: Apache-2.0
 ---
 
 # 涨跌停与可交易性风险检查器

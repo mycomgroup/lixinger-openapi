@@ -1,7 +1,6 @@
 ---
 name: ipo-lockup-risk-monitor
 description: 监控限售解禁、重要股东减持与供给冲击风险，输出时间表与风险提示。当用户询问解禁/减持、供给冲击、或需要解禁风险清单时使用。
-license: Apache-2.0
 ---
 
 # 解禁与减持风险监控器

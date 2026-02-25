@@ -1,7 +1,6 @@
 ---
 name: buyback-monitor
 description: Analyze share repurchases (authorization, pace, dilution vs buybacks) and capital return sustainability. Use when the user asks about buybacks, shareholder yield, or capital return analysis.
-license: Apache-2.0
 ---
 
 # Buyback Monitor

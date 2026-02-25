@@ -1,7 +1,6 @@
 ---
 name: hk-sector-rotation
 description: 港股板块轮动检测器。监控港股各板块的资金流向、相对强度、轮动信号等。用于识别板块轮动机会和行业配置策略。
-license: Apache-2.0
 ---
 
 # 港股板块轮动检测器

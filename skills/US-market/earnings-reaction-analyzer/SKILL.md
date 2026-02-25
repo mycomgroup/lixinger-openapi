@@ -1,7 +1,6 @@
 ---
 name: earnings-reaction-analyzer
 description: Analyze post-earnings reactions (gaps, drift, volatility), link to guidance/surprises, and define monitoring levels. Use when the user asks why a stock moved after earnings or wants an earnings reaction breakdown.
-license: Apache-2.0
 ---
 
 # Earnings Reaction Analyzer

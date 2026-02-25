@@ -1,7 +1,6 @@
 ---
 name: tax-aware-rebalancing-planner
 description: Plan rebalancing with tax constraints (realized gains, lot selection, wash-sale awareness) and an execution checklist. Use when the user asks for tax-aware rebalancing or minimizing taxes while rebalancing.
-license: Apache-2.0
 ---
 
 # Tax-Aware Rebalancing Planner

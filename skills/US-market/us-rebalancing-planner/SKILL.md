@@ -1,7 +1,6 @@
 ---
-name: rebalancing-planner
+name: us-rebalancing-planner
 description: Design rebalancing rules (threshold/time-based), constraints, and an execution checklist. Use when the user asks how to rebalance a portfolio or wants a rebalancing plan.
-license: Apache-2.0
 ---
 
 # Rebalancing Planner

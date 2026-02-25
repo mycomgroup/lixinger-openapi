@@ -1,7 +1,6 @@
 ---
-name: factor-crowding-monitor
+name: us-factor-crowding-monitor
 description: Monitor factor crowding and factor performance dispersion to identify crowded trades and rotation risk. Use when the user asks about factor crowding, style squeeze risk, or factor rotation signals.
-license: Apache-2.0
 ---
 
 # Factor Crowding Monitor

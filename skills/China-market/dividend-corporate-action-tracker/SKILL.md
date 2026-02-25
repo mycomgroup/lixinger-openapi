@@ -1,7 +1,6 @@
 ---
 name: dividend-corporate-action-tracker
 description: 跟踪历史分红、分红配股方案、除权除息与交易提醒，评估股东回报与分红可持续性。当用户询问分红记录、配股方案、除权除息、股息率或需要分红跟踪时使用。
-license: Apache-2.0
 ---
 
 # 分红与配股跟踪器

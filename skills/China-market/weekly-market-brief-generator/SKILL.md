@@ -1,7 +1,6 @@
 ---
 name: weekly-market-brief-generator
 description: 生成周度市场简报（表现、宏观、资金、风险、观察清单），输出固定结构与表格。当用户要求市场周报/周度复盘/周度监控摘要时使用。
-license: Apache-2.0
 ---
 
 # 周度市场简报生成器

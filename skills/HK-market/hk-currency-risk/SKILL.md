@@ -1,7 +1,6 @@
 ---
 name: hk-currency-risk
 description: 港股汇率风险监控器。监控港币汇率波动、汇率风险敞口、汇率对冲策略等。用于管理港股投资的汇率风险。
-license: Apache-2.0
 ---
 
 # 港股汇率风险监控器

@@ -1,7 +1,6 @@
 ---
-name: volatility-regime-monitor
+name: us-volatility-regime-monitor
 description: Assess volatility regimes (realized/implicit, vol-of-vol, drawdowns) and produce a risk-on/off assessment and monitoring triggers. Use when the user asks about volatility regime, risk regime, or volatility signals.
-license: Apache-2.0
 ---
 
 # Volatility Regime Monitor

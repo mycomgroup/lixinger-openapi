@@ -1,5 +1,5 @@
 {
-  "name": "peer-comparison-analyzer",
+  "name": "us-peer-comparison-analyzer",
   "version": "1.0.0",
   "metadata": {
     "description": "Build peer comps and explain differences in valuation, growth, profitability, leverage, and cash flow quality. Use when the user asks for comparable company analysis or peer-relative valuation.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "peer-comparison-analyzer-plugin",
+      "name": "us-peer-comparison-analyzer-plugin",
       "description": "Build peer comps and explain differences in valuation, growth, profitability, leverage, and cash flow quality. Use when the user asks for comparable company analysis or peer-relative valuation.",
       "source": "./",
       "skills": [

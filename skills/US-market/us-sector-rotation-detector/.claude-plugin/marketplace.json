@@ -1,5 +1,5 @@
 {
-  "name": "sector-rotation-detector",
+  "name": "us-sector-rotation-detector",
   "version": "1.0.0",
   "metadata": {
     "description": "Detect sector rotation signals by analyzing macroeconomic indicators and business cycle positioning to identify which sectors are likely to outperform or underperform over the next 6–12 months. Use when the user asks about sector rotation, macro-driven sector allocation, business cycle investing, which sectors to overweight or underweight, interest rate impact on sectors, inflation plays, or macro investment strategy.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "sector-rotation-detector-plugin",
+      "name": "us-sector-rotation-detector-plugin",
       "description": "Detect sector rotation signals by analyzing macroeconomic indicators and business cycle positioning to identify which sectors are likely to outperform or underperform over the next 6–12 months. Use when the user asks about sector rotation, macro-driven sector allocation, business cycle investing, which sectors to overweight or underweight, interest rate impact on sectors, inflation plays, or macro investment strategy.",
       "source": "./",
       "skills": [

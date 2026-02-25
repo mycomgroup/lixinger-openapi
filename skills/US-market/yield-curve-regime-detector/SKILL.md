@@ -1,7 +1,6 @@
 ---
 name: yield-curve-regime-detector
 description: Assess yield curve shape, inversion signals, term premiums, and macro implications. Use when the user asks about the yield curve, inversion, or rate-regime impacts.
-license: Apache-2.0
 ---
 
 # Yield Curve Regime Detector

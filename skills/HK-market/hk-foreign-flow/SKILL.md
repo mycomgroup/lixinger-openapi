@@ -1,7 +1,6 @@
 ---
 name: hk-foreign-flow
 description: 港股外资流向分析器。专门分析外资通过港股通、QFII、直接投资等方式流入流出港股的资金动向。用于把握国际资金动向和投资机会。
-license: Apache-2.0
 ---
 
 # 港股外资流向分析器

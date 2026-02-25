@@ -1,7 +1,6 @@
 ---
 name: hk-market-breadth
 description: 港股市场广度监控器。监控港股市场广度指标、上涨下跌家数、新高新低比率等。用于评估市场整体健康状况和趋势强度。
-license: Apache-2.0
 ---
 
 # 港股市场广度监控器

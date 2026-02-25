@@ -1,7 +1,6 @@
 ---
 name: valuation-regime-detector
 description: 用历史/同业分位数识别估值中枢与极端状态，并结合宏观/利率信号解释估值变化。当用户询问某市场/行业/个股是否贵或便宜、或需要估值分位数分析时使用。
-license: Apache-2.0
 ---
 
 # 估值中枢与分位数识别器

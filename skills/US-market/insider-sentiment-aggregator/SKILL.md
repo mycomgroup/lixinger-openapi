@@ -1,7 +1,6 @@
 ---
 name: insider-sentiment-aggregator
 description: Aggregate insider buying/selling patterns across multiple tickers to identify management confidence signals. Use when the user asks for market-wide insider activity scans or insider sentiment dashboards.
-license: Apache-2.0
 ---
 
 # Insider Sentiment Aggregator

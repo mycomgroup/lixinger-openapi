@@ -1,7 +1,6 @@
 ---
-name: equity-research-orchestrator
+name: us-equity-research-orchestrator
 description: Orchestrate a full equity research workflow by calling relevant skills/toolkit views and assembling a single coherent deliverable. Use when the user asks to 'analyze this stock end-to-end' or wants a full research pack.
-license: Apache-2.0
 ---
 
 # Equity Research Orchestrator

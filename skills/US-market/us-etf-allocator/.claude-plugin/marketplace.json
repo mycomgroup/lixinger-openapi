@@ -1,5 +1,5 @@
 {
-  "name": "etf-allocator",
+  "name": "us-etf-allocator",
   "version": "1.0.0",
   "metadata": {
     "description": "Construct ETF allocations and quantify exposures (sector/style/factor), liquidity, and tracking considerations. Use when the user asks to build an ETF portfolio or analyze ETF exposures.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "etf-allocator-plugin",
+      "name": "us-etf-allocator-plugin",
       "description": "Construct ETF allocations and quantify exposures (sector/style/factor), liquidity, and tracking considerations. Use when the user asks to build an ETF portfolio or analyze ETF exposures.",
       "source": "./",
       "skills": [

@@ -1,7 +1,6 @@
 ---
 name: etf-allocator
 description: 构建 ETF 配置方案并量化暴露（行业/风格/因子）、流动性与跟踪误差等关键约束。当用户要求用 ETF 做配置、或分析 ETF 暴露与风险时使用。
-license: Apache-2.0
 ---
 
 # ETF 配置与暴露分析器

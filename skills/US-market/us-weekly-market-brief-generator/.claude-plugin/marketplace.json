@@ -1,5 +1,5 @@
 {
-  "name": "weekly-market-brief-generator",
+  "name": "us-weekly-market-brief-generator",
   "version": "1.0.0",
   "metadata": {
     "description": "Produce a weekly market brief (performance, macro, flows, risks, watchlist) with consistent sections and tables. Use when the user asks for a weekly market update/brief.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "weekly-market-brief-generator-plugin",
+      "name": "us-weekly-market-brief-generator-plugin",
       "description": "Produce a weekly market brief (performance, macro, flows, risks, watchlist) with consistent sections and tables. Use when the user asks for a weekly market update/brief.",
       "source": "./",
       "skills": [

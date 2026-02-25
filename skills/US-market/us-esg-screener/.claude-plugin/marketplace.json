@@ -1,5 +1,5 @@
 {
-  "name": "esg-screener",
+  "name": "us-esg-screener",
   "version": "1.0.0",
   "metadata": {
     "description": "Screen and analyze stocks through an ESG (Environmental, Social, Governance) lens, evaluating sustainability practices, controversy exposure, and responsible investing criteria. Use when the user asks about ESG investing, sustainable investing, socially responsible investing (SRI), impact investing, green stocks, carbon footprint analysis, governance quality assessment, controversy screening, exclusion lists, or ESG scoring of companies or portfolios.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "esg-screener-plugin",
+      "name": "us-esg-screener-plugin",
       "description": "Screen and analyze stocks through an ESG (Environmental, Social, Governance) lens, evaluating sustainability practices, controversy exposure, and responsible investing criteria. Use when the user asks about ESG investing, sustainable investing, socially responsible investing (SRI), impact investing, green stocks, carbon footprint analysis, governance quality assessment, controversy screening, exclusion lists, or ESG scoring of companies or portfolios.",
       "source": "./",
       "skills": [

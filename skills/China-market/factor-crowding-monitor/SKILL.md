@@ -1,7 +1,6 @@
 ---
 name: factor-crowding-monitor
 description: 监控因子拥挤度与因子收益分化，用于识别拥挤交易与风格挤压/轮动风险。当用户询问因子拥挤度、风格拥挤、或需要因子轮动风险提示时使用。
-license: Apache-2.0
 ---
 
 # 因子拥挤度监控器

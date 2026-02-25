@@ -1,7 +1,6 @@
 ---
 name: options-strategy-analyzer
 description: Analyze options strategies (covered calls, puts, spreads), Greeks, payoff diagrams, and risk. Use when the user asks about options strategy selection, pricing, or hedging with options.
-license: Apache-2.0
 ---
 
 # Options Strategy Analyzer

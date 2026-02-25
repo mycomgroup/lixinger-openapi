@@ -1,7 +1,6 @@
 ---
 name: hk-etf-flow
 description: 港股ETF资金流向分析器。专门分析港股ETF的资金流向、持仓变化、溢价折价等。用于把握ETF投资机会和资金动向。
-license: Apache-2.0
 ---
 
 # 港股ETF资金流向分析器

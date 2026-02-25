@@ -1,7 +1,6 @@
 ---
 name: macro-liquidity-monitor
 description: 跟踪宏观流动性指标（利率、通胀、信用、政策取向）并总结对资产/行业的影响。当用户询问流动性环境、政策对市场影响或需要宏观流动性仪表盘时使用。
-license: Apache-2.0
 ---
 
 # 宏观流动性监控器

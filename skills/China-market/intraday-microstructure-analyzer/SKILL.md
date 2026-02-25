@@ -1,7 +1,6 @@
 ---
 name: intraday-microstructure-analyzer
 description: 分析分时/盘口/逐笔/分钟线与盘前数据，评估日内波动、量价结构与流动性风险。当用户询问分时、逐笔、盘口、分钟K、盘前/盘中结构或需要日内诊断时使用。
-license: Apache-2.0
 ---
 
 # 日内行情与微观结构分析器

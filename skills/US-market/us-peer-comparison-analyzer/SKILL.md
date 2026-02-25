@@ -1,7 +1,6 @@
 ---
-name: peer-comparison-analyzer
+name: us-peer-comparison-analyzer
 description: Build peer comps and explain differences in valuation, growth, profitability, leverage, and cash flow quality. Use when the user asks for comparable company analysis or peer-relative valuation.
-license: Apache-2.0
 ---
 
 # Peer Comparison Analyzer

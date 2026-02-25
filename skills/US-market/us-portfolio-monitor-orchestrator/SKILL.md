@@ -1,7 +1,6 @@
 ---
-name: portfolio-monitor-orchestrator
+name: us-portfolio-monitor-orchestrator
 description: Orchestrate portfolio monitoring: risk, concentration, factor/style exposure, liquidity, and scenario checks into one report. Use when the user asks for an end-to-end portfolio review/monitoring report.
-license: Apache-2.0
 ---
 
 # Portfolio Monitor Orchestrator

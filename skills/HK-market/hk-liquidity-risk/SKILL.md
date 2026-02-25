@@ -1,7 +1,6 @@
 ---
 name: hk-liquidity-risk
 description: 港股流动性风险监控器。监控港股市场流动性状况、个股流动性风险、市场深度分析等。用于识别流动性风险和制定交易策略。
-license: Apache-2.0
 ---
 
 # 港股流动性风险监控器

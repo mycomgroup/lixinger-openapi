@@ -1,7 +1,6 @@
 ---
-name: liquidity-impact-estimator
+name: us-liquidity-impact-estimator
 description: Estimate liquidity and trading impact (volume/turnover, bid-ask proxies, slippage/impact heuristics) for single names or portfolios. Use when the user asks about liquidity risk, tradability, or wants to size trades safely.
-license: Apache-2.0
 ---
 
 # Liquidity & Impact Estimator

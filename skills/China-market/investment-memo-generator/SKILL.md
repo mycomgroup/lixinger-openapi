@@ -1,7 +1,6 @@
 ---
 name: investment-memo-generator
 description: 基于结构化输入与数据生成机构风格投资备忘录（观点、估值、催化剂、风险与监控）。当用户要求撰写投资备忘录/研究简报/投资逻辑陈述时使用。
-license: Apache-2.0
 ---
 
 # 投资备忘录生成器

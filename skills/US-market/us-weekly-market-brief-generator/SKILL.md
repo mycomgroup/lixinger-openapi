@@ -1,7 +1,6 @@
 ---
-name: weekly-market-brief-generator
+name: us-weekly-market-brief-generator
 description: Produce a weekly market brief (performance, macro, flows, risks, watchlist) with consistent sections and tables. Use when the user asks for a weekly market update/brief.
-license: Apache-2.0
 ---
 
 # Weekly Market Brief Generator

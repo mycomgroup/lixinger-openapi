@@ -1,7 +1,6 @@
 ---
 name: credit-spread-monitor
 description: Track credit spreads (IG/HY), default risk proxies, and stress signals; summarize equity implications. Use when the user asks about credit conditions or spread widening/tightening.
-license: Apache-2.0
 ---
 
 # Credit Spread Monitor

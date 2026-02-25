@@ -1,5 +1,5 @@
 {
-  "name": "macro-liquidity-monitor",
+  "name": "us-macro-liquidity-monitor",
   "version": "1.0.0",
   "metadata": {
     "description": "Track macro liquidity indicators (rates, inflation, credit, central bank stance) and summarize implications for assets/sectors. Use when the user asks about liquidity conditions or policy-driven market impacts.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "macro-liquidity-monitor-plugin",
+      "name": "us-macro-liquidity-monitor-plugin",
       "description": "Track macro liquidity indicators (rates, inflation, credit, central bank stance) and summarize implications for assets/sectors. Use when the user asks about liquidity conditions or policy-driven market impacts.",
       "source": "./",
       "skills": [

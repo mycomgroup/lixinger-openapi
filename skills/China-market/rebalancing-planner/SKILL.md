@@ -1,7 +1,6 @@
 ---
 name: rebalancing-planner
 description: 设计组合再平衡规则（阈值/定期）、约束条件与执行清单。当用户询问如何再平衡、何时调仓、或需要再平衡方案时使用。
-license: Apache-2.0
 ---
 
 # 再平衡计划器

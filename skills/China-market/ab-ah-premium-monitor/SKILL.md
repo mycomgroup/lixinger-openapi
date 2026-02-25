@@ -1,7 +1,6 @@
 ---
 name: ab-ah-premium-monitor
 description: 跟踪 AB 股比价与 A+H 溢价/折价，并结合流动性与事件因素给出风险提示。当用户询问AB股比价、A+H溢价、跨市场定价差或需要溢价监控时使用。
-license: Apache-2.0
 ---
 
 # AB/AH 溢价与比价监控器

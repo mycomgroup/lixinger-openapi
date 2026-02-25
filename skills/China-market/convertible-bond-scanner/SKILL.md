@@ -1,7 +1,6 @@
 ---
 name: convertible-bond-scanner
 description: 筛选可转债并评估溢价、流动性、条款风险与正股质量联动。当用户询问可转债机会、转债筛选、转债溢价/条款风险或需要转债清单时使用。
-license: Apache-2.0
 ---
 
 # 可转债筛选器

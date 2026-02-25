@@ -1,5 +1,5 @@
 {
-  "name": "investment-memo-generator",
+  "name": "us-investment-memo-generator",
   "version": "1.0.0",
   "metadata": {
     "description": "Generate an institutional-style investment memo (thesis, valuation, catalysts, risks, monitoring) from structured inputs and supporting data. Use when the user asks for an investment memo, write-up, or pitch.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "investment-memo-generator-plugin",
+      "name": "us-investment-memo-generator-plugin",
       "description": "Generate an institutional-style investment memo (thesis, valuation, catalysts, risks, monitoring) from structured inputs and supporting data. Use when the user asks for an investment memo, write-up, or pitch.",
       "source": "./",
       "skills": [

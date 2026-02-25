@@ -1,5 +1,5 @@
 {
-  "name": "policy-sensitivity-brief",
+  "name": "us-policy-sensitivity-brief",
   "version": "1.0.0",
   "metadata": {
     "description": "Map policy/macro releases to likely sector/style sensitivities and produce a monitoring checklist. Use when the user asks which sectors are sensitive to a policy change or wants a policy-impact brief.",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "policy-sensitivity-brief-plugin",
+      "name": "us-policy-sensitivity-brief-plugin",
       "description": "Map policy/macro releases to likely sector/style sensitivities and produce a monitoring checklist. Use when the user asks which sectors are sensitive to a policy change or wants a policy-impact brief.",
       "source": "./",
       "skills": [
