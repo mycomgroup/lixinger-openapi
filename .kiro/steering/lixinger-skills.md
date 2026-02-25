@@ -174,23 +174,74 @@ inclusion: always
 
 ## 💡 使用方式
 
-### ⚠️ 重要：使用优先级
+### ⚠️ 重要：使用优先级（必须严格遵守）
 
-**优先使用分析 Skills，找不到合适的再使用原始数据查询工具**
+**三级优先级体系：市场分析 Skills > 数据查询工具 > AkShare 接口**
 
-1. **首选**：使用 `skills/China-market/`、`skills/HK-market/`、`skills/US-market/` 中的分析 skills
-   - 这些 skills 提供完整的分析方法论和工作流程
-   - 包含数据获取、分析逻辑、输出模板
-   - 适合复杂的金融分析任务
+#### 第一优先级：市场分析 Skills（最优先）
 
-2. **备选**：使用 `skills/lixinger-data-query/` 原始数据查询工具
-   - 仅在找不到合适的分析 skill 时使用
-   - 适合简单的数据查询需求
-   - 需要自己编写分析逻辑
+使用 `skills/China-market/`、`skills/HK-market/`、`skills/US-market/` 中的 116 个分析 skills：
+
+- **A股市场**：66 个专业分析 skills（`skills/China-market/`）
+- **港股市场**：13 个专业分析 skills（`skills/HK-market/`）
+- **美股市场**：37 个专业分析 skills（`skills/US-market/`）
+
+**为什么优先使用**：
+- 提供完整的分析方法论和工作流程
+- 包含数据获取、分析逻辑、输出模板
+- 适合复杂的金融分析任务
+- 开箱即用，无需自己编写分析逻辑
+
+**如何查找**：
+```bash
+# 查找 A股分析 skills
+ls skills/China-market/
+
+# 查找港股分析 skills
+ls skills/HK-market/
+
+# 查找美股分析 skills
+ls skills/US-market/
+```
+
+#### 第二优先级：理杏仁数据查询工具（备选）
+
+使用 `skills/lixinger-data-query/` 的 162 个理杏仁 API：
+
+**何时使用**：
+- 找不到合适的市场分析 skill
+- 需要简单的数据查询
+- 需要自定义分析逻辑
+
+**如何使用**：
+```bash
+# 使用 query_tool.py 查询理杏仁 API
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.company.dividend" \
+  --params '{"stockCode": "600519"}' \
+  --columns "date,dividendPerShare"
+```
+
+#### 第三优先级：AkShare 接口（最后备选）
+
+使用 `skills/lixinger-data-query/api_new/akshare_data/` 的 1000+ AkShare 接口：
+
+**何时使用**：
+- 市场分析 skills 和理杏仁 API 都无法满足需求
+- 需要特殊的数据源（如集思录可转债、东方财富龙虎榜等）
+
+**如何使用**：
+```python
+import akshare as ak
+
+# 示例：查询可转债数据
+bond_cb_jsl_df = ak.bond_cb_jsl(cookie="")
+print(bond_cb_jsl_df)
+```
 
 ### 数据获取（核心）
 
-**所有 skills 都使用 `query_tool.py` 获取数据**：
+**所有市场分析 skills 都使用 `query_tool.py` 获取数据**：
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
@@ -209,39 +260,85 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ### 工作流程
 
-当用户提出金融分析问题时：
+当用户提出金融分析问题时，**严格按照以下优先级顺序**：
 
-1. **识别需求**：判断用户需要哪种类型的分析和市场（A股/港股/美股）
+#### 步骤 1：优先查找市场分析 Skills（第一优先级）
 
-2. **选择 skill**：
-   - **A股分析**：从 66 个 China-market skills 中选择
-   - **港股分析**：从 13 个 HK-market skills 中选择
-   - **美股分析**：从 37 个 US-market skills 中选择
-   - **找不到合适的 skill**：使用 `lixinger-data-query` 原始数据查询
+**A股分析**：
+```bash
+# 查看所有 A股分析 skills
+ls skills/China-market/
 
-3. **查看 skill 文档**：
-   - 读取 `skills/{market}/{skill-name}/SKILL.md` 了解工作流程
-   - 查看 `references/data-queries.md` 了解需要哪些数据
-   - 查看 `references/methodology.md` 了解分析方法论
+# 示例：分红分析
+cat skills/China-market/dividend-corporate-action-tracker/SKILL.md
+```
 
-4. **获取数据**：使用 `query_tool.py` 获取数据
+**港股分析**：
+```bash
+# 查看所有港股分析 skills
+ls skills/HK-market/
 
-5. **执行分析**：按照 skill 的方法论进行分析
+# 示例：市场概览
+cat skills/HK-market/hk-market-overview/SKILL.md
+```
 
-6. **输出结果**：提供专业的分析报告
+**美股分析**：
+```bash
+# 查看所有美股分析 skills
+ls skills/US-market/
+
+# 示例：估值分析
+cat skills/US-market/valuation-regime-detector/SKILL.md
+```
+
+#### 步骤 2：如果找不到合适的 Skill，使用理杏仁 API（第二优先级）
+
+```bash
+# 搜索理杏仁 API
+grep -r "分红" skills/lixinger-data-query/api_new/api-docs/
+
+# 查看 API 文档
+cat skills/lixinger-data-query/api_new/api-docs/cn_company_dividend.md
+
+# 使用 query_tool.py 查询
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.company.dividend" \
+  --params '{"stockCode": "600519"}' \
+  --columns "date,dividendPerShare"
+```
+
+#### 步骤 3：如果理杏仁 API 也无法满足，使用 AkShare（第三优先级）
+
+```bash
+# 搜索 AkShare 接口
+grep -r "可转债" skills/lixinger-data-query/api_new/akshare_data/
+
+# 查看接口文档
+cat skills/lixinger-data-query/api_new/akshare_data/bond_cb_jsl.md
+
+# 使用 Python 调用
+python3 -c "import akshare as ak; print(ak.bond_cb_jsl(cookie=''))"
+```
+
+#### 步骤 4：执行分析
+
+- **使用 Skill**：按照 `SKILL.md` 的工作流程执行
+- **使用 API**：自己编写分析逻辑
+- **使用 AkShare**：处理返回的 DataFrame 数据
 
 ---
 
 ## 🎯 使用示例
 
-### 示例 1：A股分红数据分析
+### 示例 1：A股分红数据分析（使用市场分析 Skill - 第一优先级）
 
-**用户问**："查询贵州茅台的分红历史"
+**用户问**："查询贵州茅台的分红历史并分析"
 
 **执行步骤**：
-1. 选择 skill：`China-market/dividend-corporate-action-tracker`
-2. 查看数据需求：`skills/China-market/dividend-corporate-action-tracker/references/data-queries.md`
-3. 获取数据：
+1. **优先选择市场分析 Skill**：`China-market/dividend-corporate-action-tracker`
+2. 查看工作流程：`skills/China-market/dividend-corporate-action-tracker/SKILL.md`
+3. 查看数据需求：`skills/China-market/dividend-corporate-action-tracker/references/data-queries.md`
+4. 获取数据：
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn.company.dividend" \
@@ -249,16 +346,18 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
   --columns "date,dividendPerShare,dividendYield" \
   --limit 20
 ```
-4. 分析并输出结果
+5. 按照 Skill 的方法论进行分析
+6. 输出专业的分析报告
 
-### 示例 2：港股市场概览
+### 示例 2：港股市场概览（使用市场分析 Skill - 第一优先级）
 
 **用户问**："港股市场今天表现如何？"
 
 **执行步骤**：
-1. 选择 skill：`HK-market/hk-market-overview`
-2. 查看数据需求：`skills/HK-market/hk-market-overview/references/data-queries.md`
-3. 获取数据：
+1. **优先选择市场分析 Skill**：`HK-market/hk-market-overview`
+2. 查看工作流程：`skills/HK-market/hk-market-overview/SKILL.md`
+3. 查看数据需求：`skills/HK-market/hk-market-overview/references/data-queries.md`
+4. 获取数据：
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk.index.fundamental" \
@@ -266,16 +365,18 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
   --columns "date,pe,pb,roe,dividendYield" \
   --limit 20
 ```
-4. 分析并输出结果
+5. 按照 Skill 的方法论进行分析
+6. 输出专业的市场概览报告
 
-### 示例 3：美股估值分析
+### 示例 3：美股估值分析（使用市场分析 Skill - 第一优先级）
 
 **用户问**："标普500指数估值水平如何？"
 
 **执行步骤**：
-1. 选择 skill：`US-market/valuation-regime-detector`
-2. 查看数据需求：`skills/US-market/valuation-regime-detector/references/data-queries.md`
-3. 获取数据：
+1. **优先选择市场分析 Skill**：`US-market/valuation-regime-detector`
+2. 查看工作流程：`skills/US-market/valuation-regime-detector/SKILL.md`
+3. 查看数据需求：`skills/US-market/valuation-regime-detector/references/data-queries.md`
+4. 获取数据：
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "us.index.fundamental" \
@@ -283,15 +384,16 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
   --columns "date,pe,pb,roe,dividendYield" \
   --limit 20
 ```
-4. 分析并输出结果
+5. 按照 Skill 的方法论进行分析
+6. 输出专业的估值分析报告
 
-### 示例 4：原始数据查询（找不到合适 skill 时）
+### 示例 4：简单数据查询（使用理杏仁 API - 第二优先级）
 
 **用户问**："查询某个特定的宏观数据"
 
 **执行步骤**：
-1. 确认没有合适的分析 skill
-2. 直接使用 `lixinger-data-query`：
+1. **确认没有合适的市场分析 Skill**
+2. **使用理杏仁 API**：
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "macro.money-supply" \
@@ -300,6 +402,28 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
   --limit 20
 ```
 3. 自行分析数据
+
+### 示例 5：特殊数据源（使用 AkShare - 第三优先级）
+
+**用户问**："查询集思录可转债数据"
+
+**执行步骤**：
+1. **确认市场分析 Skill 和理杏仁 API 都无法满足**
+2. **搜索 AkShare 接口**：
+```bash
+grep -r "可转债" skills/lixinger-data-query/api_new/akshare_data/
+```
+3. **查看接口文档**：
+```bash
+cat skills/lixinger-data-query/api_new/akshare_data/bond_cb_jsl.md
+```
+4. **使用 Python 调用**：
+```python
+import akshare as ak
+bond_cb_jsl_df = ak.bond_cb_jsl(cookie="")
+print(bond_cb_jsl_df)
+```
+5. 自行分析数据
 
 ---
 
@@ -388,19 +512,30 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 💡 重要提示
 
-### 0. Skill 使用优先级（最重要）
+### 0. Skill 使用优先级（最重要 - 必须严格遵守）
 
-**优先使用分析 Skills，找不到合适的再使用原始数据查询**
+**三级优先级体系（从高到低）**：
 
-- **首选**：使用 `China-market/`、`HK-market/`、`US-market/` 中的分析 skills
-  - 提供完整的分析方法论
-  - 包含数据获取、分析逻辑、输出模板
-  - 适合复杂的金融分析任务
+1. **第一优先级：市场分析 Skills**
+   - 位置：`skills/China-market/`、`skills/HK-market/`、`skills/US-market/`
+   - 数量：116 个（66 个 A股 + 13 个港股 + 37 个美股）
+   - 特点：提供完整的分析方法论、数据获取、分析逻辑、输出模板
+   - 适用：复杂的金融分析任务
+   - **必须优先使用**
 
-- **备选**：使用 `lixinger-data-query` 原始数据查询工具
-  - 仅在找不到合适的分析 skill 时使用
-  - 适合简单的数据查询需求
-  - 需要自己编写分析逻辑
+2. **第二优先级：理杏仁数据查询工具**
+   - 位置：`skills/lixinger-data-query/`
+   - 数量：162 个理杏仁 API
+   - 特点：原始数据查询，需要自己编写分析逻辑
+   - 适用：简单的数据查询需求
+   - **仅在找不到合适的市场分析 skill 时使用**
+
+3. **第三优先级：AkShare 接口**
+   - 位置：`skills/lixinger-data-query/api_new/akshare_data/`
+   - 数量：1000+ 接口
+   - 特点：第三方数据源，覆盖更广泛
+   - 适用：特殊数据源需求
+   - **仅在市场分析 skills 和理杏仁 API 都无法满足时使用**
 
 ### 1. 数据获取原则
 
