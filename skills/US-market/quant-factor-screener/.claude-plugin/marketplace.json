@@ -1,0 +1,19 @@
+{
+  "name": "quant-factor-screener",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Systematic multi-factor stock screening using formal factor models to identify stocks with favorable factor exposures. Use when the user asks about factor investing, multi-factor screening, value/momentum/quality factor analysis, factor scoring, factor timing, smart beta strategies, quantitative stock screening, or systematic equity selection based on academic factors.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "quant-factor-screener-plugin",
+      "description": "Systematic multi-factor stock screening using formal factor models to identify stocks with favorable factor exposures. Use when the user asks about factor investing, multi-factor screening, value/momentum/quality factor analysis, factor scoring, factor timing, smart beta strategies, quantitative stock screening, or systematic equity selection based on academic factors.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

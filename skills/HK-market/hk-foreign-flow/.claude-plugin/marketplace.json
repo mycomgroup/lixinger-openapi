@@ -1,0 +1,19 @@
+{
+  "name": "hk-foreign-flow",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股外资流向分析器。专门分析外资通过港股通、QFII、直接投资等方式流入流出港股的资金动向。用于把握国际资金动向和投资机会。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-foreign-flow-plugin",
+      "description": "港股外资流向分析器。专门分析外资通过港股通、QFII、直接投资等方式流入流出港股的资金动向。用于把握国际资金动向和投资机会。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "industry-chain-mapper",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "构建产业链上下游映射并跟踪景气信号（价格、产能、订单、库存等可得代理）。当用户询问产业链分析、上下游联动、景气跟踪或需要产业链地图时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "industry-chain-mapper-plugin",
+      "description": "构建产业链上下游映射并跟踪景气信号（价格、产能、订单、库存等可得代理）。当用户询问产业链分析、上下游联动、景气跟踪或需要产业链地图时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

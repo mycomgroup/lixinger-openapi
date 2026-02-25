@@ -1,0 +1,19 @@
+{
+  "name": "hot-rank-sentiment-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "跟踪个股人气榜、热度趋势、关注度与投票等情绪代理，识别情绪背离与拥挤风险。当用户询问人气榜、热度、关注度、股评投票或需要热度监控时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hot-rank-sentiment-monitor-plugin",
+      "description": "跟踪个股人气榜、热度趋势、关注度与投票等情绪代理，识别情绪背离与拥挤风险。当用户询问人气榜、热度、关注度、股评投票或需要热度监控时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

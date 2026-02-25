@@ -1,0 +1,19 @@
+{
+  "name": "credit-spread-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Track credit spreads (IG/HY), default risk proxies, and stress signals; summarize equity implications. Use when the user asks about credit conditions or spread widening/tightening.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "credit-spread-monitor-plugin",
+      "description": "Track credit spreads (IG/HY), default risk proxies, and stress signals; summarize equity implications. Use when the user asks about credit conditions or spread widening/tightening.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

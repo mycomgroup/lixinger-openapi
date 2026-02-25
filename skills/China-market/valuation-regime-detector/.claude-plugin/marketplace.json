@@ -1,0 +1,19 @@
+{
+  "name": "valuation-regime-detector",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "用历史/同业分位数识别估值中枢与极端状态，并结合宏观/利率信号解释估值变化。当用户询问某市场/行业/个股是否贵或便宜、或需要估值分位数分析时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "valuation-regime-detector-plugin",
+      "description": "用历史/同业分位数识别估值中枢与极端状态，并结合宏观/利率信号解释估值变化。当用户询问某市场/行业/个股是否贵或便宜、或需要估值分位数分析时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "hk-sector-rotation",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股板块轮动检测器。监控港股各板块的资金流向、相对强度、轮动信号等。用于识别板块轮动机会和行业配置策略。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-sector-rotation-plugin",
+      "description": "港股板块轮动检测器。监控港股各板块的资金流向、相对强度、轮动信号等。用于识别板块轮动机会和行业配置策略。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

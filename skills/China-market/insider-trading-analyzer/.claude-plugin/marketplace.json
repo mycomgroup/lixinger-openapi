@@ -1,0 +1,19 @@
+{
+  "name": "insider-trading-analyzer",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "分析A股市场董监高及重要股东增减持行为，识别具有显著管理层信心信号的公司。当用户询问董监高增持、大股东买入、内部人交易分析、管理层增持信号、股东增减持动态时使用此技能。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "insider-trading-analyzer-plugin",
+      "description": "分析A股市场董监高及重要股东增减持行为，识别具有显著管理层信心信号的公司。当用户询问董监高增持、大股东买入、内部人交易分析、管理层增持信号、股东增减持动态时使用此技能。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

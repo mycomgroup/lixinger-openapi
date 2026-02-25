@@ -1,0 +1,19 @@
+{
+  "name": "options-strategy-analyzer",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Analyze options strategies (covered calls, puts, spreads), Greeks, payoff diagrams, and risk. Use when the user asks about options strategy selection, pricing, or hedging with options.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "options-strategy-analyzer-plugin",
+      "description": "Analyze options strategies (covered calls, puts, spreads), Greeks, payoff diagrams, and risk. Use when the user asks about options strategy selection, pricing, or hedging with options.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

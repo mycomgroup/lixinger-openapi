@@ -1,0 +1,19 @@
+{
+  "name": "rebalancing-planner",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Design rebalancing rules (threshold/time-based), constraints, and an execution checklist. Use when the user asks how to rebalance a portfolio or wants a rebalancing plan.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "rebalancing-planner-plugin",
+      "description": "Design rebalancing rules (threshold/time-based), constraints, and an execution checklist. Use when the user asks how to rebalance a portfolio or wants a rebalancing plan.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

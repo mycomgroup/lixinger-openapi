@@ -1,0 +1,19 @@
+{
+  "name": "hk-southbound-flow",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股南向资金流向分析器。专门分析内地投资者通过港股通投资港股的资金流向、持仓变化、行业偏好等。用于把握内地资金动向和投资机会。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-southbound-flow-plugin",
+      "description": "港股南向资金流向分析器。专门分析内地投资者通过港股通投资港股的资金流向、持仓变化、行业偏好等。用于把握内地资金动向和投资机会。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "sentiment-reality-gap",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Identify stocks where market sentiment is significantly more negative than fundamentals warrant — the gap between narrative and reality. Use when the user asks to find contrarian opportunities, stocks with sentiment-fundamental misalignment, oversold but fundamentally strong companies, stocks punished by negative narratives, or wants to analyze whether market fear is justified for specific stocks or sectors.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "sentiment-reality-gap-plugin",
+      "description": "Identify stocks where market sentiment is significantly more negative than fundamentals warrant — the gap between narrative and reality. Use when the user asks to find contrarian opportunities, stocks with sentiment-fundamental misalignment, oversold but fundamentally strong companies, stocks punished by negative narratives, or wants to analyze whether market fear is justified for specific stocks or sectors.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "yield-curve-regime-detector",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Assess yield curve shape, inversion signals, term premiums, and macro implications. Use when the user asks about the yield curve, inversion, or rate-regime impacts.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "yield-curve-regime-detector-plugin",
+      "description": "Assess yield curve shape, inversion signals, term premiums, and macro implications. Use when the user asks about the yield curve, inversion, or rate-regime impacts.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

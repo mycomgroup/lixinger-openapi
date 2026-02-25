@@ -1,0 +1,19 @@
+{
+  "name": "convertible-bond-scanner",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "筛选可转债并评估溢价、流动性、条款风险与正股质量联动。当用户询问可转债机会、转债筛选、转债溢价/条款风险或需要转债清单时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "convertible-bond-scanner-plugin",
+      "description": "筛选可转债并评估溢价、流动性、条款风险与正股质量联动。当用户询问可转债机会、转债筛选、转债溢价/条款风险或需要转债清单时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

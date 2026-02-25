@@ -1,0 +1,19 @@
+{
+  "name": "buyback-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Analyze share repurchases (authorization, pace, dilution vs buybacks) and capital return sustainability. Use when the user asks about buybacks, shareholder yield, or capital return analysis.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "buyback-monitor-plugin",
+      "description": "Analyze share repurchases (authorization, pace, dilution vs buybacks) and capital return sustainability. Use when the user asks about buybacks, shareholder yield, or capital return analysis.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

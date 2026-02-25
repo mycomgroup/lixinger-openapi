@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-monitor-orchestrator",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "编排组合监控：集中度、相关性/风格暴露、流动性、情景压力等，整合成一份监控报告。当用户要求“全面诊断/持续监控我的组合”时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "portfolio-monitor-orchestrator-plugin",
+      "description": "编排组合监控：集中度、相关性/风格暴露、流动性、情景压力等，整合成一份监控报告。当用户要求“全面诊断/持续监控我的组合”时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

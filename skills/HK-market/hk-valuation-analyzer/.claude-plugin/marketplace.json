@@ -1,0 +1,19 @@
+{
+  "name": "hk-valuation-analyzer",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股估值分析器。提供港股市场整体估值水平、行业估值对比、个股估值分析等功能。支持多种估值方法和相对估值分析。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-valuation-analyzer-plugin",
+      "description": "港股估值分析器。提供港股市场整体估值水平、行业估值对比、个股估值分析等功能。支持多种估值方法和相对估值分析。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

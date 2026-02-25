@@ -1,0 +1,19 @@
+{
+  "name": "concept-board-analyzer",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "分析概念板块（同花顺/东方财富）的实时/历史表现、成分股、资金流与热度，用于识别主题热点与轮动。当用户询问概念板块走势、概念轮动、板块成分、概念资金流、或需要概念板块分析时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "concept-board-analyzer-plugin",
+      "description": "分析概念板块（同花顺/东方财富）的实时/历史表现、成分股、资金流与热度，用于识别主题热点与轮动。当用户询问概念板块走势、概念轮动、板块成分、概念资金流、或需要概念板块分析时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "hk-dividend-tracker",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股股息跟踪器。监控港股公司股息政策、分红历史、股息收益率等。用于收益投资和股息策略分析。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-dividend-tracker-plugin",
+      "description": "港股股息跟踪器。监控港股公司股息政策、分红历史、股息收益率等。用于收益投资和股息策略分析。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

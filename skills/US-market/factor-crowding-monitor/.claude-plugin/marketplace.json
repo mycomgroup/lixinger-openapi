@@ -1,0 +1,19 @@
+{
+  "name": "factor-crowding-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Monitor factor crowding and factor performance dispersion to identify crowded trades and rotation risk. Use when the user asks about factor crowding, style squeeze risk, or factor rotation signals.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "factor-crowding-monitor-plugin",
+      "description": "Monitor factor crowding and factor performance dispersion to identify crowded trades and rotation risk. Use when the user asks about factor crowding, style squeeze risk, or factor rotation signals.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

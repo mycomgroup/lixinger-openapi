@@ -1,0 +1,19 @@
+{
+  "name": "margin-risk-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "监控融资融券与杠杆风险（余额变化、拥挤度、下跌加速风险），用于识别踩踏与波动放大。当用户询问两融数据、杠杆风险、市场拥挤、或需要两融监控时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "margin-risk-monitor-plugin",
+      "description": "监控融资融券与杠杆风险（余额变化、拥挤度、下跌加速风险），用于识别踩踏与波动放大。当用户询问两融数据、杠杆风险、市场拥挤、或需要两融监控时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

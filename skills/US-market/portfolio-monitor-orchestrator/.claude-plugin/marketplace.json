@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-monitor-orchestrator",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Orchestrate portfolio monitoring: risk, concentration, factor/style exposure, liquidity, and scenario checks into one report. Use when the user asks for an end-to-end portfolio review/monitoring report.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "portfolio-monitor-orchestrator-plugin",
+      "description": "Orchestrate portfolio monitoring: risk, concentration, factor/style exposure, liquidity, and scenario checks into one report. Use when the user asks for an end-to-end portfolio review/monitoring report.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "hk-liquidity-risk",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股流动性风险监控器。监控港股市场流动性状况、个股流动性风险、市场深度分析等。用于识别流动性风险和制定交易策略。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-liquidity-risk-plugin",
+      "description": "港股流动性风险监控器。监控港股市场流动性状况、个股流动性风险、市场深度分析等。用于识别流动性风险和制定交易策略。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

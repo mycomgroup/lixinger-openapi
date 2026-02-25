@@ -1,0 +1,19 @@
+{
+  "name": "limit-up-pool-analyzer",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "分析涨停池/强势股/连板结构/次新等，提炼市场情绪、题材强弱与风险提示。当用户询问涨停池、连板、强势股、打板情绪、题材热度或需要涨停池复盘时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "limit-up-pool-analyzer-plugin",
+      "description": "分析涨停池/强势股/连板结构/次新等，提炼市场情绪、题材强弱与风险提示。当用户询问涨停池、连板、强势股、打板情绪、题材热度或需要涨停池复盘时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

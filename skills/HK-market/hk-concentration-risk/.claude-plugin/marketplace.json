@@ -1,0 +1,19 @@
+{
+  "name": "hk-concentration-risk",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股集中度风险监控器。监控投资组合的集中度风险、行业集中度、个股集中度等。用于管理投资组合的集中度风险。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-concentration-risk-plugin",
+      "description": "港股集中度风险监控器。监控投资组合的集中度风险、行业集中度、个股集中度等。用于管理投资组合的集中度风险。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

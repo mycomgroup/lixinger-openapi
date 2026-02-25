@@ -1,0 +1,19 @@
+{
+  "name": "hk-financial-statement",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股财务报表分析器。提供港股公司财务报表分析、财务比率计算、财务健康度评估等功能。用于价值投资和基本面分析。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-financial-statement-plugin",
+      "description": "港股财务报表分析器。提供港股公司财务报表分析、财务比率计算、财务健康度评估等功能。用于价值投资和基本面分析。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

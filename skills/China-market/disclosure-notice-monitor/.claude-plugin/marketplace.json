@@ -1,0 +1,19 @@
+{
+  "name": "disclosure-notice-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "梳理公司公告与信息披露（定期报告披露、重大事项）并生成事件清单、影响评估与监控要点。当用户询问公告梳理、信息披露、财报披露时间、重大事项清单或需要公告监控时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "disclosure-notice-monitor-plugin",
+      "description": "梳理公司公告与信息披露（定期报告披露、重大事项）并生成事件清单、影响评估与监控要点。当用户询问公告梳理、信息披露、财报披露时间、重大事项清单或需要公告监控时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

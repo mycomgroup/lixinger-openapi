@@ -1,0 +1,19 @@
+{
+  "name": "market-breadth-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Monitor market breadth and internals (advance/decline, new highs/lows, concentration, breadth thrusts) to assess risk appetite and regime shifts. Use when the user asks about market breadth, internals, risk-on/off, or wants a breadth dashboard.",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "market-breadth-monitor-plugin",
+      "description": "Monitor market breadth and internals (advance/decline, new highs/lows, concentration, breadth thrusts) to assess risk appetite and regime shifts. Use when the user asks about market breadth, internals, risk-on/off, or wants a breadth dashboard.",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

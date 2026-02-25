@@ -1,0 +1,19 @@
+{
+  "name": "hk-market-breadth",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "港股市场广度监控器。监控港股市场广度指标、上涨下跌家数、新高新低比率等。用于评估市场整体健康状况和趋势强度。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "hk-market-breadth-plugin",
+      "description": "港股市场广度监控器。监控港股市场广度指标、上涨下跌家数、新高新低比率等。用于评估市场整体健康状况和趋势强度。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}
