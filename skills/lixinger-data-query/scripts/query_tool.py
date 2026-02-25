@@ -340,7 +340,28 @@ def main():
                         error_msg += " " + str(error_info['messages'])
                 else:
                     error_msg = str(error_info)
-                print(f"Error: {error_msg} (Code: {result.get('code', -1)})", file=sys.stderr)
+                
+                # Enhanced error message for "Api was not found"
+                if "api" in error_msg.lower() and "not found" in error_msg.lower():
+                    print(f"Error: {error_msg} (Code: {result.get('code', -1)})", file=sys.stderr)
+                    print("\n💡 常见原因和解决方法：", file=sys.stderr)
+                    print("1. API 路径格式错误", file=sys.stderr)
+                    print(f"   当前路径: {args.suffix}", file=sys.stderr)
+                    print("   ✓ 正确格式使用斜杠: cn/company/dividend", file=sys.stderr)
+                    print("   ✗ 错误格式使用点号: cn.company.dividend", file=sys.stderr)
+                    print("\n2. API 路径不存在", file=sys.stderr)
+                    print("   请查看 API 文档确认正确路径：", file=sys.stderr)
+                    print("   cat skills/lixinger-data-query/SKILL.md", file=sys.stderr)
+                    print("   或搜索：grep -r '关键词' skills/lixinger-data-query/api_new/api-docs/", file=sys.stderr)
+                    print("\n3. 常用 API 路径速查：", file=sys.stderr)
+                    print("   - 公司基本信息: cn/company", file=sys.stderr)
+                    print("   - 分红数据: cn/company/dividend", file=sys.stderr)
+                    print("   - 基本面数据: cn/company/fundamental/non_financial", file=sys.stderr)
+                    print("   - 财务数据: cn/company/fs/non_financial", file=sys.stderr)
+                    print("   - 公告数据: cn/company/announcement", file=sys.stderr)
+                    print("   - 指数基本面: cn/index/fundamental", file=sys.stderr)
+                else:
+                    print(f"Error: {error_msg} (Code: {result.get('code', -1)})", file=sys.stderr)
                 sys.exit(1)
 
     except json.JSONDecodeError:

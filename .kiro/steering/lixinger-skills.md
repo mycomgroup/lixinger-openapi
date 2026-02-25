@@ -422,6 +422,106 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ---
 
+## 📋 常用 API 速查表
+
+### ⚠️ 重要：API 路径格式
+
+**必须使用斜杠 `/` 而不是点号 `.`**
+
+```bash
+# ✅ 正确
+--suffix "cn/company/dividend"
+
+# ❌ 错误
+--suffix "cn.company.dividend"
+```
+
+### A股常用 API
+
+| API 路径 | 说明 | 必需参数 | 示例 |
+|---|---|---|---|
+| `cn/company` | 公司基本信息 | stockCodes | `{"stockCodes": ["600519"]}` |
+| `cn/company/dividend` | 分红数据 | stockCode | `{"stockCode": "600519"}` |
+| `cn/company/fundamental/non_financial` | 基本面数据（PE/PB等） | stockCodes, date/startDate, metricsList | `{"stockCodes": ["600519"], "date": "2024-12-31", "metricsList": ["pe_ttm", "pb"]}` |
+| `cn/company/fs/non_financial` | 财务数据（营收/利润等） | stockCodes, date/startDate, metricsList | `{"stockCodes": ["600519"], "date": "2024-12-31", "metricsList": ["or", "np"]}` |
+| `cn/company/announcement` | 公告数据 | stockCode, startDate | `{"stockCode": "600519", "startDate": "2024-01-01"}` |
+| `cn/index/fundamental` | 指数基本面 | stockCodes, date/startDate, metricsList | `{"stockCodes": ["000001"], "date": "2024-12-31", "metricsList": ["pe_ttm.mcw", "pb.mcw"]}` |
+| `cn/index/constituents` | 指数成分股 | indexCode, date | `{"indexCode": "000300", "date": "2024-12-31"}` |
+
+### 港股常用 API
+
+| API 路径 | 说明 | 必需参数 |
+|---|---|---|
+| `hk/company` | 公司基本信息 | stockCodes |
+| `hk/company/dividend` | 分红数据 | stockCode |
+| `hk/company/fundamental/non_financial` | 基本面数据 | stockCodes, date/startDate, metricsList |
+| `hk/index/fundamental` | 指数基本面 | stockCodes, date/startDate, metricsList |
+
+### 美股常用 API
+
+| API 路径 | 说明 | 必需参数 |
+|---|---|---|
+| `us/company` | 公司基本信息 | stockCodes |
+| `us/company/fs/non_financial` | 财务数据 | stockCodes, date/startDate, metricsList |
+| `us/index/fundamental` | 指数基本面 | stockCodes, date/startDate, metricsList |
+
+### 宏观数据 API
+
+| API 路径 | 说明 | 必需参数 |
+|---|---|---|
+| `macro/money-supply` | 货币供应量 | date |
+| `macro/cpi` | CPI数据 | date |
+| `macro/ppi` | PPI数据 | date |
+| `macro/gdp` | GDP数据 | date |
+
+### 常见错误和解决方法
+
+#### 错误 1：`Error: Api was not found. (Code: 0)`
+
+**原因**：API 路径格式错误或不存在
+
+**解决方法**：
+```bash
+# 1. 检查路径格式（使用斜杠而不是点号）
+--suffix "cn/company/dividend"  # ✅ 正确
+--suffix "cn.company.dividend"  # ❌ 错误
+
+# 2. 查看 API 文档确认路径
+cat skills/lixinger-data-query/SKILL.md
+
+# 3. 搜索相关 API
+grep -r "dividend" skills/lixinger-data-query/api_new/api-docs/
+```
+
+#### 错误 2：`Error: "metricsList" is required`
+
+**原因**：fundamental 类 API 必须提供 metricsList 参数
+
+**解决方法**：
+```bash
+# ❌ 错误：缺少 metricsList
+--params '{"stockCodes": ["600519"], "date": "2024-12-31"}'
+
+# ✅ 正确：包含 metricsList
+--params '{"stockCodes": ["600519"], "date": "2024-12-31", "metricsList": ["pe_ttm", "pb", "roe"]}'
+```
+
+#### 错误 3：`Error: "stockCodes" is required`
+
+**原因**：参数名称错误（单数 vs 复数）
+
+**解决方法**：
+```bash
+# 注意：不同 API 使用不同的参数名
+# - cn/company: 使用 stockCodes（复数）
+# - cn/company/dividend: 使用 stockCode（单数）
+
+# 查看 API 文档确认参数名
+cat skills/lixinger-data-query/api_new/api-docs/cn_company.md
+```
+
+---
+
 ## 💡 重要提示
 
 ### 0. 工作流程核心原则（最重要）
