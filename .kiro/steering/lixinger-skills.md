@@ -217,12 +217,19 @@ PROJECT="analysis_20260225_143052_主题"  # 已存在
 ls skills/China-market/ | grep -i "关键词"
 ```
 
-#### 步骤 2：查看 Skill 文档
+#### 步骤 2：查看 Skill 文档并总结思路
 
 ```bash
+# 查看 Skill 说明和方法论
 cat skills/China-market/high-dividend-strategy/SKILL.md
 cat skills/China-market/high-dividend-strategy/references/data-queries.md
 ```
+
+**看完后，先总结分析思路**：
+- 明确分析目标和筛选标准
+- 列出需要的数据和 API
+- 规划分析步骤和输出内容
+- 向用户确认思路后再开始执行
 
 #### 步骤 3：获取数据（保存到项目文件夹）
 
@@ -253,7 +260,7 @@ grep -r "关键词" skills/lixinger-data-query/api_new/api-docs/
 # 2. 查看 API 文档（必须）
 cat skills/lixinger-data-query/api_new/api-docs/[api_name].md
 
-# 3. 执行查询
+# 3. 总结思路后再执行查询
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519"}'
@@ -483,10 +490,11 @@ cat skills/lixinger-data-query/api_new/api-docs/cn_company.md
 
 1. **新对话创建项目文件夹，有上文复用**
 2. **先 grep 搜索，不要浏览列表**
-3. **使用 API 前必须 grep 查看文档**
-4. **永远使用最近日期，不用过时日期**
-5. **数据保存到项目的 data/ 目录**
-6. **报告保存到项目的 output/ 目录**
+3. **查看文档后先总结思路，确认后再执行**
+4. **使用 API 前必须 grep 查看文档**
+5. **永远使用最近日期，不用过时日期**
+6. **数据保存到项目的 data/ 目录**
+7. **报告保存到项目的 output/ 目录**
 
 ### 1. 优先级
 
