@@ -102,22 +102,29 @@ def run_command(command: str, timeout: int = 60, max_retries: int = 2) -> Tuple[
     """执行命令并返回结果，支持重试"""
     for attempt in range(max_retries):
         try:
-        result = subprocess.run(
-            command,
-            shell=True,
-            capture_output=True,
-            text=True,
-            timeout=timeout
-        )
-        
-        if result.returncode == 0:
-            return True, result.stdout
-        else:
-            return False, result.stderr
-    except subprocess.TimeoutExpired:
-        return False, f"Command timeout after {timeout}s"
-    except Exception as e:
-        return False, str(e)
+            result = subprocess.run(
+                command,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=timeout
+            )
+            
+            if result.returncode == 0:
+                return True, result.stdout
+            else:
+                # Check if it's a network error that should be retried
+                error_msg = result.stderr
+                if 'SSLError' in error_msg or 'ConnectionError' in error_msg:
+                    if attempt < max_retries - 1:
+                        continue  # Retry
+                return False, error_msg
+        except subprocess.TimeoutExpired:
+            return False, f"Command timeout after {timeout}s"
+        except Exception as e:
+            return False, str(e)
+    
+    return False, "Max retries exceeded"
 
 def main():
     print("=" * 80)

@@ -1,6 +1,6 @@
 {
   "total": 366,
-  "passed": 13,
+  "passed": 25,
   "failed": 1,
   "details": [
     {
@@ -63,9 +63,9 @@
       "market": "China-market",
       "skill": "dragon-tiger-list-analyzer",
       "file": "skills/China-market/dragon-tiger-list-analyzer/references/data-queries.md",
-      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/trading-abnormal\" --params '{\"date\": \"2024-12-31\"}' --columns \"date,stockCode,name,buyAmount,sellAmount,netAmount\" --limit 20",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/trading-abnormal\" --params '{\"date\": \"2026-02-24\"}' --columns \"date,stockCode,name,buyAmount,sellAmount,netAmount\" --limit 20",
       "status": "passed",
-      "output": "# NOTE: Output truncated to 20 rows.\ndate,stockCode\n2024-12-31T00:00:00+08:00,000592\n2024-12-31T00:00:00+08:00,000669\n2024-12-31T00:00:00+08:00,000670\n2024-12-31T00:00:00+08:00,000679\n2024-12-31T00:00"
+      "output": "# NOTE: Output truncated to 20 rows.\ndate,stockCode\n2026-02-24T00:00:00+08:00,920725\n2026-02-24T00:00:00+08:00,920305\n2026-02-24T00:00:00+08:00,920119\n2026-02-24T00:00:00+08:00,688800\n2026-02-24T00:00"
     },
     {
       "market": "China-market",
@@ -87,33 +87,129 @@
       "market": "China-market",
       "skill": "etf-allocator",
       "file": "skills/China-market/etf-allocator/references/data-queries.md",
-      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/fundamental\" --params '{\"date\": \"2024-12-31\", \"stockCodes\": [\"000300\", \"000905\", \"399006\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"pe_ttm.y10.mcw.cvpos\", \"pb.y10.mcw.cvpos\", \"mc\"]}' --limit 10",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/fundamental\" --params '{\"date\": \"2026-02-24\", \"stockCodes\": [\"000300\", \"000905\", \"399006\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"pe_ttm.y10.mcw.cvpos\", \"pb.y10.mcw.cvpos\", \"mc\"]}' --limit 10",
       "status": "passed",
-      "output": "date,pe_ttm.mcw,pb.mcw,pe_ttm.y10.mcw.cvpos,pb.y10.mcw.cvpos,mc,stockCode\n2024-12-31T00:00:00+08:00,12.93102936733903,1.3800562101743934,0.5897119341563786,0.2654320987654321,57832855225082.055,000300"
+      "output": "date,pe_ttm.mcw,pb.mcw,pe_ttm.y10.mcw.cvpos,pb.y10.mcw.cvpos,mc,stockCode\n2026-02-24T00:00:00+08:00,14.180928797438279,1.4962953365011031,0.8438401318500206,0.5978574371652245,67692123036076.87,000300"
     },
     {
       "market": "China-market",
       "skill": "etf-allocator",
       "file": "skills/China-market/etf-allocator/references/data-queries.md",
-      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/fundamental\" --params '{\"startDate\": \"2024-01-01\", \"endDate\": \"2024-12-31\", \"stockCodes\": [\"000300\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"pe_ttm.y10.mcw.cvpos\"]}' --limit 365",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/fundamental\" --params '{\"startDate\": \"2026-01-01\", \"endDate\": \"2026-02-24\", \"stockCodes\": [\"000300\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"pe_ttm.y10.mcw.cvpos\"]}' --limit 365",
       "status": "passed",
-      "output": "date,pe_ttm.mcw,pb.mcw,pe_ttm.y10.mcw.cvpos,stockCode\n2024-12-31T00:00:00+08:00,12.93102936733903,1.3800562101743934,0.5897119341563786,000300\n2024-12-30T00:00:00+08:00,13.085319011174917,1.3965311103"
+      "output": "date,pe_ttm.mcw,pb.mcw,pe_ttm.y10.mcw.cvpos,stockCode\n2026-02-24T00:00:00+08:00,14.180928797438279,1.4962953365011031,0.8438401318500206,000300\n2026-02-13T00:00:00+08:00,14.038656239793994,1.481283501"
     },
     {
       "market": "China-market",
       "skill": "etf-allocator",
       "file": "skills/China-market/etf-allocator/references/data-queries.md",
-      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/fundamental\" --params '{\"date\": \"2024-12-31\", \"stockCodes\": [\"000807\", \"000808\", \"000809\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"pe_ttm.y5.mcw.cvpos\"]}' --limit 10",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/fundamental\" --params '{\"date\": \"2026-02-24\", \"stockCodes\": [\"000807\", \"000808\", \"000809\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"pe_ttm.y5.mcw.cvpos\"]}' --limit 10",
       "status": "passed",
-      "output": "date,pe_ttm.mcw,pb.mcw,pe_ttm.y5.mcw.cvpos,stockCode\n2024-12-31T00:00:00+08:00,20.888255890196238,5.171387510173285,0.06523534269199009,000807\n2024-12-31T00:00:00+08:00,31.872587975547646,3.0713410272"
+      "output": "date,pe_ttm.mcw,pb.mcw,pe_ttm.y5.mcw.cvpos,stockCode\n2026-02-24T00:00:00+08:00,20.145954582949823,4.550197693967066,0.13234077750206782,000807\n2026-02-24T00:00:00+08:00,35.14144861765368,3.23824234966"
     },
     {
       "market": "China-market",
       "skill": "etf-allocator",
       "file": "skills/China-market/etf-allocator/references/data-queries.md",
-      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/constituents\" --params '{\"stockCode\": \"000300\", \"type\": \"normal\", \"date\": \"2024-12-31\"}' --columns \"stockCode,stockName,weight\" --limit 300",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/constituents\" --params '{\"stockCode\": \"000300\", \"type\": \"normal\", \"date\": \"2026-02-24\"}' --columns \"stockCode,stockName,weight\" --limit 300",
+      "status": "passed",
+      "output": "# NOTE: Output truncated to 300 rows.\nstockCode\n899050\n000171\n000816\n000818\n000842\n000859\n000861\n000955\n000958\n000962\n000963\n000968\n930050\n930598\n930599\n930601\n930604\n930606\n930608\n930614\n930625\n93062"
+    },
+    {
+      "market": "China-market",
+      "skill": "etf-allocator",
+      "file": "skills/China-market/etf-allocator/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/index/candlestick\" --params '{\"stockCode\": \"000300\", \"type\": \"normal\", \"startDate\": \"2026-01-01\", \"endDate\": \"2026-02-24\"}' --columns \"date,open,high,low,close,volume,amount\" --limit 365",
+      "status": "passed",
+      "output": "date,open,high,low,close,volume,amount\n2026-02-24T00:00:00+08:00,4727.3,4727.37,4698.35,4707.54,21848890000,526084000000\n2026-02-13T00:00:00+08:00,4693.41,4703.63,4658.4,4660.41,18916780000,4528790000"
+    },
+    {
+      "market": "China-market",
+      "skill": "event-driven-detector",
+      "file": "skills/China-market/event-driven-detector/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/fundamental/non_financial\" --params '{\"date\": \"2025-12-31\", \"stockCodes\": [\"600519\", \"000858\", \"300750\"], \"metricsList\": [\"pe_ttm\", \"pb\", \"dyr\", \"mc\"]}' --columns \"date,stockCode,pe_ttm,pb,dyr,mc\" --limit 20",
+      "status": "passed",
+      "output": "date,stockCode,pe_ttm,pb,dyr,mc\n2025-12-31T00:00:00+08:00,600519,19.1564,7.595,0.0375,1724601494693.7002\n2025-12-31T00:00:00+08:00,000858,14.4623,3.1038,0.0542,411217552049.7\n2025-12-31T00:00:00+08:00"
+    },
+    {
+      "market": "China-market",
+      "skill": "event-study",
+      "file": "skills/China-market/event-study/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/fundamental/non_financial\" --params '{\"date\": \"2025-12-31\", \"stockCodes\": [\"600519\", \"000858\", \"300750\"], \"metricsList\": [\"pe_ttm\", \"pb\", \"dyr\", \"mc\"]}' --columns \"date,stockCode,pe_ttm,pb,dyr,mc\" --limit 20",
+      "status": "passed",
+      "output": "date,stockCode,pe_ttm,pb,dyr,mc\n2025-12-31T00:00:00+08:00,600519,19.1564,7.595,0.0375,1724601494693.7002\n2025-12-31T00:00:00+08:00,000858,14.4623,3.1038,0.0542,411217552049.7\n2025-12-31T00:00:00+08:00"
+    },
+    {
+      "market": "China-market",
+      "skill": "factor-crowding-monitor",
+      "file": "skills/China-market/factor-crowding-monitor/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/fundamental/non_financial\" --params '{\"date\": \"2025-12-31\", \"stockCodes\": [\"600519\", \"000858\", \"300750\"], \"metricsList\": [\"pe_ttm\", \"pb\", \"dyr\", \"mc\"]}' --columns \"date,stockCode,pe_ttm,pb,dyr,mc\" --limit 20",
+      "status": "passed",
+      "output": "date,stockCode,pe_ttm,pb,dyr,mc\n2025-12-31T00:00:00+08:00,600519,19.1564,7.595,0.0375,1724601494693.7002\n2025-12-31T00:00:00+08:00,000858,14.4623,3.1038,0.0542,411217552049.7\n2025-12-31T00:00:00+08:00"
+    },
+    {
+      "market": "China-market",
+      "skill": "financial-statement-analyzer",
+      "file": "skills/China-market/financial-statement-analyzer/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"us/index/fundamental\" --params '{\"date\": \"2026-02-24\", \"stockCodes\": [\".INX\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"dyr.mcw\", \"mc\"]}' --columns \"date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc\" --limit 20",
+      "status": "passed",
+      "output": "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc\n2026-02-24T00:00:00-05:00,.INX,28.665742096928508,5.357900592436396,0.010394850082827077,62157462291969.49\n\n"
+    },
+    {
+      "market": "China-market",
+      "skill": "financial-statement-analyzer",
+      "file": "skills/China-market/financial-statement-analyzer/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/fs/non_financial\" --params '{\"stockCodes\": [\"600519\"], \"startDate\": \"2025-01-01\", \"endDate\": \"2026-02-24\", \"metricsList\": [\"q.ps.toi.t\", \"q.ps.np.t\", \"q.ps.gp_m.t\"]}' --limit 20",
+      "status": "passed",
+      "output": "date,currency,reportDate,reportType,standardDate,stockCode,q.ps.toi.t,q.ps.gp_m.t,q.ps.np.t\n2025-09-30T00:00:00+08:00,CNY,2025-10-30T00:00:00+08:00,third_quarterly_report,2025-09-30T00:00:00+08:00,600"
+    },
+    {
+      "market": "China-market",
+      "skill": "fund-flow-monitor",
+      "file": "skills/China-market/fund-flow-monitor/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/fundamental/non_financial\" --params '{\"date\": \"2025-12-31\", \"stockCodes\": [\"600519\", \"000858\", \"300750\"], \"metricsList\": [\"pe_ttm\", \"pb\", \"dyr\", \"mc\"]}' --columns \"date,stockCode,pe_ttm,pb,dyr,mc\" --limit 20",
+      "status": "passed",
+      "output": "date,stockCode,pe_ttm,pb,dyr,mc\n2025-12-31T00:00:00+08:00,600519,19.1564,7.595,0.0375,1724601494693.7002\n2025-12-31T00:00:00+08:00,000858,14.4623,3.1038,0.0542,411217552049.7\n2025-12-31T00:00:00+08:00"
+    },
+    {
+      "market": "China-market",
+      "skill": "hot-rank-sentiment-monitor",
+      "file": "skills/China-market/hot-rank-sentiment-monitor/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/fundamental/non_financial\" --params '{\"date\": \"2025-12-31\", \"stockCodes\": [\"600519\", \"000858\", \"300750\"], \"metricsList\": [\"pe_ttm\", \"pb\", \"dyr\", \"mc\"]}' --columns \"date,stockCode,pe_ttm,pb,dyr,mc\" --limit 20",
+      "status": "passed",
+      "output": "date,stockCode,pe_ttm,pb,dyr,mc\n2025-12-31T00:00:00+08:00,600519,19.1564,7.595,0.0375,1724601494693.7002\n2025-12-31T00:00:00+08:00,000858,14.4623,3.1038,0.0542,411217552049.7\n2025-12-31T00:00:00+08:00"
+    },
+    {
+      "market": "China-market",
+      "skill": "industry-board-analyzer",
+      "file": "skills/China-market/industry-board-analyzer/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/industry\" --params '{\"source\": \"sw\", \"level\": \"one\"}' --limit 20",
+      "status": "passed",
+      "output": "# NOTE: Output truncated to 20 rows.\nstockCode,name,launchDate,level,areaCode,market,source,currency,fsTableType\n110000,农林牧渔,1990-01-01T00:00:00+08:00,one,cn,a,sw,CNY,non_financial\n210000,采掘,1990-01-0"
+    },
+    {
+      "market": "China-market",
+      "skill": "industry-board-analyzer",
+      "file": "skills/China-market/industry-board-analyzer/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/company/operation-revenue-constitution\" --params '{\"stockCode\": \"300750\", \"startDate\": \"2025-02-01\"}' --limit 10",
+      "status": "passed",
+      "output": "date,declarationDate,dataList\n2025-06-29T16:00:00.000Z,2025-07-30T16:00:00.000Z,\"[{'classifyType': 'industries', 'itemName': '合计', 'revenue': 178886253000, 'revenuePercentage': 100, 'costs': 134123603"
+    },
+    {
+      "market": "China-market",
+      "skill": "industry-board-analyzer",
+      "file": "skills/China-market/industry-board-analyzer/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"us/index/fundamental\" --params '{\"date\": \"2026-02-24\", \"stockCodes\": [\".INX\"], \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\", \"dyr.mcw\", \"mc\"]}' --columns \"date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc\" --limit 20",
+      "status": "passed",
+      "output": "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc\n2026-02-24T00:00:00-05:00,.INX,28.665742096928508,5.357900592436396,0.010394850082827077,62157462291969.49\n\n"
+    },
+    {
+      "market": "China-market",
+      "skill": "industry-chain-mapper",
+      "file": "skills/China-market/industry-chain-mapper/references/data-queries.md",
+      "command": "python3 skills/lixinger-data-query/scripts/query_tool.py --suffix \"cn/industry\" --params '{}'",
       "status": "failed",
-      "error": "Error: HTTPSConnectionPool(host='open.lixinger.com', port=443): Max retries exceeded with url: /api/cn/index/constituents (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))\n"
+      "error": "Error: {'name': 'ValidationError', 'messages': [{'path': ['source'], 'message': '\"source\" is required'}]} [{'path': ['source'], 'message': '\"source\" is required'}] (Code: 0)\n"
     }
   ]
 }
