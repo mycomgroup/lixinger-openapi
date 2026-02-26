@@ -68,8 +68,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.candlestick" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/candlestick" \
+  --params '{"stockCode": "HSI", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume,amount" \
   --limit 300
 ```
@@ -80,8 +80,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index/constituentss" \
-  --params '{"indexCode": "HSI"}' \
+  --suffix "hk/index/constituents" \
+  --params '{"stockCodes": ["HSI"]}' \
   --columns "stockCode,name,weight" \
   --limit 100
 ```
@@ -93,8 +93,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"industryCode": "HK001", "date": "2026-02-24", "metricsList": ["cp", "cpc", "mc", "pe_ttm.mcw"]}' \
-  --columns "date,cp,cpc,mc,pe_ttm.mcw"
+  --params '{"stockCodes": ["H50"], "date": "2026-02-24", "metricsList": ["mc", "ta", "pe_ttm.mcw"]}' \
+  --columns "date,mc,ta,pe_ttm.mcw"
 ```
 
 **用途**: 获取行业板块表现
@@ -104,7 +104,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry" \
-  --params '{}' \
+  --params '{"source": "hsi"}' \
   --columns "industryCode,industryName,industryLevel"
 ```
 
@@ -114,8 +114,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.mutual-market" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/mutual-market" \
+  --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,netBuyAmount,shareholdings" \
   --limit 300
 ```
@@ -139,7 +139,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/candlestick" \
-  --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "00700", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,change,changePercent,volume,amount"
 ```
 
@@ -210,16 +210,17 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 获取所有行业表现
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"date": "2026-02-24", "metricsList": ["cp", "cpc", "mc"]}' \
-  --columns "industryCode,date,cp,cpc,mc"
+  --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["mc", "ta", "pe_ttm.mcw"]}' \
+  --columns "industryCode,date,mc,ta,pe_ttm.mcw" \
+  --limit 50
 ```
 
 ### 步骤3: 获取南向资金数据
 ```bash
 # 获取南向资金流向
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.mutual-market" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/mutual-market" \
+  --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,netBuyAmount,shareholdings"
 ```
 
@@ -246,8 +247,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 核心 API ⭐
 - `hk/index/fundamental` - 港股指数基本面（最重要）
 - `hk/index.candlestick` - 港股指数K线
-- `hk/index/constituentss` - 港股指数成分股
-- `hk/index.mutual-market` - 港股指数互联互通
+- `hk/index/constituents` - 港股指数成分股
+- `hk/index/mutual-market` - 港股指数互联互通
 
 ### 辅助 API
 - `hk.industry.fundamental.hsi` - 港股行业基本面
@@ -292,13 +293,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 2. 获取行业表现
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"date": "2026-02-24", "metricsList": ["cp", "cpc"]}' \
-  --columns "industryCode,cpc"
+  --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["mc", "ta"]}' \
+  --columns "industryCode,mc,ta" \
+  --limit 50
 
 # 3. 获取南向资金
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.mutual-market" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/mutual-market" \
+  --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,netBuyAmount"
 ```
 
@@ -307,8 +309,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 获取近30天指数数据
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.candlestick" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/candlestick" \
+  --params '{"stockCode": "HSI", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,volume,amount" \
   --limit 30
 ```

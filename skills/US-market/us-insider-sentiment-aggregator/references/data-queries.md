@@ -30,8 +30,10 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company.executive-shareholding" \
-  --params '{}'
+  --suffix "cn/company/senior-executive-shares-change" \
+  --params '{"date": "2026-02-24"}' \
+  --columns "date,stockCode,executiveName,duty,changedShares,avgPrice" \
+  --limit 20
 ```
 
 ### 查询Us.Index.Fundamental
@@ -70,7 +72,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 - `cn/index/candlestick`
 - `macro/money-supply`
-- `cn/company.executive-shareholding`
+- `cn/company/senior-executive-shares-change`
 - `us/index/fundamental`
 - `cn/index/fundamental`
 

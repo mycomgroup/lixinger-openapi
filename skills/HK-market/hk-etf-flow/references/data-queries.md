@@ -11,8 +11,8 @@
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
-  --params '{"indexCode": "HSI", "date": "2026-02-24"}' \
-  --columns "date,pe,pb,roe,dividendYield" \
+  --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw"]}' \
+  --columns "date,pe_ttm.mcw,pb.mcw,dyr.mcw" \
   --limit 20
 ```
 

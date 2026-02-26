@@ -35,8 +35,8 @@
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.mutual-market" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/mutual-market" \
+  --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholdingsMoney,shareholdingsMoneyToMarketCap" \
   --limit 30
 ```
@@ -58,7 +58,7 @@ net_inflow = shareholdingsMoney_today - shareholdingsMoney_yesterday
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.mutual-market" \
+  --suffix "hk/company/mutual-market" \
   --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholdings" \
   --limit 30
@@ -81,12 +81,14 @@ holding_change_pct = (holding_change / shareholdings_yesterday) * 100
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/mutual-market/hsi" \
-  --params '{"industryCode": "HK001", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "H50", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholdingsMoney,shareholdingsMoneyToMarketCap" \
   --limit 30
 ```
 
 **用途**: 获取行业层面的南向资金持仓
+
+**注意**: 参数名为 `stockCode`（单数），值为行业代码如 "H50"（恒生行业分类）
 
 **应用场景**:
 - 分析南向资金的行业偏好
@@ -115,7 +117,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/candlestick" \
-  --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "00700", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,change,changePercent,volume,amount" \
   --limit 30
 ```
@@ -145,7 +147,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry" \
-  --params '{}' \
+  --params '{"source": "hsi"}' \
   --columns "industryCode,industryName,industryLevel"
 ```
 
@@ -155,7 +157,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.industries" \
+  --suffix "hk/company/industries" \
   --params '{"stockCode": "00700"}' \
   --columns "stockCode,industryCode,industryName"
 ```
@@ -169,7 +171,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 示例：查询腾讯、阿里、美团的南向资金
 for stock in ["00700", "09988", "03690"]; do
   python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "hk/company.mutual-market" \
+    --suffix "hk/company/mutual-market" \
     --params "{\"stockCode\": \"$stock\", \"startDate\": \"2024-12-31\", \"endDate\": \"2024-12-31\"}" \
     --columns "date,shareholdings"
 done
@@ -309,8 +311,8 @@ top_10_inflows = stock_inflows[:10]
 ```bash
 # 获取恒生指数南向资金（近30天）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.mutual-market" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/mutual-market" \
+  --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholdingsMoney,shareholdingsMoneyToMarketCap" \
   --limit 30
 ```
@@ -320,7 +322,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 获取所有行业的南向资金（当日）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/mutual-market/hsi" \
-  --params '{"stockCode": "HK001", "startDate": "2026-01-01", "endDate": "2026-02-24", "metricsList": ["shareholdingsMoney"]}' \
+  --params '{"stockCode": "H50", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --columns "date,shareholdingsMoney" \
   --limit 20
 ```
 
@@ -341,7 +344,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 获取重点股票的价格表现
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/candlestick" \
-  --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "00700", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,changePercent,amount" \
   --limit 30
 ```
@@ -352,8 +355,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 - `--suffix`: API 路径
 - `--params`: JSON 格式参数
-  - `indexCode`: 指数代码（如 "HSI"）
-  - `stockCode`: 股票代码（如 "00700"）
+  - `stockCode`: 指数代码（如 "HSI"）或股票代码（如 "00700"）
   - `industryCode`: 行业代码（如 "HK001"）
   - `startDate`: 开始日期（YYYY-MM-DD）
   - `endDate`: 结束日期（YYYY-MM-DD）
@@ -365,7 +367,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ## 本 Skill 常用 API
 
 ### 核心 API ⭐
-- `hk/index.mutual-market` - 指数层面南向资金（最重要）
+- `hk/index/mutual-market` - 指数层面南向资金（最重要）
 - `hk/company.mutual-market` - 个股层面南向资金（最重要）
 - `hk.industry.mutual-market.hsi` - 行业层面南向资金
 
@@ -419,8 +421,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 1. 获取恒生指数南向资金（近5天）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.mutual-market" \
-  --params '{"indexCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "hk/index/mutual-market" \
+  --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholdingsMoney" \
   --limit 5
 
@@ -446,7 +448,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 2. 获取行业名称
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry" \
-  --params '{}' \
+  --params '{"source": "hsi"}' \
   --columns "industryCode,industryName"
 
 # 3. 计算各行业净流入并排序（需要脚本处理）

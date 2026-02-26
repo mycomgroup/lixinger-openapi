@@ -21,7 +21,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
-  --params '{"stockCodes": ["000001"], "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "000001", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume" \
   --limit 20
 ```

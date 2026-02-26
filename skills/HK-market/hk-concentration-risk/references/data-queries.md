@@ -43,7 +43,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index/constituentss" \
+  --suffix "hk/index/constituents" \
   --params '{"indexCode": "HSI"}' \
   --columns "stockCode,name,weight" \
   --limit 100
@@ -55,7 +55,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.industries" \
+  --suffix "hk/company/industries" \
   --params '{"stockCode": "00700"}' \
   --columns "industryCode,industryName,industryLevel"
 ```
@@ -67,10 +67,12 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24"}' \
-  --columns "date,stockCode,mc,pe,pb,roe" \
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm", "pb", "dyr"]}' \
+  --columns "date,stockCode,mc,pe_ttm,pb,dyr" \
   --limit 20
 ```
+
+**注意**: `roe` 不在 `hk/company/fundamental/non_financial` API 支持的指标中，已替换为 `dyr`（股息率）
 
 **用途**: 获取市值等基本面数据，用于权重计算
 
@@ -78,7 +80,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.mutual-market" \
+  --suffix "hk/company/mutual-market" \
   --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholdings,shareholdingsRatio" \
   --limit 100
@@ -102,9 +104,11 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"industryCode": "HK001", "date": "2026-02-24", "metricsList": ["mc", "pe_ttm.mcw"]}' \
+  --params '{"stockCodes": ["H50"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm.mcw"]}' \
   --columns "date,mc,pe_ttm.mcw"
 ```
+
+**注意**: 参数名为 `stockCodes`（复数），值为行业代码如 "H50"
 
 **用途**: 获取行业估值数据，用于行业集中度分析
 
@@ -126,7 +130,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 1. 获取每只股票的行业分类
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.industries" \
+  --suffix "hk/company/industries" \
   --params '{"stockCode": "00700"}' \
   --columns "industryCode,industryName,industryLevel"
 
@@ -160,7 +164,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `hk/company` - 港股公司基本信息
 - `hk/company/fundamental/non_financial` - 港股基本面数据
 - `hk/company.industries` - 港股行业分类
-- `hk/index/constituentss` - 港股指数成分股
+- `hk/index/constituents` - 港股指数成分股
 - `hk/index/fundamental` - 港股指数基本面
 - `hk.industry.fundamental.hsi` - 港股行业基本面
 

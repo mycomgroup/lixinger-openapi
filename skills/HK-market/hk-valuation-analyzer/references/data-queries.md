@@ -107,7 +107,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "dyr.mcw", "mc"]}' \
+  --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "industryCode,date,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,dyr.mcw,mc" \
   --limit 50
 ```
@@ -119,7 +119,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry" \
-  --params '{}' \
+  --params '{"source": "hsi"}' \
   --columns "industryCode,industryName,industryLevel"
 ```
 
@@ -130,51 +130,52 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe", "pe.y10.cvpos", "pb", "pb.y10.cvpos", "ps", "dyr", "mc", "roe", "roa"]}' \
-  --columns "date,stockCode,pe,pe.y10.cvpos,pb,pb.y10.cvpos,ps,dyr,mc,roe,roa"
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pe_ttm.y10.cvpos", "pb", "pb.y10.cvpos", "ps_ttm", "dyr", "mc"]}' \
+  --columns "date,stockCode,pe_ttm,pe_ttm.y10.cvpos,pb,pb.y10.cvpos,ps_ttm,dyr,mc"
 ```
 
 **用途**: 获取个股的估值指标和历史分位数
 
 **关键指标**:
-- `pe`: 市盈率
-- `pe.y10.cvpos`: PE 10年历史分位数
+- `pe_ttm`: 市盈率（TTM）
+- `pe_ttm.y10.cvpos`: PE 10年历史分位数
 - `pb`: 市净率
-- `ps`: 市销率
+- `ps_ttm`: 市销率（TTM）
 - `dyr`: 股息率
 - `mc`: 市值
-- `roe`: 净资产收益率
-- `roa`: 总资产收益率
+
+**注意**: `roe` 和 `roa` 等财务指标不在此API中，需使用 `hk/company/fs/non_financial` 获取
 
 ### 8. 获取个股历史估值
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe", "pb", "ps", "dyr", "mc"]}' \
+  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc"]}' \
   --columns "date,pe,pb,ps,dyr,mc" \
   --limit 1000
 ```
 
 **用途**: 获取个股历史估值数据，用于估值区间分析
 
-### 9. 获取个股财务数据（用于DCF估值）
+### 9. 获取个股估值数据（用于估值分析）
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["fcf", "np", "revenue", "totalAssets", "totalLiabilities"]}' \
-  --columns "date,fcf,np,revenue,totalAssets,totalLiabilities" \
+  --suffix "hk/company/fundamental/non_financial" \
+  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc"]}' \
+  --columns "date,pe_ttm,pb,ps_ttm,dyr,mc" \
   --limit 20
 ```
 
-**用途**: 获取财务数据，用于DCF现金流折现估值
+**用途**: 获取估值指标数据，用于估值分析
 
 **关键指标**:
-- `fcf`: 自由现金流
-- `np`: 净利润
-- `revenue`: 营业收入
-- `totalAssets`: 总资产
+- `pe_ttm`: 市盈率（TTM）
+- `pb`: 市净率
+- `ps_ttm`: 市销率（TTM）
+- `dyr`: 股息率
+- `mc`: 市值
 - `totalLiabilities`: 总负债
 
 ### 10. 获取同行业股票列表（用于相对估值）
@@ -182,8 +183,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 步骤1: 获取目标股票的行业
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.industries" \
-  --params '{"stockCodes": ["00700"]}' \
+  --suffix "hk/company/industries" \
+  --params '{"stockCode": "00700"}' \
   --columns "industryCode,industryName"
 
 # 步骤2: 获取同行业所有股票
@@ -360,7 +361,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 获取所有行业估值
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "dyr.mcw"]}' \
+  --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "dyr.mcw"]}' \
   --columns "industryCode,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,dyr.mcw" \
   --limit 50
 ```
@@ -370,17 +371,17 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 获取个股估值指标
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe", "pe.y10.cvpos", "pb", "pb.y10.cvpos", "dyr", "mc", "roe"]}' \
-  --columns "date,pe,pe.y10.cvpos,pb,pb.y10.cvpos,dyr,mc,roe"
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pe_ttm.y10.cvpos", "pb", "pb.y10.cvpos", "dyr", "mc"]}' \
+  --columns "date,pe_ttm,pe_ttm.y10.cvpos,pb,pb.y10.cvpos,dyr,mc"
 ```
 
-### 步骤4: 获取财务数据（DCF估值）
+### 步骤4: 获取估值数据
 ```bash
-# 获取历史FCF数据
+# 获取历史估值数据
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["fcf", "np", "revenue"]}' \
-  --columns "date,fcf,np,revenue" \
+  --suffix "hk/company/fundamental/non_financial" \
+  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr"]}' \
+  --columns "date,pe_ttm,pb,ps_ttm,dyr" \
   --limit 20
 ```
 
@@ -403,14 +404,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ### 核心 API ⭐
 - `hk/index/fundamental` - 港股指数估值（最重要）
-- `hk.industry.fundamental.hsi` - 港股行业估值（最重要）
+- `hk/industry/fundamental/hsi` - 港股行业估值（最重要）
 - `hk/company/fundamental/non_financial` - 港股个股估值（最重要）
 
 ### 辅助 API
 - `hk/company/fs/non_financial` - 港股财务报表（DCF估值）
-- `hk.industry` - 行业分类信息
+- `hk/industry` - 行业分类信息
 - `hk/company` - 港股公司信息
-- `hk/company.industries` - 个股行业归属
+- `hk/company/industries` - 个股行业归属
 - `hk/company/dividend` - 分红数据（DDM估值）
 
 ---
@@ -476,27 +477,27 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 1. 获取所有行业估值
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw"]}' \
+  --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw"]}' \
   --columns "industryCode,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw" \
   --limit 50
 
 # 2. 获取行业名称
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry" \
-  --params '{}' \
+  --params '{"source": "hsi"}' \
   --columns "industryCode,industryName"
 
 # 3. 排序并输出TOP10低估行业（需要脚本处理）
 ```
 
-### 示例3: 个股DCF估值
+### 示例3: 个股估值分析
 
 ```bash
-# 1. 获取历史FCF数据
+# 1. 获取历史估值数据
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["fcf", "np"]}' \
-  --columns "date,fcf,np" \
+  --suffix "hk/company/fundamental/non_financial" \
+  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr"]}' \
+  --columns "date,pe_ttm,pb,dyr" \
   --limit 20
 
 # 2. 获取当前市值

@@ -38,8 +38,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/major-shareholder-change" \
-  --params '{}'
+  --suffix "cn/company/major-shareholders-shares-change" \
+  --params '{"date": "2026-02-24"}' --limit 20
 ```
 
 ### 查询Us.Index.Fundamental
@@ -69,7 +69,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `cn/index/candlestick`
 - `cn/company/shareholders-num`
 - `macro/money-supply`
-- `cn/company/major-shareholder-change`
+- `cn/company/major-shareholders-shares-change`
 - `us/index/fundamental`
 - `cn/index/fundamental`
 

@@ -90,11 +90,17 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.fundamental" \
-  --params '{"stockCode": "00700", "date": "2026-02-24"}' \
-  --columns "date,pe,pb,roe,dividendYield" \
+  --suffix "hk/company/fundamental/non_financial" \
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
+  --columns "date,pe_ttm,pb,dyr,mc" \
   --limit 20
 ```
+
+**注意**: 
+- API 路径应为 `hk/company/fundamental/non_financial`
+- 参数使用 `stockCodes`（复数）
+- 需要 `metricsList` 参数
+- `roe` 不在支持的指标中，已替换为 `dyr`（股息率）
 
 **参数说明**：
 - `stockCode`: 股票代码（如 "00700" 表示腾讯控股）

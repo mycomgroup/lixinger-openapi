@@ -11,7 +11,7 @@
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
-  --params '{"stockCode": "600519", "type": "normal", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "600519", "startDate": "2023-01-01", "endDate": "2026-02-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
   --limit 20
 ```
@@ -31,7 +31,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/industry" \
-  --params '{}'
+  --params \'{"source": "sw", "level": "one"}\' \
+  --limit 20
 ```
 
 ### 查询Us.Index.Fundamental

@@ -33,7 +33,7 @@
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/dividend" \
-  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "00005", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate,paymentDate,fsEndDate" \
   --limit 100
 ```
@@ -66,33 +66,36 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00005"], "date": "2026-02-24", "metricsList": ["mc", "pe", "pb", "roe", "dyr"]}' \
-  --columns "date,stockCode,mc,pe,pb,roe,dyr"
+  --params '{"stockCodes": ["00005"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm", "pb", "dyr"]}' \
+  --columns "date,stockCode,mc,pe_ttm,pb,dyr"
 ```
 
 **用途**: 获取市值、估值和股息率数据
 
 **关键指标**:
 - `mc`: 市值
-- `pe`: 市盈率
+- `pe_ttm`: 市盈率（TTM）
 - `pb`: 市净率
-- `roe`: 净资产收益率
 - `dyr`: 股息率
 
-### 4. 获取港股财务报表数据
+**注意**: `roe` 等财务指标不在此API中，需使用 `hk/company/fs/non_financial` 获取
+
+### 4. 获取港股基本面数据
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["np", "fcf", "revenue"]}' \
-  --columns "date,np,fcf,revenue" \
+  --suffix "hk/company/fundamental/non_financial" \
+  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["dyr", "pe_ttm", "pb"]}' \
+  --columns "date,dyr,pe_ttm,pb" \
   --limit 20
 ```
 
-**用途**: 获取净利润和现金流数据，评估股息可持续性
+**用途**: 获取股息率等基本面数据，评估股息可持续性
 
 **关键指标**:
-- `np`: 净利润
+- `dyr`: 股息率
+- `pe_ttm`: 市盈率（TTM）
+- `pb`: 市净率
 - `fcf`: 自由现金流
 - `revenue`: 营业收入
 
@@ -101,7 +104,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/candlestick" \
-  --params '{"stockCodes": ["00005"], "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "00005", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,volume,amount" \
   --limit 300
 ```
@@ -112,8 +115,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company.industries" \
-  --params '{"stockCodes": ["00005"]}' \
+  --suffix "hk/company/industries" \
+  --params '{"stockCode": "00005"}' \
   --columns "industryCode,industryName,industryLevel"
 ```
 
@@ -135,11 +138,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"industryCode": "HK001", "date": "2026-02-24", "metricsList": ["dyr.mcw", "pe_ttm.mcw"]}' \
+  --params '{"stockCodes": ["H50"], "date": "2026-02-24", "metricsList": ["dyr.mcw", "pe_ttm.mcw"]}' \
   --columns "date,dyr.mcw,pe_ttm.mcw"
 ```
 
 **用途**: 获取行业平均股息率，用于行业对比
+
+**注意**: 参数名为 `stockCodes`（复数），值为行业代码如 "H50"（恒生行业分类）
 
 ---
 
@@ -247,21 +252,21 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 1. 获取5年分红历史
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/dividend" \
-  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "00005", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio" \
   --limit 20
 
 # 2. 获取当前股息率
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00005"], "date": "2026-02-24", "metricsList": ["dyr", "pe", "pb"]}' \
-  --columns "date,dyr,pe,pb"
+  --params '{"stockCodes": ["00005"], "date": "2026-02-24", "metricsList": ["dyr", "pe_ttm", "pb"]}' \
+  --columns "date,dyr,pe_ttm,pb"
 
-# 3. 获取财务数据评估可持续性
+# 3. 获取基本面数据评估可持续性
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "metricsList": ["np", "fcf"]}' \
-  --columns "date,np,fcf" \
+  --suffix "hk/company/fundamental/non_financial" \
+  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "metricsList": ["dyr", "pe_ttm"]}' \
+  --columns "date,dyr,pe_ttm" \
   --limit 20
 ```
 
@@ -277,8 +282,9 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 2. 获取股息率数据
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00005", "00011", ...], "date": "2026-02-24", "metricsList": ["dyr", "pe"]}' \
-  --columns "stockCode,dyr,pe"
+  --params '{"stockCodes": ["00005", "00011", "00012", "00023"], "date": "2026-02-24", "metricsList": ["dyr", "pe_ttm"]}' \
+  --columns "stockCode,dyr,pe_ttm" \
+  --limit 20
 
 # 3. 筛选股息率 > 5% 且 PE < 10 的股票
 ```

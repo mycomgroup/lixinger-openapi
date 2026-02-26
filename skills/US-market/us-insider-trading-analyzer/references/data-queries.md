@@ -30,8 +30,9 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company.revenue-structure" \
-  --params '{}'
+  --suffix "cn/company/operation-revenue-constitution" \
+  --params '{"stockCode": "600519", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
+  --limit 20
 ```
 
 ### 查询Macro.Money Supply
@@ -70,7 +71,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 - `cn/company/fundamental/non_financial`
 - `cn/index/candlestick`
-- `cn/company.revenue-structure`
+- `cn/company/operation-revenue-constitution`
 - `macro/money-supply`
 - `cn/company/trading-abnormal`
 - `cn.industry`

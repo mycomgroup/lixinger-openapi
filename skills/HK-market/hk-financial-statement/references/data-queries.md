@@ -38,23 +38,20 @@
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t", "q.bs.ta.t", "q.bs.tl.t", "q.bs.se.t", "q.cf.ncffoa.t", "q.cf.ncffia.t", "q.cf.ncfffa.t"]}' \
-  --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t,q.bs.ta.t,q.bs.tl.t,q.bs.se.t,q.cf.ncffoa.t,q.cf.ncffia.t,q.cf.ncfffa.t"
+  --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t", "q.ps.beps.t"]}' \
+  --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t,q.ps.beps.t"
 ```
 
-**用途**: 获取最新季度的核心财务数据
+**用途**: 获取最新季度的核心财务数据（利润表）
 
 **关键指标**:
 - `q.ps.toi.t`: 营业总收入（季度累积）
 - `q.ps.np.t`: 净利润（季度累积）
 - `q.ps.gp_m.t`: 毛利率
 - `q.ps.np_s_r.t`: 净利率
-- `q.bs.ta.t`: 总资产
-- `q.bs.tl.t`: 总负债
-- `q.bs.se.t`: 股东权益
-- `q.cf.ncffoa.t`: 经营活动现金流
-- `q.cf.ncffia.t`: 投资活动现金流
-- `q.cf.ncfffa.t`: 融资活动现金流
+- `q.ps.beps.t`: 基本每股收益
+
+**注意**: HK fs API 仅支持利润表数据。资产负债表和现金流数据请使用 `hk/company/fundamental/non_financial` API
 
 ### 2. 获取损益表（利润表）数据
 
@@ -81,60 +78,45 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `q.ps.npatoshopc.t`: 归母净利润
 - `q.ps.beps.t`: 基本每股收益
 
-### 3. 获取资产负债表数据
+### 3. 获取资产负债表数据（使用 fundamental API）
+
+**注意**: HK fs API 不支持资产负债表数据，需使用 fundamental API
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.bs.ta.t", "q.bs.ca.t", "q.bs.nca.t", "q.bs.tl.t", "q.bs.cl.t", "q.bs.ncl.t", "q.bs.se.t", "q.bs.cae.t", "q.bs.inv.t", "q.bs.ar.t", "q.bs.ap.t"]}' \
-  --columns "date,q.bs.ta.t,q.bs.ca.t,q.bs.nca.t,q.bs.tl.t,q.bs.cl.t,q.bs.ncl.t,q.bs.se.t,q.bs.cae.t,q.bs.inv.t,q.bs.ar.t,q.bs.ap.t"
+# 资产负债表数据不在 fs API 中，建议查看公司年报或使用其他数据源
+# 或者使用 hk/company/fundamental/non_financial 获取部分财务指标
 ```
 
-**用途**: 获取资产负债表数据
+**说明**: 港股 fs API 仅提供利润表数据，资产负债表和现金流数据需要：
+1. 查阅港交所披露易的原始财报
+2. 使用 `hk/company/fundamental/non_financial` 获取部分财务比率
 
-**关键指标**:
-- `q.bs.ta.t`: 总资产
-- `q.bs.ca.t`: 流动资产
-- `q.bs.nca.t`: 非流动资产
-- `q.bs.tl.t`: 总负债
-- `q.bs.cl.t`: 流动负债
-- `q.bs.ncl.t`: 非流动负债
-- `q.bs.se.t`: 股东权益
-- `q.bs.cae.t`: 货币资金
-- `q.bs.inv.t`: 存货
-- `q.bs.ar.t`: 应收账款
-- `q.bs.ap.t`: 应付账款
+### 4. 获取现金流量表数据（使用 fundamental API）
 
-### 4. 获取现金流量表数据
+**注意**: HK fs API 不支持现金流量表数据，需使用 fundamental API
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.cf.ncffoa.t", "q.cf.ncffia.t", "q.cf.ncfffa.t", "q.cf.nicce.t", "q.cf.fcf.t", "q.cf.capex.t"]}' \
-  --columns "date,q.cf.ncffoa.t,q.cf.ncffia.t,q.cf.ncfffa.t,q.cf.nicce.t,q.cf.fcf.t,q.cf.capex.t"
+# 现金流量表数据不在 fs API 中，建议查看公司年报或使用其他数据源
+# 或者使用 hk/company/fundamental/non_financial 获取部分现金流指标
 ```
 
-**用途**: 获取现金流量表数据
-
-**关键指标**:
-- `q.cf.ncffoa.t`: 经营活动现金流净额
-- `q.cf.ncffia.t`: 投资活动现金流净额
-- `q.cf.ncfffa.t`: 融资活动现金流净额
-- `q.cf.nicce.t`: 现金及现金等价物净增加额
-- `q.cf.fcf.t`: 自由现金流
-- `q.cf.capex.t`: 资本支出
+**说明**: 港股 fs API 仅提供利润表数据，现金流数据需要：
+1. 查阅港交所披露易的原始财报
+2. 使用 `hk/company/fundamental/non_financial` 获取部分现金流比率
 
 ### 5. 获取历史财务数据（多年度）
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t", "q.bs.ta.t", "q.bs.se.t", "q.cf.fcf.t"]}' \
-  --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t,q.bs.ta.t,q.bs.se.t,q.cf.fcf.t" \
+  --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t"]}' \
+  --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t" \
   --limit 20
 ```
 
-**用途**: 获取多年度财务数据，用于趋势分析
+**用途**: 获取多年度财务数据（利润表），用于趋势分析
+
+**注意**: 仅包含利润表数据。资产负债表和现金流数据不在此API中
 
 ### 6. 获取同比环比增长数据
 
@@ -172,20 +154,24 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.ttm", "q.ps.np.ttm", "q.ps.gp_m.ttm", "q.ps.np_s_r.ttm", "q.cf.fcf.ttm"]}' \
-  --columns "date,q.ps.toi.ttm,q.ps.np.ttm,q.ps.gp_m.ttm,q.ps.np_s_r.ttm,q.cf.fcf.ttm"
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.ttm", "q.ps.np.ttm", "q.ps.gp_m.ttm", "q.ps.np_s_r.ttm"]}' \
+  --columns "date,q.ps.toi.ttm,q.ps.np.ttm,q.ps.gp_m.ttm,q.ps.np_s_r.ttm"
 ```
 
 **用途**: 获取TTM（过去12个月）数据，用于估值分析
+
+**注意**: 仅包含利润表TTM数据。现金流TTM数据不在此API中
 
 ### 9. 获取基本面数据（配合财务分析）
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe", "pb", "ps", "dyr", "roe", "roa", "mc"]}' \
-  --columns "date,pe,pb,ps,dyr,roe,roa,mc"
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc"]}' \
+  --limit 20
 ```
+
+**说明**: `hk/company/fundamental/non_financial` 不支持 `roe_ttm` 和 `roa_ttm` 指标，如需财务指标请使用 `hk/company/fs/non_financial` API
 
 **用途**: 获取估值和回报率指标
 
@@ -406,12 +392,14 @@ def calculate_financial_health_score(ratios):
 
 ### 步骤1: 获取最新财务报表
 ```bash
-# 获取最新季度完整财务数据
+# 获取最新季度完整财务数据（利润表）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.oc.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t", "q.bs.ta.t", "q.bs.ca.t", "q.bs.tl.t", "q.bs.cl.t", "q.bs.se.t", "q.cf.ncffoa.t", "q.cf.fcf.t"]}' \
-  --columns "date,q.ps.toi.t,q.ps.oc.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t,q.bs.ta.t,q.bs.ca.t,q.bs.tl.t,q.bs.cl.t,q.bs.se.t,q.cf.ncffoa.t,q.cf.fcf.t"
+  --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.oc.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t"]}' \
+  --columns "date,q.ps.toi.t,q.ps.oc.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t"
 ```
+
+**注意**: HK fs API 仅支持利润表数据。资产负债表和现金流数据需使用其他API或查阅原始财报
 
 ### 步骤2: 获取历史趋势数据
 ```bash
@@ -428,9 +416,11 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 获取估值指标
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe", "pb", "roe", "roa", "mc"]}' \
-  --columns "date,pe,pb,roe,roa,mc"
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
+  --limit 20
 ```
+
+**说明**: `hk/company/fundamental/non_financial` 不支持 `roe_ttm` 和 `roa_ttm` 指标，如需财务指标请使用 `hk/company/fs/non_financial` API
 
 ### 步骤4: 计算财务比率（需要脚本处理）
 ```python
@@ -524,11 +514,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 示例1: 生成财务报表概览
 
 ```bash
-# 1. 获取最新财务数据
+# 1. 获取最新财务数据（利润表指标）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.beps.t", "q.bs.ta.t", "q.bs.tl.t", "q.bs.se.t"]}' \
-  --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.beps.t,q.bs.ta.t,q.bs.tl.t,q.bs.se.t"
+  --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.beps.t", "q.ps.gp.t", "q.ps.oc.t"]}' \
+  --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.beps.t,q.ps.gp.t,q.ps.oc.t"
+
+# 注意：hk/company/fs/non_financial 仅支持利润表（q.ps.*）指标
+# 资产负债表和现金流量表数据需查看原始财报或使用 hk/company/fundamental/non_financial
 
 # 2. 格式化输出（需要脚本处理）
 # 输出示例：
@@ -544,11 +537,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 示例2: 财务比率分析
 
 ```bash
-# 1. 获取财务数据
+# 1. 获取财务数据（利润表指标）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
-  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.ttm", "q.ps.oc.ttm", "q.ps.np.ttm", "q.bs.ta.t", "q.bs.ca.t", "q.bs.cl.t", "q.bs.tl.t", "q.bs.se.t", "q.bs.inv.t", "q.bs.ar.t"]}' \
-  --columns "date,q.ps.toi.ttm,q.ps.oc.ttm,q.ps.np.ttm,q.bs.ta.t,q.bs.ca.t,q.bs.cl.t,q.bs.tl.t,q.bs.se.t,q.bs.inv.t,q.bs.ar.t"
+  --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.ttm", "q.ps.oc.ttm", "q.ps.np.ttm", "q.ps.gp.ttm", "q.ps.np_s_r.ttm"]}' \
+  --columns "date,q.ps.toi.ttm,q.ps.oc.ttm,q.ps.np.ttm,q.ps.gp.ttm,q.ps.np_s_r.ttm"
+
+# 注意：hk/company/fs/non_financial 仅支持利润表（q.ps.*）指标
+# 资产负债表（q.bs.*）和现金流量表（q.cf.*）数据需查看原始财报
 
 # 2. 计算财务比率（需要脚本处理）
 # 3. 输出比率分析报告

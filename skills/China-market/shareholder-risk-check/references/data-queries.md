@@ -6,20 +6,22 @@
 
 ## 查询示例
 
-### 查询Cn.Company.Major Shareholder Change
+### 查询大股东增减持数据
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/major-shareholder-change" \
-  --params '{}'
+  --suffix "cn/company/major-shareholders-shares-change" \
+  --params '{"date": "2026-02-24"}' \
+  --limit 20
 ```
 
-### 查询Cn.Company.Shareholders Num
+### 查询股东人数变化
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/shareholders-num" \
-  --params '{"stockCode": "600519"}'
+  --params '{"stockCode": "600519", "startDate": "2025-01-01"}' \
+  --limit 20
 ```
 
 ---
@@ -36,8 +38,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company/major-shareholder-change`
-- `cn/company/shareholders-num`
+- `cn/company/major-shareholders-shares-change` - 大股东增减持数据
+- `cn/company/shareholders-num` - 股东人数变化
 
 ---
 
