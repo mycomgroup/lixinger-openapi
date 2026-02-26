@@ -38,8 +38,7 @@
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
-  --params '{"date": "2026-02-24", "metricsList": ["cp", "cpc", "ta", "mc", "pe_ttm.mcw", "pb.mcw"]}' \
-  --columns "industryCode,date,cp,cpc,ta,mc,pe_ttm.mcw,pb.mcw" \
+  --params '{"stockCodes": ["H50"], "date": "2026-02-24", "metricsList": ["cp", "cpc", "ta", "mc", "pe_ttm.mcw", "pb.mcw"]}' \
   --limit 50
 ```
 
