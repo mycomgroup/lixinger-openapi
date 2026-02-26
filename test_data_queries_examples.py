@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import json
+import random
 from pathlib import Path
 from typing import List, Dict, Tuple
 
@@ -128,7 +129,7 @@ def run_command(command: str, timeout: int = 60, max_retries: int = 2) -> Tuple[
 
 def main():
     print("=" * 80)
-    print("测试所有 data-queries.md 文件中的示例命令")
+    print("测试所有 data-queries.md 文件中的示例命令（随机顺序）")
     print("=" * 80)
     print()
     
@@ -144,6 +145,11 @@ def main():
         all_examples.extend(examples)
     
     print(f"✅ 提取到 {len(all_examples)} 个示例命令")
+    print()
+    
+    # 随机打乱顺序
+    random.shuffle(all_examples)
+    print("✅ 已随机打乱测试顺序")
     print()
     
     # 测试每个示例

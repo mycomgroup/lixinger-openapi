@@ -16,8 +16,8 @@ description: 针对单只A股股票进行全面体检（基本面、估值、股
 - 同业对比（可选）：1–3家主要竞争对手
 
 ### 第二步：数据获取（按需）
-- 使用理杏仁数据查询工具；接口示意见下方“数据接口映射”
-- 若某类数据暂不可得：标注缺口并给出替代判断路径
+- 数据获取：见 `references/data-queries.md`。
+- 若某类数据暂不可得：标注缺口并给出替代判断路径。
 
 ### 第三步：体检维度与要点
 - 基本面与财务质量：营收/利润趋势、ROE/ROIC、现金转化、应计与非经常性
@@ -28,6 +28,7 @@ description: 针对单只A股股票进行全面体检（基本面、估值、股
 - 交易与流动性：成交额/换手、涨跌停历史、估算变现天数
 - 资金与持股：北向持股、资金流向、龙虎榜席位动向、市场热度/关注度
 - 行业定位与对比：所属行业、行业地位、同业关键指标差异
+ - 指标口径、阈值与评分逻辑见 `references/methodology.md`
 
 ### 第四步：输出
 - 健康评分（0–100）：按上述维度加权汇总
@@ -35,38 +36,7 @@ description: 针对单只A股股票进行全面体检（基本面、估值、股
 - 红灯警示：质押高、现金转化差、公告负面、资金拥挤等
 - 监控清单：需持续跟踪的指标与事件
 - 建议与下一步：进一步尽调/需要的补充数据
-
-## 数据接口映射（示意）
-- 公司概览
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_profile.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company.md
-- 财务与基本面
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_fundamental_financial.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_fs_non_financial.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_operating-data.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_operation-revenue-constitution.md
-- 股东结构与变动
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_majority-shareholders.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_major-shareholders-shares-change.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_senior-executive-shares-change.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_shareholders-num.md
-- 股权质押与风险
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_pledge.md
-- 公告与事件
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_announcement.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_trading-abnormal.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_allotment.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_dividend.md
-- 交易与价格
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_candlestick.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_margin-trading-and-securities-lending.md
-- 资金与持股
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_mutual-market.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_hot_tr_dri.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_block-deal.md
-- 行业与指数关联
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_industries.md
-  - skills/lixinger-data-query/api_new/api-docs/cn_company_indices.md
+ - 输出结构：见 `references/output-template.md`
 
 ## 与现有技能的协同
 - 深度财务：financial-statement-analyzer
@@ -78,8 +48,10 @@ description: 针对单只A股股票进行全面体检（基本面、估值、股
 - 情绪热度：hot-rank-sentiment-monitor
 - 估值分位：valuation-regime-detector
 
+## 数据增强
+如需实时市场数据支撑分析：请参见 `references/data-queries.md`，使用理杏仁数据查询工具获取数据。
+
 ## 重要注意事项
 - 明确数据的日期/频率/口径；不确定不要编造
 - A股特性：T+1、涨跌停、停牌、问询与披露滞后
 - 本技能仅供信息参考与教育目的，不构成投资建议
-

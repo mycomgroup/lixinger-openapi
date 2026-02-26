@@ -98,7 +98,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company" \
-  --params '{"mutualMarkets": ["sh", "sz"]}' \
+  --params '{"mutualMarkets": ["ha", "ah"]}' \
   --columns "stockCode,name,market,mutualMarket" \
   --limit 500
 ```
@@ -106,8 +106,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 **用途**: 获取所有港股通标的（沪港通+深港通）
 
 **mutualMarket 说明**:
-- `sh`: 沪港通标的
-- `sz`: 深港通标的
+- `ha`: 港股通（H股到A股）
+- `ah`: 港股通（A股到H股）
 - 可以同时包含两个市场
 
 ### 5. 获取个股价格数据（配合资金流向分析）
@@ -330,7 +330,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 获取港股通标的列表
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company" \
-  --params '{"mutualMarkets": ["sh", "sz"]}' \
+  --params '{"mutualMarkets": ["ha", "ah"]}' \
   --columns "stockCode,name" \
   --limit 500
 
@@ -459,7 +459,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 1. 获取港股通标的列表
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company" \
-  --params '{"mutualMarkets": ["sh", "sz"]}' \
+  --params '{"mutualMarkets": ["ha", "ah"]}' \
   --columns "stockCode,name" \
   --limit 500
 
