@@ -31,7 +31,9 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "macro/price-index" \
-  --params '{}'
+  --params '{"areaCode": "us", "startDate": "2021-01-01", "endDate": "2026-02-23", "metricsList": ["m.cpiaucsl.t_y2y", "m.ppifis.t_y2y"]}' \
+  --columns "date,m.cpiaucsl.t_y2y,m.ppifis.t_y2y" \
+  --limit 80
 ```
 
 ### 查询Macro.Gdp
@@ -47,8 +49,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "us/index/fundamental" \
-  --params '{"indexCode": "SPX", "date": "2024-12-31"}' \
-  --columns "date,pe,pb,roe,dividendYield" \
+  --params '{"date": "2024-12-31", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
+  --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
   --limit 20
 ```
 

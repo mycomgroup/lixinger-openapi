@@ -141,13 +141,27 @@ ls skills/China-market/ | grep -i "关键词"
 
 **使用前必须 grep 查看 API 文档**：
 ```bash
-# 查找相关 API
-grep -r "关键词" skills/lixinger-data-query/api_new/api-docs/
+# 1. 用中文关键词搜索 API 文档正文
+grep -r "分红" skills/lixinger-data-query/api_new/api-docs/
+grep -r "股息" skills/lixinger-data-query/api_new/api-docs/
+grep -r "市盈率\|PE" skills/lixinger-data-query/api_new/api-docs/
+grep -r "市净率\|PB" skills/lixinger-data-query/api_new/api-docs/
+grep -r "ROE\|净资产收益率" skills/lixinger-data-query/api_new/api-docs/
+grep -r "营业收入\|营收" skills/lixinger-data-query/api_new/api-docs/
+grep -r "净利润" skills/lixinger-data-query/api_new/api-docs/
+grep -r "财报\|财务报表" skills/lixinger-data-query/api_new/api-docs/
+grep -r "K线\|行情\|股价" skills/lixinger-data-query/api_new/api-docs/
+grep -r "公告\|披露" skills/lixinger-data-query/api_new/api-docs/
+grep -r "成分股\|指数" skills/lixinger-data-query/api_new/api-docs/
+grep -r "基金持仓\|机构" skills/lixinger-data-query/api_new/api-docs/
+grep -r "大宗交易\|龙虎榜" skills/lixinger-data-query/api_new/api-docs/
+grep -r "融资融券" skills/lixinger-data-query/api_new/api-docs/
+grep -r "陆股通\|港股通\|北向资金\|南向资金" skills/lixinger-data-query/api_new/api-docs/
 
-# 查看 API 文档（确保参数正确）
+# 2. 查看 API 文档（确保参数正确）
 cat skills/lixinger-data-query/api_new/api-docs/[api_name].md
 
-# 执行查询
+# 3. 执行查询
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519"}' \

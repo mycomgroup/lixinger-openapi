@@ -31,8 +31,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
-  --params '{"indexCode": "000001", "date": "2024-12-31"}' \
-  --columns "date,pe,pb,roe,dividendYield" \
+  --params '{"date": "2024-12-31", "stockCodes": ["000001"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
+  --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
   --limit 20
 ```
 
