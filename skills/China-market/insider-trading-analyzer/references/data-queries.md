@@ -26,12 +26,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
   --limit 20
 ```
 
-### 查询Cn.Company.Executive Shareholding
+### 查询Cn.Company.Senior Executive Shares Change
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company.executive-shareholding" \
-  --params '{}'
+  --suffix "cn/company/senior-executive-shares-change" \
+  --params '{"date": "2026-02-24"}' \
+  --columns "date,stockCode,executiveName,duty,changedShares,avgPrice,sharesChangeAmount" \
+  --limit 20
 ```
 
 ---
@@ -50,7 +52,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 - `cn/company/trading-abnormal`
 - `cn/company/block-deal`
-- `cn/company.executive-shareholding`
+- `cn/company/senior-executive-shares-change`
 
 ---
 

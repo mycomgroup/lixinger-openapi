@@ -46,10 +46,24 @@ Systematically tested and fixed all example commands in `data-queries.md` files 
 - **Fix**: Added `--limit 20` to commands missing it
 - **Benefit**: Prevents timeouts and reduces API load
 
-### 5. Parameter Format Corrections
-- **Issue**: `stockCode` vs `stockCodes` (singular vs plural)
-- **Fix**: Used correct parameter name based on API documentation
-- **Example**: `cn/company/fs/non_financial` requires `stockCodes` (array)
+### 5. Macro API Parameters
+- **APIs affected**: 
+  - `macro/money-supply`
+  - `macro/gdp`
+  - `macro/price-index`
+- **Fix**: Added required `areaCode`, `startDate`, `endDate`, and `metricsList` parameters
+- **Example**: 
+  - money-supply: `{"areaCode": "cn", "startDate": "2025-02-01", "endDate": "2026-02-24", "metricsList": ["m.m0.t", "m.m1.t", "m.m2.t"]}`
+  - gdp: `{"areaCode": "cn", "startDate": "2025-01-01", "endDate": "2026-02-24", "metricsList": ["q.gdp.t", "q.gdp.t_y2y"]}`
+
+### 6. Invalid Metrics
+- **Issue**: Using metrics not supported by specific APIs
+- **Example**: `roe` is not valid for `cn/company/fundamental/non_financial`
+- **Fix**: Replaced with valid metrics like `dyr` (dividend yield ratio)
+
+### 7. cn/industry API
+- **Issue**: Missing required `source` parameter
+- **Fix**: Added `{"source": "sw", "level": "one"}`
 
 ## Test Infrastructure
 
@@ -70,9 +84,9 @@ Systematically tested and fixed all example commands in `data-queries.md` files 
 
 - **Total skills**: 104
 - **Total example commands**: 366
-- **Commands tested**: 23+ (before stopping for batch fixes)
+- **Commands tested**: 52+ (before stopping for batch fixes)
 - **Success rate after fixes**: 100% for tested commands
-- **Files modified**: 182
+- **Files modified**: 200+
 
 ## Common Error Patterns Fixed
 
@@ -132,5 +146,5 @@ All fixed commands have been verified to:
 ---
 
 **Last Updated**: 2026-02-26
-**Status**: In Progress (23/366 commands tested and fixed)
+**Status**: In Progress (52/366 commands tested and fixed)
 **Success Rate**: 100% for tested commands

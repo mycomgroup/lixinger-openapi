@@ -25,8 +25,8 @@
 # 示例 1: 查询单日多个股票（推荐用于筛选）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"stockCodes": ["600519", "000858"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "roe"]}' \
-  --columns "stockCode,name,pe_ttm,pb,roe" \
+  --params '{"stockCodes": ["600519", "000858"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr"]}' \
+  --columns "stockCode,name,pe_ttm,pb,dyr" \
   --limit 20
 
 # 示例 2: 查询单个股票的时间序列（推荐用于趋势分析）
