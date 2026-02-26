@@ -21,7 +21,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
-  --params '{"stockCode": "600519", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCodes": ["600519"], "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
   --columns "date,revenue,netProfit,roe,grossProfitMargin" \
   --limit 20
 ```

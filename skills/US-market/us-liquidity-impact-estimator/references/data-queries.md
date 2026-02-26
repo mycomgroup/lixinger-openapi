@@ -10,8 +10,8 @@
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/index.k-line" \
-  --params '{"indexCode": "000001", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
+  --suffix "cn/index/candlestick" \
+  --params '{"stockCode": "000001", "type": "normal", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
   --columns "date,open,high,low,close,volume" \
   --limit 20
 ```
@@ -30,7 +30,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company.trading-abnormal" \
+  --suffix "cn/company/trading-abnormal" \
   --params '{"date": "2024-12-31"}' \
   --columns "date,stockCode,name,buyAmount,sellAmount,netAmount" \
   --limit 20
@@ -51,7 +51,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/block-deal" \
-  --params '{"stockCode": "600519", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "600519", "type": "normal", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
   --columns "date,price,volume,premium,buyerName,sellerName" \
   --limit 20
 ```
@@ -70,9 +70,9 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/index.k-line`
+- `cn/index/candlestick`
 - `macro/money-supply`
-- `cn/company.trading-abnormal`
+- `cn/company/trading-abnormal`
 - `us/index/fundamental`
 - `cn/company/block-deal`
 - `cn/index/fundamental`

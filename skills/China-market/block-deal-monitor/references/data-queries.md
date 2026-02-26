@@ -32,7 +32,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 for code in 600519 000858 601398; do
   python3 skills/lixinger-data-query/scripts/query_tool.py \
     --suffix "cn/company/block-deal" \
-    --params "{\"stockCode\": \"${code}\", \"startDate\": \"2024-01-01\"}" \
+    --params '{"stockCode": "'"${code}"'", "startDate": "2024-01-01"}' \
     --columns "date,stockCode,price,volume,amount" \
     > blockdeal_${code}.csv
 done
@@ -68,16 +68,16 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ---
 
-### 查询 Cn.Company.Major Shareholder Change
+### 查询 Cn.Company.Major Shareholders Shares Change
 
-**API 路径**: `cn/company/major-shareholder-change`
+**API 路径**: `cn/company/major-shareholders-shares-change`
 
 **查询示例**:
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/major-shareholder-change" \
-  --params '{"stockCode": "600519", "startDate": "2024-01-01"}' \
+  --suffix "cn/company/major-shareholders-shares-change" \
+  --params '{"stockCode": "600519", "startDate": "2026-01-01"}' \
   --columns "date,stockCode,shareholderName,changeReason,changeAmount"
 ```
 
@@ -92,7 +92,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/shareholders-num" \
-  --params '{"stockCode": "600519", "startDate": "2024-01-01"}' \
+  --params '{"stockCode": "600519", "startDate": "2026-01-01"}' \
   --columns "date,stockCode,shareholdersNum"
 ```
 
@@ -102,13 +102,18 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 **API 路径**: `macro/money-supply`
 
+**必需参数**:
+- `areaCode`: 地区代码（必需，小写：`"cn"` 表示中国，`"us"` 表示美国，`"hk"` 表示香港）
+- `startDate`: 起始日期
+- `endDate`: 结束日期
+- `metricsList`: 指标数组（如 `["m.m1.t", "m.m2.t"]`）
+
 **查询示例**:
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "macro/money-supply" \
-  --params '{"date": "2024-12-31"}' \
-  --columns "date,m0,m1,m2" \
+  --params '{"areaCode": "cn", "startDate": "2026-01-01", "endDate": "2026-02-26", "metricsList": ["m.m0.t", "m.m1.t", "m.m2.t"]}' \
   --limit 20
 ```
 
@@ -127,7 +132,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ## 本 Skill 常用 API
 
 - `cn/company/block-deal`: 大宗交易数据
-- `cn/company/major-shareholder-change`: 大股东变动
+- `cn/company/major-shareholders-shares-change`: 大股东持股变动
 - `cn/company/shareholders-num`: 股东人数
 - `macro/money-supply`: 货币供应量
 

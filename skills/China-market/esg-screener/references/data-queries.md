@@ -9,7 +9,7 @@
 ### 查询K线数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "startDate": "2024-01-01", "endDate": "2024-12-31"}' --columns "date,close,volume"
+python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "type": "normal", "startDate": "2024-01-01", "endDate": "2024-12-31"}' --columns "date,close,volume"
 ```
 
 ### 查询股票基本信息

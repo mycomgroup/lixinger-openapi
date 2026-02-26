@@ -183,7 +183,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 步骤1: 获取目标股票的行业
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company.industries" \
-  --params '{"stockCode": "00700"}' \
+  --params '{"stockCodes": ["00700"]}' \
   --columns "industryCode,industryName"
 
 # 步骤2: 获取同行业所有股票

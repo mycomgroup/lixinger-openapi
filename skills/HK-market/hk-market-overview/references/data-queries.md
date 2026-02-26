@@ -80,7 +80,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.constituents" \
+  --suffix "hk/index/constituentss" \
   --params '{"indexCode": "HSI"}' \
   --columns "stockCode,name,weight" \
   --limit 100
@@ -246,7 +246,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 核心 API ⭐
 - `hk/index/fundamental` - 港股指数基本面（最重要）
 - `hk/index.candlestick` - 港股指数K线
-- `hk/index.constituents` - 港股指数成分股
+- `hk/index/constituentss` - 港股指数成分股
 - `hk/index.mutual-market` - 港股指数互联互通
 
 ### 辅助 API

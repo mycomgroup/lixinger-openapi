@@ -43,7 +43,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk/index.constituents" \
+  --suffix "hk/index/constituentss" \
   --params '{"indexCode": "HSI"}' \
   --columns "stockCode,name,weight" \
   --limit 100
@@ -160,7 +160,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `hk/company` - 港股公司基本信息
 - `hk/company/fundamental/non_financial` - 港股基本面数据
 - `hk/company.industries` - 港股行业分类
-- `hk/index.constituents` - 港股指数成分股
+- `hk/index/constituentss` - 港股指数成分股
 - `hk/index/fundamental` - 港股指数基本面
 - `hk.industry.fundamental.hsi` - 港股行业基本面
 

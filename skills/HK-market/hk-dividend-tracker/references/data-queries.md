@@ -33,7 +33,7 @@
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/dividend" \
-  --params '{"stockCode": "00005", "startDate": "2020-01-01", "endDate": "2024-12-31"}' \
+  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "endDate": "2024-12-31"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate,paymentDate,fsEndDate" \
   --limit 100
 ```
@@ -101,7 +101,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company.candlestick" \
-  --params '{"stockCode": "00005", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
+  --params '{"stockCodes": ["00005"], "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
   --columns "date,close,volume,amount" \
   --limit 300
 ```
@@ -113,7 +113,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company.industries" \
-  --params '{"stockCode": "00005"}' \
+  --params '{"stockCodes": ["00005"]}' \
   --columns "industryCode,industryName,industryLevel"
 ```
 
@@ -247,7 +247,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 # 1. 获取5年分红历史
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "hk/company/dividend" \
-  --params '{"stockCode": "00005", "startDate": "2020-01-01", "endDate": "2024-12-31"}' \
+  --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "endDate": "2024-12-31"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio" \
   --limit 20
 

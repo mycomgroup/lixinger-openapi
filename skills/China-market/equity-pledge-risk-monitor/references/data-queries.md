@@ -6,19 +6,39 @@
 
 ## 查询示例
 
-### 查询Cn.Company.Equity Pledge
+### 查询 Cn.Company.Pledge（股权质押）
+
+**API 路径**: `cn/company/pledge`
+
+**必需参数**:
+- `stockCode`: 股票代码
+- `startDate`: 起始日期
+
+**查询示例**:
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company.equity-pledge" \
-  --params '{"stockCode": "600519", "startDate": "2020-01-01", "endDate": "2026-02-24"}'
+  --suffix "cn/company/pledge" \
+  --params '{"stockCode": "600519", "startDate": "2025-01-01", "endDate": "2026-02-26"}' \
+  --columns "date,pledgor,pledgee,pledgeAmount,pledgePercentageOfTotalEquity,accumulatedPledgePercentageOfTotalEquity" \
+  --limit 20
 ```
+
+**常用字段**:
+- `date`: 数据时间
+- `pledgor`: 出质人
+- `pledgee`: 质权人
+- `pledgeAmount`: 质押数量
+- `pledgePercentageOfTotalEquity`: 占总股比例
+- `accumulatedPledgePercentageOfTotalEquity`: 累计质押占总股比例
+- `pledgeStartDate`: 质押起始日
+- `pledgeEndDate`: 质押终止日
 
 ---
 
 ## 参数说明
 
-- `--suffix`: API 路径（参考下方可用 API 列表）
+- `--suffix`: API 路径（使用斜杠格式，如 `cn/company/pledge`）
 - `--params`: JSON 格式参数
 - `--columns`: 指定返回字段（推荐使用，节省 30-40% token）
 - `--row-filter`: 过滤条件
@@ -28,7 +48,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company.equity-pledge`
+- `cn/company/pledge`: 股权质押数据
 
 ---
 
@@ -42,7 +62,7 @@ cat skills/lixinger-data-query/SKILL.md
 grep -r "关键字" skills/lixinger-data-query/api_new/api-docs/
 
 # 查看具体 API 文档
-cat skills/lixinger-data-query/api_new/api-docs/{api_name}.md
+cat skills/lixinger-data-query/api_new/api-docs/cn_company_pledge.md
 ```
 
 **相关文档**: `skills/lixinger-data-query/SKILL.md`

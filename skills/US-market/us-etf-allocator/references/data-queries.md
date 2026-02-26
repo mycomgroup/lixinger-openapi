@@ -10,8 +10,8 @@
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/index.k-line" \
-  --params '{"indexCode": "000001", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
+  --suffix "cn/index/candlestick" \
+  --params '{"stockCode": "000001", "type": "normal", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
   --columns "date,open,high,low,close,volume" \
   --limit 20
 ```
@@ -68,7 +68,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/index.k-line`
+- `cn/index/candlestick`
 - `macro/money-supply`
 - `cn.industry`
 - `us/index/fundamental`

@@ -10,7 +10,7 @@
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company.trading-abnormal" \
+  --suffix "cn/company/trading-abnormal" \
   --params '{"date": "2024-12-31"}' \
   --columns "date,stockCode,name,buyAmount,sellAmount,netAmount" \
   --limit 20
@@ -30,7 +30,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company.trading-abnormal`
+- `cn/company/trading-abnormal`
 
 ---
 

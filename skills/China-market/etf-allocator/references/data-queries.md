@@ -85,8 +85,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 查询沪深300成分股
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/index.constituent" \
-  --params '{"indexCode": "000300", "date": "2024-12-31"}' \
+  --suffix "cn/index/constituents" \
+  --params '{"stockCode": "000300", "type": "normal", "date": "2024-12-31"}' \
   --columns "stockCode,stockName,weight" \
   --limit 300
 ```
@@ -107,8 +107,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 查询沪深300近1年K线数据
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/index.k-line" \
-  --params '{"indexCode": "000300", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
+  --suffix "cn/index/candlestick" \
+  --params '{"stockCode": "000300", "type": "normal", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
   --columns "date,open,high,low,close,volume,amount" \
   --limit 365
 ```
@@ -132,8 +132,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 1. **确定查询参数**：根据分析需求确定指数代码、日期范围等参数
 2. **选择合适的 API**：
    - 估值数据：使用 `cn/index/fundamental`（必须包含 `metricsList` 参数）
-   - 成分股数据：使用 `cn/index.constituent`
-   - K线数据：使用 `cn/index.k-line`
+   - 成分股数据：使用 `cn/index/constituents`
+   - K线数据：使用 `cn/index/candlestick`
 3. **指定返回字段**：使用 `--columns` 参数指定需要的字段（可选，但推荐使用）
 4. **执行查询**：运行 `query_tool.py` 获取数据
 5. **数据分析**：对返回的 CSV 数据进行分析
