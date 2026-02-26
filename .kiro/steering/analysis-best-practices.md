@@ -6,9 +6,20 @@
 
 ## ⚡ 调用前必查清单
 
-### 1. 查看 API 文档（必须！）
+### 1. 查找合适的 API（必须！）
 ```bash
-# 使用前必须 grep 查看 API 文档
+# 方法 1：使用中文关键词索引（推荐）
+grep -i "分红" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "市盈率\|PE" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "ROE\|净资产收益率" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+
+# 方法 2：直接搜索 API 文档
+grep -r "分红" skills/lixinger-data-query/api_new/api-docs/
+```
+
+### 2. 查看 API 文档（必须！）
+```bash
+# 找到 API 后，查看详细文档
 cat skills/lixinger-data-query/api_new/api-docs/{api_name}.md
 ```
 
@@ -25,6 +36,57 @@ cat skills/lixinger-data-query/api_new/api-docs/{api_name}.md
 # 节省 30-40% token
 --columns "date,stockCode,pe_ttm,pb,dyr"
 ```
+
+---
+
+## 🔍 如何快速找到需要的 API
+
+### 常用中文关键词搜索
+
+```bash
+# 财务指标
+grep -i "分红\|股息" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "市盈率\|PE" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "市净率\|PB" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "ROE\|净资产收益率" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "营业收入\|营收" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "净利润" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+
+# 交易数据
+grep -i "K线\|行情\|股价" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "成交量\|成交额" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+
+# 资金流向
+grep -i "融资融券\|两融" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "大宗交易" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "龙虎榜" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "陆股通\|港股通\|北向资金\|南向资金" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+
+# 公司事件
+grep -i "公告\|披露" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "配股" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "增减持" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "股权质押" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+
+# 持股数据
+grep -i "股东" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "基金持股\|机构持仓" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+
+# 指数和行业
+grep -i "指数\|成分股" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "行业\|板块" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+
+# 宏观数据
+grep -i "GDP\|CPI\|PPI" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "货币供应\|M0\|M1\|M2" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "汇率\|外汇" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+```
+
+### 查找流程
+
+1. **使用中文关键词搜索索引**（找到 API 路径）
+2. **查看 API 文档**（确认参数和字段）
+3. **构造查询命令**（使用正确的参数）
 
 ---
 
