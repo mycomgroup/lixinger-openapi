@@ -51,6 +51,9 @@ analysis_20260225_143052_high_dividend/
 │   ├── dividend_data.csv
 │   ├── price_data.csv
 │   └── company_info.csv
+├── scripts/               # Python 脚本（数据处理和分析）
+│   ├── analyze_data.py
+│   └── calculate_metrics.py
 └── output/                # 最终输出报告
     └── report.md
 ```
@@ -65,7 +68,7 @@ analysis_20260225_143052_high_dividend/
 
 # AI 创建新项目文件夹
 PROJECT="analysis_$(date +%Y%m%d_%H%M%S)_high_dividend"
-mkdir -p ${PROJECT}/{data,output}
+mkdir -p ${PROJECT}/{data,scripts,output}
 
 # 创建 README.md
 cat > ${PROJECT}/README.md << 'EOF'
@@ -84,6 +87,20 @@ EOF
 # 下载数据到 data/
 python3 skills/lixinger-data-query/scripts/query_tool.py ... \
   > ${PROJECT}/data/dividend_data.csv
+
+# 如需复杂计算，创建 Python 脚本到 scripts/
+cat > ${PROJECT}/scripts/analyze_dividend.py << 'EOF'
+import pandas as pd
+
+# 读取数据
+df = pd.read_csv('../data/dividend_data.csv')
+
+# 计算指标
+df['dividend_yield_avg'] = df.groupby('stockCode')['dividendYield'].transform('mean')
+
+# 保存结果
+df.to_csv('../output/analysis_result.csv', index=False)
+EOF
 
 # 生成报告到 output/
 # (分析完成后保存)
@@ -296,7 +313,7 @@ python3 -c "import akshare as ak; print(ak.interface_name())"
 ```bash
 # 1. 创建项目文件夹
 PROJECT="analysis_$(date +%Y%m%d_%H%M%S)_high_dividend"
-mkdir -p ${PROJECT}/{data,output}
+mkdir -p ${PROJECT}/{data,scripts,output}
 
 # 2. grep 查找 Skill
 ls skills/China-market/ | grep -i "dividend"
@@ -315,7 +332,30 @@ for code in 601398 601288 600900; do
     > ${PROJECT}/data/dividend_${code}.csv
 done
 
-# 6. 分析并生成报告到 output/report.md
+# 6. 如需复杂计算，创建 Python 脚本
+cat > ${PROJECT}/scripts/calculate_metrics.py << 'EOF'
+import pandas as pd
+import glob
+
+# 合并所有数据
+dfs = []
+for file in glob.glob('../data/dividend_*.csv'):
+    df = pd.read_csv(file)
+    dfs.append(df)
+
+combined = pd.concat(dfs, ignore_index=True)
+
+# 计算平均股息率
+avg_yield = combined.groupby('stockCode')['dividendYield'].mean()
+print(avg_yield)
+
+# 保存结果
+avg_yield.to_csv('../output/avg_dividend_yield.csv')
+EOF
+
+python3 ${PROJECT}/scripts/calculate_metrics.py
+
+# 7. 分析并生成报告到 output/report.md
 ```
 
 ### 示例 2：继续分析（同一对话）
@@ -520,9 +560,31 @@ cat skills/lixinger-data-query/api_new/api-docs/cn_company.md
 
 - **一个对话 = 一个项目文件夹**
 - **命名规范**：`analysis_YYYYMMDD_HHMMSS_主题`
+- **目录结构**：`{data,scripts,output}`
+  - `data/`: 原始数据文件（CSV）
+  - `scripts/`: Python 脚本（数据处理和分析）
+  - `output/`: 最终输出报告
 - **README.md 记录分析方案**
 
-### 4. 查找技巧
+### 4. 数据处理
+
+- **简单查询**：直接使用 `query_tool.py` 输出到 data/
+- **复杂计算**：创建 Python 脚本到 scripts/
+  - 数据合并、清洗、转换
+  - 指标计算、统计分析
+  - 可视化图表生成
+- **脚本规范**：使用相对路径读取 `../data/`，输出到 `../output/`
+
+### 4. 数据处理
+
+- **简单查询**：直接使用 `query_tool.py` 输出到 data/
+- **复杂计算**：创建 Python 脚本到 scripts/
+  - 数据合并、清洗、转换
+  - 指标计算、统计分析
+  - 可视化图表生成
+- **脚本规范**：使用相对路径读取 `../data/`，输出到 `../output/`
+
+### 5. 查找技巧
 
 ```bash
 # 按功能查找
