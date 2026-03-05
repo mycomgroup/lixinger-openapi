@@ -1,0 +1,1502 @@
+{
+  "version": 1,
+  "lastUpdated": 1772701766346,
+  "plugins": [
+    {
+      "filename": "ab-ah-premium-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_ab-ah-premium-monitor",
+        "filename": "ab-ah-premium-monitor",
+        "name": "ab-ah-premium-monitor",
+        "description": "跟踪 AB 股比价与 A+H 溢价/折价，并结合流动性与事件因素给出风险提示。当用户询问AB股比价、A+H溢价、跨市场定价差或需要溢价监控时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22168,
+        "contentHash": "3e758592cf867c5b1dc381dbdcc0087e0fc09b5aed790e488406e5c32679e680"
+      }
+    },
+    {
+      "filename": "block-deal-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_block-deal-monitor",
+        "filename": "block-deal-monitor",
+        "name": "block-deal-monitor",
+        "description": "跟踪并解读A股大宗交易（折溢价、买卖方、金额、连续性），用于识别潜在建仓/派发、短期抛压与承接强弱，并输出可执行的跟踪清单与风控规则。当用户询问大宗交易、折价率、大额成交、机构接盘、或想用大宗交易做信号时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 14478,
+        "contentHash": "e4b0ea2303a6f6b7a98875115206bae195c7dfa0d83c55b6866430c6f0b9b9d0"
+      }
+    },
+    {
+      "filename": "bse-selection-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_bse-selection-analyzer",
+        "filename": "bse-selection-analyzer",
+        "name": "bse-selection-analyzer",
+        "description": "扫描与分析北交所（BSE）标的，按流动性、成长性、行业景气与“专精特新”特征输出候选清单，并给出流动性与波动风险提示。当用户询问北交所精选、北交所选股、专精特新筛选、或需要北交所板块研究时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 9380,
+        "contentHash": "b129737ef02a5b660b968d73e98f86b3b9fd109b81bfd6e90325a70c05631f77"
+      }
+    },
+    {
+      "filename": "concept-board-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_concept-board-analyzer",
+        "filename": "concept-board-analyzer",
+        "name": "concept-board-analyzer",
+        "description": "分析概念板块（同花顺/东方财富）的实时/历史表现、成分股、资金流与热度，用于识别主题热点与轮动。当用户询问概念板块走势、概念轮动、板块成分、概念资金流、或需要概念板块分析时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21847,
+        "contentHash": "fcab82aeb379372d235a48fbecbb705fb44c5827a644d41be80edec646cc4cd6"
+      }
+    },
+    {
+      "filename": "convertible-bond-scanner",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_convertible-bond-scanner",
+        "filename": "convertible-bond-scanner",
+        "name": "convertible-bond-scanner",
+        "description": "筛选可转债并评估溢价、流动性、条款风险与正股质量联动。当用户询问可转债机会、转债筛选、转债溢价/条款风险或需要转债清单时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22785,
+        "contentHash": "7e01bbc201203d7a2ec5eda34fa39bde48912b66e6b692bfd0776654538efd09"
+      }
+    },
+    {
+      "filename": "disclosure-notice-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_disclosure-notice-monitor",
+        "filename": "disclosure-notice-monitor",
+        "name": "disclosure-notice-monitor",
+        "description": "梳理公司公告与信息披露（定期报告披露、重大事项）并生成事件清单、影响评估与监控要点。当用户询问公告梳理、信息披露、财报披露时间、重大事项清单或需要公告监控时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23354,
+        "contentHash": "5c10e557d42a88300de52a9ef6125e30122807bcf9a5f8eb035375097681e74f"
+      }
+    },
+    {
+      "filename": "dividend-corporate-action-tracker",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_dividend-corporate-action-tracker",
+        "filename": "dividend-corporate-action-tracker",
+        "name": "dividend-corporate-action-tracker",
+        "description": "跟踪历史分红、分红配股方案、除权除息与交易提醒，评估股东回报与分红可持续性。当用户询问分红记录、配股方案、除权除息、股息率或需要分红跟踪时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 19791,
+        "contentHash": "96525b5224e8913cdf843082d147fd59cf806c20a9f039713b01f5909cc7106f"
+      }
+    },
+    {
+      "filename": "dragon-tiger-list-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_dragon-tiger-list-analyzer",
+        "filename": "dragon-tiger-list-analyzer",
+        "name": "dragon-tiger-list-analyzer",
+        "description": "分析龙虎榜数据（机构席位、营业部、买卖动向、个股上榜统计）以识别资金偏好与异常成交风险。当用户询问龙虎榜、机构席位动向、游资营业部、上榜原因、或需要龙虎榜复盘时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22850,
+        "contentHash": "560980642328520aad284c6cdff69f0a446df6c90744c40dd61ef42f4b22fa9a"
+      }
+    },
+    {
+      "filename": "equity-pledge-risk-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_equity-pledge-risk-monitor",
+        "filename": "equity-pledge-risk-monitor",
+        "name": "equity-pledge-risk-monitor",
+        "description": "分析股权质押比例、质押分布、行业对比及结构特征，输出控制权与财务/流动性风险提示。当用户询问股权质押、质押比例、质押风险或需要质押风险扫描时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23812,
+        "contentHash": "c860cf8c6679e246263e6896f49fa9b4e8a7a3276bb7856c49f11590ca042572"
+      }
+    },
+    {
+      "filename": "equity-research-orchestrator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_equity-research-orchestrator",
+        "filename": "equity-research-orchestrator",
+        "name": "equity-research-orchestrator",
+        "description": "编排完整个股研究流程：按需调用其他技能/工具包视图，并将输出整合为一份一致的研究交付物。当用户要求“从头到尾分析这只股票/给我完整研究包”时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23015,
+        "contentHash": "84ba4d01a77d113fc969354d77692e385231491b870cd43835c4916576cba7ca"
+      }
+    },
+    {
+      "filename": "esg-screener",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_esg-screener",
+        "filename": "esg-screener",
+        "name": "esg-screener",
+        "description": "从ESG（环境、社会、治理）视角筛选和分析A股上市公司，评估可持续发展实践、争议事件和负责任投资标准。当用户询问ESG投资、可持续投资、社会责任投资、绿色投资、碳足迹分析、公司治理评估、争议事件筛查、排除清单，或对公司或组合进行ESG评分时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23501,
+        "contentHash": "945e5f8752964aa11902e0d1636f5819a8465e64b7433beec4b5b4db523bb904"
+      }
+    },
+    {
+      "filename": "etf-allocator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_etf-allocator",
+        "filename": "etf-allocator",
+        "name": "etf-allocator",
+        "description": "构建 ETF 配置方案并量化暴露（行业/风格/因子）、流动性与跟踪误差等关键约束。当用户要求用 ETF 做配置、或分析 ETF 暴露与风险时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 25436,
+        "contentHash": "442e330d9bfaf4f0558690e8e13d1672eee426502ee58d43404e4f174ff6122f"
+      }
+    },
+    {
+      "filename": "event-driven-detector",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_event-driven-detector",
+        "filename": "event-driven-detector",
+        "name": "event-driven-detector",
+        "description": "识别和分析可能创造定价偏差的A股公司事件，包括并购重组、资产注入、回购增持、管理层变更和指数调整。当用户询问并购重组机会、资产注入、股份回购分析、国企改革、指数调整交易、特殊事件投资或事件驱动策略时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21961,
+        "contentHash": "c411dd042bdbe3d16945c5f9a7c09e9b8220d83b78d590c2c3f89cf62dc42ff6"
+      }
+    },
+    {
+      "filename": "event-study",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_event-study",
+        "filename": "event-study",
+        "name": "event-study",
+        "description": "对公司/宏观事件进行事件窗研究（事件前后收益、超额收益、同业/基准调整），用于量化事件影响。当用户询问某事件对价格的影响、或需要事件窗分析时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 8826,
+        "contentHash": "cd2bebcc1774dd4d9081079c26e00dcf89d74b4a695b6c25ef771b90c72e74eb"
+      }
+    },
+    {
+      "filename": "factor-crowding-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_factor-crowding-monitor",
+        "filename": "factor-crowding-monitor",
+        "name": "factor-crowding-monitor",
+        "description": "监控因子拥挤度与因子收益分化，用于识别拥挤交易与风格挤压/轮动风险。当用户询问因子拥挤度、风格拥挤、或需要因子轮动风险提示时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 15978,
+        "contentHash": "398991b7a725e5d6d6d4a1ff68f4008560359663a6329e1f26dd427165fb912f"
+      }
+    },
+    {
+      "filename": "financial-statement-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_financial-statement-analyzer",
+        "filename": "financial-statement-analyzer",
+        "name": "financial-statement-analyzer",
+        "description": "对单个A股上市公司的财务报表进行深度分析，评估盈利质量、财务健康状况、财务造假风险和运营效率。当用户要求深入分析某家公司的财务报表、杜邦分析、盈利质量检查、资产负债表分析、现金流分析、Z值评分、M值评分、营运资本分析，或任何详细的单公司财务审视时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 28026,
+        "contentHash": "c055c7013e3fe1a96b9d7bc246d0d6fe1c9e59a84d0d9d810081d2a5a78fb996"
+      }
+    },
+    {
+      "filename": "fund-flow-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_fund-flow-monitor",
+        "filename": "fund-flow-monitor",
+        "name": "fund-flow-monitor",
+        "description": "整合个股/行业/概念/大盘/主力/大单资金流向，识别资金驱动、背离与拥挤风险。当用户询问资金流向、主力净流入、行业/概念资金、资金异动或需要资金监控面板时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21240,
+        "contentHash": "c5635f8e59cad6bb6765f913fa11f72dc698b3d86987cafa09e3467bea3667e0"
+      }
+    },
+    {
+      "filename": "goodwill-risk-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_goodwill-risk-monitor",
+        "filename": "goodwill-risk-monitor",
+        "name": "goodwill-risk-monitor",
+        "description": "监控公司/行业商誉规模、减值明细与预警信号，识别潜在商誉减值风险与财报冲击。当用户询问商誉、商誉减值、商誉风险或需要商誉风险清单时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 19841,
+        "contentHash": "c1f7ed81435f0524d98f33404905d653b3ff4cb7fe8cb3e0d1f44208ff5eb44e"
+      }
+    },
+    {
+      "filename": "high-dividend-strategy",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_high-dividend-strategy",
+        "filename": "high-dividend-strategy",
+        "name": "high-dividend-strategy",
+        "description": "分析A股高股息策略，评估红利股的收益可持续性与长期回报。当用户询问高股息股票、红利策略、A股分红分析、现金分红覆盖率、中证红利指数成分股、股息率排名或长期收入型投资时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23619,
+        "contentHash": "62d32edad4525a2951dcc81c00ee646c3d8347bcc9be54f1f2b5555724fb88c8"
+      }
+    },
+    {
+      "filename": "hot-rank-sentiment-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_hot-rank-sentiment-monitor",
+        "filename": "hot-rank-sentiment-monitor",
+        "name": "hot-rank-sentiment-monitor",
+        "description": "跟踪个股人气榜、热度趋势、关注度与投票等情绪代理，识别情绪背离与拥挤风险。当用户询问人气榜、热度、关注度、股评投票或需要热度监控时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 12084,
+        "contentHash": "d3e4df7ad3335b1803579ace6684f21dddfd355f2d7e26e00b930ade0dce43ea"
+      }
+    },
+    {
+      "filename": "hsgt-holdings-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_hsgt-holdings-monitor",
+        "filename": "hsgt-holdings-monitor",
+        "name": "hsgt-holdings-monitor",
+        "description": "跟踪沪深港通持股（北向持仓排行、个股持仓明细、板块排行、机构统计）并输出增减持与集中度风险提示。当用户询问北向持仓、外资持股、陆股通持仓变化、或需要持仓监控时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21049,
+        "contentHash": "6e04a0215bd0d2b2ce749929fc6e63c0ac8b87a5f4a70bd643c64eb3f91de08d"
+      }
+    },
+    {
+      "filename": "industry-board-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_industry-board-analyzer",
+        "filename": "industry-board-analyzer",
+        "name": "industry-board-analyzer",
+        "description": "分析行业板块（行业指数、成分股、资金流排名、历史表现）用于行业强弱与轮动判断。当用户询问行业板块表现、行业轮动、行业资金流、行业成分、或需要行业板块对比时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21595,
+        "contentHash": "3c5a501316642d3da30f0fa7ec0d95748a7fbba1cc96a05c126d5d8e5e7fd36b"
+      }
+    },
+    {
+      "filename": "industry-chain-mapper",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_industry-chain-mapper",
+        "filename": "industry-chain-mapper",
+        "name": "industry-chain-mapper",
+        "description": "构建产业链上下游映射并跟踪景气信号（价格、产能、订单、库存等可得代理）。当用户询问产业链分析、上下游联动、景气跟踪或需要产业链地图时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21119,
+        "contentHash": "b919d52900b45c71ef711a774aa4ee9f80d5e9f6675d97e0ebbf12bd2f6a66fb"
+      }
+    },
+    {
+      "filename": "insider-trading-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_insider-trading-analyzer",
+        "filename": "insider-trading-analyzer",
+        "name": "insider-trading-analyzer",
+        "description": "分析A股市场董监高及重要股东增减持行为，识别具有显著管理层信心信号的公司。当用户询问董监高增持、大股东买入、内部人交易分析、管理层增持信号、股东增减持动态时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 20596,
+        "contentHash": "3776433619b944741d1c5bf7199fe1bae79e7097804f9064d92cef57f2b2505f"
+      }
+    },
+    {
+      "filename": "intraday-microstructure-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_intraday-microstructure-analyzer",
+        "filename": "intraday-microstructure-analyzer",
+        "name": "intraday-microstructure-analyzer",
+        "description": "分析分时/盘口/逐笔/分钟线与盘前数据，评估日内波动、量价结构与流动性风险。当用户询问分时、逐笔、盘口、分钟K、盘前/盘中结构或需要日内诊断时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 16660,
+        "contentHash": "bf55a2ae9249ce15b1d3ac00918a1907446e3ee475b43a408e6832ac0e83adce"
+      }
+    },
+    {
+      "filename": "investment-memo-generator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_investment-memo-generator",
+        "filename": "investment-memo-generator",
+        "name": "investment-memo-generator",
+        "description": "基于结构化输入与数据生成机构风格投资备忘录（观点、估值、催化剂、风险与监控）。当用户要求撰写投资备忘录/研究简报/投资逻辑陈述时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23342,
+        "contentHash": "729e71f0dfd3eb695118853cb1eb95b7e73bb43bd8ee851e8509b77dd149400d"
+      }
+    },
+    {
+      "filename": "ipo-lockup-risk-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_ipo-lockup-risk-monitor",
+        "filename": "ipo-lockup-risk-monitor",
+        "name": "ipo-lockup-risk-monitor",
+        "description": "监控限售解禁、重要股东减持与供给冲击风险，输出时间表与风险提示。当用户询问解禁/减持、供给冲击、或需要解禁风险清单时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 19968,
+        "contentHash": "02dece06424f0fbf730dd7dda5fe7839056ec905b63b662e8e8bac3fd3c56d1c"
+      }
+    },
+    {
+      "filename": "ipo-newlist-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_ipo-newlist-monitor",
+        "filename": "ipo-newlist-monitor",
+        "name": "ipo-newlist-monitor",
+        "description": "跟踪 IPO 申报、新股上市、次新股与 IPO 受益股，输出事件清单与风险提示。当用户询问新股、次新、IPO 进展、IPO 受益股或需要新股日历/复盘时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 18967,
+        "contentHash": "fa82228d1e827b25d45670ae0d8b2e0648bfd6068270c432eda43dec8cb74ed1"
+      }
+    },
+    {
+      "filename": "limit-up-limit-down-risk-checker",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_limit-up-limit-down-risk-checker",
+        "filename": "limit-up-limit-down-risk-checker",
+        "name": "limit-up-limit-down-risk-checker",
+        "description": "评估涨跌停/停牌等制度约束对可交易性的影响，输出风险标签与应对建议。当用户询问涨停板/跌停板风险、无法成交风险、或需要交易约束检查时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 16513,
+        "contentHash": "64e773783e6a4064e6b1f0f06a57a53c15bdbc27decb1e5d13779523d04b429b"
+      }
+    },
+    {
+      "filename": "limit-up-pool-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_limit-up-pool-analyzer",
+        "filename": "limit-up-pool-analyzer",
+        "name": "limit-up-pool-analyzer",
+        "description": "分析涨停池/强势股/连板结构/次新等，提炼市场情绪、题材强弱与风险提示。当用户询问涨停池、连板、强势股、打板情绪、题材热度或需要涨停池复盘时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23629,
+        "contentHash": "770adec8ac276252633240637a9238c482f8c2eaa675463e72127f839ae4e496"
+      }
+    },
+    {
+      "filename": "liquidity-impact-estimator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_liquidity-impact-estimator",
+        "filename": "liquidity-impact-estimator",
+        "name": "liquidity-impact-estimator",
+        "description": "评估个股/组合的流动性与交易冲击成本代理（成交量/换手、价量结构、滑点与冲击成本启发式），用于仓位与交易可行性判断。当用户询问流动性风险、可交易性、滑点/冲击成本或下单规模建议时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 11054,
+        "contentHash": "3e51ba77126ecd65050d0a3c88c3cf1a10c168538f43fbead781e62e553f84ec"
+      }
+    },
+    {
+      "filename": "macro-liquidity-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_macro-liquidity-monitor",
+        "filename": "macro-liquidity-monitor",
+        "name": "macro-liquidity-monitor",
+        "description": "跟踪宏观流动性指标（利率、通胀、信用、政策取向）并总结对资产/行业的影响。当用户询问流动性环境、政策对市场影响或需要宏观流动性仪表盘时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 9416,
+        "contentHash": "363420eaedc736799a80f56e2d601884b297a4208c995c04983ba3d6a5e70614"
+      }
+    },
+    {
+      "filename": "margin-risk-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_margin-risk-monitor",
+        "filename": "margin-risk-monitor",
+        "name": "margin-risk-monitor",
+        "description": "监控融资融券与杠杆风险（余额变化、拥挤度、下跌加速风险），用于识别踩踏与波动放大。当用户询问两融数据、杠杆风险、市场拥挤、或需要两融监控时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 10744,
+        "contentHash": "9952807f74da4586b2d2d0c8f93ec37d2f19f381a579ec61ea918f3b9e63981e"
+      }
+    },
+    {
+      "filename": "market-breadth-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_market-breadth-monitor",
+        "filename": "market-breadth-monitor",
+        "name": "market-breadth-monitor",
+        "description": "监控市场宽度与市场内部结构（涨跌家数、新高新低、集中度、宽度动量），用于判断风险偏好与状态切换。当用户询问市场宽度、市场内部结构、风险偏好变化、或需要宽度监控面板时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 18865,
+        "contentHash": "adaac45af83834c01bd55a54b8d140f300a78b6fde2c1240e978d5f159dd4c6a"
+      }
+    },
+    {
+      "filename": "market-overview-dashboard",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_market-overview-dashboard",
+        "filename": "market-overview-dashboard",
+        "name": "market-overview-dashboard",
+        "description": "汇总上交所/深交所市场总貌、成交概况、地区/行业统计与资金概览，用于快速把握市场状态。当用户询问市场总貌、交易所统计、成交概况、市场资金概览或需要市场仪表盘时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 24709,
+        "contentHash": "a4759c22d8c90db54522db2135dda5e4f4c64480894ea21cacf02c32cd4690a0"
+      }
+    },
+    {
+      "filename": "northbound-flow-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_northbound-flow-analyzer",
+        "filename": "northbound-flow-analyzer",
+        "name": "northbound-flow-analyzer",
+        "description": "分析北向资金（沪股通/深股通）流向、行业偏好、背离信号与风险提示。当用户询问北向资金、外资流入流出、北向偏好、或需要北向资金监控时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21408,
+        "contentHash": "befceedb64323f88b2b7956f5ff69ed346ebde40d21bf41d7ef6c06997c9c3ad"
+      }
+    },
+    {
+      "filename": "peer-comparison-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_peer-comparison-analyzer",
+        "filename": "peer-comparison-analyzer",
+        "name": "peer-comparison-analyzer",
+        "description": "构建同业可比公司对比（估值、成长、盈利能力、杠杆、现金流质量）并解释差异来源。当用户要求同业对比、可比公司估值或同行比较时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 16501,
+        "contentHash": "d1241d2071b3ad4ea6027068fb10b5208e04b40ed49c093608c568621bbf715b"
+      }
+    },
+    {
+      "filename": "policy-sensitivity-brief",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_policy-sensitivity-brief",
+        "filename": "policy-sensitivity-brief",
+        "name": "policy-sensitivity-brief",
+        "description": "将政策/宏观数据发布映射到行业/风格敏感度，输出可监控清单与情景推演。当用户询问政策变化影响哪些行业、或需要政策影响简报时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22049,
+        "contentHash": "9fa159ae98b973bc7cd46d50a91b5741303c10428bfcfb0a31f86df5da9c231b"
+      }
+    },
+    {
+      "filename": "portfolio-health-check",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_portfolio-health-check",
+        "filename": "portfolio-health-check",
+        "name": "portfolio-health-check",
+        "description": "诊断现有投资组合的风险和低效问题。当用户要求审查、审计或压力测试其当前持仓，评估组合集中度，检查因子暴露，评估相关性风险，识别隐性偏移，或获取其已有组合的改进建议时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 24820,
+        "contentHash": "55e5618c577e1a2b1820b86f0166b71a94571b811b9996df1d9a5837d124f39c"
+      }
+    },
+    {
+      "filename": "portfolio-monitor-orchestrator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_portfolio-monitor-orchestrator",
+        "filename": "portfolio-monitor-orchestrator",
+        "name": "portfolio-monitor-orchestrator",
+        "description": "编排组合监控：集中度、相关性/风格暴露、流动性、情景压力等，整合成一份监控报告。当用户要求“全面诊断/持续监控我的组合”时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 16241,
+        "contentHash": "ec5c9f2da2abb4726950073eb04e367f0fd11c5aa9848d73bcedf0f64d6294db"
+      }
+    },
+    {
+      "filename": "quant-factor-screener",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_quant-factor-screener",
+        "filename": "quant-factor-screener",
+        "name": "quant-factor-screener",
+        "description": "使用正式因子模型进行系统化多因子A股筛选，识别具有有利因子暴露的个股。当用户询问因子投资、多因子筛选、价值/动量/质量因子分析、因子打分、因子择时、Smart Beta策略、量化选股或基于学术因子的系统化选股时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 24324,
+        "contentHash": "7a1640ef384903c40c78e1f0aab906791fbdde74e738bd1cc86fe8c7fc415f09"
+      }
+    },
+    {
+      "filename": "rebalancing-planner",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_rebalancing-planner",
+        "filename": "rebalancing-planner",
+        "name": "rebalancing-planner",
+        "description": "设计组合再平衡规则（阈值/定期）、约束条件与执行清单。当用户询问如何再平衡、何时调仓、或需要再平衡方案时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 18678,
+        "contentHash": "ca0845b8d23e2a55f329527928b2a0f28ca6ca5727b65ca041d15f5355fd525d"
+      }
+    },
+    {
+      "filename": "risk-adjusted-return-optimizer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_risk-adjusted-return-optimizer",
+        "filename": "risk-adjusted-return-optimizer",
+        "name": "risk-adjusted-return-optimizer",
+        "description": "为中国投资者构建风险调整后收益最优的A股投资组合，根据资金规模、风险偏好和投资期限进行资产配置。当用户询问构建投资组合、资产配置、A股组合优化、仓位管理、再平衡策略，或要求根据特定金额和风险偏好提供组合构建建议时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 24324,
+        "contentHash": "6333dd62cffe5f72b41c11769b4fd70a37d89795d530083c288d3534660316ef"
+      }
+    },
+    {
+      "filename": "sector-rotation-detector",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_sector-rotation-detector",
+        "filename": "sector-rotation-detector",
+        "name": "sector-rotation-detector",
+        "description": "通过分析中国宏观经济指标和经济周期定位，识别A股市场行业轮动信号，判断未来6–12个月哪些行业可能跑赢或跑输大盘。当用户询问行业轮动、宏观驱动的板块配置、经济周期投资、超配或低配哪些行业、利率/通胀对行业的影响、或A股宏观投资策略时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 24876,
+        "contentHash": "dfcc31b2579b5849b2e3a430cc5b6ea22df072b2f380fc596321a99712f1eadf"
+      }
+    },
+    {
+      "filename": "sentiment-reality-gap",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_sentiment-reality-gap",
+        "filename": "sentiment-reality-gap",
+        "name": "sentiment-reality-gap",
+        "description": "识别A股市场中被过度看空但基本面稳健的逆向投资机会。当用户询问逆向投资、超跌反弹、市场错误定价、情绪与基本面背离、被市场误解的公司、负面情绪过度反应、或者寻找\"市场错杀\"机会时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21413,
+        "contentHash": "2fa2cc2162f934f70f566baf09a5815e88cd32b606219b67e8f3a57b8aa20e0d"
+      }
+    },
+    {
+      "filename": "share-repurchase-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_share-repurchase-monitor",
+        "filename": "share-repurchase-monitor",
+        "name": "share-repurchase-monitor",
+        "description": "跟踪并解读A股股份回购（目的、进度、均价、区间、完成度），用于评估管理层信号、估值锚与“利好兑现/利好出尽”风险，并输出可跟踪的回购清单与规则。当用户询问A股回购、回购进度、回购均价、回购信号或需要回购筛选时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 9867,
+        "contentHash": "05cffba251fb9d00c53a567a375bafb781404bcb22553461bf8dfeb6a9f0c33a"
+      }
+    },
+    {
+      "filename": "shareholder-risk-check",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_shareholder-risk-check",
+        "filename": "shareholder-risk-check",
+        "name": "shareholder-risk-check",
+        "description": "检查股东结构、股权质押、控制权稳定性等治理风险标签。当用户询问质押风险、股东结构、控制权风险或需要治理红旗检查时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 20377,
+        "contentHash": "29a8e8c8fb65de84d70ab538d234d3e0f0244674cd2c59394c3d90e20e01d4ba"
+      }
+    },
+    {
+      "filename": "shareholder-structure-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_shareholder-structure-monitor",
+        "filename": "shareholder-structure-monitor",
+        "name": "shareholder-structure-monitor",
+        "description": "跟踪股东户数、十大股东/流通股东、机构/基金持股与持仓变化，输出筹码结构与供给冲击风险提示。当用户询问股东户数、股东结构、机构/基金持股、持仓变化或需要筹码分析时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 12488,
+        "contentHash": "603283c115791a141faf3e714e26f7fd0242e46da1e571efbb51aa070172abb4"
+      }
+    },
+    {
+      "filename": "single-stock-health-check",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_single-stock-health-check",
+        "filename": "single-stock-health-check",
+        "name": "single-stock-health-check",
+        "description": "针对单只A股股票进行全面体检（基本面、估值、股东结构、公告事件、流动性、资金与情绪）。当用户要求“这只股票怎么样/做一次体检/给我一页诊断卡片”时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 31361,
+        "contentHash": "0082f15551e6c6e26599b4d35d0dc7414339a8fa187d69c311a0bd9a314742f2"
+      }
+    },
+    {
+      "filename": "small-cap-growth-identifier",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_small-cap-growth-identifier",
+        "filename": "small-cap-growth-identifier",
+        "name": "small-cap-growth-identifier",
+        "description": "识别A股市场中被忽视的小市值高成长公司。当用户询问小盘成长股、低市值高增长公司、被忽略的小盘股、专精特新企业、或要求筛选市值小但增长快的A股时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 20068,
+        "contentHash": "6b188f8c4036c37c540c891c1f46e8e89000c6507b4312a6ba9a78535df3a5d3"
+      }
+    },
+    {
+      "filename": "st-delist-risk-scanner",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_st-delist-risk-scanner",
+        "filename": "st-delist-risk-scanner",
+        "name": "st-delist-risk-scanner",
+        "description": "扫描风险警示板(ST)与退市/两网相关标的，输出风险标签、触发原因与可交易性约束。当用户询问ST、退市风险、两网及退市板块、或需要退市风险清单时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 23195,
+        "contentHash": "3a1f25e86518e0c848b9ff02d7427a381db19cd63bf2ec3d3156bf831f4f23a4"
+      }
+    },
+    {
+      "filename": "suitability-report-generator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_suitability-report-generator",
+        "filename": "suitability-report-generator",
+        "name": "suitability-report-generator",
+        "description": "生成机构级投资适当性报告，包括投资理由、风险披露和客户适当性评估。当用户要求记录投资决策、创建合规报告、生成风险披露文件、准备面向客户的投资理由说明、撰写适当性评估报告，或为投资建议或组合出具信义义务文档时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22901,
+        "contentHash": "a2fc992c20c460212ad728cfa497e6407cf57a6aa99250b626425622b35126c4"
+      }
+    },
+    {
+      "filename": "tech-hype-vs-fundamentals",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_tech-hype-vs-fundamentals",
+        "filename": "tech-hype-vs-fundamentals",
+        "name": "tech-hype-vs-fundamentals",
+        "description": "对比分析A股科技公司的估值泡沫与基本面，识别被高估和被低估的科技股。当用户询问科技股估值、A股科技泡沫、科创板估值是否合理、AI/芯片/新能源等热门科技板块的估值分析、或对比科技公司增长与估值时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22865,
+        "contentHash": "7e1c285102d6e1fdf82c8713e1abf886f007a549b6005cdc17e4da213b00b01e"
+      }
+    },
+    {
+      "filename": "undervalued-stock-screener",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_undervalued-stock-screener",
+        "filename": "undervalued-stock-screener",
+        "name": "undervalued-stock-screener",
+        "description": "扫描A股市场，筛选基本面强劲但市值被低估的上市公司。当用户询问低估值股票、价值投资筛选、A股便宜股票、低PE或低PB公司、基本面强但被低估的公司、或要求运行估值筛选器时使用此技能。",
+        "category": "skills",
+        "type": "skill",
+        "size": 19725,
+        "contentHash": "65a8e0433bd9115fc77e33d67f4c542f744f8dcc2842f42da976baf6fcebe655"
+      }
+    },
+    {
+      "filename": "valuation-regime-detector",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_valuation-regime-detector",
+        "filename": "valuation-regime-detector",
+        "name": "valuation-regime-detector",
+        "description": "用历史/同业分位数识别估值中枢与极端状态，并结合宏观/利率信号解释估值变化。当用户询问某市场/行业/个股是否贵或便宜、或需要估值分位数分析时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22443,
+        "contentHash": "b2e55b41dc3e3cb0a6b1369bb3a4c09dd2d7083e10d66ea284e97c7af9aa71b4"
+      }
+    },
+    {
+      "filename": "volatility-regime-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_volatility-regime-monitor",
+        "filename": "volatility-regime-monitor",
+        "name": "volatility-regime-monitor",
+        "description": "评估波动率状态（实现波动/隐含波动、波动的波动、回撤）并给出风险开关判断与监控触发条件。当用户询问波动率状态、风险状态、或需要波动监控与预警时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 10768,
+        "contentHash": "cf744472d2bc70f363e0ae1f9af3a10fe52c6378ea0cda416a91648340f41c49"
+      }
+    },
+    {
+      "filename": "weekly-market-brief-generator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_weekly-market-brief-generator",
+        "filename": "weekly-market-brief-generator",
+        "name": "weekly-market-brief-generator",
+        "description": "生成周度市场简报（表现、宏观、资金、风险、观察清单），输出固定结构与表格。当用户要求市场周报/周度复盘/周度监控摘要时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 18894,
+        "contentHash": "0e2389fb8ea2b8d30eeb3681cc0bb050915ec66bdbeee555f74d7a4327e5c2f3"
+      }
+    },
+    {
+      "filename": "hk-concentration-risk",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-concentration-risk",
+        "filename": "hk-concentration-risk",
+        "name": "hk-concentration-risk",
+        "description": "港股集中度风险监控器。监控投资组合的集中度风险、行业集中度、个股集中度等。用于管理投资组合的集中度风险。",
+        "category": "skills",
+        "type": "skill",
+        "size": 24522,
+        "contentHash": "6cbdfb0098d06e63719eafdf97f461bd4fa25680c5abd18a07ca697d194da92f"
+      }
+    },
+    {
+      "filename": "hk-currency-risk",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-currency-risk",
+        "filename": "hk-currency-risk",
+        "name": "hk-currency-risk",
+        "description": "港股汇率风险监控器。监控港币汇率波动、汇率风险敞口、汇率对冲策略等。用于管理港股投资的汇率风险。",
+        "category": "skills",
+        "type": "skill",
+        "size": 17207,
+        "contentHash": "ef3e6d6b2bfaf4ee55981c9aec4f49c1836282893c9ecfc692ce761b2137dc40"
+      }
+    },
+    {
+      "filename": "hk-dividend-tracker",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-dividend-tracker",
+        "filename": "hk-dividend-tracker",
+        "name": "hk-dividend-tracker",
+        "description": "港股股息跟踪器。监控港股公司股息政策、分红历史、股息收益率等。用于收益投资和股息策略分析。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21985,
+        "contentHash": "042d8dc6502ee567fabbee8a0bdcf5143696402135d2af6de0eb804f82202a95"
+      }
+    },
+    {
+      "filename": "hk-etf-flow",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-etf-flow",
+        "filename": "hk-etf-flow",
+        "name": "hk-etf-flow",
+        "description": "港股ETF资金流向分析器。专门分析港股ETF的资金流向、持仓变化、溢价折价等。用于把握ETF投资机会和资金动向。",
+        "category": "skills",
+        "type": "skill",
+        "size": 12096,
+        "contentHash": "44b54dc22cc98e8945dd9305e5a3831cba51709076f52bf37d9362f913816381"
+      }
+    },
+    {
+      "filename": "hk-financial-statement",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-financial-statement",
+        "filename": "hk-financial-statement",
+        "name": "hk-financial-statement",
+        "description": "港股财务报表分析器。提供港股公司财务报表分析、财务比率计算、财务健康度评估等功能。用于价值投资和基本面分析。",
+        "category": "skills",
+        "type": "skill",
+        "size": 30388,
+        "contentHash": "7b493b8629fd5c63001f53375b3a15f246376bb6016d35e369252d54b73c4eb6"
+      }
+    },
+    {
+      "filename": "hk-foreign-flow",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-foreign-flow",
+        "filename": "hk-foreign-flow",
+        "name": "hk-foreign-flow",
+        "description": "港股外资流向分析器。专门分析外资通过港股通、QFII、直接投资等方式流入流出港股的资金动向。用于把握国际资金动向和投资机会。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21400,
+        "contentHash": "420dc48babab19668c14f0448ab036d283d719496f588a484b3732e1b7d31b37"
+      }
+    },
+    {
+      "filename": "hk-liquidity-risk",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-liquidity-risk",
+        "filename": "hk-liquidity-risk",
+        "name": "hk-liquidity-risk",
+        "description": "港股流动性风险监控器。监控港股市场流动性状况、个股流动性风险、市场深度分析等。用于识别流动性风险和制定交易策略。",
+        "category": "skills",
+        "type": "skill",
+        "size": 22821,
+        "contentHash": "654be94412f863957f3ad17b513540040ef4dc3b58771543f96a63f586e797f9"
+      }
+    },
+    {
+      "filename": "hk-market-breadth",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-market-breadth",
+        "filename": "hk-market-breadth",
+        "name": "hk-market-breadth",
+        "description": "港股市场广度监控器。监控港股市场广度指标、上涨下跌家数、新高新低比率等。用于评估市场整体健康状况和趋势强度。",
+        "category": "skills",
+        "type": "skill",
+        "size": 21498,
+        "contentHash": "94aa808186cdf4bb5565a838a6e24a275dbdd122fe4157335c95e7ba21a6d47c"
+      }
+    },
+    {
+      "filename": "hk-market-overview",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-market-overview",
+        "filename": "hk-market-overview",
+        "name": "hk-market-overview",
+        "description": "港股市场概览分析器。提供港股市场整体表现、主要指数、板块轮动、市场情绪等综合分析。用于快速了解港股市场整体状况和趋势。",
+        "category": "skills",
+        "type": "skill",
+        "size": 35391,
+        "contentHash": "18f1c1372f6f11c96ae6d06b93f24294105dcd308781638be605bf47967a1536"
+      }
+    },
+    {
+      "filename": "hk-sector-rotation",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-sector-rotation",
+        "filename": "hk-sector-rotation",
+        "name": "hk-sector-rotation",
+        "description": "港股板块轮动检测器。监控港股各板块的资金流向、相对强度、轮动信号等。用于识别板块轮动机会和行业配置策略。",
+        "category": "skills",
+        "type": "skill",
+        "size": 39535,
+        "contentHash": "71f5f4fa0d9242e96db02c6abf7e37ceaa5554ccedb5d42b79bd744ec6d75a70"
+      }
+    },
+    {
+      "filename": "hk-southbound-flow",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-southbound-flow",
+        "filename": "hk-southbound-flow",
+        "name": "hk-southbound-flow",
+        "description": "港股南向资金流向分析器。专门分析内地投资者通过港股通投资港股的资金流向、持仓变化、行业偏好等。用于把握内地资金动向和投资机会。",
+        "category": "skills",
+        "type": "skill",
+        "size": 33876,
+        "contentHash": "097a399a2362d6b27dd2ba91d4469a0e983a9b648447c2dd0865c77ea0ecae4f"
+      }
+    },
+    {
+      "filename": "hk-valuation-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/HK-market_hk-valuation-analyzer",
+        "filename": "hk-valuation-analyzer",
+        "name": "hk-valuation-analyzer",
+        "description": "港股估值分析器。提供港股市场整体估值水平、行业估值对比、个股估值分析等功能。支持多种估值方法和相对估值分析。",
+        "category": "skills",
+        "type": "skill",
+        "size": 37399,
+        "contentHash": "cf5030fbe3b0a692f54121914e97e64aefc48885c980585c91c88300bde6c85c"
+      }
+    },
+    {
+      "filename": "us-buyback-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-buyback-monitor",
+        "filename": "us-buyback-monitor",
+        "name": "us-buyback-monitor",
+        "description": "Analyze share repurchases (authorization, pace, dilution vs buybacks) and capital return sustainability. Use when the user asks about buybacks, shareholder yield, or capital return analysis.",
+        "category": "skills",
+        "type": "skill",
+        "size": 13696,
+        "contentHash": "12d4413412625fa02d4d9ea81282df358ed9d5f841ec39c71516cfe4372e0a19"
+      }
+    },
+    {
+      "filename": "us-credit-spread-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-credit-spread-monitor",
+        "filename": "us-credit-spread-monitor",
+        "name": "us-credit-spread-monitor",
+        "description": "Track credit spreads (IG/HY), default risk proxies, and stress signals; summarize equity implications. Use when the user asks about credit conditions or spread widening/tightening.",
+        "category": "skills",
+        "type": "skill",
+        "size": 14082,
+        "contentHash": "18358d3b7311458984beb6d7bbc8d06c30dcc32842ed505411c03cd8bfdc9ec8"
+      }
+    },
+    {
+      "filename": "us-dividend-aristocrat-calculator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-dividend-aristocrat-calculator",
+        "filename": "us-dividend-aristocrat-calculator",
+        "name": "us-dividend-aristocrat-calculator",
+        "description": "Analyze Dividend Aristocrats (25+ years of consecutive dividend increases) for income reliability and total return. Use when the user asks to evaluate dividend aristocrats, calculate dividend reinvestment returns, assess dividend sustainability, compare income stocks, build a dividend growth portfolio, analyze payout ratios and free cash flow coverage, or rank stocks by dividend reliability and long-term total return.",
+        "category": "skills",
+        "type": "skill",
+        "size": 21014,
+        "contentHash": "5b7de876f5035622590657f181d5ad0bc655cc81a836bc50ebbcef58640b5f13"
+      }
+    },
+    {
+      "filename": "us-earnings-reaction-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-earnings-reaction-analyzer",
+        "filename": "us-earnings-reaction-analyzer",
+        "name": "us-earnings-reaction-analyzer",
+        "description": "Analyze post-earnings reactions (gaps, drift, volatility), link to guidance/surprises, and define monitoring levels. Use when the user asks why a stock moved after earnings or wants an earnings reaction breakdown.",
+        "category": "skills",
+        "type": "skill",
+        "size": 13300,
+        "contentHash": "b77cdd5c1f5977bbe5f8d822a969aecc5d2ce3759c665fe2053972351a600632"
+      }
+    },
+    {
+      "filename": "us-equity-research-orchestrator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-equity-research-orchestrator",
+        "filename": "us-equity-research-orchestrator",
+        "name": "us-equity-research-orchestrator",
+        "description": "Orchestrate a full equity research workflow by calling relevant skills/toolkit views and assembling a single coherent deliverable. Use when the user asks to 'analyze this stock end-to-end' or wants a full research pack.",
+        "category": "skills",
+        "type": "skill",
+        "size": 18895,
+        "contentHash": "4cbb57d6e071c700fd82e9ad9e22e3f27cc9f7cf9891ea79d8bcc255eaf10de9"
+      }
+    },
+    {
+      "filename": "us-esg-screener",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-esg-screener",
+        "filename": "us-esg-screener",
+        "name": "us-esg-screener",
+        "description": "Screen and analyze stocks through an ESG (Environmental, Social, Governance) lens, evaluating sustainability practices, controversy exposure, and responsible investing criteria. Use when the user asks about ESG investing, sustainable investing, socially responsible investing (SRI), impact investing, green stocks, carbon footprint analysis, governance quality assessment, controversy screening, exclusion lists, or ESG scoring of companies or portfolios.",
+        "category": "skills",
+        "type": "skill",
+        "size": 25816,
+        "contentHash": "9f47ded782ecbcdae7d326c17f9e6a379b5516ea459e6aed35be08907b4e0e56"
+      }
+    },
+    {
+      "filename": "us-etf-allocator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-etf-allocator",
+        "filename": "us-etf-allocator",
+        "name": "us-etf-allocator",
+        "description": "Construct ETF allocations and quantify exposures (sector/style/factor), liquidity, and tracking considerations. Use when the user asks to build an ETF portfolio or analyze ETF exposures.",
+        "category": "skills",
+        "type": "skill",
+        "size": 19558,
+        "contentHash": "09eb2401284bdeefcae50eff12edd35bd322c275a410e45729f57fdfc2b73307"
+      }
+    },
+    {
+      "filename": "us-event-driven-detector",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-event-driven-detector",
+        "filename": "us-event-driven-detector",
+        "name": "us-event-driven-detector",
+        "description": "Identify and analyze corporate events that create mispricing opportunities, including M&A, spinoffs, buybacks, restructurings, and index changes. Use when the user asks about merger arbitrage, spinoff opportunities, share buyback analysis, corporate restructuring plays, index rebalancing trades, special situations investing, or event-driven strategies.",
+        "category": "skills",
+        "type": "skill",
+        "size": 24242,
+        "contentHash": "e348badc807832c8f1516d17396ebeab77222ed024672e073586f6b3266488f1"
+      }
+    },
+    {
+      "filename": "us-event-study",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-event-study",
+        "filename": "us-event-study",
+        "name": "us-event-study",
+        "description": "Run an event study (pre/post windows, abnormal returns, peer/benchmark adjustment) for corporate or macro events. Use when the user asks how prices behaved around an event or wants an event-window analysis.",
+        "category": "skills",
+        "type": "skill",
+        "size": 19188,
+        "contentHash": "e55f42ba8816274d42f4f1af69addf67dc24b0d8ccfd9d1a7d9faaf83ecb9a7e"
+      }
+    },
+    {
+      "filename": "us-factor-crowding-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-factor-crowding-monitor",
+        "filename": "us-factor-crowding-monitor",
+        "name": "us-factor-crowding-monitor",
+        "description": "Monitor factor crowding and factor performance dispersion to identify crowded trades and rotation risk. Use when the user asks about factor crowding, style squeeze risk, or factor rotation signals.",
+        "category": "skills",
+        "type": "skill",
+        "size": 23749,
+        "contentHash": "f82168a09497cd0222ffb0d39eededa930321ae1000968126539ec9330499d36"
+      }
+    },
+    {
+      "filename": "us-financial-statement-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-financial-statement-analyzer",
+        "filename": "us-financial-statement-analyzer",
+        "name": "us-financial-statement-analyzer",
+        "description": "Perform forensic-level analysis of a single company's financial statements, evaluating earnings quality, financial health, fraud risk, and operational efficiency. Use when the user asks for a deep dive into a company's financials, DuPont analysis, earnings quality check, balance sheet analysis, cash flow analysis, Altman Z-score, Beneish M-score, working capital analysis, or any detailed single-company financial examination.",
+        "category": "skills",
+        "type": "skill",
+        "size": 29023,
+        "contentHash": "5bb1abd4d3e4b2225b7cbdd0ec602977a79d124a52ad6a7589179aa95124d305"
+      }
+    },
+    {
+      "filename": "us-insider-sentiment-aggregator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-insider-sentiment-aggregator",
+        "filename": "us-insider-sentiment-aggregator",
+        "name": "us-insider-sentiment-aggregator",
+        "description": "Aggregate insider buying/selling patterns across multiple tickers to identify management confidence signals. Use when the user asks for market-wide insider activity scans or insider sentiment dashboards.",
+        "category": "skills",
+        "type": "skill",
+        "size": 24270,
+        "contentHash": "758e7678fa5f9b1ad21b48685b31022fd04c1f4c64629853902228fed2db4b01"
+      }
+    },
+    {
+      "filename": "us-insider-trading-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-insider-trading-analyzer",
+        "filename": "us-insider-trading-analyzer",
+        "name": "us-insider-trading-analyzer",
+        "description": "Analyze insider trading patterns to surface companies with significant, meaningful insider buying activity. Use when the user asks to review insider trading activity, find stocks insiders are buying, analyze SEC Form 4 filings, detect insider buying clusters, assess management confidence through insider purchases, or identify bullish insider signals in a sector or industry.",
+        "category": "skills",
+        "type": "skill",
+        "size": 29286,
+        "contentHash": "51321232fc80564c1aa3b76e91c983f483c9b5535190f1a5ef74c7dcb9b1adaf"
+      }
+    },
+    {
+      "filename": "us-investment-memo-generator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-investment-memo-generator",
+        "filename": "us-investment-memo-generator",
+        "name": "us-investment-memo-generator",
+        "description": "Generate an institutional-style investment memo (thesis, valuation, catalysts, risks, monitoring) from structured inputs and supporting data. Use when the user asks for an investment memo, write-up, or pitch.",
+        "category": "skills",
+        "type": "skill",
+        "size": 22032,
+        "contentHash": "58f60c60218a671eb2d0e0130fc214bc56001778ea5ee7f12bcdad93f6bda05a"
+      }
+    },
+    {
+      "filename": "us-liquidity-impact-estimator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-liquidity-impact-estimator",
+        "filename": "us-liquidity-impact-estimator",
+        "name": "us-liquidity-impact-estimator",
+        "description": "Estimate liquidity and trading impact (volume/turnover, bid-ask proxies, slippage/impact heuristics) for single names or portfolios. Use when the user asks about liquidity risk, tradability, or wants to size trades safely.",
+        "category": "skills",
+        "type": "skill",
+        "size": 21811,
+        "contentHash": "40f84e33d63980f2a9c8c28bf2a3c0e03cbf6ff7b0e8cde949fd251c9fc5b931"
+      }
+    },
+    {
+      "filename": "us-macro-liquidity-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-macro-liquidity-monitor",
+        "filename": "us-macro-liquidity-monitor",
+        "name": "us-macro-liquidity-monitor",
+        "description": "Track macro liquidity indicators (rates, inflation, credit, central bank stance) and summarize implications for assets/sectors. Use when the user asks about liquidity conditions or policy-driven market impacts.",
+        "category": "skills",
+        "type": "skill",
+        "size": 13305,
+        "contentHash": "366be90eeb3e0cb5ac0b955d1e1f35849ce5ca631a850e6bd976310436a059d9"
+      }
+    },
+    {
+      "filename": "us-market-breadth-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-market-breadth-monitor",
+        "filename": "us-market-breadth-monitor",
+        "name": "us-market-breadth-monitor",
+        "description": "Monitor market breadth and internals (advance/decline, new highs/lows, concentration, breadth thrusts) to assess risk appetite and regime shifts. Use when the user asks about market breadth, internals, risk-on/off, or wants a breadth dashboard.",
+        "category": "skills",
+        "type": "skill",
+        "size": 14052,
+        "contentHash": "a68ef5ed0853559e3d358d23c1a6aa2e8eeffb81295c81277d1411e1570d3cdf"
+      }
+    },
+    {
+      "filename": "us-options-strategy-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-options-strategy-analyzer",
+        "filename": "us-options-strategy-analyzer",
+        "name": "us-options-strategy-analyzer",
+        "description": "Analyze options strategies (covered calls, puts, spreads), Greeks, payoff diagrams, and risk. Use when the user asks about options strategy selection, pricing, or hedging with options.",
+        "category": "skills",
+        "type": "skill",
+        "size": 12753,
+        "contentHash": "8e6f8d77c36cae8dbc1b6e5b1e26e557a0c8f40ebbcde78fa5881d6ac4981478"
+      }
+    },
+    {
+      "filename": "us-peer-comparison-analyzer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-peer-comparison-analyzer",
+        "filename": "us-peer-comparison-analyzer",
+        "name": "us-peer-comparison-analyzer",
+        "description": "Build peer comps and explain differences in valuation, growth, profitability, leverage, and cash flow quality. Use when the user asks for comparable company analysis or peer-relative valuation.",
+        "category": "skills",
+        "type": "skill",
+        "size": 9938,
+        "contentHash": "029071e67f8b8b3d95382998234ba364fd9123b665d111db1aab82fc8a98d7a4"
+      }
+    },
+    {
+      "filename": "us-policy-sensitivity-brief",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-policy-sensitivity-brief",
+        "filename": "us-policy-sensitivity-brief",
+        "name": "us-policy-sensitivity-brief",
+        "description": "Map policy/macro releases to likely sector/style sensitivities and produce a monitoring checklist. Use when the user asks which sectors are sensitive to a policy change or wants a policy-impact brief.",
+        "category": "skills",
+        "type": "skill",
+        "size": 18781,
+        "contentHash": "ba6a81f94134fbd3a019e10b16510793cd2745819db918ad1770b367583ec145"
+      }
+    },
+    {
+      "filename": "us-portfolio-health-check",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-portfolio-health-check",
+        "filename": "us-portfolio-health-check",
+        "name": "us-portfolio-health-check",
+        "description": "Diagnose risks and inefficiencies in an existing investment portfolio. Use when the user asks to review, audit, or stress-test their current holdings, evaluate portfolio concentration, check factor exposures, assess correlation risks, identify hidden tilts, or get actionable improvement suggestions for a portfolio they already own.",
+        "category": "skills",
+        "type": "skill",
+        "size": 27612,
+        "contentHash": "cfc4ab1c47d42b4f99767eef7a879af4113a9082801a83ebf76122a825055567"
+      }
+    },
+    {
+      "filename": "us-portfolio-monitor-orchestrator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-portfolio-monitor-orchestrator",
+        "filename": "us-portfolio-monitor-orchestrator",
+        "name": "us-portfolio-monitor-orchestrator",
+        "category": "skills",
+        "type": "skill",
+        "size": 23240,
+        "contentHash": "4a8030bf31f701b84f3773043e91ddd37e04ed18ff068b0bd9f51e0d3f113bcd"
+      }
+    },
+    {
+      "filename": "us-quant-factor-screener",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-quant-factor-screener",
+        "filename": "us-quant-factor-screener",
+        "name": "us-quant-factor-screener",
+        "description": "Systematic multi-factor stock screening using formal factor models to identify stocks with favorable factor exposures. Use when the user asks about factor investing, multi-factor screening, value/momentum/quality factor analysis, factor scoring, factor timing, smart beta strategies, quantitative stock screening, or systematic equity selection based on academic factors.",
+        "category": "skills",
+        "type": "skill",
+        "size": 26622,
+        "contentHash": "a4c356e97deb1e5a34dd9f4f4209146fe2dd95f4a87c2ef35e6ed827a5d4f14e"
+      }
+    },
+    {
+      "filename": "us-rebalancing-planner",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-rebalancing-planner",
+        "filename": "us-rebalancing-planner",
+        "name": "us-rebalancing-planner",
+        "description": "Design rebalancing rules (threshold/time-based), constraints, and an execution checklist. Use when the user asks how to rebalance a portfolio or wants a rebalancing plan.",
+        "category": "skills",
+        "type": "skill",
+        "size": 20875,
+        "contentHash": "9c40f7d26a7491682f25f791bc7532ee44497ae756fc2d1072cfca9c1a57d2e1"
+      }
+    },
+    {
+      "filename": "us-risk-adjusted-return-optimizer",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-risk-adjusted-return-optimizer",
+        "filename": "us-risk-adjusted-return-optimizer",
+        "name": "us-risk-adjusted-return-optimizer",
+        "description": "Build diversified portfolios optimized for risk-adjusted returns based on user-specified portfolio size, risk tolerance, and time horizon. Use when the user asks to build a portfolio, construct an asset allocation, optimize risk-adjusted returns, create a diversified investment plan, determine position sizing, design a rebalancing strategy, or requests portfolio construction advice for a specific dollar amount and risk profile.",
+        "category": "skills",
+        "type": "skill",
+        "size": 30588,
+        "contentHash": "31be17412b527c0375fd8d57ce91b794c72468230be03935bea5ca8983ea1b61"
+      }
+    },
+    {
+      "filename": "us-sector-rotation-detector",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-sector-rotation-detector",
+        "filename": "us-sector-rotation-detector",
+        "name": "us-sector-rotation-detector",
+        "description": "Detect sector rotation signals by analyzing macroeconomic indicators and business cycle positioning to identify which sectors are likely to outperform or underperform over the next 6–12 months. Use when the user asks about sector rotation, macro-driven sector allocation, business cycle investing, which sectors to overweight or underweight, interest rate impact on sectors, inflation plays, or macro investment strategy.",
+        "category": "skills",
+        "type": "skill",
+        "size": 35038,
+        "contentHash": "bc8adbb9740333080953dff4070700f0faf7b641a09f50dcc38bc47b9d324017"
+      }
+    },
+    {
+      "filename": "us-sentiment-reality-gap",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-sentiment-reality-gap",
+        "filename": "us-sentiment-reality-gap",
+        "name": "us-sentiment-reality-gap",
+        "description": "Identify stocks where market sentiment is significantly more negative than fundamentals warrant — the gap between narrative and reality. Use when the user asks to find contrarian opportunities, stocks with sentiment-fundamental misalignment, oversold but fundamentally strong companies, stocks punished by negative narratives, or wants to analyze whether market fear is justified for specific stocks or sectors.",
+        "category": "skills",
+        "type": "skill",
+        "size": 27272,
+        "contentHash": "016bb44653c89f733c3e5c8209b39049dd683bbc887489830a5ee1e267ce7175"
+      }
+    },
+    {
+      "filename": "us-small-cap-growth-identifier",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-small-cap-growth-identifier",
+        "filename": "us-small-cap-growth-identifier",
+        "name": "us-small-cap-growth-identifier",
+        "description": "Identify high-growth small-cap stocks (market cap under $2B) with strong fundamentals, insider ownership, and low institutional coverage — the kind of overlooked opportunities that larger funds miss. Use when the user asks to find small-cap growth stocks, discover under-the-radar companies, screen for founder-led small caps, identify emerging growth companies, find low-institutional-ownership stocks, or seek multi-bagger candidates with strong fundamentals.",
+        "category": "skills",
+        "type": "skill",
+        "size": 24905,
+        "contentHash": "ee832a3f58ac33bdb8b0594c3c03eaf9ae60219020428096f014094289af64cc"
+      }
+    },
+    {
+      "filename": "us-suitability-report-generator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-suitability-report-generator",
+        "filename": "us-suitability-report-generator",
+        "name": "us-suitability-report-generator",
+        "description": "Generate institutional-grade investment suitability reports including rationale, risk disclosure, and client suitability assessment. Use when the user asks to document investment decisions, create compliance reports, generate risk disclosures, prepare client-facing investment justifications, write suitability assessments, or produce fiduciary documentation for an investment recommendation or portfolio.",
+        "category": "skills",
+        "type": "skill",
+        "size": 25900,
+        "contentHash": "cf39222e097160afb74befa61a13defe08a72c15b847796f4f8e42224e1ef8e4"
+      }
+    },
+    {
+      "filename": "us-tax-aware-rebalancing-planner",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-tax-aware-rebalancing-planner",
+        "filename": "us-tax-aware-rebalancing-planner",
+        "name": "us-tax-aware-rebalancing-planner",
+        "description": "Plan rebalancing with tax constraints (realized gains, lot selection, wash-sale awareness) and an execution checklist. Use when the user asks for tax-aware rebalancing or minimizing taxes while rebalancing.",
+        "category": "skills",
+        "type": "skill",
+        "size": 9608,
+        "contentHash": "0eb553f47567efaa396b56a6317cc830147ea1b17415be7e14afd163c4d03994"
+      }
+    },
+    {
+      "filename": "us-tech-hype-vs-fundamentals",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-tech-hype-vs-fundamentals",
+        "filename": "us-tech-hype-vs-fundamentals",
+        "name": "us-tech-hype-vs-fundamentals",
+        "description": "Compare leading tech stocks to distinguish hype-driven overvaluation from fundamentally justified pricing, and identify undervalued tech names the market is overlooking. Use when the user asks to evaluate tech stock valuations, find overvalued or undervalued tech companies, assess whether a tech stock's growth justifies its multiple, compare tech company fundamentals, analyze revenue growth vs. valuation, or identify mispriced technology stocks.",
+        "category": "skills",
+        "type": "skill",
+        "size": 24739,
+        "contentHash": "d9153bd04ee6dcaec890ba68071d15f309f36b4c23e7b89415f9a5f4a47a3b75"
+      }
+    },
+    {
+      "filename": "us-undervalued-stock-screener",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-undervalued-stock-screener",
+        "filename": "us-undervalued-stock-screener",
+        "name": "us-undervalued-stock-screener",
+        "description": "Screen and identify undervalued stocks with strong fundamentals using professional equity research methodology. Use when the user asks to find undervalued stocks, screen for cheap or bargain stocks, identify value investing opportunities, perform fundamental stock analysis, find stocks trading below intrinsic value, or requests a stock screener based on financial metrics like P/E ratio, debt-to-equity, free cash flow, or ROIC.",
+        "category": "skills",
+        "type": "skill",
+        "size": 20880,
+        "contentHash": "57584f29805e58f913970663a1df27efaf6b80488aa55bceb31e867996c52b69"
+      }
+    },
+    {
+      "filename": "us-valuation-regime-detector",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-valuation-regime-detector",
+        "filename": "us-valuation-regime-detector",
+        "name": "us-valuation-regime-detector",
+        "description": "Detect valuation regimes using percentiles vs history/peers and link them to macro/rates signals. Use when the user asks whether a market/sector/name is expensive/cheap relative to history or wants valuation percentile analysis.",
+        "category": "skills",
+        "type": "skill",
+        "size": 24437,
+        "contentHash": "3a94d31f7939133cf995031d930593ba85648216d5c5f36e178abf89a9704d3f"
+      }
+    },
+    {
+      "filename": "us-volatility-regime-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-volatility-regime-monitor",
+        "filename": "us-volatility-regime-monitor",
+        "name": "us-volatility-regime-monitor",
+        "description": "Assess volatility regimes (realized/implicit, vol-of-vol, drawdowns) and produce a risk-on/off assessment and monitoring triggers. Use when the user asks about volatility regime, risk regime, or volatility signals.",
+        "category": "skills",
+        "type": "skill",
+        "size": 12540,
+        "contentHash": "7a0f65198b468b4f58650cf48ec069688d882169becd78e2c5f6be4c03836800"
+      }
+    },
+    {
+      "filename": "us-weekly-market-brief-generator",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-weekly-market-brief-generator",
+        "filename": "us-weekly-market-brief-generator",
+        "name": "us-weekly-market-brief-generator",
+        "description": "Produce a weekly market brief (performance, macro, flows, risks, watchlist) with consistent sections and tables. Use when the user asks for a weekly market update/brief.",
+        "category": "skills",
+        "type": "skill",
+        "size": 22924,
+        "contentHash": "bcb679a930cd6bae131b2d494330f57551ee8d7232150286647fbbec343d69f4"
+      }
+    },
+    {
+      "filename": "us-yield-curve-regime-detector",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/US-market_us-yield-curve-regime-detector",
+        "filename": "us-yield-curve-regime-detector",
+        "name": "us-yield-curve-regime-detector",
+        "description": "Assess yield curve shape, inversion signals, term premiums, and macro implications. Use when the user asks about the yield curve, inversion, or rate-regime impacts.",
+        "category": "skills",
+        "type": "skill",
+        "size": 13577,
+        "contentHash": "66798f583190865f2074d4b66baf518176a45ac2df5b8707f2d9aa60fbf9ecd9"
+      }
+    },
+    {
+      "filename": "analysis-market",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/analysis-market",
+        "filename": "analysis-market",
+        "name": "analysis-market",
+        "category": "skills",
+        "type": "skill",
+        "size": 39459,
+        "contentHash": "4ce93478e373454f0ec557de3fb41a2e84dd05f4b6389386dbcc40514cc80168"
+      }
+    },
+    {
+      "filename": "lixinger-data-query",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/lixinger-data-query",
+        "filename": "lixinger-data-query",
+        "name": "lixinger-data-query",
+        "description": "从理杏仁开放平台获取金融数据，包括股票、指数、基本面和市场信息。",
+        "category": "skills",
+        "type": "skill",
+        "size": 120510269,
+        "contentHash": "949370dfe44e53b007188f67dc090815fcca2cbcf13a5d664af90aa77948b4a8"
+      }
+    }
+  ]
+}

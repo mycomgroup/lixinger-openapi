@@ -22,6 +22,8 @@ ls ../US-market/ | grep -i "关键词"
 
 **常用关键词**：dividend（分红）、valuation（估值）、risk（风险）、flow（资金）、event（事件）、portfolio（组合）、industry/sector（行业板块）
 
+**📖 完整技能地图**：查看 #[[file:SKILLS_MAP.md]] 了解所有 108 个技能的分类、分布和缺口分析
+
 ---
 
 ## 📁 项目工作目录管理（极简版）
@@ -219,6 +221,8 @@ python3 ../lixinger-data-query/scripts/query_tool.py \
 - **不要使用过时日期**（如 2024 年的日期会导致分析结果无意义）
 - 示例：`"date": "2026-02-25"` 或 `"startDate": "2025-02-01"`
 
+**🔧 数据查询最佳实践**：查看 #[[file:analysis-best-practices.md]] 了解常见错误和快速诊断方法
+
 ### 工作流程
 
 当用户提出金融分析问题时，**严格按照以下流程**：
@@ -394,7 +398,7 @@ python3 ../lixinger-data-query/scripts/query_tool.py \
 ├── China-market/                  # 66 个 A股分析 skills（首选）
 │   ├── dividend-corporate-action-tracker/
 │   │   ├── SKILL.md               # Skill 说明
-│   │   └── references/
+│   │   └── references/            # 嵌套的参考文档
 │   │       ├── data-queries.md    # 数据获取指南
 │   │       ├── methodology.md     # 方法论
 │   │       └── output-template.md # 输出模板
@@ -406,6 +410,11 @@ python3 ../lixinger-data-query/scripts/query_tool.py \
 └── US-market/                     # 37 个美股分析 skills（首选）
     └── ... (37 个 skills)
 ```
+
+**📌 引用嵌套文件的方式**：
+- 在 skill 的 SKILL.md 中引用同级文件：`#[[file:SKILLS_MAP.md]]`
+- 在 skill 的 SKILL.md 中引用子目录文件：`references/data-queries.md`（相对路径）
+- 在 analysis-market/SKILL.md 中引用其他 skill：`../China-market/ab-ah-premium-monitor/SKILL.md`
 
 ---
 
