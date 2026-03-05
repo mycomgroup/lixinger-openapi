@@ -108,14 +108,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ## 📖 文档
 
 ### 核心文档
-- **数据查询工具**: `skills/lixinger-data-query/SKILL.md`
-- **LLM使用指南**: `skills/lixinger-data-query/LLM_USAGE_GUIDE.md`
-- **查询示例**: `skills/lixinger-data-query/EXAMPLES.md`
+- **数据查询工具**: `.claude/skills/lixinger-data-query/SKILL.md`
+- **LLM使用指南**: `.claude/skills/lixinger-data-query/LLM_USAGE_GUIDE.md`
+- **查询示例**: `.claude/skills/lixinger-data-query/EXAMPLES.md`
 - **技能列表**: `.kiro/steering/lixinger-skills.md`
 
 ### API文档
-- **理杏仁API**: `skills/lixinger-data-query/api_new/api-docs/`
-- **AKShare数据**: `skills/lixinger-data-query/api_new/akshare_data/`
+- **理杏仁API**: `.claude/skills/lixinger-data-query/api_new/api-docs/`
+- **AKShare数据**: `.claude/skills/lixinger-data-query/api_new/akshare_data/`
 
 ### 分析案例
 - **高股息策略**: `analysis_20260225_114923_maotai_dividend/`

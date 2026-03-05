@@ -155,7 +155,7 @@ e2e_results/
    - 内容为你的理杏仁 API Token
 
 3. **查询工具**
-   - 确保 `skills/lixinger-data-query/scripts/query_tool.py` 存在
+   - 确保 `../.claude/skills/lixinger-data-query/scripts/query_tool.py` 存在
 
 ### 可选
 

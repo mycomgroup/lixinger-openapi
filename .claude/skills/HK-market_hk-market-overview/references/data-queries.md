@@ -323,9 +323,9 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 相关文档
 
-- **API 文档**: `skills/lixinger-data-query/SKILL.md`
+- **API 文档**: `../../lixinger-data-query/SKILL.md`
 - **增强数据**: `additional-data-sources.md`
-- **使用指南**: `skills/lixinger-data-query/LLM_USAGE_GUIDE.md`
+- **使用指南**: `../../lixinger-data-query/LLM_USAGE_GUIDE.md`
 
 ---
 

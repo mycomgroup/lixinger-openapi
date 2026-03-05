@@ -196,10 +196,10 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 📖 文档
 
-- **数据查询工具**：`skills/lixinger-data-query/SKILL.md`
-- **LLM 使用指南**：`skills/lixinger-data-query/LLM_USAGE_GUIDE.md`
-- **查询示例**：`skills/lixinger-data-query/EXAMPLES.md`
-- **API 文档**：`skills/lixinger-data-query/api_new/api-docs/`
+- **数据查询工具**：`.claude/skills/lixinger-data-query/SKILL.md`
+- **LLM 使用指南**：`.claude/skills/lixinger-data-query/LLM_USAGE_GUIDE.md`
+- **查询示例**：`.claude/skills/lixinger-data-query/EXAMPLES.md`
+- **API 文档**：`.claude/skills/lixinger-data-query/api_new/api-docs/`
 - **技能使用指南**：`.kiro/steering/lixinger-skills.md`
 
 ## 🔧 技术架构

@@ -151,7 +151,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 相关文档
 
-- **API 列表**：`skills/lixinger-data-query/SKILL.md`
-- **使用指南**：`skills/lixinger-data-query/LLM_USAGE_GUIDE.md`
-- **查询示例**：`skills/lixinger-data-query/EXAMPLES.md`
+- **API 列表**：`../../lixinger-data-query/SKILL.md`
+- **使用指南**：`../../lixinger-data-query/LLM_USAGE_GUIDE.md`
+- **查询示例**：`../../lixinger-data-query/EXAMPLES.md`
 - **汇率 API 文档**：`../../lixinger-data-query/api_new/api-docs/macro_currency-exchange-rate.md`

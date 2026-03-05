@@ -304,11 +304,11 @@ cat skills/{market}/{skill-name}/references/data-queries.md
 
 ### Q4: 如何查看所有可用的 API 接口？
 
-查看 `skills/lixinger-data-query/SKILL.md` 文件，包含所有 162 个 API 接口的列表。
+查看 `../.claude/skills/lixinger-data-query/SKILL.md` 文件，包含所有 162 个 API 接口的列表。
 
 ### Q5: 如何查看某个 API 的详细文档？
 
-查看 `skills/lixinger-data-query/api_new/api-docs/` 目录下的对应文档。
+查看 `../.claude/skills/lixinger-data-query/api_new/api-docs/` 目录下的对应文档。
 
 ### Q6: 数据更新频率是多少？
 

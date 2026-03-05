@@ -65,7 +65,7 @@ python3 test_all_apis.py
 
 1. Python 3.7+
 2. Token文件: `token.cfg`（项目根目录）
-3. 查询工具: `skills/lixinger-data-query/scripts/query_tool.py`
+3. 查询工具: `../.claude/skills/lixinger-data-query/scripts/query_tool.py`
 
 ## 📝 详细文档
 
