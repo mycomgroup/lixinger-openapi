@@ -9,18 +9,18 @@
 ### 1. 查找合适的 API（必须！）
 ```bash
 # 方法 1：使用中文关键词索引（推荐）
-grep -i "分红" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "市盈率\|PE" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "ROE\|净资产收益率" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "分红" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "市盈率\|PE" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "ROE\|净资产收益率" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 
 # 方法 2：直接搜索 API 文档
-grep -r "分红" skills/lixinger-data-query/api_new/api-docs/
+grep -r "分红" .claude/skills/lixinger-data-query/api_new/api-docs/
 ```
 
 ### 2. 查看 API 文档（必须！）
 ```bash
 # 找到 API 后，查看详细文档
-cat skills/lixinger-data-query/api_new/api-docs/{api_name}.md
+cat .claude/skills/lixinger-data-query/api_new/api-docs/{api_name}.md
 ```
 
 ### 2. 检查关键格式
@@ -45,41 +45,41 @@ cat skills/lixinger-data-query/api_new/api-docs/{api_name}.md
 
 ```bash
 # 财务指标
-grep -i "分红\|股息" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "市盈率\|PE" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "市净率\|PB" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "ROE\|净资产收益率" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "营业收入\|营收" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "净利润" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "分红\|股息" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "市盈率\|PE" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "市净率\|PB" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "ROE\|净资产收益率" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "营业收入\|营收" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "净利润" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 
 # 交易数据
-grep -i "K线\|行情\|股价" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "成交量\|成交额" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "K线\|行情\|股价" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "成交量\|成交额" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 
 # 资金流向
-grep -i "融资融券\|两融" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "大宗交易" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "龙虎榜" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "陆股通\|港股通\|北向资金\|南向资金" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "融资融券\|两融" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "大宗交易" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "龙虎榜" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "陆股通\|港股通\|北向资金\|南向资金" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 
 # 公司事件
-grep -i "公告\|披露" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "配股" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "增减持" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "股权质押" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "公告\|披露" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "配股" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "增减持" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "股权质押" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 
 # 持股数据
-grep -i "股东" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "基金持股\|机构持仓" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "股东" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "基金持股\|机构持仓" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 
 # 指数和行业
-grep -i "指数\|成分股" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "行业\|板块" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "指数\|成分股" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "行业\|板块" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 
 # 宏观数据
-grep -i "GDP\|CPI\|PPI" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "货币供应\|M0\|M1\|M2" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
-grep -i "汇率\|外汇" skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "GDP\|CPI\|PPI" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "货币供应\|M0\|M1\|M2" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
+grep -i "汇率\|外汇" .claude/skills/lixinger-data-query/api_new/API_KEYWORD_INDEX.md
 ```
 
 ### 查找流程
@@ -205,7 +205,7 @@ done
 
 ### 基本查询
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519", "startDate": "2026-01-01"}' \
   --columns "date,dividendPerShare,dividendYield" \
@@ -215,7 +215,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 批量查询（循环）
 ```bash
 for code in 600519 601318 600036; do
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
+  python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
     --suffix "cn/company/dividend" \
     --params "{\"stockCode\": \"${code}\", \"startDate\": \"2026-01-01\"}" \
     --columns "date,dividendPerShare" \
@@ -225,7 +225,7 @@ done
 
 ### 指数基本面查询
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"stockCodes": ["000300"], "date": "2026-02-25", "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw"
@@ -233,7 +233,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ### 财务数据查询
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["600519"], "date": "2025-09-30", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}' \
   --columns "date,stockCode,q.ps.toi.t,q.ps.np.t,q.ps.gp_m.t"
