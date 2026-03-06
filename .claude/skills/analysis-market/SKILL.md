@@ -15,9 +15,7 @@
 
 ```bash
 # 按关键词搜索
-ls ../China-market/ | grep -i "关键词"
-ls ../HK-market/ | grep -i "关键词"
-ls ../US-market/ | grep -i "关键词"
+ls skills/China-*/ | grep -i "关键词"
 ```
 
 **常用关键词**：dividend（分红）、valuation（估值）、risk（风险）、flow（资金）、event（事件）、portfolio（组合）、industry/sector（行业板块）
