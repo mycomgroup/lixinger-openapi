@@ -3,6 +3,48 @@
   "lastUpdated": 1772701766346,
   "plugins": [
     {
+      "filename": "portfolio-stress-test",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_portfolio-stress-test",
+        "filename": "portfolio-stress-test",
+        "name": "portfolio-stress-test",
+        "description": "对 A 股投资组合进行历史情景压力测试（如 2015 年股灾、2020 年新冠冲击等），计算组合的潜在回撤和波动。当用户询问组合在某种极端情况下的表现、测试组合抗风险能力、或需要组合压力测试时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 1024,
+        "contentHash": "newly-created-skill-stresstest"
+      }
+    },
+    {
+      "filename": "sector-valuation-heat-map",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_sector-valuation-heat-map",
+        "filename": "sector-valuation-heat-map",
+        "name": "sector-valuation-heat-map",
+        "description": "生成 A 股行业板块的估值热力图，对比不同行业的 PE/PB 分位点及近期资金流向。当用户询问行业估值对比、哪些板块最便宜、行业热力图、或需要板块配置策略时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 1024,
+        "contentHash": "newly-created-skill-heatmap"
+      }
+    },
+    {
+      "filename": "stock-bond-yield-gap-monitor",
+      "type": "skill",
+      "metadata": {
+        "sourcePath": "skills/China-market_stock-bond-yield-gap-monitor",
+        "filename": "stock-bond-yield-gap-monitor",
+        "name": "stock-bond-yield-gap-monitor",
+        "description": "分析 A 股大盘（如沪深 300）的股权风险溢价 (ERP) 或股债性价比（Yield Gap），用于判断大类资产配置时点。当用户询问股债性价比、ERP、沪深 300 vs 国债收益率、或者大类资产配置建议时使用。",
+        "category": "skills",
+        "type": "skill",
+        "size": 1024,
+        "contentHash": "newly-created-skill"
+      }
+    },
+    {
       "filename": "ab-ah-premium-monitor",
       "type": "skill",
       "metadata": {
