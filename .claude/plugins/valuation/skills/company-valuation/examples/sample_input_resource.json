@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "company": "ResourceCo",
+    "valuation_date": "2026-03-13",
+    "currency": "USD",
+    "unit_scale": "millions"
+  },
+  "basis": "LTM",
+  "financials": {
+    "revenue": 500,
+    "ebitda": 120,
+    "ebit": 80,
+    "net_income": 50
+  },
+  "balance_sheet": {
+    "cash": 80,
+    "debt": 150,
+    "preferred": 0,
+    "minority_interest": 0,
+    "non_operating_assets": 20
+  },
+  "shares": {
+    "basic": 60,
+    "diluted": 65
+  },
+  "assumptions": {
+    "projection_years": 5,
+    "tax_rate": 0.25,
+    "wacc": 0.10,
+    "terminal_growth": 0.02,
+    "revenue_growth": [0.03, 0.03, 0.02, 0.02, 0.02],
+    "ebit_margin": [0.16, 0.16, 0.155, 0.15, 0.15],
+    "da_pct_revenue": 0.05,
+    "capex_pct_revenue": 0.06,
+    "nwc_pct_revenue": 0.01
+  },
+  "industry_model": {
+    "type": "resource",
+    "inputs": {
+      "discount_rate": 0.10,
+      "cash_flows_by_class": {
+        "proved": [90, 85, 80, 75],
+        "probable": [60, 55, 50, 45],
+        "possible": [30, 25, 20, 15]
+      },
+      "probabilities": {
+        "proved": 1.0,
+        "probable": 0.5,
+        "possible": 0.1
+      },
+      "reserves": {
+        "proved": 300,
+        "probable": 200,
+        "possible": 100
+      }
+    }
+  }
+}

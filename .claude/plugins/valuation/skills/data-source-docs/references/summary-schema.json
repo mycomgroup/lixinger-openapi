@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProviderSummary",
+  "type": "object",
+  "required": [
+    "provider",
+    "base_url",
+    "auth",
+    "endpoints",
+    "rate_limit",
+    "last_updated",
+    "source"
+  ],
+  "properties": {
+    "provider": {"type": "string"},
+    "base_url": {"type": ["string", "null"]},
+    "auth": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {"type": "string"},
+        "location": {"type": ["string", "null"]},
+        "name": {"type": ["string", "null"]}
+      }
+    },
+    "endpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "path"],
+        "properties": {
+          "name": {"type": "string"},
+          "path": {"type": "string"},
+          "required_params": {"type": "array", "items": {"type": "string"}},
+          "optional_params": {"type": "array", "items": {"type": "string"}},
+          "sample": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "rate_limit": {"type": "string"},
+    "last_updated": {"type": "string"},
+    "source": {"type": "string"},
+    "notes": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "company": "ExampleCo",
+    "valuation_date": "2026-03-13",
+    "currency": "USD",
+    "unit_scale": "millions"
+  },
+  "basis": "LTM",
+  "market": {
+    "current_price": 120,
+    "price_date": "2026-03-13",
+    "listing_market": "HK",
+    "accounting_standard": "IFRS",
+    "trading_currency": "HKD",
+    "fx_to_valuation": 0.128,
+    "valuation_adjustment_pct": -0.05
+  },
+  "financials": {
+    "revenue": 1200,
+    "ebitda": 240,
+    "ebit": 180,
+    "net_income": 120
+  },
+  "balance_sheet": {
+    "cash": 300,
+    "debt": 500,
+    "preferred": 0,
+    "minority_interest": 0,
+    "non_operating_assets": 50
+  },
+  "shares": {
+    "basic": 100,
+    "diluted": 110
+  },
+  "assumptions": {
+    "projection_years": 5,
+    "tax_rate": 0.25,
+    "wacc": 0.10,
+    "terminal_growth": 0.025,
+    "revenue_growth": [0.06, 0.05, 0.04, 0.03, 0.03],
+    "ebit_margin": [0.15, 0.155, 0.16, 0.165, 0.17],
+    "da_pct_revenue": 0.04,
+    "capex_pct_revenue": 0.05,
+    "nwc_pct_revenue": 0.01
+  },
+  "comps": {
+    "metrics": {
+      "ebitda": 240,
+      "ebit": 180,
+      "net_income": 120,
+      "revenue": 1200
+    },
+    "multiples": {
+      "ev_ebitda": { "p25": 7, "median": 9, "p75": 11 },
+      "ev_ebit": { "p25": 9, "median": 12, "p75": 15 },
+      "pe": { "p25": 12, "median": 16, "p75": 20 }
+    }
+  },
+  "model_weights": {
+    "dcf": 0.6,
+    "comps": 0.4
+  },
+  "scenarios": {
+    "upside": {
+      "revenue_growth": [0.08, 0.07, 0.06, 0.05, 0.04],
+      "ebit_margin": [0.16, 0.17, 0.18, 0.185, 0.19],
+      "terminal_growth": 0.03
+    },
+    "downside": {
+      "revenue_growth": [0.03, 0.02, 0.02, 0.02, 0.02],
+      "ebit_margin": [0.13, 0.135, 0.14, 0.145, 0.15],
+      "terminal_growth": 0.02
+    }
+  },
+  "industry_model": {
+    "type": "financials",
+    "inputs": {
+      "book_value": 900,
+      "pb_multiple": { "p25": 0.8, "median": 1.0, "p75": 1.2 },
+      "roe": 0.14,
+      "cost_of_equity": 0.12,
+      "growth": 0.04,
+      "method": "blend"
+    }
+  }
+}
