@@ -16,6 +16,36 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
   --limit 20
 ```
 
+### 查询市场概览数据（沪深300指数）
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/index/fundamental" \
+  --params '{"date": "2026-03-24", "stockCodes": ["000300"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
+  --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
+  --limit 10
+```
+
+### 查询市场资金流向数据（融资融券及北向资金）
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/fundamental/non_financial" \
+  --params '{"stockCodes": ["000300"], "startDate": "2026-03-17", "endDate": "2026-03-24", "metricsList": ["fnpa", "fb", "mm_nba", "ha_shm", "ta", "to_r"]}' \
+  --columns "date,stockCode,fnpa,fb,mm_nba,ha_shm,ta,to_r" \
+  --limit 10
+```
+
+### 查询行业估值数据（申万一级行业市盈率中位数）
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/industry/valuation/sw_2021" \
+  --params '{"date": "2026-03-24", "industryCodes": ["801010", "801020", "801030", "801040", "801050"], "metricsList": ["pe_ttm median", "pb median", "dyr median", "mc"]}' \
+  --columns "date,industryCode,pe_ttm median,pb median,dyr median,mc" \
+  --limit 10
+```
+
 ---
 
 ## 参数说明
@@ -30,7 +60,11 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company/fundamental/non_financial`
+- `cn/company/fundamental/non_financial` - 个股基本面数据
+- `cn/index/fundamental` - 指数基本面数据
+- `cn/index/candlestick` - 指数K线数据
+- `cn/industry/valuation/sw_2021` - 申万行业估值数据
+- `cn/macro/economy` - 宏观经济数据
 
 ---
 

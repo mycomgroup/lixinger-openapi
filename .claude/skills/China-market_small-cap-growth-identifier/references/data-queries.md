@@ -6,14 +6,64 @@
 
 ## 查询示例
 
-### 查询Cn.Company.Fundamental.Non Financial
+### 查询市值和基本面数据
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
-  --columns "date,stockCode,pe_ttm,pb,dyr,mc" \
-  --limit 20
+  --params '{"date": "2025-12-31", "metricsList": ["mc", "pe_ttm", "pb", "roe"]}' \
+  --columns "date,stockCode,mc,pe_ttm,pb,roe" \
+  --limit 50
+```
+
+### 查询营收增长率数据（需结合多期财务数据）
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/fs/non_financial" \
+  --params '{"date": "2025-12-31", "fsTableType": "income", "metricsList": ["operating_revenue"]}' \
+  --columns "date,stockCode,operating_revenue" \
+  --limit 50
+```
+
+### 查询利润率数据
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/fs/non_financial" \
+  --params '{"date": "2025-12-31", "fsTableType": "income", "metricsList": ["gross_profit_margin", "net_profit_margin"]}' \
+  --columns "date,stockCode,gross_profit_margin,net_profit_margin" \
+  --limit 50
+```
+
+### 查询资产负债率数据
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/fs/non_financial" \
+  --params '{"date": "2025-12-31", "fsTableType": "balance", "metricsList": ["asset_to_equity"]}' \
+  --columns "date,stockCode,asset_to_equity" \
+  --limit 50
+```
+
+### 查询现金流数据
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/fs/non_financial" \
+  --params '{"date": "2025-12-31", "fsTableType": "cashflow", "metricsList": ["net_operate_cash_flow"]}' \
+  --columns "date,stockCode,net_operate_cash_flow" \
+  --limit 50
+```
+
+### 查询股东持股数据（机构持股和管理层持股）
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/mutual-market" \
+  --params '{"date": "2025-12-31"}' \
+  --columns "date,stockCode,holder_name,hold_ratio,hold_type" \
+  --limit 100
 ```
 
 ---
@@ -30,7 +80,9 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company/fundamental/non_financial`
+- `cn/company/fundamental/non_financial` - 基本面数据（市值、PE、PB、ROE等）
+- `cn/company/fs/non_financial` - 财务数据（营收、利润、资产负债、现金流等）
+- `cn/company/mutual-market` - 股东持股数据（机构持股、管理层持股等）
 
 ---
 

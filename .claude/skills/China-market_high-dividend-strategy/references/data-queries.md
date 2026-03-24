@@ -1,51 +1,26 @@
-# 数据获取指南
+# 高股息策略数据查询
 
-使用 `query_tool.py` 获取 high-dividend-strategy 所需的数据。
+### 概述
 
----
+本节记录了使用理杏仁开放平台进行 A 股高股息策略分析的数据查询方法。高股息策略关注分红可持续性、股息率、分红增长及总回报，适用于追求稳定收入的投资者。
 
-## 设计说明：补齐“可执行上下文”（关键）
+### 数据来源
 
-### 背景 / 痛点
+- **平台**: 理杏仁开放平台 (https://www.lixinger.com/open/api)
+- **数据范围**: 中证红利指数（000922）成分股、A 股全市场
+- **数据时间**: 近 5 年分红历史、最新估值数据
 
-- 业务 `SKILL.md` 主要描述**分析逻辑**（该算什么），但缺少**可直接复制执行的取数命令**（去哪查、怎么查）。
-- 结果是：一旦触发高股息分析模式，模型容易在“找接口 / 猜参数 / 二次查文档”上浪费回合与 token，影响稳定性与可复现性。
+### API 接口
 
-### 目标（本 Skill 的最小闭环）
+#### 1. 获取中证红利指数成分股
 
-在本 `references/data-queries.md` 内，提供至少两类“复制即用”的命令片段：
+**API**: `cn/index/constituents`
 
-1. **入口数据（范围）**：获取中证红利指数（`000922`）成分股列表 → 得到 `stockCode` 列表  
-2. **核心数据（分红）**：对 `stockCode` 拉取近 5 年现金分红明细 → 支撑股息率 / 分红持续性等分析
+**用途**: 获取中证红利指数（000922）成分股列表，作为高股息策略的初始筛选范围
 
-### 非目标
-
-- 不在此文档中实现完整的打分、回测、组合构建流水线（属于分析层）。
-- 不改动 `query_tool.py` 的能力边界（这里只给“可执行上下文”与最小可跑示例）。
-
-### 验收标准
-
-- 只阅读本文件，不依赖其他文档，也能在 1 分钟内跑通：
-  - 查询 `000922` 成分股 `stockCode` 列表
-  - 对任意一个 `stockCode` 查询近 5 年分红明细
-
-## 查询示例
-
-### 查询 Cn.Index.Constituents（中证红利 000922 成分股）
-
-**API 路径**: `cn/index/constituents`
-
-**必需参数**:
-- `date`: 信息日期（可用 `"latest"`）
-- `stockCodes`: 指数代码数组（如 `["000922"]`）
-
-**注意**:
-- 返回数据包含嵌套数组 `constituents`，建议使用 `--flatten "constituents"` 直接展开成“成分股行”。
-
-**查询示例**（输出成分股代码到 CSV 文件，供后续批量查询使用）:
-
+**查询示例**:
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"date": "latest", "stockCodes": ["000922"]}' \
   --flatten "constituents" \
@@ -54,120 +29,191 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
   --format csv > csi_dividend_000922_constituents.csv
 ```
 
-### 查询 Cn.Company.Dividend
+**返回字段说明**:
+- `stockCode`: 股票代码
+- `market`: 市场（sh/sz/bj）
+- `areaCode`: 地区代码
 
-**API 路径**: `cn/company/dividend`
+#### 2. 获取分红数据
 
-**必需参数**: 
-- `stockCode`: 股票代码（单个）
-- `startDate`: 起始日期（YYYY-MM-DD）
-- `endDate`: 结束日期（YYYY-MM-DD，可选；默认上周一）
+**API**: `cn/company/dividend`
 
-**参数限制**:
-- ⚠️ 此 API 只接受单个 `stockCode`（不是数组）
-- 建议使用 `startDate` 查询历史分红记录
+**用途**: 获取单只股票的历史分红记录，用于计算股息率、分红增长率、分红连续性
 
 **查询示例**:
-
 ```bash
-# 示例 1: 查询单个股票近 5 年历史分红（推荐）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+# 查询单只股票近5年分红
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
-  --params '{"stockCode": "600519", "startDate": "2021-01-01", "endDate": "2026-02-24"}' \
+  --params '{"stockCode": "600519", "startDate": "2021-01-01", "endDate": "2026-03-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
   --limit 20
-
-# 示例 2: 批量查询中证红利(000922)成分股的分红数据（需要循环）
-# 依赖上一步生成的 csi_dividend_000922_constituents.csv；先用 head 控制请求量，确认没问题后再去掉。
-tail -n +2 csi_dividend_000922_constituents.csv | cut -d, -f1 | head -n 10 | while read -r code; do
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn/company/dividend" \
-    --params "{\"stockCode\": \"${code}\", \"startDate\": \"2021-01-01\", \"endDate\": \"2026-02-24\"}" \
-    --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
-    --limit 200 \
-    --format csv > "dividend_${code}.csv"
-done
 ```
 
-**常用字段**:
+**参数说明**:
+- `stockCode`: 股票代码（**必填，单个值**，不支持数组）
+- `startDate`: 起始日期，格式 YYYY-MM-DD（必填）
+- `endDate`: 结束日期，格式 YYYY-MM-DD（选填，默认上周一）
+
+**返回字段说明**:
 - `date`: 公告日期
-- `dividend`: 每股现金分红（元）
-- `dividendAmount`: 分红金额
+- `dividend`: 每股现金分红（元）— **核心字段**
+- `dividendAmount`: 分红总额
 - `annualNetProfitDividendRatio`: 年度净利润分红比例
 - `exDate`: 除权除息日
 - `registerDate`: 股权登记日
 - `paymentDate`: 分红到账日
 - `fsEndDate`: 财报期末
 
-**常见错误**:
-
-❌ **错误**: 使用 stockCodes 数组
+**批量查询示例**:
 ```bash
---params '{"stockCodes": ["600519", "000858"], "startDate": "2021-01-01"}'
+# 批量查询中证红利成分股分红（先用head控制请求量）
+tail -n +2 csi_dividend_000922_constituents.csv | cut -d, -f1 | head -n 10 | while read -r code; do
+  python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+    --suffix "cn/company/dividend" \
+    --params "{\"stockCode\": \"${code}\", \"startDate\": \"2021-01-01\", \"endDate\": \"2026-03-24\"}" \
+    --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
+    --limit 200 \
+    --format csv > "dividend_${code}.csv"
+done
 ```
-✅ **正确**: 使用单个 stockCode
+
+#### 3. 获取估值与股息率数据
+
+**API**: `cn/company/fundamental/non_financial`
+
+**用途**: 获取当前股息率（dyr）、PE、PB 等估值指标
+
+**查询示例**:
 ```bash
---params '{"stockCode": "600519", "startDate": "2021-01-01"}'
-```
-
----
-
-## 参数说明
-
-- `--suffix`: API 路径（使用斜杠格式，如 `cn/company/dividend`）
-- `--params`: JSON 格式参数（注意内层使用双引号）
-- `--columns`: 指定返回字段（推荐使用，节省 30-40% token）
-- `--row-filter`: 过滤条件（JSON 格式，如 `'{"dividend": {">": 1}}'`）
-- `--limit`: 限制返回行数
-
----
-
-## 本 Skill 常用 API
-
-- `cn/index/constituents`: 指数成分股（用于确定分析范围）
-- `cn/company/dividend`: 分红数据
-- `cn/company/fundamental/non_financial`: 基本面数据（需要 metricsList）
-
-### 查询估值与财务指标（用于筛选高股息股票）
-
-```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"stockCodes":["600519","601398","601857"],"date":"2026-02-24","metricsList":["dyr","pe_ttm","pb"]}' \
-  --columns "stockCode,name,dyr,pe_ttm,pb"
+  --params '{"stockCodes":["600519","601398","601857"],"date":"2026-03-24","metricsList":["dyr","pe_ttm","pb","mc"]}' \
+  --columns "stockCode,name,dyr,pe_ttm,pb,mc"
 ```
 
-### 查询财务报表（用于分析分红可持续性）
+**指标说明**:
+- `dyr`: 股息率（近 12 个月每股分红/股价）— **核心指标**
+- `pe_ttm`: 滚动市盈率
+- `pb`: 市净率
+- `mc`: 总市值
 
+#### 4. 获取财务报表数据（分红可持续性分析）
+
+**API**: `cn/company/fs/non_financial`
+
+**用途**: 获取净利润、自由现金流、资产负债率等，用于评估分红可持续性
+
+**查询示例**:
 ```bash
 # 查询利润表和现金流量表关键指标
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
-  --params '{"stockCodes":["600519"],"startDate":"2021-01-01","endDate":"2026-02-27","metricsList":["q.ps.np.t","q.ps.gp_m.t","q.ps.op_m.t"]}' \
-  --columns "date,stockCode,q.ps.np.t,q.ps.gp_m.t,q.ps.op_m.t"
+  --params '{"stockCodes":["600519"],"startDate":"2021-01-01","endDate":"2026-03-24","metricsList":["q.ps.np.t","q.ps.gp_m.t","q.ps.op_m.t","q.cfs.op.t","q.cfs.fcf.t","q.bs.td.t","q.bs.tl.t","q.bs.ta.t"]}' \
+  --columns "date,stockCode,q.ps.np.t,q.cfs.op.t,q.cfs.fcf.t,q.bs.tl.t,q.bs.ta.t"
 ```
 
-### 查询行业分布（用于分散化分析）
+**指标说明**:
+- `q.ps.np.t`: 净利润（累计值）
+- `q.cfs.op.t`: 经营活动现金流
+- `q.cfs.fcf.t`: 自由现金流（**核心字段**，用于 FCF 覆盖倍数计算）
+- `q.bs.tl.t`: 总负债
+- `q.bs.ta.t`: 总资产
 
+**资产负债率计算**:
+```
+资产负债率 = q.bs.tl.t / q.bs.ta.t × 100%
+```
+
+#### 5. 获取行业分布数据
+
+**API**: `cn/industry`
+
+**用途**: 获取行业估值与股息率，用于分散化分析
+
+**查询示例**:
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/industry" \
-  --params '{"source":"sw","level":"one","date":"2026-02-27"}' \
+  --params '{"source":"sw","level":"one","date":"2026-03-24"}' \
   --columns "industryCode,industryName,pe_ttm,pb,dyr"
 ```
 
-### 查询宏观利率环境（用于评估高股息吸引力）
+#### 6. 获取 K 线数据（总回报计算）
 
+**API**: `cn/company/candlestick`
+
+**用途**: 获取复权价格，用于计算含分红再投资的总回报
+
+**查询示例**:
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "macro/money-supply" \
-  --params '{"areaCode":"cn","startDate":"2023-01-01","endDate":"2026-02-27","metricsList":["m.m0.t","m.m1.t","m.m2.t"]}' \
-  --columns "date,m.m0.t,m.m1.t,m.m2.t"
+# 获取后复权价格（包含分红再投资效应）
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/candlestick" \
+  --params '{"stockCode": "600519", "startDate": "2021-03-24", "endDate": "2026-03-24", "type": "bc_rights"}' \
+  --columns "date,close" \
+  --limit 5
 ```
 
----
+**复权类型说明**:
+- `bc_rights`: 后复权（**推荐**，包含历史分红再投资效应）
+- `fc_rights`: 前复权
+- `lxr_fc_rights`: 理杏仁前复权
+- `ex_rights`: 不复权
 
-## 查找更多 API
+### 高股息策略核心指标计算
 
-详细的 API 查找和使用方法，请参考：`../../lixinger-data-query/SKILL.md`
+#### 1. 当前股息率
+```
+股息率 = 近12个月每股现金分红 / 当前股价 × 100%
+```
+数据来源: `cn/company/fundamental/non_financial` → `dyr`
+
+#### 2. 分红增长率（CAGR）
+```
+CAGR = (最新年度每股分红 / N年前每股分红)^(1/N) − 1
+```
+数据来源: `cn/company/dividend` → `dividend`
+
+#### 3. 分红率（利润口径）
+```
+分红率 = 每股现金分红 / 每股收益 × 100%
+```
+数据来源: `cn/company/dividend` → `annualNetProfitDividendRatio`
+
+#### 4. 自由现金流覆盖倍数
+```
+FCF覆盖倍数 = 自由现金流 / 现金分红总额
+```
+数据来源: `cn/company/fs/non_financial` → `q.cfs.fcf.t` + `cn/company/dividend` → `dividendAmount`
+
+#### 5. 含分红再投资总回报
+```
+总回报 = (后复权期末价 / 后复权期初价 − 1) × 100%
+```
+数据来源: `cn/company/candlestick` → `bc_rights`
+
+### 分析流程
+
+1. **获取成分股列表** → `cn/index/constituents`（000922）
+2. **批量查询分红** → `cn/company/dividend`（近 5 年）
+3. **获取当前估值** → `cn/company/fundamental/non_financial`（dyr, pe_ttm, pb）
+4. **获取财务数据** → `cn/company/fs/non_financial`（净利润、自由现金流、资产负债率）
+5. **计算总回报** → `cn/company/candlestick`（后复权价格）
+6. **可持续性评分** → 综合以上数据
+
+### 注意事项
+
+1. **分红 API 只接受单个 stockCode**: 批量查询需要循环调用
+2. **分红数据特点**: 多数 A 股公司每年仅分红一次（年报后），少数半年分红
+3. **送股/转增 ≠ 现金分红**: 送红股和资本公积转增股本不产生现金收入，仅增加股数
+4. **高股息陷阱**: 股息率高可能是因股价大幅下跌导致，而非分红丰厚，需配合可持续性分析
+5. **国企分红改革**: 国资委近年持续推动央企/国企提升分红比例至 30% 以上，是结构性利好
+
+### 相关文件
+
+- 技能文档: `.claude/skills/China-market_high-dividend-strategy/`
+- 计算方法: `.claude/skills/China-market_high-dividend-strategy/references/calculation-methodology.md`
+- 输出模板: `.claude/skills/China-market_high-dividend-strategy/references/output-template.md`
+- 理杏仁查询文档: `.claude/skills/China-market_high-dividend-strategy/references/data-queries.md`
 

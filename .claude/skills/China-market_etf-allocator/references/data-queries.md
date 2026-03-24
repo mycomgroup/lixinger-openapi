@@ -206,6 +206,116 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `000991`: 全指医药
 - `000993`: 全指信息
 
+## 本次分析数据使用记录
+
+### 分析场景：行业ETF轮动分析（2026-02-24）
+
+#### 1. 行业指数估值数据
+
+**查询命令**：
+```bash
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/index/fundamental" \
+  --params '{"date":"2026-02-24","stockCodes":["000807","000808","000809","000810","000811","000812","000813","000814"],"metricsList":["pe_ttm.mcw","pb.mcw","pe_ttm.y5.mcw.cvpos","pb.y5.mcw.cvpos"]}' \
+  --limit 20
+```
+
+**返回数据**：
+| 行业代码 | 行业名称 | PE_TTM | PB | PE 5年分位 | PB 5年分位 |
+|---------|---------|--------|-----|-----------|-----------|
+| 000807 | 食品饮料 | 20.15 | 4.55 | 13.2% | 6.2% |
+| 000808 | 医药生物 | 35.14 | 3.24 | 71.9% | 29.6% |
+| 000811 | 传媒 | 30.68 | 4.18 | 84.4% | 99.0% |
+| 000812 | 通信 | 41.40 | 3.29 | 91.5% | 60.0% |
+| 000813 | 银行 | 32.77 | 3.03 | 99.0% | 71.5% |
+| 000814 | 非银金融 | 35.23 | 3.37 | 74.9% | 43.0% |
+
+**数据字段说明**：
+- `pe_ttm.mcw`: 市盈率（市值加权）
+- `pb.mcw`: 市净率（市值加权）
+- `pe_ttm.y5.mcw.cvpos`: PE 5年历史分位数（0-1之间，越低越便宜）
+- `pb.y5.mcw.cvpos`: PB 5年历史分位数（0-1之间，越低越便宜）
+
+#### 2. 行业指数K线数据（收益分析）
+
+**查询命令**：
+```bash
+# 食品饮料行业
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/index/candlestick" \
+  --params '{"stockCode": "000807", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
+  --columns "date,close" \
+  --limit 500
+
+# 医药生物行业
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/index/candlestick" \
+  --params '{"stockCode": "000808", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
+  --columns "date,close" \
+  --limit 500
+
+# 银行行业
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/index/candlestick" \
+  --params '{"stockCode": "000813", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
+  --columns "date,close" \
+  --limit 500
+
+# 非银金融行业
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/index/candlestick" \
+  --params '{"stockCode": "000814", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
+  --columns "date,close" \
+  --limit 500
+```
+
+**收益计算结果**（2024-02-26 至 2026-02-24）：
+| 行业 | 期初价格 | 期末价格 | 2年收益率 |
+|-----|---------|---------|----------|
+| 食品饮料 | 21,871.41 | 18,035.72 | -17.5% |
+| 医药生物 | 8,406.31 | 8,370.07 | -0.4% |
+| 银行 | 2,709.09 | 4,347.16 | +60.5% |
+| 非银金融 | 7,857.33 | 8,422.48 | +7.2% |
+
+#### 3. 申万行业数据（基本面）
+
+**查询命令**：
+```bash
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/industry" \
+  --params '{"source":"sw","level":"one","date":"2026-02-24"}' \
+  --columns "industryCode,industryName,pe_ttm,pb,roe" \
+  --limit 30
+```
+
+**注意**：该API返回的是行业列表，不包含估值数据。如需行业估值，需使用 `cn/index/fundamental` API。
+
+### 数据字段映射表
+
+| 分析维度 | API | 关键字段 | 用途 |
+|---------|-----|---------|------|
+| 估值分析 | `cn/index/fundamental` | `pe_ttm.mcw`, `pb.mcw` | 判断行业估值水平 |
+| 历史分位 | `cn/index/fundamental` | `pe_ttm.y5.mcw.cvpos`, `pb.y5.mcw.cvpos` | 5年历史分位数 |
+| 收益分析 | `cn/index/candlestick` | `date`, `close` | 计算收益率和波动率 |
+| 成分股 | `cn/index/constituents` | `stockCode`, `weight` | 分析持仓结构 |
+
+### 常用指标组合
+
+**行业轮动分析**：
+```json
+{
+  "metricsList": [
+    "pe_ttm.mcw",
+    "pb.mcw",
+    "pe_ttm.y5.mcw.cvpos",
+    "pb.y5.mcw.cvpos",
+    "dyr"
+  ]
+}
+```
+
+**注意**：`dyr`（股息率）在 `cn/index/fundamental` API 中不可用，需使用其他API获取。
+
 ## 相关文档
 
 - **API 列表**：`../../lixinger-data-query/SKILL.md`

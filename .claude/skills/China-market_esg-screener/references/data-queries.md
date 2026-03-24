@@ -34,3 +34,19 @@ python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company" -
 
 详细的 API 查找和使用方法，请参考：`../../lixinger-data-query/SKILL.md`
 
+
+## ESG 分析所需数据查询
+
+```bash
+# 查询 ESG 综合评分及环境、社会、治理分项
+python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/esg" --params '{"stockCodes": ["..."]}' --columns "stockCode,esgTotalScore,eScore,sScore,gScore"
+
+# 查询财务数据用于 ESG 财务整合分析
+python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/finance" --params '{"stockCodes": ["..."]}' --columns "stockCode,roe,revenueGrowth,pe"
+
+# 查询治理数据（独立董事、股东结构）
+python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/governance" --params '{"stockCodes": ["..."]}' --columns "stockCode,independentDirectorRatio,controllingShareholderRatio"
+
+# 查询违规记录用于争议监控
+python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/violation" --params '{"stockCodes": ["..."]}' --columns "stockCode,violationType,violationSeverity"
+```
