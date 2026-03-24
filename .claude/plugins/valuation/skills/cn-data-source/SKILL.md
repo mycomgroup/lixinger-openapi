@@ -63,15 +63,16 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 关键字段映射（对应 valuation 输入）：
 
-| 理杏仁字段 | valuation 输入 | 说明 |
-|-----------|---------------|------|
-| y.ps.toi.t | revenue | 营业总收入（年度累计，单位：元） |
-| y.ps.ebitda.t | ebitda | EBITDA（单位：元） |
-| y.ps.ebit.t | ebit | EBIT（单位：元） |
-| y.ps.npatoshopc.t | net_income | 归母净利润（单位：元） |
-| y.bs.ta.t | total_assets | 总资产（单位：元） |
-| y.bs.tl.t | total_liabilities | 总负债（单位：元） |
-| y.bs.ta.t - y.bs.tl.t | equity（估算） | 净资产（单位：元） |
+| 数据源 | 原始字段 | valuation 输入 | 说明 |
+|--------|----------|---------------|------|
+| 理杏仁 | y.ps.toi.t | revenue | 营业总收入（年度累计，单位：元） |
+| 理杏仁 | y.ps.ebitda.t | ebitda | EBITDA（单位：元） |
+| 理杏仁 | y.ps.ebit.t | ebit | EBIT（单位：元） |
+| 理杏仁 | y.ps.npatoshopc.t | net_income | 归母净利润（单位：元） |
+| AkShare | 现金流量表：经营活动产生的现金流量净额 | operating_cash_flow | 经营活动现金流净额（单位：元） |
+| 理杏仁 | y.bs.ta.t | total_assets | 总资产（单位：元） |
+| 理杏仁 | y.bs.tl.t | total_liabilities | 总负债（单位：元） |
+| 估算 | y.bs.ta.t - y.bs.tl.t | equity（估算） | 净资产（单位：元） |
 
 ---
 
@@ -176,7 +177,8 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
     "ebitda": "<y.ps.ebitda.t / 1,000,000>",
     "ebit": "<y.ps.ebit.t / 1,000,000>",
     "net_income": "<y.ps.npatoshopc.t / 1,000,000>",
-    "depreciation_amortization": "<如能获取则填入>"
+    "depreciation_amortization": "<如能获取则填入>",
+    "operating_cash_flow": "<AkShare 经营现金流净额 / 1,000,000，如能获取则填入>"
   },
   "balance_sheet": {
     "cash": "<现金类科目 / 1,000,000>",
@@ -193,6 +195,22 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
     "one_off_items": {
       "ebit": "<非经常性 EBIT 调整>",
       "net_income": "<非经常性净利润调整>"
+    },
+    "qoe": {
+      "ebit": {
+        "remove": {
+          "government_subsidies": "<政府补助，如需剔除>",
+          "asset_disposal_gains": "<资产处置收益，如需剔除>"
+        },
+        "add_back": {
+          "impairment_losses": "<减值损失，如判断为非经常可加回>"
+        }
+      },
+      "net_income": {
+        "remove": {
+          "fair_value_gains": "<公允价值变动收益，如需剔除>"
+        }
+      }
     },
     "restricted_cash": "<受限现金，如有>",
     "lease_liabilities": "<租赁负债，如有>",
@@ -225,7 +243,9 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 - 货币：A股报告货币为 CNY
 - 财报类型：银行/保险/证券公司使用 `cn.company.fs.financial` 而非 `non_financial`，EBITDA 不适用
 - 股本：理杏仁不直接返回股本数，用 `mc / sp` 计算总股本；如无摊薄信息，先令 `diluted = basic` 并在报告中说明
-- 标准化：优先输出 `reported -> normalized` 桥表，至少覆盖非经常项、受限现金、租赁负债、维护性 Capex
+- 标准化：优先输出 `reported -> normalized` 桥表，至少覆盖非经常项、政府补助/公允价值/处置收益等 QoE 项、受限现金、租赁负债、维护性 Capex
+- 数据源可混用：利润表/资产负债表优先用理杏仁，现金流、国债利率等缺口字段可用 AkShare 补齐；但必须保证报告期、单位、币种、合并口径一致
+- QoE补充：理杏仁通常不足以直接给出全部 QoE 科目，政府补助、公允价值变动、资产处置、减值等需结合年报附注或手工补充到 `adjustments.qoe`
 - 无风险利率：使用中国10年期国债收益率，而非美国国债
 - ERP：A股市场风险溢价建议使用 6%~8%（高于成熟市场）
 - 财年：A股财年为自然年，12月31日为年报日期

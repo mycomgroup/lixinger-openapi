@@ -6,168 +6,200 @@ This document specifies the data queries needed for the sector-valuation-heat-ma
 
 According to the skill workflow, three main data categories are needed:
 
-### 1. Valuation Data
+### 1. Valuation Data (Primary)
 - **Purpose**: Calculate current PE/PB ratios and their historical percentiles (10-year)
-- **API**: `cn/industry/fundamental/sw_2021`
-- **Fields needed**:
-  - `industryName` or `industryCode`: Industry identifier
-  - `pe_ttm`: Trailing twelve months P/E ratio
-  - `pb`: Price-to-Book ratio
-  - `pe_ttm_percentile`: Historical percentile of PE (if available)
-  - `pb_percentile`: Historical percentile of PB (if available)
-- **Query Example**:
-  ```bash
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn/industry/fundamental/sw_2021" \
-    --columns "industryName,pe_ttm,pb" \
-    --limit 50
-  ```
-- **Note**: If historical percentiles are not directly available, they can be calculated by:
-  1. Fetching historical PE/PB data for the past 10 years
-  2. Calculating where current values rank in that historical distribution
+- **API**: `cn.industry.fundamental.sw_2021`
+- **Metrics Available**:
+  - `pe_ttm.ew` / `pe_ttm.mcw`: PE-TTM (equal weight / market cap weighted)
+  - `pb.ew` / `pb.mcw`: PB (equal weight / market cap weighted)
+  - `pe_ttm.y10.ew.cvpos` / `pb.y10.ew.cvpos`: 10-year percentile (equal weight)
+  - `mc`: Market cap
 
-### 2. Trend Data
+**Working Query Examples**:
+
+```bash
+# Step 1: Get list of Shenwan 2021 level 1 industries
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.industry" \
+  --params '{"source":"sw_2021","level":"one"}' \
+  --columns "stockCode,name" \
+  --limit 50
+
+# Step 2: Get current PE/PB for multiple industries (batch query)
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.industry.fundamental.sw_2021" \
+  --params '{"date":"2026-03-24","stockCodes":["110000","220000","480000","490000"],"metricsList":["pe_ttm.ew","pb.ew","mc"]}' \
+  --columns "stockCode,pe_ttm,pb" \
+  --format json
+
+# Step 3: Get 10-year historical percentiles
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.industry.fundamental.sw_2021" \
+  --params '{"date":"2026-03-24","stockCodes":["110000","220000","480000","490000"],"metricsList":["pe_ttm.y10.ew.cvpos","pb.y10.ew.cvpos"]}' \
+  --format json
+```
+
+**Important Notes**:
+- When using `date` parameter, you can query multiple stockCodes at once
+- When using `startDate/endDate` (date range), you can only query ONE stockCode at a time
+- The percentile values (cvpos) are returned as decimals (0-1), multiply by 100 for percentage
+- Use equal weight (`ew`) metrics for better representation of industry-wide valuations
+
+### 2. Trend Data (Secondary - Optional)
 - **Purpose**: Measure short-term price momentum and institutional fund flows
-- **Components**:
-  - **Price Changes**: 5-day and 20-day price change percentages
-  - **Main Fund Net Inflow**: Net amount of money flowing into/out of the industry from major institutional investors
+- **Status**: ⚠️ Limited support in lixinger API
 
-#### Price Changes API
-- **API**: `cn/industry` (for latest data)
-- **Note**: `cn/industry/candlestick` does NOT exist in the lixinger API. For historical trend data, use AkShare `stock_sector_fund_flow_rank` or calculate from constituent stock candlestick data.
-- **Fields needed**:
-  - `industryName` or `industryCode`
-  - `change_pct_5d`: 5-day price change percentage
-  - `change_pct_20d`: 20-day price change percentage
-  - `close`: Latest closing price/index value
-- **Query Example** (if direct change fields available):
-  ```bash
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn/industry" \
-    --columns "industryName,change_pct_5d,change_pct_20d,close" \
-    --limit 50
-  ```
-- **Alternative**: Calculate from constituent stock data:
-  ```bash
-  # Get constituent stocks of an industry, then aggregate their candlestick data
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn/industry/constituents/sw_2021" \
-    --params '{"industryCode": "851921"}' \
-    --columns "stockCode"
-  ```
+#### Price Changes
+> Note: Lixinger API does NOT have `cn/industry/candlestick` interface. 
+> For industry price trends, use AkShare or aggregate from index data.
 
-#### Main Fund Net Inflow API
-> ⚠️ 理杏仁 API 当前不提供行业资金流向数据（`cn/industry/candlestick` 接口也不存在）。
-> 可使用 AkShare `stock_sector_fund_flow_rank` 接口（东方财富数据）作为替代，或通过成分股成交量/价格变化推算。
+**Option A: Use AkShare (if network available)**
+```python
+import akshare as ak
+
+# Get industry index daily data (Shenwan industry code format: 801XXX)
+df = ak.index_zh_a_hist(
+    symbol='801010',  # Example: 农林牧渔
+    period='daily', 
+    start_date='20260301', 
+    end_date='20260324'
+)
+# Calculate 5d/20d changes from the data
+```
+
+**Option B: Use cn/index.candlestick with industry index codes**
+> Requires finding the correct index code for each industry first via `cn.index` API
+
+```bash
+# Find industry-related indices
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.index" \
+  --params '{}' \
+  --columns "stockCode,name" \
+  --limit 100
+```
+
+#### Main Fund Net Inflow
+> ⚠️ Lixinger API does NOT provide industry money flow data.
+> Use AkShare as alternative (may have network issues).
 
 ```python
 import akshare as ak
 
-# 获取行业资金流排名（今日/5日/10日）
+# Get industry fund flow ranking (今日/5日/10日)
 fund_flow_df = ak.stock_sector_fund_flow_rank(indicator="今日", sector_type="行业资金流")
-# 返回字段：序号、名称、今日涨跌幅、主力净流入-净额、主力净流入-净占比、
-#           超大单/大单/中单/小单净流入-净额及净占比、主力净流入最大股
-print(fund_flow_df)
-
-# 获取5日行业资金流排名
-fund_flow_5d_df = ak.stock_sector_fund_flow_rank(indicator="5日", sector_type="行业资金流")
-print(fund_flow_5d_df)
+# Returns: 名称, 涨跌幅, 主力净流入-净额, 主力净流入-净占比, etc.
 ```
 
-- **Fields available**:
-  - `名称`: Industry name
-  - `主力净流入-净额`: Main fund net inflow amount
-  - `主力净流入-净占比`: Main fund net inflow ratio (%)
+**Fallback**: If no trend data available, use valuation data alone for the heat map.
 
-### 3. Activity Data
+### 3. Activity Data (Optional)
 - **Purpose**: Measure trading activity and liquidity
-- **Components**:
-  - **Trading Volume Proportion**: Industry's trading volume as percentage of total market
-  - **Turnover Rate**: Trading volume divided by circulating market cap
+- **Status**: Limited support - not available in lixinger industry API
 
-#### Trading Volume API
-- **API**: `cn/industry` or trading data API
-- **Fields needed**:
-  - `industryName` or `industryCode`
-  - `volume`: Daily trading volume
-  - `amount`: Daily trading amount (in currency)
-  - `total_market_volume`: Total market trading volume (for proportion calculation)
-- **Query Example**:
-  ```bash
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn/industry" \
-    --columns "industryName,volume,amount" \
-    --limit 50
-  ```
+#### Turnover Rate
+> The `cn.industry.fundamental.sw_2021` API may support `to_r` (turnover rate) metric.
+> Check API documentation for current support.
 
-#### Turnover Rate API
-- **API**: `cn/industry/fundamental/sw_2021` or similar
-- **Fields needed**:
-  - `industryName` or `industryCode`
-  - `turnover_rate`: Daily turnover rate (volume/circulating cap)
-  - `circulating_market_cap`: Circulating market capitalization
-- **Query Example**:
-  ```bash
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn/industry/fundamental/sw_2021" \
-    --columns "industryName,turnover_rate,circulating_market_cap" \
-    --limit 50
-  ```
+```bash
+# Try fetching turnover rate
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.industry.fundamental.sw_2021" \
+  --params '{"date":"2026-03-24","stockCodes":["480000"],"metricsList":["to_r","mc"]}' \
+  --format json
+```
 
-## Combined Query Strategy
+## Combined Query Strategy (Recommended)
 
-To minimize API calls and ensure data consistency, the recommended approach is:
+To generate the valuation heat map, follow this sequence:
 
-1. **Primary Query**: Get fundamental data which often includes multiple metrics
-   ```bash
-   python3 skills/lixinger-data-query/scripts/query_tool.py \
-     --suffix "cn/industry/fundamental/sw_2021" \
-     --columns "industryName,pe_ttm,pb,turnover_rate,circulating_market_cap" \
-     --limit 50
-   ```
+### Step 1: Get Industry List
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.industry" \
+  --params '{"source":"sw_2021","level":"one"}' \
+  --columns "stockCode,name" \
+  --limit 50
+```
 
-2. **Supplemental Queries**:
-   - Price trends: Use AkShare `stock_sector_fund_flow_rank` or aggregate constituent stock data for trend calculations
-   - Money flow: Specialized API if available, otherwise derived from volume/price
-   - Volume proportions: May need total market data for comparison
+### Step 2: Get PE/PB Values (Batch)
+```bash
+# Batch query - split into groups of ~10-15 for best results
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.industry.fundamental.sw_2021" \
+  --params '{"date":"2026-03-24","stockCodes":["110000","220000","230000","240000","270000","280000","330000","340000","350000","360000","370000"],"metricsList":["pe_ttm.ew","pb.ew","mc"]}' \
+  --format json
+```
+
+### Step 3: Get 10-Year Percentiles (Batch)
+```bash
+# Use same batch as Step 2
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn.industry.fundamental.sw_2021" \
+  --params '{"date":"2026-03-24","stockCodes":["110000","220000","230000","240000","270000","280000","330000","340000","350000","360000","370000"],"metricsList":["pe_ttm.y10.ew.cvpos","pb.y10.ew.cvpos"]}' \
+  --format json
+```
+
+### Step 4: Generate Heat Map
+- Combine PE/PB data with percentile data
+- Calculate average percentile = (PE_percentile + PB_percentile) / 2
+- Apply coloring:
+  - < 20%: ✅ 洼地 (darkgreen)
+  - 20-40%: 📉 偏冷 (lightgreen)
+  - 40-60%: ➡️ 中性 (white)
+  - 60-80%: ⚠️ 偏热 (orange)
+  - > 80%: 🔥 过热 (red)
 
 ## Data Freshness Requirements
 
-- **Valuation Data**: Daily frequency acceptable
-- **Trend Data**: Daily frequency for 5d/20d calculations
-- **Activity Data**: Daily frequency preferred
+- **Valuation Data**: Daily frequency - data is updated daily
+- **Trend Data**: Optional - if available, use daily frequency
+- **Activity Data**: Optional - limited support
 
 ## Calculation Guidelines
 
-### Valuation Percentiles
-If raw percentile data not available:
-1. Collect 10 years of monthly PE/PB data for each industry
-2. For current value, calculate: (number of historical values below current) / (total historical values) * 100%
+### Handling Negative PE Values
+When PE is negative (company/industry is loss-making):
+- This typically indicates poor profitability
+- In the heat map, treat negative PE similarly to high positive PE (risky)
+- Use PB as the primary valuation metric for loss-making industries
 
-### Trend Calculations
-- **5-day change**: (current price - price 5 days ago) / price 5 days ago * 100%
-- **20-day change**: (current price - price 20 days ago) / price 20 days ago * 100%
-- **Main fund inflow**: Requires specialized money flow data or sophisticated volume-price analysis
+### Percentile Calculation
+The lixinger API provides 10-year percentiles directly:
+- `pe_ttm.y10.ew.cvpos`: PE 10-year percentile (equal weight), returned as 0-1
+- `pb.y10.ew.cvpos`: PB 10-year percentile (equal weight), returned as 0-1
+- Multiply by 100 to get percentage
 
-### Activity Calculations
-- **Volume proportion**: (industry daily volume) / (total market daily volume) * 100%
-- **Turnover rate**: (daily trading volume) / (shares outstanding) * 100% 
-  or (daily trading amount) / (circulating market cap) * 100%
+### Color Mapping Logic
+```
+Average Percentile = (PE_percentile + PB_percentile) / 2
+
+< 20%:  ✅ 洼地 (darkgreen)  - Historical low, potential value
+20-40%: 📉 偏冷 (lightgreen) - Below average
+40-60%: ➡️ 中性 (white)      - Average
+60-80%: ⚠️ 偏热 (orange)     - Above average
+> 80%:   🔥 过热 (red)       - Historical high, caution
+```
 
 ## Error Handling and Fallbacks
 
-1. If industry-specific APIs fail, fall back to:
-   - Index-level data as proxy
-   - Constituent stock aggregation
+1. **If industry API fails**:
+   - Fall back to individual stock aggregation
+   - Or use index-level data as proxy
 
-2. If money flow data unavailable:
-   - Use price-volume trends as proxy (strong price rise + high volume = likely inflow)
-   - Or skip this component with appropriate warning
+2. **If trend data unavailable**:
+   - Skip momentum component
+   - Focus on valuation-only heat map
+
+3. **If AkShare network issues**:
+   - Use lixinger data alone
+   - Mark trend data as unavailable
 
 ## Implementation Notes
 
 The sector-valuation-heat-map skill should:
-1. Execute these queries in sequence
-2. Normalize/standardize data where necessary
-3. Apply the heat map coloring logic as specified in the skill
+1. Execute queries in the recommended sequence
+2. Handle negative PE values appropriately
+3. Apply the heat map coloring logic
 4. Generate output matching the output-template.md format
+5. Always note limitations in the analysis (e.g., missing trend data)

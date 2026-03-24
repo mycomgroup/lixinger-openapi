@@ -17,9 +17,13 @@
 
 ## 2. Normalization Summary
 - Reported EBIT: 3,600.00
-- Normalized EBIT: 3,420.00
-- Normalized Net Income: 2,660.00
-- Owner Earnings: 2,460.00
+- Normalized EBIT: 3,360.00
+- QoE EBIT Remove / Add-back / Net: 105.00 / 45.00 / 60.00
+- Normalized Net Income: 2,585.00
+- QoE Net Income Remove / Add-back / Net: 105.00 / 30.00 / 75.00
+- Owner Earnings: 2,385.00
+- Operating Cash Flow: 2,360.00
+- Cash Conversion (OCF / Normalized NI): 0.91
 - Bridge Cash: 6,000.00
 - Bridge Debt: 2,800.00
 - Normalized Net Debt: -3,820.00

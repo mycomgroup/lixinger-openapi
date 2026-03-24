@@ -37,7 +37,7 @@ Run:
 - Market data: price, shares, dilution details
 - Cost of capital inputs or guidance
 - Industry classification and business model
-- Optional normalization inputs: one-offs, restricted cash, lease liabilities, maintenance capex, and dilution bridge items
+- Optional normalization inputs: one-offs, QoE/accounting adjustments, restricted cash, lease liabilities, maintenance capex, cash-flow support, and dilution bridge items
 
 ## Assumptions and Defaults
 
@@ -98,6 +98,8 @@ Run:
 - Align fiscal periods, currency, and unit scale across all inputs.
 - Normalize for one-offs and accounting anomalies.
 - For A股非金融公司，优先形成 `reported -> normalized` 桥表，再进入估值。
+- QoE/accounting adjustments 优先覆盖政府补助、公允价值变动、资产处置收益、减值、信用减值、存货跌价等非核心项目。
+- If operating cash flow is available, cross-check normalized earnings with cash conversion.
 - Confirm net debt vs net cash and document adjustments, including restricted cash and lease liabilities where relevant.
 - Verify share count and dilution details, including options, RSUs, converts, and buybacks if material.
 

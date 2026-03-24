@@ -1,12 +1,20 @@
 {
-  "version": "0.1.0",
-  "notes": "FQE MVP ruleset. Thresholds are heuristics for Phase 1; move to calibrated per-industry thresholds later.",
+  "version": "0.2.0",
+  "notes": "FQE MVP ruleset v0.2. 新增趋势规则 fq_cash_003t / fq_rev_001t。阈值为 Phase 1 启发式，后续迁移到行业分层校准。",
   "rules": {
     "fq_cash_003": {
-      "name": "经营现金流支撑不足",
+      "name": "经营现金流支撑不足（单期）",
       "severity": {
         "high": { "ocf_to_ni_lt": 0.5 },
         "medium": { "ocf_to_ni_lt": 0.8 }
+      }
+    },
+    "fq_cash_003t": {
+      "name": "OCF/NI 连续多期偏低（趋势）",
+      "params": {
+        "window": 3,
+        "min_periods_below": 2,
+        "ocf_to_ni_lt": 0.85
       }
     },
     "fq_cash_005": {
@@ -17,12 +25,19 @@
       }
     },
     "fq_rev_001": {
-      "name": "应收增速显著快于收入增速",
+      "name": "应收增速显著快于收入增速（单期）",
       "params": {
         "delta_yoy_gt": {
           "medium": 0.20,
           "high": 0.35
         }
+      }
+    },
+    "fq_rev_001t": {
+      "name": "应收/收入比率趋势上升（多期）",
+      "params": {
+        "window": 3,
+        "min_periods_rising": 2
       }
     },
     "fq_bs_002": {
@@ -66,4 +81,3 @@
     "fq_gov_003": { "name": "近 3 年存在监管问询/关注函" }
   }
 }
-

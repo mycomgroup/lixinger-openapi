@@ -20,7 +20,8 @@
     "ebitda": 4300,
     "ebit": 3600,
     "net_income": 2800,
-    "depreciation_amortization": 700
+    "depreciation_amortization": 700,
+    "operating_cash_flow": 2360
   },
   "balance_sheet": {
     "cash": 6200,
@@ -37,6 +38,26 @@
     "one_off_items": {
       "ebit": 180,
       "net_income": 140
+    },
+    "qoe": {
+      "ebit": {
+        "remove": {
+          "government_subsidies": 70,
+          "asset_disposal_gains": 35
+        },
+        "add_back": {
+          "inventory_write_downs": 45
+        }
+      },
+      "net_income": {
+        "remove": {
+          "fair_value_gains": 55,
+          "government_subsidies": 50
+        },
+        "add_back": {
+          "impairment_losses": 30
+        }
+      }
     },
     "restricted_cash": 200,
     "lease_liabilities": 300,

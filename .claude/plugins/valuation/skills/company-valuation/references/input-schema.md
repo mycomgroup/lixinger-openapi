@@ -41,6 +41,7 @@ The current implementation is **backward compatible** with the old format and ad
 - `ebit`
 - `net_income`
 - `depreciation_amortization` (optional)
+- `operating_cash_flow` (optional, used for QoE cash-conversion checks)
 
 ### `balance_sheet`
 - `cash`
@@ -64,6 +65,9 @@ Supported fields:
 - `ebit_adjustment`
 - `ebitda_adjustment`
 - `net_income_adjustment`
+- `qoe.ebit.remove.*` / `qoe.ebit.add_back.*`
+- `qoe.ebitda.remove.*` / `qoe.ebitda.add_back.*`
+- `qoe.net_income.remove.*` / `qoe.net_income.add_back.*`
 - `depreciation_amortization`
 - `maintenance_capex`
 - `maintenance_capex_pct_revenue`
@@ -77,6 +81,10 @@ Supported fields:
 - `rsu_dilution`
 - `convertible_dilution`
 - `buyback_shares`
+
+Recommended A-share QoE categories include:
+- removals: `government_subsidies`, `fair_value_gains`, `asset_disposal_gains`, `other_non_core_gains`
+- add-backs: `impairment_losses`, `credit_impairment_losses`, `inventory_write_downs`, `restructuring_costs`
 
 ### `assumptions`
 - `projection_years` (default 5)
@@ -139,6 +147,7 @@ Common structure:
 
 The generated `valuation_summary.json` now also includes:
 - `normalized_inputs`
+- `normalized_inputs.qoe`
 - `assumptions_applied`
 - `assumption_notes`
 - `qc_status`
@@ -168,7 +177,8 @@ The generated `valuation_summary.json` now also includes:
     "ebitda": 4300,
     "ebit": 3600,
     "net_income": 2800,
-    "depreciation_amortization": 700
+    "depreciation_amortization": 700,
+    "operating_cash_flow": 2360
   },
   "balance_sheet": {
     "cash": 6200,
@@ -185,6 +195,26 @@ The generated `valuation_summary.json` now also includes:
     "one_off_items": {
       "ebit": 180,
       "net_income": 140
+    },
+    "qoe": {
+      "ebit": {
+        "remove": {
+          "government_subsidies": 70,
+          "asset_disposal_gains": 35
+        },
+        "add_back": {
+          "inventory_write_downs": 45
+        }
+      },
+      "net_income": {
+        "remove": {
+          "fair_value_gains": 55,
+          "government_subsidies": 50
+        },
+        "add_back": {
+          "impairment_losses": 30
+        }
+      }
     },
     "restricted_cash": 200,
     "lease_liabilities": 300,
