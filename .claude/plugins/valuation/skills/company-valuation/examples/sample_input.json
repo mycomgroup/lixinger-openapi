@@ -1,86 +1,104 @@
 {
   "meta": {
-    "company": "ExampleCo",
-    "valuation_date": "2026-03-13",
-    "currency": "USD",
-    "unit_scale": "millions"
+    "company": "Example A-Share Co",
+    "valuation_date": "2026-03-24",
+    "currency": "CNY",
+    "unit_scale": "millions",
+    "listing_market": "A"
   },
   "basis": "LTM",
   "market": {
-    "current_price": 120,
-    "price_date": "2026-03-13",
-    "listing_market": "HK",
-    "accounting_standard": "IFRS",
-    "trading_currency": "HKD",
-    "fx_to_valuation": 0.128,
-    "valuation_adjustment_pct": -0.05
+    "current_price": 28.5,
+    "price_date": "2026-03-24",
+    "listing_market": "A",
+    "accounting_standard": "PRC GAAP",
+    "trading_currency": "CNY"
   },
   "financials": {
-    "revenue": 1200,
-    "ebitda": 240,
-    "ebit": 180,
-    "net_income": 120
+    "revenue": 17000,
+    "cost_of_revenue": 10300,
+    "ebitda": 4300,
+    "ebit": 3600,
+    "net_income": 2800,
+    "depreciation_amortization": 700
   },
   "balance_sheet": {
-    "cash": 300,
-    "debt": 500,
+    "cash": 6200,
+    "debt": 2500,
     "preferred": 0,
-    "minority_interest": 0,
-    "non_operating_assets": 50
+    "minority_interest": 180,
+    "non_operating_assets": 350
   },
   "shares": {
-    "basic": 100,
-    "diluted": 110
+    "basic": 1260,
+    "diluted": 1268
+  },
+  "adjustments": {
+    "one_off_items": {
+      "ebit": 180,
+      "net_income": 140
+    },
+    "restricted_cash": 200,
+    "lease_liabilities": 300,
+    "associate_investments": 250,
+    "maintenance_capex": 900,
+    "option_dilution": 6,
+    "rsu_dilution": 2,
+    "buyback_shares": 4
   },
   "assumptions": {
     "projection_years": 5,
     "tax_rate": 0.25,
-    "wacc": 0.10,
-    "terminal_growth": 0.025,
-    "revenue_growth": [0.06, 0.05, 0.04, 0.03, 0.03],
-    "ebit_margin": [0.15, 0.155, 0.16, 0.165, 0.17],
-    "da_pct_revenue": 0.04,
-    "capex_pct_revenue": 0.05,
-    "nwc_pct_revenue": 0.01
+    "terminal_growth": 0.03,
+    "revenue_growth": [0.11, 0.09, 0.07, 0.05, 0.04],
+    "ebit_margin": [0.205, 0.208, 0.21, 0.212, 0.214],
+    "maintenance_capex_pct_revenue": 0.03,
+    "expansion_capex_pct_revenue": 0.015,
+    "dso": 18,
+    "dio": 52,
+    "dpo": 32,
+    "cost_of_capital": {
+      "risk_free_rate": 0.022,
+      "equity_risk_premium": 0.068,
+      "beta": 0.95,
+      "cost_of_debt": 0.032,
+      "target_debt_weight": 0.18
+    }
   },
   "comps": {
+    "peers": [
+      { "ticker": "000001.SZ", "listing_market": "A", "currency": "CNY" },
+      { "ticker": "000002.SZ", "listing_market": "A", "currency": "CNY" },
+      { "ticker": "000003.SZ", "listing_market": "A", "currency": "CNY" },
+      { "ticker": "000004.SZ", "listing_market": "A", "currency": "CNY" },
+      { "ticker": "000005.SZ", "listing_market": "A", "currency": "CNY" }
+    ],
     "metrics": {
-      "ebitda": 240,
-      "ebit": 180,
-      "net_income": 120,
-      "revenue": 1200
+      "ebitda": 4120,
+      "ebit": 3420,
+      "net_income": 2660,
+      "revenue": 17000
     },
     "multiples": {
-      "ev_ebitda": { "p25": 7, "median": 9, "p75": 11 },
-      "ev_ebit": { "p25": 9, "median": 12, "p75": 15 },
-      "pe": { "p25": 12, "median": 16, "p75": 20 }
+      "ev_ebitda": { "p25": 8.0, "median": 9.5, "p75": 11.0 },
+      "ev_ebit": { "p25": 9.5, "median": 11.5, "p75": 13.5 },
+      "pe": { "p25": 14.0, "median": 17.0, "p75": 20.0 }
     }
   },
   "model_weights": {
-    "dcf": 0.6,
-    "comps": 0.4
+    "dcf": 0.65,
+    "comps": 0.35
   },
   "scenarios": {
     "upside": {
-      "revenue_growth": [0.08, 0.07, 0.06, 0.05, 0.04],
-      "ebit_margin": [0.16, 0.17, 0.18, 0.185, 0.19],
-      "terminal_growth": 0.03
+      "revenue_growth": [0.13, 0.11, 0.09, 0.06, 0.05],
+      "ebit_margin": [0.21, 0.214, 0.218, 0.221, 0.224],
+      "terminal_growth": 0.032
     },
     "downside": {
-      "revenue_growth": [0.03, 0.02, 0.02, 0.02, 0.02],
-      "ebit_margin": [0.13, 0.135, 0.14, 0.145, 0.15],
-      "terminal_growth": 0.02
-    }
-  },
-  "industry_model": {
-    "type": "financials",
-    "inputs": {
-      "book_value": 900,
-      "pb_multiple": { "p25": 0.8, "median": 1.0, "p75": 1.2 },
-      "roe": 0.14,
-      "cost_of_equity": 0.12,
-      "growth": 0.04,
-      "method": "blend"
+      "revenue_growth": [0.07, 0.06, 0.05, 0.04, 0.03],
+      "ebit_margin": [0.19, 0.194, 0.198, 0.201, 0.204],
+      "terminal_growth": 0.025
     }
   }
 }

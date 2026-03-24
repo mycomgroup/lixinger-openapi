@@ -231,7 +231,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `hk/company/candlestick` - 港股K线数据
 - `hk/company.industries` - 港股行业分类
 - `hk/index/fundamental` - 港股指数基本面
-- `hk.industry.fundamental.hsi` - 港股行业基本面
+- `hk/industry/fundamental/hsi` - 港股行业基本面
 
 ---
 

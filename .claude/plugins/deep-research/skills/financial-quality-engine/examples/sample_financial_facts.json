@@ -1,0 +1,88 @@
+{
+  "company": "600519",
+  "as_of_date": "2026-03-24",
+  "currency": "CNY",
+  "unit": "million",
+  "periods": [
+    {
+      "period": "2021FY",
+      "revenue": 106190,
+      "net_income": 52020,
+      "operating_cash_flow": 56300,
+      "capex": 10500,
+      "cash": 70000,
+      "accounts_receivable": 2800,
+      "inventory": 34200,
+      "goodwill": 0,
+      "total_debt": 0,
+      "short_term_debt": 0,
+      "equity": 190000
+    },
+    {
+      "period": "2022FY",
+      "revenue": 124100,
+      "net_income": 62700,
+      "operating_cash_flow": 58100,
+      "capex": 12800,
+      "cash": 85000,
+      "accounts_receivable": 3500,
+      "inventory": 40000,
+      "goodwill": 0,
+      "total_debt": 0,
+      "short_term_debt": 0,
+      "equity": 220000
+    },
+    {
+      "period": "2023FY",
+      "revenue": 150300,
+      "net_income": 75900,
+      "operating_cash_flow": 71000,
+      "capex": 13400,
+      "cash": 95000,
+      "accounts_receivable": 4200,
+      "inventory": 44500,
+      "goodwill": 0,
+      "total_debt": 0,
+      "short_term_debt": 0,
+      "equity": 255000
+    },
+    {
+      "period": "2024FY",
+      "revenue": 161800,
+      "net_income": 79800,
+      "operating_cash_flow": 63000,
+      "capex": 15000,
+      "cash": 92000,
+      "accounts_receivable": 6800,
+      "inventory": 58000,
+      "goodwill": 0,
+      "total_debt": 0,
+      "short_term_debt": 0,
+      "equity": 275000
+    },
+    {
+      "period": "2025FY",
+      "revenue": 169500,
+      "net_income": 80500,
+      "operating_cash_flow": 58500,
+      "capex": 16200,
+      "cash": 86000,
+      "accounts_receivable": 9500,
+      "inventory": 72000,
+      "goodwill": 0,
+      "total_debt": 0,
+      "short_term_debt": 0,
+      "equity": 290000
+    }
+  ],
+  "governance": {
+    "audit_opinion": "unqualified",
+    "restatement_in_last_5y": false,
+    "cfo_turnover_in_last_3y": false,
+    "regulatory_inquiry_in_last_3y": false,
+    "related_party_transactions_flag": false,
+    "equity_pledge_flag": false
+  },
+  "one_off_adjustments": []
+}
+

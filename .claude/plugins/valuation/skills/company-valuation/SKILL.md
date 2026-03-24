@@ -37,6 +37,7 @@ Run:
 - Market data: price, shares, dilution details
 - Cost of capital inputs or guidance
 - Industry classification and business model
+- Optional normalization inputs: one-offs, restricted cash, lease liabilities, maintenance capex, and dilution bridge items
 
 ## Assumptions and Defaults
 
@@ -96,8 +97,9 @@ Run:
 
 - Align fiscal periods, currency, and unit scale across all inputs.
 - Normalize for one-offs and accounting anomalies.
-- Confirm net debt vs net cash and document adjustments.
-- Verify share count and dilution details.
+- For A股非金融公司，优先形成 `reported -> normalized` 桥表，再进入估值。
+- Confirm net debt vs net cash and document adjustments, including restricted cash and lease liabilities where relevant.
+- Verify share count and dilution details, including options, RSUs, converts, and buybacks if material.
 
 ### Step 4: Model Selection Rules
 
@@ -113,6 +115,7 @@ Run:
 - Use `references/valuation-models.md`.
 - Use 5 to 10 year projections unless clearly stable.
 - Apply mid-year convention if not otherwise specified.
+- For A股非金融公司，优先用 normalized EBIT / owner earnings / normalized net debt 进入估值。
 - Use perpetuity and exit multiple as cross-checks.
 - Show implied terminal multiple from DCF assumptions.
 

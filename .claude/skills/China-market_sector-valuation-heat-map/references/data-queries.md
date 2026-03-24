@@ -18,7 +18,7 @@ According to the skill workflow, three main data categories are needed:
 - **Query Example**:
   ```bash
   python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn.industry.fundamental.sw_2021" \
+    --suffix "cn/industry/fundamental/sw_2021" \
     --columns "industryName,pe_ttm,pb" \
     --limit 50
   ```
@@ -33,7 +33,8 @@ According to the skill workflow, three main data categories are needed:
   - **Main Fund Net Inflow**: Net amount of money flowing into/out of the industry from major institutional investors
 
 #### Price Changes API
-- **API**: `cn/industry` (for latest data) or `cn/industry/candlestick` (for historical)
+- **API**: `cn/industry` (for latest data)
+- **Note**: `cn/industry/candlestick` does NOT exist in the lixinger API. For historical trend data, use AkShare `stock_sector_fund_flow_rank` or calculate from constituent stock candlestick data.
 - **Fields needed**:
   - `industryName` or `industryCode`
   - `change_pct_5d`: 5-day price change percentage
@@ -42,30 +43,41 @@ According to the skill workflow, three main data categories are needed:
 - **Query Example** (if direct change fields available):
   ```bash
   python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn.industry" \
+    --suffix "cn/industry" \
     --columns "industryName,change_pct_5d,change_pct_20d,close" \
     --limit 50
   ```
-- **Alternative**: Calculate from candlestick data:
+- **Alternative**: Calculate from constituent stock data:
   ```bash
-  # Get latest 20 days of data and calculate changes
+  # Get constituent stocks of an industry, then aggregate their candlestick data
   python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn.industry.candlestick" \
-    --params '{"period": "20d"}' \
-    --columns "industryName,date,close" \
-    --limit 1000
+    --suffix "cn/industry/constituents/sw_2021" \
+    --params '{"industryCode": "851921"}' \
+    --columns "stockCode"
   ```
 
 #### Main Fund Net Inflow API
-- **API**: Need to check for money flow specific API
-- **Fields needed**:
-  - `industryName` or `industryCode`
-  - `main_net_inflow_5d`: 5-day main fund net inflow
-  - `main_net_inflow_20d`: 20-day main fund net inflow
-  - `main_net_inflow_ratio`: Ratio of inflow to market cap or trading volume
-- **Note**: If specific money flow API not available, may need to estimate from:
-  - Trading volume changes combined with price movements
-  - Or use proxy metrics like institutional holding changes
+> ⚠️ 理杏仁 API 当前不提供行业资金流向数据（`cn/industry/candlestick` 接口也不存在）。
+> 可使用 AkShare `stock_sector_fund_flow_rank` 接口（东方财富数据）作为替代，或通过成分股成交量/价格变化推算。
+
+```python
+import akshare as ak
+
+# 获取行业资金流排名（今日/5日/10日）
+fund_flow_df = ak.stock_sector_fund_flow_rank(indicator="今日", sector_type="行业资金流")
+# 返回字段：序号、名称、今日涨跌幅、主力净流入-净额、主力净流入-净占比、
+#           超大单/大单/中单/小单净流入-净额及净占比、主力净流入最大股
+print(fund_flow_df)
+
+# 获取5日行业资金流排名
+fund_flow_5d_df = ak.stock_sector_fund_flow_rank(indicator="5日", sector_type="行业资金流")
+print(fund_flow_5d_df)
+```
+
+- **Fields available**:
+  - `名称`: Industry name
+  - `主力净流入-净额`: Main fund net inflow amount
+  - `主力净流入-净占比`: Main fund net inflow ratio (%)
 
 ### 3. Activity Data
 - **Purpose**: Measure trading activity and liquidity
@@ -83,13 +95,13 @@ According to the skill workflow, three main data categories are needed:
 - **Query Example**:
   ```bash
   python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn.industry" \
+    --suffix "cn/industry" \
     --columns "industryName,volume,amount" \
     --limit 50
   ```
 
 #### Turnover Rate API
-- **API**: `cn/industry/fundamental.sw_2021` or similar
+- **API**: `cn/industry/fundamental/sw_2021` or similar
 - **Fields needed**:
   - `industryName` or `industryCode`
   - `turnover_rate`: Daily turnover rate (volume/circulating cap)
@@ -97,7 +109,7 @@ According to the skill workflow, three main data categories are needed:
 - **Query Example**:
   ```bash
   python3 skills/lixinger-data-query/scripts/query_tool.py \
-    --suffix "cn.industry.fundamental.sw_2021" \
+    --suffix "cn/industry/fundamental/sw_2021" \
     --columns "industryName,turnover_rate,circulating_market_cap" \
     --limit 50
   ```
@@ -109,13 +121,13 @@ To minimize API calls and ensure data consistency, the recommended approach is:
 1. **Primary Query**: Get fundamental data which often includes multiple metrics
    ```bash
    python3 skills/lixinger-data-query/scripts/query_tool.py \
-     --suffix "cn.industry.fundamental.sw_2021" \
+     --suffix "cn/industry/fundamental/sw_2021" \
      --columns "industryName,pe_ttm,pb,turnover_rate,circulating_market_cap" \
      --limit 50
    ```
 
 2. **Supplemental Queries**:
-   - Price trends: `cn/industry.candlestick` for calculating moving averages
+   - Price trends: Use AkShare `stock_sector_fund_flow_rank` or aggregate constituent stock data for trend calculations
    - Money flow: Specialized API if available, otherwise derived from volume/price
    - Volume proportions: May need total market data for comparison
 

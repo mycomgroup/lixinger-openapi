@@ -369,12 +369,12 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 核心 API ⭐
 - `hk/index/mutual-market` - 指数层面南向资金（最重要）
 - `hk/company.mutual-market` - 个股层面南向资金（最重要）
-- `hk.industry.mutual-market.hsi` - 行业层面南向资金
+- `hk/industry/mutual-market/hsi` - 行业层面南向资金
 
 ### 辅助 API
 - `hk/company` - 港股通标的列表
 - `hk/company/candlestick` - 个股价格数据
-- `hk.industry` - 行业分类信息
+- `hk/industry` - 行业分类信息
 - `hk/company.industries` - 个股行业归属
 
 ---

@@ -116,6 +116,9 @@ token.cfg
 # Regression test results
 regression_tests/results/
 
+# Deep research case outputs
+research_cases/
+
 # Backup files
 *.backup
 

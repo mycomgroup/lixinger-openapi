@@ -184,7 +184,7 @@ var_95 = np.percentile(portfolio_returns, 5)  # 95% VaR
 ```bash
 # 获取成交量数据
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk.company.candlestick" \
+  --suffix "hk/company/candlestick" \
   --params '{"stockCode": "00700", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
   --columns "date,volume,amount"
 ```
@@ -206,7 +206,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 获取恒生指数成分股
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "hk.index.constituents" \
+  --suffix "hk/index/constituents" \
   --params '{"indexCode": "HSI"}' \
   --columns "stockCode,name,weight"
 ```

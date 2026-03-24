@@ -1,371 +1,460 @@
 {
   "meta": {
-    "company": "ExampleCo",
-    "valuation_date": "2026-03-13",
-    "currency": "USD",
-    "unit_scale": "millions"
+    "company": "Example A-Share Co",
+    "valuation_date": "2026-03-24",
+    "currency": "CNY",
+    "unit_scale": "millions",
+    "listing_market": "A"
   },
   "basis": "LTM",
-  "currency": "USD",
+  "currency": "CNY",
   "unit_scale": "millions",
   "market": {
-    "current_price": 120,
-    "price_date": "2026-03-13",
-    "listing_market": "HK",
-    "accounting_standard": "IFRS",
-    "trading_currency": "HKD",
-    "fx_to_valuation": 0.128,
-    "valuation_adjustment_pct": -0.05
+    "current_price": 28.5,
+    "price_date": "2026-03-24",
+    "listing_market": "A",
+    "accounting_standard": "PRC GAAP",
+    "trading_currency": "CNY"
+  },
+  "normalized_inputs": {
+    "financials": {
+      "revenue": 17000.0,
+      "cost_of_revenue": 10300,
+      "ebitda": 4120.0,
+      "ebit": 3420.0,
+      "net_income": 2660.0,
+      "depreciation_amortization": 700.0
+    },
+    "balance_sheet": {
+      "cash": 6000.0,
+      "debt": 2800.0,
+      "preferred": 0,
+      "minority_interest": 180.0,
+      "non_operating_assets": 800.0
+    },
+    "shares": {
+      "basic": 1260.0,
+      "diluted": 1268.0
+    },
+    "owner_earnings": 2460.0,
+    "normalized_net_debt": -3820.0,
+    "bridges": {
+      "income_statement": {
+        "reported_revenue": 17000.0,
+        "revenue_adjustment": -0.0,
+        "normalized_revenue": 17000.0,
+        "reported_ebit": 3600.0,
+        "ebit_adjustment": -180.0,
+        "normalized_ebit": 3420.0,
+        "reported_net_income": 2800.0,
+        "net_income_adjustment": -140.0,
+        "normalized_net_income": 2660.0,
+        "depreciation_amortization": 700.0,
+        "maintenance_capex": -900.0,
+        "owner_earnings": 2460.0
+      },
+      "capital_structure": {
+        "reported_cash": 6200.0,
+        "restricted_cash": -200.0,
+        "bridge_cash": 6000.0,
+        "reported_debt": 2500.0,
+        "lease_liabilities": 300.0,
+        "debt_like_items": 0.0,
+        "bridge_debt": 2800.0,
+        "associate_investments": 250.0,
+        "non_operating_assets_adjustment": 0.0,
+        "bridge_non_operating_assets": 800.0,
+        "normalized_net_debt": -3820.0
+      },
+      "shares": {
+        "basic_shares": 1260.0,
+        "option_dilution": 6.0,
+        "rsu_dilution": 2.0,
+        "convertible_dilution": 0.0,
+        "buyback_shares": -4.0,
+        "reported_diluted_shares": 1268.0,
+        "bridge_diluted_shares": 1268.0
+      }
+    }
+  },
+  "assumptions_applied": {
+    "projection_years": 5,
+    "tax_rate": 0.25,
+    "terminal_growth": 0.03,
+    "revenue_growth": [
+      0.11,
+      0.09,
+      0.07,
+      0.05,
+      0.04
+    ],
+    "ebit_margin": [
+      0.205,
+      0.208,
+      0.21,
+      0.212,
+      0.214
+    ],
+    "maintenance_capex_pct_revenue": 0.03,
+    "expansion_capex_pct_revenue": 0.015,
+    "dso": 18,
+    "dio": 52,
+    "dpo": 32,
+    "cost_of_capital": {
+      "risk_free_rate": 0.022,
+      "equity_risk_premium": 0.068,
+      "beta": 0.95,
+      "cost_of_debt": 0.032,
+      "target_debt_weight": 0.18
+    },
+    "capex_pct_revenue": 0.045,
+    "nwc_pct_revenue": 0.08251410153102337,
+    "wacc": 0.07533200000000002
+  },
+  "assumption_notes": {
+    "capex_pct_revenue": 0.045,
+    "nwc_pct_revenue": 0.08251410153102337,
+    "cost_of_capital": {
+      "risk_free_rate": 0.022,
+      "equity_risk_premium": 0.068,
+      "beta": 0.95,
+      "cost_of_equity": 0.08660000000000001,
+      "cost_of_debt": 0.032,
+      "target_debt_weight": 0.18,
+      "wacc": 0.07533200000000002
+    }
   },
   "dcf": {
     "projections": {
       "revenue": [
-        1272.0,
-        1335.6000000000001,
-        1389.0240000000001,
-        1430.6947200000002,
-        1473.6155616000003
+        18870.0,
+        20568.300000000003,
+        22008.081000000006,
+        23108.485050000007,
+        24032.824452000008
       ],
       "ebit": [
-        190.79999999999998,
-        207.01800000000003,
-        222.24384000000003,
-        236.06462880000004,
-        250.51464547200007
+        3868.35,
+        4278.2064,
+        4621.697010000001,
+        4898.998830600001,
+        5143.024432728002
       ],
       "nopat": [
-        143.1,
-        155.26350000000002,
-        166.68288,
-        177.04847160000003,
-        187.88598410400004
+        2901.2625,
+        3208.6548000000003,
+        3466.272757500001,
+        3674.249122950001,
+        3857.268324546001
       ],
       "da": [
-        50.88,
-        53.42400000000001,
-        55.56096000000001,
-        57.227788800000006,
-        58.94462246400001
+        754.8000000000001,
+        822.7320000000001,
+        880.3232400000003,
+        924.3394020000003,
+        961.3129780800003
       ],
       "capex": [
-        63.6,
-        66.78000000000002,
-        69.45120000000001,
-        71.53473600000001,
-        73.68077808000002
+        849.15,
+        925.5735000000001,
+        990.3636450000002,
+        1039.8818272500002,
+        1081.4771003400003
       ],
       "nwc": [
-        12.72,
-        13.356000000000002,
-        13.890240000000002,
-        14.306947200000002,
-        14.736155616000003
+        1557.041095890411,
+        1697.1747945205482,
+        1815.9770301369867,
+        1906.775881643836,
+        1983.0469169095898
       ],
       "fcf": [
-        117.66,
-        128.55150000000003,
-        138.9024,
-        148.43457720000004,
-        158.41367287200003
+        1249.8714041095889,
+        1408.638505479452,
+        1540.2553223630143,
+        1651.9308160561652,
+        1754.0572853764113
       ]
     },
-    "wacc": 0.1,
-    "terminal_growth": 0.025,
-    "terminal_value": 2164.986862584,
-    "pv_terminal": 1344.2865071213462,
-    "enterprise_value": 1861.5957223960106,
-    "equity_value": 1711.5957223960104,
-    "terminal_share": 0.7221151676214375
+    "wacc": 0.07533200000000002,
+    "terminal_growth": 0.03,
+    "terminal_value": 39854.385509964326,
+    "pv_terminal": 27718.087933556675,
+    "enterprise_value": 33792.64366187747,
+    "equity_value": 37612.64366187747,
+    "terminal_share": 0.8202402928548118,
+    "implied_terminal_ev_ebitda": 6.528863466721279
   },
   "comps": {
     "items": [
       {
         "multiple": "ev_ebitda",
         "metric": "ebitda",
-        "metric_value": 240.0,
-        "p25": 7.0,
-        "median": 9.0,
+        "metric_value": 4120.0,
+        "p25": 8.0,
+        "median": 9.5,
         "p75": 11.0,
-        "equity_p25": 1530.0,
-        "equity_median": 2010.0,
-        "equity_p75": 2490.0,
-        "per_share_median": 18.272727272727273
+        "equity_p25": 36780.0,
+        "equity_median": 42960.0,
+        "equity_p75": 49140.0,
+        "per_share_median": 33.8801261829653
       },
       {
         "multiple": "ev_ebit",
         "metric": "ebit",
-        "metric_value": 180.0,
-        "p25": 9.0,
-        "median": 12.0,
-        "p75": 15.0,
-        "equity_p25": 1470.0,
-        "equity_median": 2010.0,
-        "equity_p75": 2550.0,
-        "per_share_median": 18.272727272727273
+        "metric_value": 3420.0,
+        "p25": 9.5,
+        "median": 11.5,
+        "p75": 13.5,
+        "equity_p25": 36310.0,
+        "equity_median": 43150.0,
+        "equity_p75": 49990.0,
+        "per_share_median": 34.02996845425867
       },
       {
         "multiple": "pe",
         "metric": "net_income",
-        "metric_value": 120.0,
-        "p25": 12.0,
-        "median": 16.0,
+        "metric_value": 2660.0,
+        "p25": 14.0,
+        "median": 17.0,
         "p75": 20.0,
-        "equity_p25": 1440.0,
-        "equity_median": 1920.0,
-        "equity_p75": 2400.0,
-        "per_share_median": 17.454545454545453
+        "equity_p25": 37240.0,
+        "equity_median": 45220.0,
+        "equity_p75": 53200.0,
+        "per_share_median": 35.662460567823345
       }
     ],
     "summary": {
-      "equity_p25": 1470.0,
-      "equity_median": 2010.0,
-      "equity_p75": 2490.0
+      "equity_p25": 36780.0,
+      "equity_median": 43150.0,
+      "equity_p75": 49990.0
     }
   },
   "scenarios": {
     "base": {
       "projections": {
         "revenue": [
-          1272.0,
-          1335.6000000000001,
-          1389.0240000000001,
-          1430.6947200000002,
-          1473.6155616000003
+          18870.0,
+          20568.300000000003,
+          22008.081000000006,
+          23108.485050000007,
+          24032.824452000008
         ],
         "ebit": [
-          190.79999999999998,
-          207.01800000000003,
-          222.24384000000003,
-          236.06462880000004,
-          250.51464547200007
+          3868.35,
+          4278.2064,
+          4621.697010000001,
+          4898.998830600001,
+          5143.024432728002
         ],
         "nopat": [
-          143.1,
-          155.26350000000002,
-          166.68288,
-          177.04847160000003,
-          187.88598410400004
+          2901.2625,
+          3208.6548000000003,
+          3466.272757500001,
+          3674.249122950001,
+          3857.268324546001
         ],
         "da": [
-          50.88,
-          53.42400000000001,
-          55.56096000000001,
-          57.227788800000006,
-          58.94462246400001
+          754.8000000000001,
+          822.7320000000001,
+          880.3232400000003,
+          924.3394020000003,
+          961.3129780800003
         ],
         "capex": [
-          63.6,
-          66.78000000000002,
-          69.45120000000001,
-          71.53473600000001,
-          73.68077808000002
+          849.15,
+          925.5735000000001,
+          990.3636450000002,
+          1039.8818272500002,
+          1081.4771003400003
         ],
         "nwc": [
-          12.72,
-          13.356000000000002,
-          13.890240000000002,
-          14.306947200000002,
-          14.736155616000003
+          1557.041095890411,
+          1697.1747945205482,
+          1815.9770301369867,
+          1906.775881643836,
+          1983.0469169095898
         ],
         "fcf": [
-          117.66,
-          128.55150000000003,
-          138.9024,
-          148.43457720000004,
-          158.41367287200003
+          1249.8714041095889,
+          1408.638505479452,
+          1540.2553223630143,
+          1651.9308160561652,
+          1754.0572853764113
         ]
       },
-      "wacc": 0.1,
-      "terminal_growth": 0.025,
-      "terminal_value": 2164.986862584,
-      "pv_terminal": 1344.2865071213462,
-      "enterprise_value": 1861.5957223960106,
-      "equity_value": 1711.5957223960104,
-      "terminal_share": 0.7221151676214375
+      "wacc": 0.07533200000000002,
+      "terminal_growth": 0.03,
+      "terminal_value": 39854.385509964326,
+      "pv_terminal": 27718.087933556675,
+      "enterprise_value": 33792.64366187747,
+      "equity_value": 37612.64366187747,
+      "terminal_share": 0.8202402928548118
     },
     "upside": {
       "projections": {
         "revenue": [
-          1296.0,
-          1386.72,
-          1469.9232000000002,
-          1543.4193600000003,
-          1605.1561344000004
+          19210.0,
+          21323.100000000002,
+          23242.179000000004,
+          24636.709740000006,
+          25868.545227000006
         ],
         "ebit": [
-          207.36,
-          235.74240000000003,
-          264.586176,
-          285.53258160000007,
-          304.9796655360001
+          4034.1,
+          4563.1434,
+          5066.795022000001,
+          5444.712852540001,
+          5794.5541308480015
         ],
         "nopat": [
-          155.52,
-          176.8068,
-          198.43963200000002,
-          214.14943620000005,
-          228.73474915200006
+          3025.575,
+          3422.3575499999997,
+          3800.0962665000006,
+          4083.534639405001,
+          4345.915598136001
         ],
         "da": [
-          51.84,
-          55.4688,
-          58.79692800000001,
-          61.736774400000016,
-          64.20624537600001
+          768.4,
+          852.9240000000001,
+          929.6871600000002,
+          985.4683896000003,
+          1034.7418090800002
         ],
         "capex": [
-          64.8,
-          69.336,
-          73.49616000000002,
-          77.17096800000002,
-          80.25780672000002
+          864.4499999999999,
+          959.5395000000001,
+          1045.898055,
+          1108.6519383000002,
+          1164.0845352150002
         ],
         "nwc": [
-          12.96,
-          13.8672,
-          14.699232000000002,
-          15.434193600000004,
-          16.051561344000003
+          1585.0958904109589,
+          1759.4564383561647,
+          1917.8075178082195,
+          2032.875968876713,
+          2134.5197673205485
         ],
         "fcf": [
-          129.6,
-          149.0724,
-          169.04116800000003,
-          183.28104900000005,
-          196.63162646400008
+          1344.4291095890412,
+          1556.2856116438352,
+          1766.0778536917815,
+          1927.4751218282884,
+          2082.0531046804526
         ]
       },
-      "wacc": 0.1,
-      "terminal_growth": 0.03,
-      "terminal_value": 2893.293932256001,
-      "pv_terminal": 1796.507896415421,
-      "enterprise_value": 2411.8057325319305,
-      "equity_value": 2261.8057325319305,
-      "terminal_share": 0.7448808468207074
+      "wacc": 0.07533200000000002,
+      "terminal_growth": 0.032,
+      "terminal_value": 49586.421213657944,
+      "pv_terminal": 34486.563170492635,
+      "enterprise_value": 41392.5361722918,
+      "equity_value": 45212.5361722918,
+      "terminal_share": 0.8331589788783701
     },
     "downside": {
       "projections": {
         "revenue": [
-          1236.0,
-          1260.72,
-          1285.9344,
-          1311.653088,
-          1337.88614976
+          18190.0,
+          19281.4,
+          20245.47,
+          21055.288800000002,
+          21686.947464000004
         ],
         "ebit": [
-          160.68,
-          170.1972,
-          180.03081600000004,
-          190.18969776,
-          200.682922464
+          3456.1,
+          3740.5916,
+          4008.6030600000004,
+          4232.113048800001,
+          4424.137282656001
         ],
         "nopat": [
-          120.51,
-          127.6479,
-          135.02311200000003,
-          142.64227332000002,
-          150.512191848
+          2592.075,
+          2805.4437000000003,
+          3006.452295,
+          3174.0847866000004,
+          3318.102961992001
         ],
         "da": [
-          49.44,
-          50.4288,
-          51.43737600000001,
-          52.466123520000004,
-          53.5154459904
+          727.6,
+          771.2560000000001,
+          809.8188,
+          842.2115520000001,
+          867.4778985600002
         ],
         "capex": [
-          61.800000000000004,
-          63.036,
-          64.29672000000001,
-          65.58265440000001,
-          66.89430748800001
+          818.55,
+          867.663,
+          911.04615,
+          947.4879960000001,
+          975.9126358800002
         ],
         "nwc": [
-          12.36,
-          12.6072,
-          12.859344000000002,
-          13.116530880000001,
-          13.3788614976
+          1500.9315068493152,
+          1590.987397260274,
+          1670.5367671232877,
+          1737.3582378082194,
+          1789.4789849424662
         ],
         "fcf": [
-          95.78999999999998,
-          102.43350000000001,
-          109.30442400000001,
-          116.40921155999999,
-          123.75446885279997
+          1000.1934931506848,
+          1118.049302739726,
+          1234.6881778767122,
+          1331.4501047917809,
+          1420.1892397295348
         ]
       },
-      "wacc": 0.1,
-      "terminal_growth": 0.02,
-      "terminal_value": 1577.8694778731997,
-      "pv_terminal": 979.7328038156852,
-      "enterprise_value": 1389.9432850351745,
-      "equity_value": 1239.9432850351745,
-      "terminal_share": 0.7048725040539274
+      "wacc": 0.07533200000000002,
+      "terminal_growth": 0.025,
+      "terminal_value": 28921.838407430114,
+      "pv_terminal": 20114.676212404163,
+      "enterprise_value": 24988.12252062268,
+      "equity_value": 28808.12252062268,
+      "terminal_share": 0.8049694888362875
     }
   },
-  "industry_model": {
-    "type": "financials",
-    "value": 1038.7279522669128,
-    "value_type": "equity",
-    "details": {
-      "method": "blend",
-      "book_value": 900.0,
-      "roe_series": [
-        0.14,
-        0.14,
-        0.14,
-        0.14,
-        0.14
-      ],
-      "cost_of_equity": 0.12,
-      "growth_series": [
-        0.04,
-        0.04,
-        0.04,
-        0.04,
-        0.04
-      ],
-      "residual_income_value": 1131.213253778188,
-      "pv_residuals": 69.66865554530855,
-      "terminal_value": 284.6967791616004,
-      "pb_p25": 0.8,
-      "pb_median": 1.0,
-      "pb_p75": 1.2,
-      "pb_equity": 900.0
-    }
-  },
-  "industry_equity_value": 1038.7279522669128,
+  "industry_model": null,
+  "industry_equity_value": null,
   "bridge": {
-    "Enterprise Value": 1861.5957223960106,
-    "Cash": 300.0,
-    "Non-operating Assets": 50.0,
-    "Debt": -500.0,
+    "Enterprise Value": 33792.64366187747,
+    "Cash": 6000.0,
+    "Non-operating Assets": 800.0,
+    "Debt": -2800.0,
     "Preferred": -0.0,
-    "Minority Interest": -0.0,
-    "Equity Value": 1711.5957223960104
+    "Minority Interest": -180.0,
+    "Equity Value": 37612.64366187747,
+    "Basic Shares": 1260.0,
+    "Diluted Shares": 1268.0,
+    "DCF Value / Basic Share": 29.851304493553545,
+    "DCF Value / Diluted Share": 29.662968187600526
   },
   "weights": {
-    "dcf": 0.6,
-    "comps": 0.4
+    "dcf": 0.65,
+    "comps": 0.35
   },
   "market_outputs": {
-    "current_price": 120.0,
-    "price_date": "2026-03-13",
-    "listing_market": "HK",
-    "accounting_standard": "IFRS",
-    "trading_currency": "HKD",
-    "valuation_currency": "USD",
-    "fx_to_valuation": 0.128,
-    "valuation_adjustment_pct": -0.05,
-    "target_equity_trading": 13589.137201294732,
-    "target_price": 123.5376109208612,
-    "upside": 0.029480091007176634
+    "current_price": 28.5,
+    "price_date": "2026-03-24",
+    "listing_market": "A",
+    "accounting_standard": "PRC GAAP",
+    "trading_currency": "CNY",
+    "valuation_currency": "CNY",
+    "fx_to_valuation": null,
+    "valuation_adjustment_pct": null,
+    "target_equity_trading": 39550.71838022035,
+    "target_price": 31.191418280930876,
+    "upside": 0.09443572915546938
   },
+  "qc_status": "PASS_WITH_ISSUES",
   "issues": {
     "errors": [],
-    "warnings": [],
-    "info": []
+    "warnings": [
+      "WACC was missing; derived WACC from cost_of_capital inputs and market defaults.",
+      "Terminal value exceeds 75% of enterprise value."
+    ],
+    "info": [
+      "Derived capex_pct_revenue from maintenance and expansion capex assumptions.",
+      "Derived nwc_pct_revenue from DSO/DIO/DPO assumptions."
+    ]
   },
-  "generated_at": "2026-03-13T10:17:23.468487Z"
+  "generated_at": "2026-03-24T09:24:05.958385Z"
 }

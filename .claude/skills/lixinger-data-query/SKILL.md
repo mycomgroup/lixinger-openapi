@@ -184,13 +184,13 @@ grep -r "龙虎榜" api_new/akshare_data/
 ```bash
 # 查询银行股（推荐：使用 --columns 只返回需要的字段）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company" \
+  --suffix "cn/company" \
   --params '{"fsTableType": "bank"}' \
   --columns "stockCode,name"
 
 # 过滤以 600 开头的股票（推荐：使用 --flatten 和 --row-filter）
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.index.constituents" \
+  --suffix "cn/index/constituents" \
   --params '{"date": "2024-12-10", "stockCodes": ["000016"]}' \
   --flatten "constituents" \
   --row-filter '{"stockCode": {"startswith": "600"}}' \
@@ -592,3 +592,70 @@ grep -r "期货" api_new/akshare_data/
 - 返回 pandas DataFrame 格式
 - 数据来源广泛，更新频率各异
 - 使用 Python 直接调用，不通过 `query_tool.py`
+
+
+---
+
+## 新数据源接入规范
+
+本章节定义未来引入新数据源时的标准接入流程。所有数据源统一收口在 `.claude/skills/lixinger-data-query/`。
+
+### 目录约定
+
+```
+.claude/skills/lixinger-data-query/
+├── api_new/
+│   ├── api-docs/              # 理杏仁 API 文档（每个 API 一个 .md 文件）
+│   ├── akshare_data/          # AkShare 接口文档（每个接口一个 .md 文件）
+│   ├── {datasource}_data/     # 新数据源文档目录（命名规范：{datasource}_data/）
+│   └── API_KEYWORD_INDEX.md   # 统一关键词索引（覆盖所有数据源）
+```
+
+新数据源目录命名规范：`{datasource}_data/`，例如 `wind_data/`、`tushare_data/`。
+
+### 文档格式要求
+
+每个接口一个 `.md` 文件，格式与 `akshare_data/` 保持一致，包含：
+
+```markdown
+接口: {interface_name}
+
+描述: {接口功能描述}
+
+输入参数
+
+| 名称 | 类型 | 描述 |
+|------|------|------|
+| ...  | ...  | ...  |
+
+输出参数
+
+| 名称 | 类型 | 描述 |
+|------|------|------|
+| ...  | ...  | ...  |
+
+接口示例
+
+```python
+# 调用示例代码
+```
+```
+
+### 新增数据源的标准步骤
+
+1. **创建文档目录**：在 `api_new/` 下创建 `{datasource}_data/` 目录，每个接口一个 `.md` 文件
+
+2. **更新 API_KEYWORD_INDEX.md**：在索引文件中为新数据源添加独立章节，格式与现有章节一致，支持中文关键词 grep 搜索
+
+3. **更新本文件（SKILL.md）**：在"数据源选择优先级"和"API 接口列表"章节中添加新数据源说明，包括适用场景、查找方式、调用示例
+
+4. **更新 analysis-market/SKILL.md**：在三级优先级规则中说明新数据源的位置
+
+### 优先级插入原则
+
+当前优先级：理杏仁 API > AkShare > 其他
+
+新数据源插入位置由以下原则决定：
+- 数据质量高、覆盖面广 → 插入理杏仁 API 之后（成为第二优先级）
+- 补充性数据源 → 插入 AkShare 之后
+- 优先级顺序在 `analysis-market/SKILL.md` 的"使用优先级"章节中维护

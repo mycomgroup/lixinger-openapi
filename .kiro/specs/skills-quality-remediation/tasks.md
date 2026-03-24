@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. 编写 Bug Condition 探索性测试（修复前执行）
+- [x] 1. 编写 Bug Condition 探索性测试（修复前执行）
   - **Property 1: Bug Condition** - Skill 文档可执行性验证
   - **CRITICAL**: 此测试 MUST FAIL on unfixed code — 失败即确认 bug 存在
   - **DO NOT attempt to fix the test or the code when it fails**
@@ -16,7 +16,7 @@
   - 任务完成条件：测试已编写、已运行、失败已记录
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.9_
 
-- [ ] 2. 编写 Preservation 保留性测试（修复前执行）
+- [x] 2. 编写 Preservation 保留性测试（修复前执行）
   - **Property 2: Preservation** - 已验证 Skill 不受影响
   - **IMPORTANT**: 遵循 observation-first 方法论 — 先在未修复代码上观察，再写断言
   - 观察：`China-market_single-stock-health-check/references/data-queries.md` 当前内容（记录 checksum 或关键行）
@@ -34,14 +34,26 @@
 - [ ] 3. Layer 0 — 真值文档确认
 
   - [ ] 3.1 确认 api_new/api-docs/ 中存在的 API 路径清单
-    - 列出 `.claude/skills/lixinger-data-query/api_new/api-docs/` 下所有 `.md` 文件名
-    - 将文件名转换为 API 路径格式（`cn_index_constituents.md` → `cn/index/constituents`）
-    - 确认以下路径存在：`cn/industry/fundamental/sw_2021`、`cn/industry`、`cn/industry/candlestick`、`cn/index/constituents`、`cn/company/fundamental/non_financial`、`cn/company/dividend`、`cn/company/majority-shareholders`、`cn/company/measures`、`cn/company/inquiry`
-    - 确认以下路径不存在：`cn/company/esg`、`cn/company/governance`、`cn/company/violation`
-    - 确认 `cn/index/constituents` 真值文档中参数名为 `stockCodes`（非 `indexCode`）
+    - 文件命名规则：`{market}_{path_segment1}_{path_segment2}...md`，其中 `non_financial`、`sw_2021`、`mm_ha`、`tr_dri` 等带下划线的词是单个路径段，不拆分
+    - 已确认以下文件存在（对应 API 路径）：
+      - `cn_industry_fundamental_sw_2021.md` → `cn/industry/fundamental/sw_2021` ✓
+      - `cn_industry.md` → `cn/industry` ✓
+      - `cn_index_constituents.md` → `cn/index/constituents` ✓
+      - `cn_company_fundamental_non_financial.md` → `cn/company/fundamental/non_financial` ✓
+      - `cn_company_dividend.md` → `cn/company/dividend` ✓
+      - `cn_company_majority-shareholders.md` → `cn/company/majority-shareholders` ✓
+      - `cn_company_measures.md` → `cn/company/measures` ✓
+      - `cn_company_inquiry.md` → `cn/company/inquiry` ✓
+    - 已确认以下文件不存在（对应 API 不可用）：
+      - `cn_company_esg.md` 不存在 → `cn/company/esg` 不可用 ✓
+      - `cn_company_governance.md` 不存在 → `cn/company/governance` 不可用 ✓
+      - `cn_company_violation.md` 不存在 → `cn/company/violation` 不可用 ✓
+      - `cn_industry_candlestick.md` 不存在 → `cn/industry/candlestick` 不可用（需在任务 6.2 中一并处理）✓
+    - 已确认 `cn_index_constituents.md` 中参数名为 `stockCodes`（非 `indexCode`）✓
+    - 此子任务已完成，无需执行额外操作
     - _Requirements: 2.1, 2.2, 2.3_
 
-  - [ ] 3.2 确认 AkShare 替代接口可用性
+  - [x] 3.2 确认 AkShare 替代接口可用性
     - 确认 `api_new/akshare_data/` 中存在 `stock_esg_rate_sina` 或等效 ESG 接口文档
     - 确认 `stock_board_industry_fund_flow_rank_em` 接口文档存在（行业资金流向替代）
     - 记录各替代接口的调用参数和返回字段
@@ -49,7 +61,7 @@
 
 - [ ] 4. Layer 1 — 修复点号路径格式
 
-  - [ ] 4.1 修复 `lixinger-data-query/SKILL.md` 中的点号路径
+  - [x] 4.1 修复 `lixinger-data-query/SKILL.md` 中的点号路径
     - 文件：`.claude/skills/lixinger-data-query/SKILL.md`
     - 将 `--suffix "cn.company"` → `--suffix "cn/company"`
     - 将 `--suffix "cn.index.constituents"` → `--suffix "cn/index/constituents"`
@@ -59,7 +71,7 @@
     - _Preservation: lixinger-data-query 其他章节内容不变_
     - _Requirements: 2.5_
 
-  - [ ] 4.2 修复 `lixinger-data-query/LLM_USAGE_GUIDE.md` 中的点号路径
+  - [x] 4.2 修复 `lixinger-data-query/LLM_USAGE_GUIDE.md` 中的点号路径
     - 文件：`.claude/skills/lixinger-data-query/LLM_USAGE_GUIDE.md`
     - grep 扫描所有点号路径（`cn\.[a-z]`、`hk\.[a-z]`、`us\.[a-z]`）
     - 将所有命中项替换为对应斜杠格式
@@ -67,7 +79,7 @@
     - _Expected_Behavior: 所有路径使用斜杠格式_
     - _Requirements: 2.5_
 
-  - [ ] 4.3 修复 `China-market_sector-valuation-heat-map/references/data-queries.md` 中的点号路径
+  - [x] 4.3 修复 `China-market_sector-valuation-heat-map/references/data-queries.md` 中的点号路径
     - 文件：`.claude/skills/China-market_sector-valuation-heat-map/references/data-queries.md`
     - `cn.industry.fundamental.sw_2021` → `cn/industry/fundamental/sw_2021`
     - `cn.industry` → `cn/industry`
@@ -79,7 +91,7 @@
     - _Expected_Behavior: 所有路径使用斜杠格式_
     - _Requirements: 2.2, 2.5_
 
-  - [ ] 4.4 全量扫描其他 Skill 文档中的点号路径
+  - [x] 4.4 全量扫描其他 Skill 文档中的点号路径
     - 执行：`grep -r "cn\.[a-z]\|hk\.[a-z]\|us\.[a-z]" .claude/skills/ --include="*.md" -l`
     - 对每个命中文件，逐一替换点号路径为斜杠格式
     - 记录修复的文件列表
@@ -89,7 +101,7 @@
 
 - [ ] 5. Layer 2 — 修复参数定义冲突
 
-  - [ ] 5.1 修复 `analysis-market/SKILL.md` 中 `cn/index/constituents` 参数名
+  - [x] 5.1 修复 `analysis-market/SKILL.md` 中 `cn/index/constituents` 参数名
     - 文件：`.claude/skills/analysis-market/SKILL.md`
     - 定位"A股常用 API"速查表中 `cn/index/constituents` 行
     - 将必需参数 `indexCode` → `stockCodes`
@@ -102,7 +114,7 @@
 
 - [ ] 6. Layer 3 — 修复不存在的 API 引用
 
-  - [ ] 6.1 修复 `China-market_esg-screener/references/data-queries.md`
+  - [x] 6.1 修复 `China-market_esg-screener/references/data-queries.md`
     - 文件：`.claude/skills/China-market_esg-screener/references/data-queries.md`
     - 替换 `cn/company/esg`：标注"理杏仁 API 不提供 ESG 评分，可使用 AkShare `stock_esg_rate_sina` 接口获取新浪 ESG 评级"
     - 替换 `cn/company/finance`：改为 `cn/company/fundamental/non_financial`（PE、PB、ROE 等）
@@ -113,7 +125,7 @@
     - _Expected_Behavior: 所有 API 路径可在真值文档中找到，不可用维度明确标注替代方案_
     - _Requirements: 2.1_
 
-  - [ ] 6.2 修复 `China-market_sector-valuation-heat-map/references/data-queries.md` 中的猜测型占位符
+  - [x] 6.2 修复 `China-market_sector-valuation-heat-map/references/data-queries.md` 中的猜测型占位符
     - 文件：`.claude/skills/China-market_sector-valuation-heat-map/references/data-queries.md`
     - 定位 `Need to check for money flow specific API` 占位符
     - 替换为：明确说明理杏仁 API 当前不提供行业资金流向数据，可使用 AkShare `stock_board_industry_fund_flow_rank_em` 接口作为替代，或通过成分股成交量/价格变化推算
@@ -123,7 +135,7 @@
 
 - [ ] 7. Layer 4 — 修复跨市场污染
 
-  - [ ] 7.1 修复 `US-market_us-dividend-aristocrat-calculator/references/data-queries.md`
+  - [x] 7.1 修复 `US-market_us-dividend-aristocrat-calculator/references/data-queries.md`
     - 文件：`.claude/skills/US-market_us-dividend-aristocrat-calculator/references/data-queries.md`
     - 删除以下 A 股查询示例整块代码：
       - `cn/company/fundamental/non_financial`（含 `600519`、`000858`、`300750`）
@@ -143,7 +155,7 @@
 
 - [ ] 8. Layer 5 — 补全 TODO/Draft 内容
 
-  - [ ] 8.1 补全 `China-market_macro-liquidity-monitor/references/methodology.md`
+  - [x] 8.1 补全 `China-market_macro-liquidity-monitor/references/methodology.md`
     - 文件：`.claude/skills/China-market_macro-liquidity-monitor/references/methodology.md`
     - 读取当前文件，定位所有 `[TODO]` 占位符
     - 补全指标计算公式（M2 同比增速、社融存量增速、DR007 利率等）
@@ -153,28 +165,28 @@
     - _Expected_Behavior: 方法论文档包含完整公式、阈值和边界条件_
     - _Requirements: 2.9_
 
-  - [ ] 8.2 补全 `China-market_event-study/references/methodology.md`
+  - [x] 8.2 补全 `China-market_event-study/references/methodology.md`
     - 文件：`.claude/skills/China-market_event-study/references/methodology.md`
     - 读取当前文件，定位所有 `[TODO]` 占位符
     - 补全事件研究方法论：事件窗口定义、正常收益估计模型、超额收益计算公式
     - 确认补全后文件不含任何 `[TODO]` 字符串
     - _Requirements: 2.9_
 
-  - [ ] 8.3 补全 `US-market_us-peer-comparison-analyzer/references/methodology.md`
+  - [x] 8.3 补全 `US-market_us-peer-comparison-analyzer/references/methodology.md`
     - 文件：`.claude/skills/US-market_us-peer-comparison-analyzer/references/methodology.md`
     - 读取当前文件，定位所有 `[TODO]` 占位符
     - 补全同业比较方法论：可比公司筛选标准、估值倍数计算、排名评分逻辑
     - 确认补全后文件不含任何 `[TODO]` 字符串
     - _Requirements: 2.9_
 
-  - [ ] 8.4 补全 `US-market_us-tax-aware-rebalancing-planner/references/methodology.md`
+  - [x] 8.4 补全 `US-market_us-tax-aware-rebalancing-planner/references/methodology.md`
     - 文件：`.claude/skills/US-market_us-tax-aware-rebalancing-planner/references/methodology.md`
     - 读取当前文件，定位所有 `[TODO]` 占位符
     - 补全税务感知再平衡方法论：税损收割规则、wash-sale 规则、再平衡触发阈值
     - 确认补全后文件不含任何 `[TODO]` 字符串
     - _Requirements: 2.9_
 
-  - [ ] 8.5 补全高频主入口 Skill 的输出模板（按模板家族批量处理）
+  - [x] 8.5 补全高频主入口 Skill 的输出模板（按模板家族批量处理）
     - 读取 `docs/SKILLS_QUALITY_REMEDIATION_DESIGN.md` 中定义的模板家族分类
     - 对每个含空模板骨架的 `output-template.md`，补全：结论摘要、关键数据表、风险说明、下一步建议四个标准章节
     - 优先处理高频使用的主入口 Skill（参考 `analysis-market/SKILLS_MAP.md` 中的使用频率）
@@ -183,7 +195,7 @@
 
 - [ ] 9. 数据源扩展架构 — 补充 `lixinger-data-query/SKILL.md` 新数据源接入规范
 
-  - [ ] 9.1 在 `lixinger-data-query/SKILL.md` 中添加新数据源接入规范章节
+  - [x] 9.1 在 `lixinger-data-query/SKILL.md` 中添加新数据源接入规范章节
     - 文件：`.claude/skills/lixinger-data-query/SKILL.md`
     - 在文件末尾添加"新数据源接入规范"章节，内容包含：
       - 目录约定：`api_new/{datasource}_data/` 命名规范
@@ -196,7 +208,7 @@
 
 - [ ] 10. Checkpoint — 验证所有修复正确且无回归
 
-  - [ ] 10.1 验证 Bug Condition 探索性测试现在通过
+  - [x] 10.1 验证 Bug Condition 探索性测试现在通过
     - **Property 1: Expected Behavior** - Skill 文档可执行性验证
     - **IMPORTANT**: 重新运行任务 1 中的 SAME 测试，不要编写新测试
     - 重新执行任务 1 中的 5 个测试用例
@@ -208,7 +220,7 @@
     - **EXPECTED OUTCOME**: 所有测试 PASS（确认 bug 已修复）
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.9_
 
-  - [ ] 10.2 验证 Preservation 保留性测试仍然通过
+  - [x] 10.2 验证 Preservation 保留性测试仍然通过
     - **Property 2: Preservation** - 已验证 Skill 不受影响
     - **IMPORTANT**: 重新运行任务 2 中的 SAME 测试，不要编写新测试
     - 确认 `China-market_single-stock-health-check/references/data-queries.md` 内容未变
@@ -218,7 +230,7 @@
     - **EXPECTED OUTCOME**: 所有测试 PASS（确认无回归）
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
 
-  - [ ] 10.3 全量验证 — 确认无残留 bug
+  - [x] 10.3 全量验证 — 确认无残留 bug
     - 执行全量 grep：`grep -r "cn\.[a-z]\|hk\.[a-z]\|us\.[a-z]" .claude/skills/ --include="*.md"` 应无命中
     - 执行全量 grep：`grep -r "\[TODO\]" .claude/skills/ --include="*.md"` 对 stable/partial Skill 应无命中
     - 执行全量 grep：`grep -r "cn/" .claude/skills/US-market_*/references/ --include="*.md"` 应无命中

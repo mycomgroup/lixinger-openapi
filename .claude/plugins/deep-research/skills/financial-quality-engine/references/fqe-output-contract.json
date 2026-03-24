@@ -1,0 +1,25 @@
+{
+  "company": "600519",
+  "as_of_date": "2026-03-24",
+  "normalized_earnings": {
+    "reported_net_income": 0,
+    "adjusted_net_income": 0,
+    "adjustments": []
+  },
+  "scores": {
+    "earnings_quality": 0,
+    "cash_quality": 0,
+    "balance_sheet_quality": 0,
+    "governance_quality": 0,
+    "overall": 0
+  },
+  "red_flags": [],
+  "key_strengths": [],
+  "key_uncertainties": [],
+  "verdict": {
+    "grade": "A/B/C/D",
+    "summary": "",
+    "confidence": 0
+  }
+}
+

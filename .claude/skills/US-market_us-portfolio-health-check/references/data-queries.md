@@ -6,22 +6,22 @@
 
 ## 查询示例
 
-### 查询Cn.Company.Dividend
+### 查询Us.Company.Dividend
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/dividend" \
-  --params '{"stockCode": "600519", "type": "normal", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
-  --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
+  --suffix "us/company/dividend" \
+  --params '{"stockCode": "AAPL", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
+  --columns "date,dividend,dividendAmount,exDate" \
   --limit 20
 ```
 
-### 查询Cn.Index.K Line
+### 查询Us.Index.K Line
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/index/candlestick" \
-  --params '{"stockCode": "000001", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
+  --suffix "us/index/candlestick" \
+  --params '{"stockCode": ".INX", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume" \
   --limit 20
 ```
@@ -31,27 +31,18 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "macro/money-supply" \
-  --params '{"areaCode": "cn", "startDate": "2025-02-01", "endDate": "2026-02-24", "metricsList": ["m.m0.t", "m.m1.t", "m.m2.t"]}' \
+  --params '{"areaCode": "us", "startDate": "2025-02-01", "endDate": "2026-02-24", "metricsList": ["m.m0.t", "m.m1.t", "m.m2.t"]}' \
   --columns "date,m0,m1,m2" \
   --limit 20
 ```
 
-### 查询Cn.Company.Trading Abnormal
+### 查询Us.Index.Fundamental
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/trading-abnormal" \
-  --params '{"date": "2026-02-24"}' \
-  --columns "date,stockCode,name,buyAmount,sellAmount,netAmount" \
-  --limit 20
-```
-
-### 查询Cn.Industry
-
-```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/industry" \
-  --params '{"source": "sw", "level": "one"}' \
+  --suffix "us/index/fundamental" \
+  --params '{"date": "2026-02-24", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
+  --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
   --limit 20
 ```
 
@@ -69,18 +60,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company/dividend`
-- `cn/index/candlestick`
+- `us/company/dividend`
+- `us/index/candlestick`
 - `macro/money-supply`
-- `cn/company/trading-abnormal`
-- `cn.industry`
 - `us/index/fundamental`
-- `cn/company/block-deal`
-- `cn/index/fundamental`
 
 ---
 
 ## 查找更多 API
 
 详细的 API 查找和使用方法，请参考：`../../lixinger-data-query/SKILL.md`
-

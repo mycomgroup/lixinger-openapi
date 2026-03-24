@@ -1,56 +1,37 @@
 # 数据获取指南
 
-使用 `query_tool.py` 获取 dividend-aristocrat-calculator 所需的数据。
+使用 `query_tool.py` 获取 us-dividend-aristocrat-calculator 所需的数据。
 
 ---
 
 ## 查询示例
 
-### 查询Cn.Company.Fundamental.Non Financial
+### 查询美股公司基本面数据
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
+  --suffix "us/company/fundamental/non_financial" \
+  --params '{"date": "2026-03-01", "stockCodes": ["AAPL", "JNJ", "KO"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \
   --limit 20
 ```
 
-### 查询Cn.Company.Dividend
+### 查询美股分红数据
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/dividend" \
-  --params '{"stockCode": "600519", "type": "normal", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
-  --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
+  --suffix "us/company/dividend" \
+  --params '{"stockCode": "AAPL", "startDate": "2020-01-01", "endDate": "2026-03-01"}' \
+  --columns "date,dividend,dividendAmount,exDate" \
   --limit 20
 ```
 
-### 查询Cn.Index.K Line
-
-```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/index/candlestick" \
-  --params '{"stockCode": "000001", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
-  --columns "date,open,high,low,close,volume" \
-  --limit 20
-```
-
-### 查询Cn.Industry
-
-```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/industry" \
-  --params '{"source": "sw", "level": "one"}' \
-  --limit 20
-```
-
-### 查询Us.Index.Fundamental
+### 查询美股指数基本面
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "us/index/fundamental" \
-  --params '{"date": "2026-02-24", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
+  --params '{"date": "2026-03-01", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
   --limit 20
 ```
@@ -69,16 +50,12 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company/fundamental/non_financial`
-- `cn/company/dividend`
-- `cn/index/candlestick`
-- `cn.industry`
+- `us/company/fundamental/non_financial`
+- `us/company/dividend`
 - `us/index/fundamental`
-- `cn/index/fundamental`
 
 ---
 
 ## 查找更多 API
 
 详细的 API 查找和使用方法，请参考：`../../lixinger-data-query/SKILL.md`
-

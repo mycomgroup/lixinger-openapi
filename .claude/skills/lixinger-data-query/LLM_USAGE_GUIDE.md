@@ -13,7 +13,7 @@
 ```bash
 # 不需要激活虚拟环境，直接运行
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company" \
+  --suffix "cn/company" \
   --params '{"fsTableType": "bank"}' \
   --columns "stockCode,name"
 ```
@@ -24,13 +24,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 **不推荐**（返回所有字段，浪费 token）：
 ```bash
-python3 query_tool.py --suffix "cn.company" --params '{"fsTableType": "bank"}'
+python3 query_tool.py --suffix "cn/company" --params '{"fsTableType": "bank"}'
 ```
 
 **推荐**（只返回需要的字段）：
 ```bash
 python3 query_tool.py \
-  --suffix "cn.company" \
+  --suffix "cn/company" \
   --params '{"fsTableType": "bank"}' \
   --columns "stockCode,name,ipoDate"
 ```
@@ -39,13 +39,13 @@ python3 query_tool.py \
 
 **不推荐**（返回所有数据，再手动筛选）：
 ```bash
-python3 query_tool.py --suffix "cn.company.fundamental.non_financial" --params '{"date": "2024-12-10"}'
+python3 query_tool.py --suffix "cn/company/fundamental/non_financial" --params '{"date": "2024-12-10"}'
 ```
 
 **推荐**（使用 --row-filter 过滤）：
 ```bash
 python3 query_tool.py \
-  --suffix "cn.company.fundamental.non_financial" \
+  --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2024-12-10"}' \
   --row-filter '{"pe_ttm": {">": 10, "<": 20}}' \
   --columns "stockCode,name,pe_ttm"
@@ -55,13 +55,13 @@ python3 query_tool.py \
 
 **不推荐**（返回嵌套结构，难以处理）：
 ```bash
-python3 query_tool.py --suffix "cn.index.constituents" --params '{"date": "2024-12-10", "stockCodes": ["000016"]}'
+python3 query_tool.py --suffix "cn/index/constituents" --params '{"date": "2024-12-10", "stockCodes": ["000016"]}'
 ```
 
 **推荐**（使用 --flatten 展开）：
 ```bash
 python3 query_tool.py \
-  --suffix "cn.index.constituents" \
+  --suffix "cn/index/constituents" \
   --params '{"date": "2024-12-10", "stockCodes": ["000016"]}' \
   --flatten "constituents" \
   --columns "stockCode"
@@ -88,7 +88,7 @@ python3 query_tool.py \
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company" \
+  --suffix "cn/company" \
   --params '{"fsTableType": "bank"}' \
   --columns "stockCode,name"
 ```
@@ -110,7 +110,7 @@ stockCode,name
 ```bash
 # 查询所有银行股
 python3 query_tool.py \
-  --suffix "cn.company" \
+  --suffix "cn/company" \
   --params '{"fsTableType": "bank"}' \
   --columns "stockCode,name"
 ```
@@ -120,7 +120,7 @@ python3 query_tool.py \
 ```bash
 # 查询特定股票的 PE、PB
 python3 query_tool.py \
-  --suffix "cn.company.fundamental.non_financial" \
+  --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2024-12-10", "stockCodes": ["600519", "000858"]}' \
   --columns "stockCode,name,pe_ttm,pb"
 ```
@@ -130,7 +130,7 @@ python3 query_tool.py \
 ```bash
 # PE < 15 且 PB < 2
 python3 query_tool.py \
-  --suffix "cn.company.fundamental.non_financial" \
+  --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2024-12-10"}' \
   --row-filter '{"pe_ttm": {"<": 15}, "pb": {"<": 2}}' \
   --columns "stockCode,name,pe_ttm,pb" \
@@ -142,7 +142,7 @@ python3 query_tool.py \
 ```bash
 # 查询上证 50 中以 600 开头的股票
 python3 query_tool.py \
-  --suffix "cn.index.constituents" \
+  --suffix "cn/index/constituents" \
   --params '{"date": "2024-12-10", "stockCodes": ["000016"]}' \
   --flatten "constituents" \
   --row-filter '{"stockCode": {"startswith": "600"}}' \
@@ -258,13 +258,13 @@ stockCode,name
 **错误**：
 ```bash
 # 返回嵌套结构，难以处理
---suffix "cn.index.constituents" --params '...'
+--suffix "cn/index/constituents" --params '...'
 ```
 
 **正确**：
 ```bash
 # 使用 --flatten 展开
---suffix "cn.index.constituents" --params '...' --flatten "constituents"
+--suffix "cn/index/constituents" --params '...' --flatten "constituents"
 ```
 
 ### 常见错误 3：返回所有字段
@@ -272,13 +272,13 @@ stockCode,name
 **错误**：
 ```bash
 # 返回几十个字段，浪费 token
---suffix "cn.company" --params '...'
+--suffix "cn/company" --params '...'
 ```
 
 **正确**：
 ```bash
 # 只返回需要的字段
---suffix "cn.company" --params '...' --columns "stockCode,name"
+--suffix "cn/company" --params '...' --columns "stockCode,name"
 ```
 
 ## 检查清单

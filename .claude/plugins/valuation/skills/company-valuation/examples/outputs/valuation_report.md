@@ -1,69 +1,87 @@
 # Valuation Report
 
 ## 1. Summary
-- Company: ExampleCo
-- Valuation Date: 2026-03-13
-- Currency / Unit: USD / millions
+- Company: Example A-Share Co
+- Valuation Date: 2026-03-24
+- Currency / Unit: CNY / millions
 - Basis: LTM
-- Listing Market: HK
-- Accounting Standard: IFRS
-- Current Price: 120.00 (2026-03-13)
-- DCF Equity Value: 1,711.60
-- Comps Equity Value (Median): 2,010.00
-- Industry Model Value: 1,038.73
-- Weighted Equity Value: 1,830.96
-- Target Price: 123.54 (HKD)
-- Upside/Downside: 2.95%
+- QC Status: PASS_WITH_ISSUES
+- Listing Market: A
+- Accounting Standard: PRC GAAP
+- Current Price: 28.50 (2026-03-24)
+- DCF Equity Value: 37,612.64
+- Comps Equity Value (Median): 43,150.00
+- Weighted Equity Value: 39,550.72
+- Target Price: 31.19 (CNY)
+- Upside/Downside: 9.44%
 
-## 2. DCF Summary
-- WACC: 10.00%
-- Terminal Growth: 2.50%
-- Enterprise Value: 1,861.60
-- Equity Value: 1,711.60
-- Terminal Value Share: 72.21%
+## 2. Normalization Summary
+- Reported EBIT: 3,600.00
+- Normalized EBIT: 3,420.00
+- Normalized Net Income: 2,660.00
+- Owner Earnings: 2,460.00
+- Bridge Cash: 6,000.00
+- Bridge Debt: 2,800.00
+- Normalized Net Debt: -3,820.00
+- Basic Shares: 1,260.00
+- Diluted Shares: 1,268.00
 
-## 3. Comps Summary
+## 3. DCF Summary
+- WACC: 7.53%
+- Terminal Growth: 3.00%
+- Enterprise Value: 33,792.64
+- Equity Value: 37,612.64
+- Terminal Value Share: 82.02%
+- Implied Terminal EV/EBITDA: 6.53
+- Cost of Equity: 8.66%
+- Cost of Debt: 3.20%
+- Risk-free Rate: 2.20%
+- Equity Risk Premium: 6.80%
+- Beta: 0.95
+- Target Debt Weight: 18.00%
+- Derived Capex / Revenue: 4.50%
+- Derived NWC / Revenue: 8.25%
+
+## 4. Comps Summary
 | Multiple | Metric | Median Multiple | Equity Median |
 |---|---|---|---|
-| ev_ebitda | ebitda | 9.00 | 2,010.00 |
-| ev_ebit | ebit | 12.00 | 2,010.00 |
-| pe | net_income | 16.00 | 1,920.00 |
+| ev_ebitda | ebitda | 9.50 | 42,960.00 |
+| ev_ebit | ebit | 11.50 | 43,150.00 |
+| pe | net_income | 17.00 | 45,220.00 |
 
-## 4. Industry Model
-- Type: financials
-- Value Type: equity
-- Value: 1,038.73
-- Method: blend
-- Book Value: 900.00
-- ROE (Yr1): 14.00%
-- ROE (Yr5): 14.00%
-- Cost of Equity: 12.00%
-- Growth (Yr1): 4.00%
-- Residual Income Value: 1,131.21
-- P/B Median: 1.00
-- P/B Equity: 900.00
+## 5. Industry Model
+- No industry model computed.
 
-## 5. Scenarios (DCF)
+## 6. Scenarios (DCF)
 | Scenario | Enterprise Value | Equity Value |
 |---|---|---|
-| base | 1,861.60 | 1,711.60 |
-| upside | 2,411.81 | 2,261.81 |
-| downside | 1,389.94 | 1,239.94 |
+| base | 33,792.64 | 37,612.64 |
+| upside | 41,392.54 | 45,212.54 |
+| downside | 24,988.12 | 28,808.12 |
 
-## 6. EV to Equity Bridge
+## 7. EV to Equity Bridge
 | Item | Value |
 |---|---|
-| Enterprise Value | 1,861.60 |
-| Cash | 300.00 |
-| Non-operating Assets | 50.00 |
-| Debt | -500.00 |
+| Enterprise Value | 33,792.64 |
+| Cash | 6,000.00 |
+| Non-operating Assets | 800.00 |
+| Debt | -2,800.00 |
 | Preferred | -0.00 |
-| Minority Interest | -0.00 |
-| Equity Value | 1,711.60 |
+| Minority Interest | -180.00 |
+| Equity Value | 37,612.64 |
+| Basic Shares | 1,260.00 |
+| Diluted Shares | 1,268.00 |
+| DCF Value / Basic Share | 29.85 |
+| DCF Value / Diluted Share | 29.66 |
 
-## 7. Model Weights
-- DCF Weight: 60.00%
-- Comps Weight: 40.00%
+## 8. Model Weights
+- DCF Weight: 65.00%
+- Comps Weight: 35.00%
 
-## 8. QA Notes
-- No issues flagged.
+## 9. QA Notes
+### Warnings
+- WACC was missing; derived WACC from cost_of_capital inputs and market defaults.
+- Terminal value exceeds 75% of enterprise value.
+### Info
+- Derived capex_pct_revenue from maintenance and expansion capex assumptions.
+- Derived nwc_pct_revenue from DSO/DIO/DPO assumptions.

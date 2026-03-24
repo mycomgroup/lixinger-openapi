@@ -1,55 +1,47 @@
 # 数据获取指南
 
-使用 `query_tool.py` 获取 financial-statement-analyzer 所需的数据。
+使用 `query_tool.py` 获取 us-financial-statement-analyzer 所需的数据。
 
 ---
 
 ## 查询示例
 
-### 查询Cn.Company.Fundamental.Non Financial
+### 查询美股公司基本面数据
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
+  --suffix "us/company/fundamental/non_financial" \
+  --params '{"date": "2026-03-01", "stockCodes": ["AAPL", "MSFT", "GOOGL"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \
   --limit 20
 ```
 
-### 查询Cn.Index.K Line
+### 查询美股财务数据（损益表）
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/index/candlestick" \
-  --params '{"stockCode": "000001", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
-  --columns "date,open,high,low,close,volume" \
+  --suffix "us/company/fs/non_financial" \
+  --params '{"stockCodes": ["AAPL"], "startDate": "2020-01-01", "endDate": "2026-03-01", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}' \
   --limit 20
 ```
 
-### 查询Cn.Company.Revenue Structure
+### 查询美股指数基本面
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/operation-revenue-constitution" \
-  --params '{"stockCode": "600519", "date": "2026-02-24"}' \
+  --suffix "us/index/fundamental" \
+  --params '{"date": "2026-03-01", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
+  --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
   --limit 20
 ```
 
-### 查询Cn.Industry
+### 查询美股公司基本信息
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/industry" \
-  --params '{"source": "sw", "level": "one"}' \
-  --limit 20
-```
-
-### 查询Cn.Company.Fs.Non Financial
-
-```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn/company/fs/non_financial" \
-  --params '{"stockCodes": ["600519"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}' \
+  --suffix "us/company" \
+  --params '{"stockCodes": ["AAPL", "MSFT"]}' \
+  --columns "stockCode,name,ipoDate" \
   --limit 20
 ```
 
@@ -67,17 +59,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ## 本 Skill 常用 API
 
-- `cn/company/fundamental/non_financial`
-- `cn/index/candlestick`
-- `cn/company/operation-revenue-constitution`
-- `cn/industry`
-- `cn/company/fs/non_financial`
+- `us/company/fundamental/non_financial`
+- `us/company/fs/non_financial`
 - `us/index/fundamental`
-- `cn/index/fundamental`
+- `us/company`
 
 ---
 
 ## 查找更多 API
 
 详细的 API 查找和使用方法，请参考：`../../lixinger-data-query/SKILL.md`
-

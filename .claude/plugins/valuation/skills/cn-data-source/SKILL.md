@@ -163,33 +163,56 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 ```json
 {
-  "company": "贵州茅台",
-  "stock_code": "600519",
-  "currency": "CNY",
-  "unit": "百万元",
-  "valuation_date": "<最新交易日>",
-  "period_basis": "LTM",
+  "meta": {
+    "company": "贵州茅台",
+    "valuation_date": "<最新交易日>",
+    "currency": "CNY",
+    "unit_scale": "millions",
+    "listing_market": "A"
+  },
+  "basis": "LTM",
   "financials": {
-    "revenue": "<y.ps.toi.t 最新年度值>",
-    "ebitda": "<y.ps.ebitda.t>",
-    "ebit": "<y.ps.ebit.t>",
-    "net_income": "<y.ps.npatoshopc.t>",
-    "operating_cash_flow": "<y.cf.ocf.t>"
+    "revenue": "<y.ps.toi.t / 1,000,000>",
+    "ebitda": "<y.ps.ebitda.t / 1,000,000>",
+    "ebit": "<y.ps.ebit.t / 1,000,000>",
+    "net_income": "<y.ps.npatoshopc.t / 1,000,000>",
+    "depreciation_amortization": "<如能获取则填入>"
   },
   "balance_sheet": {
-    "cash": "<y.bs.cash.t>",
-    "debt": "<y.bs.std.t + y.bs.ltd.t>",
-    "minority_interest": "<y.bs.te.t 中少数股东权益部分>",
-    "preferred": 0
+    "cash": "<现金类科目 / 1,000,000>",
+    "debt": "<(短债 + 长债) / 1,000,000>",
+    "minority_interest": "<少数股东权益 / 1,000,000>",
+    "preferred": 0,
+    "non_operating_assets": "<联营投资/其他非经营资产，如适用>"
   },
-  "market_data": {
-    "price": "<sp>",
-    "shares_outstanding": "<mc / sp>",
-    "market_cap": "<mc>"
+  "shares": {
+    "basic": "<mc / sp>",
+    "diluted": "<若无更好数据，可先与 basic 相同>"
   },
-  "cost_of_capital": {
-    "risk_free_rate": "<cn_10y 最新值>",
-    "note": "ERP 建议使用 A股历史风险溢价约 6-8%，beta 参考行业"
+  "adjustments": {
+    "one_off_items": {
+      "ebit": "<非经常性 EBIT 调整>",
+      "net_income": "<非经常性净利润调整>"
+    },
+    "restricted_cash": "<受限现金，如有>",
+    "lease_liabilities": "<租赁负债，如有>",
+    "maintenance_capex": "<维护性资本开支，如能估算>"
+  },
+  "assumptions": {
+    "cost_of_capital": {
+      "risk_free_rate": "<cn_10y 最新值>",
+      "equity_risk_premium": 0.06,
+      "beta": "<行业或回归 beta>",
+      "cost_of_debt": "<税前债务成本>",
+      "target_debt_weight": "<目标资本结构债务占比>"
+    }
+  },
+  "market": {
+    "current_price": "<sp>",
+    "price_date": "<最新交易日>",
+    "listing_market": "A",
+    "accounting_standard": "PRC GAAP",
+    "trading_currency": "CNY"
   }
 }
 ```
@@ -201,7 +224,8 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 - 单位：理杏仁财务数据默认单位为**元**，传入 valuation 时需换算为百万元（÷1,000,000）
 - 货币：A股报告货币为 CNY
 - 财报类型：银行/保险/证券公司使用 `cn.company.fs.financial` 而非 `non_financial`，EBITDA 不适用
-- 股本：理杏仁不直接返回股本数，用 `mc / sp` 计算总股本
+- 股本：理杏仁不直接返回股本数，用 `mc / sp` 计算总股本；如无摊薄信息，先令 `diluted = basic` 并在报告中说明
+- 标准化：优先输出 `reported -> normalized` 桥表，至少覆盖非经常项、受限现金、租赁负债、维护性 Capex
 - 无风险利率：使用中国10年期国债收益率，而非美国国债
 - ERP：A股市场风险溢价建议使用 6%~8%（高于成熟市场）
 - 财年：A股财年为自然年，12月31日为年报日期

@@ -251,8 +251,8 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `hk/index/mutual-market` - 港股指数互联互通
 
 ### 辅助 API
-- `hk.industry.fundamental.hsi` - 港股行业基本面
-- `hk.industry` - 港股行业列表
+- `hk/industry/fundamental/hsi` - 港股行业基本面
+- `hk/industry` - 港股行业列表
 - `hk/company` - 港股公司列表
 - `hk/company/candlestick` - 港股K线数据
 

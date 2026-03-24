@@ -1,0 +1,9 @@
+{
+  "name": "deep-research",
+  "version": "0.1.0",
+  "description": "Deep research engines: Financial Quality (FQE) and Competitive Positioning (CPE) with machine-readable intermediate outputs",
+  "author": {
+    "name": "lixinger-openapi"
+  }
+}
+

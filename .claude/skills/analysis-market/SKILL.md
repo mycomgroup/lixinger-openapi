@@ -469,7 +469,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 | `cn/company/fs/non_financial` | 财务（营收/利润等） | stockCodes, date/startDate, metricsList |
 | `cn/company/announcement` | 公告数据 | stockCode, startDate |
 | `cn/index/fundamental` | 指数基本面 | stockCodes, date/startDate, metricsList |
-| `cn/index/constituents` | 指数成分股 | indexCode, date |
+| `cn/index/constituents` | 指数成分股 | stockCodes, date |
 
 ### 港股常用 API
 

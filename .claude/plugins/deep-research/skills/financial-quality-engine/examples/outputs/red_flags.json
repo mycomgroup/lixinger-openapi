@@ -1,0 +1,62 @@
+{
+  "company": "600519",
+  "as_of_date": "2026-03-24",
+  "red_flags": [
+    {
+      "id": "flag_ocf_support_2025FY",
+      "severity": "medium",
+      "category": "cash_quality",
+      "title": "经营现金流无法支撑报告净利润",
+      "description": "2025FY OCF/NI=0.73，低于 0.80",
+      "rule_id": "fq_cash_003",
+      "evidence_refs": [
+        "operating_cash_flow:2025FY",
+        "net_income:2025FY"
+      ],
+      "possible_explanations": [
+        "营运资本占用上升",
+        "收入确认与回款错配",
+        "一次性利润或应计偏高"
+      ],
+      "status": "open"
+    },
+    {
+      "id": "flag_fcf_support_2025FY",
+      "severity": "medium",
+      "category": "cash_quality",
+      "title": "自由现金流覆盖不足",
+      "description": "2025FY FCF/NI=0.53，低于 0.60（FCF=OCF-Capex）",
+      "rule_id": "fq_cash_005",
+      "evidence_refs": [
+        "operating_cash_flow:2025FY",
+        "capex:2025FY",
+        "net_income:2025FY"
+      ],
+      "possible_explanations": [
+        "高资本开支阶段",
+        "营运资本拖累",
+        "利润质量偏弱"
+      ],
+      "status": "open"
+    },
+    {
+      "id": "flag_ar_vs_rev_2025FY",
+      "severity": "medium",
+      "category": "revenue_quality",
+      "title": "应收增速显著快于收入增速",
+      "description": "2025FY AR YoY=39.7%，Revenue YoY=4.8%",
+      "rule_id": "fq_rev_001",
+      "evidence_refs": [
+        "accounts_receivable:2025FY",
+        "revenue:2025FY"
+      ],
+      "possible_explanations": [
+        "渠道压货",
+        "账期拉长",
+        "回款风险上升",
+        "确认节奏前置"
+      ],
+      "status": "open"
+    }
+  ]
+}

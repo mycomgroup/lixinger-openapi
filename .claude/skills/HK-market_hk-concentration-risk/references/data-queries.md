@@ -166,7 +166,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 - `hk/company.industries` - 港股行业分类
 - `hk/index/constituents` - 港股指数成分股
 - `hk/index/fundamental` - 港股指数基本面
-- `hk.industry.fundamental.hsi` - 港股行业基本面
+- `hk/industry/fundamental/hsi` - 港股行业基本面
 
 ### 辅助 API
 - `hk/company.mutual-market` - 港股通持仓
