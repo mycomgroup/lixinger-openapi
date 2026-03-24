@@ -1,6 +1,25 @@
 {
   "_version": "0.1.0",
   "_notes": "CPE 输出契约。四个文件构成一个完整 competitive_positioning/ 目录。所有 confidence 字段值域 [0,1]。status 取值：confirmed / tentative / disputed / stale。",
+  "_recommended_optional_fields": {
+    "evidence_item": {
+      "source_url": "",
+      "source_type": "official_company | regulator | industry_association | structured_data | reputable_media",
+      "retrieved_at": "",
+      "source_tier": 1,
+      "is_inferred": false,
+      "note": ""
+    },
+    "market_data_source": {
+      "label": "",
+      "source_url": "",
+      "source_type": "official_company | regulator | industry_association | structured_data | reputable_media",
+      "as_of_date": "",
+      "retrieved_at": "",
+      "source_tier": 1,
+      "note": ""
+    }
+  },
 
   "market_map.json": {
     "subject": { "ticker": "", "name": "", "as_of_date": "" },
