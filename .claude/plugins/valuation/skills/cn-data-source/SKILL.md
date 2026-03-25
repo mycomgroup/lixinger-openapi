@@ -1,13 +1,152 @@
 # cn-data-source
 
-description: 从理杏仁开放平台获取A股公司数据，为 company-valuation、peer-analysis、scenario-modeling 等估值技能提供标准化输入。当目标公司是A股（股票代码为6位数字）时，优先调用此技能获取数据，再传入估值流程。
+description: 为 A 股与估值相关任务提供数据源发现、路由、查询建议与溯源入口。当任务涉及 6 位股票代码、需要选择 provider，或需要解释字段来源时优先使用。该 skill 不负责维护完整 provider -> canonical 映射，只在当前任务中帮助提取最小字段集。
 
-> 数据源多 Provider 方案设计见 `docs/DATA_SOURCE_ARCHITECTURE_DESIGN.md`。
-> 当前执行层默认复用 `.claude/skills/lixinger-data-query`，以最小改动方式承载理杏仁、AkShare 及后续更多数据源。
+> 轻量数据源方案设计见 `docs/DATA_SOURCE_ARCHITECTURE_DESIGN.md`。
+> 当前默认执行层继续复用 `.claude/skills/lixinger-data-query`。
 
-## 数据工具
+## 角色定位
 
-使用项目根目录的 `query_tool.py`：
+`cn-data-source` 现在只做四件事：
+
+1. 识别当前任务需要哪些数据
+2. 发现当前最适合的 provider
+3. 给出查询入口或命令示例
+4. 记录本次结果的来源说明
+
+不负责：
+- 不维护全量 provider -> canonical 映射表
+- 不承诺自动产出完整估值输入 JSON
+- 不把所有 provider 强行统一成一个返回结构
+
+---
+
+## 默认协作关系
+
+- `data-source-docs`：负责 provider 摘要、文档缓存和 discoverability
+- `.claude/skills/lixinger-data-query`：负责默认执行查询
+- `company-valuation` / `peer-analysis` / `scenario-modeling`：按当前任务提取最小字段集
+
+---
+
+## 推荐工作流
+
+### Step 1：先确定当前任务的最小字段需求
+
+先判断任务是什么：
+- 公司估值
+- 同行对比
+- 情景分析
+- 单一字段查询
+- 宏观 / 行业补数
+
+不要一开始就尝试组装全量标准输入。
+
+### Step 2：先看摘要，再看原始文档
+
+优先顺序：
+1. 先看 `data-source-docs` 的缓存摘要
+2. 再看 provider 原始文档
+3. 再看已有命令示例或薄脚本
+
+### Step 3：选择 provider
+
+选择标准：
+- 当前任务是否覆盖目标字段
+- 当前 provider 是否已有可复用命令
+- 口径是否更适合本次任务
+- 稳定性是否足够
+
+### Step 4：执行最小查询
+
+每次先执行一个最小可验证查询。
+
+优先输出：
+- 最少字段
+- 最少行数
+- 能证明接口可用的结果
+
+### Step 5：只提取本次任务真正需要的字段
+
+如果任务要进入 `company-valuation`，只整理当前估值所需的最小字段，例如：
+- `financials.revenue`
+- `financials.ebitda`
+- `financials.ebit`
+- `financials.net_income`
+- `balance_sheet.cash`
+- `balance_sheet.debt`
+- `market.current_price`
+- `shares.basic`
+- `assumptions.cost_of_capital.risk_free_rate`
+
+这一步是**按任务临时提取**，不是仓库级全局映射治理。
+
+### Step 6：保留轻量溯源信息
+
+如使用多个 provider，建议只为**实际使用的字段**保留来源信息。
+
+推荐保留：
+- `provider`
+- `dataset` / `endpoint`
+- `field`
+- `date` / `period_end`
+- `unit`
+- `note`
+
+示例：
+
+```json
+{
+  "source_notes": [
+    "revenue 来自 lixinger / cn.company.fs.non_financial / y.ps.toi.t / 2024-12-31",
+    "operating_cash_flow 来自 akshare / stock_financial_report_sina / 2024-12-31"
+  ]
+}
+```
+
+如确实需要字段级对象结构，也可以只为本次实际使用字段输出精简版 `source_map`。
+
+---
+
+## A 股默认实践
+
+当前仓库中，建议按经验优先考虑：
+
+- 公司信息、利润表、资产负债表、市场数据：优先理杏仁
+- 现金流、无风险利率、宏观缺口字段：优先 AkShare
+- 新 provider：按文档与命令可用性判断，不强制纳入全局优先级表
+
+注意混用时必须自行核对：
+- 报告期
+- 单位
+- 币种
+- 合并口径
+
+---
+
+## 新 Provider 最小接入要求
+
+每个 provider 只要求补齐以下信息：
+
+1. provider 文档路径或本地 doc 文件
+2. 鉴权读取方式（如 `token.cfg`、环境变量、cookie 文件）
+3. 一个最小查询命令，或一个很薄的脚本
+4. 覆盖范围说明
+5. 已知限制或注意事项
+
+不要求默认补齐：
+- 不要求先建全量字段映射
+- 不要求先改 `company-valuation` schema
+- 不要求先改估值主脚本
+
+模板见：
+- `.claude/plugins/valuation/skills/data-source-docs/references/provider-onboarding-template.md`
+
+---
+
+## 常用查询入口
+
+### 理杏仁查询
 
 ```bash
 python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
@@ -16,284 +155,15 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --columns "<字段列表>"
 ```
 
-token 从项目根目录 `token.cfg` 自动读取，无需额外配置。
+### AkShare 查询
+
+使用 Python 直接调用或复用 `.claude/skills/lixinger-data-query` 下已有文档与示例。
 
 ---
 
-## Step 1：获取公司基本信息
+## 使用原则
 
-```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company" \
-  --params '{"stockCodes": ["600519"]}' \
-  --columns "stockCode,name,fsTableType,ipoDate,exchange"
-```
-
-返回字段：公司名称、财报类型（non_financial/bank/insurance/security）、上市日期、交易所。
-
----
-
-## Step 2：获取财务数据（利润表 + 资产负债表）
-
-获取最近5年年度数据，用于 LTM 计算和趋势分析：
-
-```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company.fs.non_financial" \
-  --params '{
-    "stockCodes": ["600519"],
-    "startDate": "2020-12-31",
-    "endDate": "2024-12-31",
-    "metricsList": [
-      "y.ps.toi.t",
-      "y.ps.ebit.t",
-      "y.ps.ebitda.t",
-      "y.ps.npatoshopc.t",
-      "y.ps.gp_m.t",
-      "y.ps.np_s_r.t",
-      "y.ps.wroe.t",
-      "y.ps.beps.t",
-      "y.ps.toi.t_y2y",
-      "y.ps.npatoshopc.t_y2y",
-      "y.bs.ta.t",
-      "y.bs.tl.t"
-    ]
-  }' \
-  --columns "date,y.ps.toi.t,y.ps.ebit.t,y.ps.ebitda.t,y.ps.npatoshopc.t,y.ps.gp_m.t,y.ps.np_s_r.t,y.ps.wroe.t,y.ps.beps.t,y.ps.toi.t_y2y,y.ps.npatoshopc.t_y2y,y.bs.ta.t,y.bs.tl.t"
-```
-
-> 注意：`cn.company.fs.non_financial` 的现金流量表字段（如 `y.cf.*`）和部分资产负债表字段（如 `y.bs.te.t` 股东权益）不可用。如需现金流数据，使用 AkShare 的 `stock_financial_report_sina` 接口。
-
-关键字段映射（对应 valuation 输入）：
-
-| 数据源 | 原始字段 | valuation 输入 | 说明 |
-|--------|----------|---------------|------|
-| 理杏仁 | y.ps.toi.t | revenue | 营业总收入（年度累计，单位：元） |
-| 理杏仁 | y.ps.ebitda.t | ebitda | EBITDA（单位：元） |
-| 理杏仁 | y.ps.ebit.t | ebit | EBIT（单位：元） |
-| 理杏仁 | y.ps.npatoshopc.t | net_income | 归母净利润（单位：元） |
-| AkShare | 现金流量表：经营活动产生的现金流量净额 | operating_cash_flow | 经营活动现金流净额（单位：元） |
-| 理杏仁 | y.bs.ta.t | total_assets | 总资产（单位：元） |
-| 理杏仁 | y.bs.tl.t | total_liabilities | 总负债（单位：元） |
-| 估算 | y.bs.ta.t - y.bs.tl.t | equity（估算） | 净资产（单位：元） |
-
----
-
-## Step 3：获取市场数据（估值 + 股本）
-
-```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company.fundamental.non_financial" \
-  --params '{
-    "stockCodes": ["600519"],
-    "date": "latest"
-  }' \
-  --columns "date,stockCode,sp,mc,cmc,pe_ttm,d_pe_ttm,pb,ps_ttm,dyr,ev_ebit_r,ev_ebitda_r,pe_ttm.y5.cvpos,pb.y5.cvpos"
-```
-
-关键字段映射：
-
-| 理杏仁字段 | valuation 输入 | 说明 |
-|-----------|---------------|------|
-| sp | price | 最新股价（元） |
-| mc | market_cap | 总市值（元） |
-| pe_ttm | pe_ttm | PE-TTM |
-| pb | pb | PB |
-| dyr | dividend_yield | 股息率 |
-| ev_ebitda_r | ev_ebitda | EV/EBITDA |
-
-股本数量 = mc / sp（总股本，单位：股）
-
----
-
-## Step 4：获取分红数据（用于 DDM / 股息率分析）
-
-```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company.dividend" \
-  --params '{"stockCodes": ["600519"]}' \
-  --columns "date,stockCode,dividendPerShare,dividendYield,payoutRatio"
-```
-
----
-
-## Step 5：获取同行业可比公司（用于 peer-analysis）
-
-先获取目标公司所属行业：
-
-```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.company.industries" \
-  --params '{"stockCodes": ["600519"]}' \
-  --columns "stockCode,industryCode,industryName"
-```
-
-再获取同行业公司的估值数据：
-
-```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "cn.industry.fundamental.sw_2021" \
-  --params '{"industryCode": "<行业代码>", "date": "latest"}' \
-  --columns "stockCode,name,pe_ttm,pb,ps_ttm,mc,dyr"
-```
-
----
-
-## Step 6：获取无风险利率（用于 WACC）
-
-理杏仁不提供10年期国债收益率，使用 AkShare：
-
-```python
-import akshare as ak
-df = ak.bond_zh_us_rate(start_date='20260101')
-rf = df['中国国债收益率10年'].dropna().iloc[-1]
-print(f"中国10年期国债收益率: {rf}%")
-```
-
-或使用理杏仁的 LPR 作为参考：
-
-```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
-  --suffix "macro.interest-rates" \
-  --params '{"areaCode": "cn", "startDate": "2026-01-01", "endDate": "2026-03-20", "metricsList": ["lpr_y1","lpr_y5"]}' \
-  --columns "date,lpr_y1,lpr_y5" --limit 1
-```
-
----
-
-## 数据组装为 valuation 输入
-
-执行完上述查询后，将数据整理为以下结构传入 `company-valuation` skill：
-
-```json
-{
-  "meta": {
-    "company": "贵州茅台",
-    "valuation_date": "<最新交易日>",
-    "currency": "CNY",
-    "unit_scale": "millions",
-    "listing_market": "A"
-  },
-  "basis": "LTM",
-  "financials": {
-    "revenue": "<y.ps.toi.t / 1,000,000>",
-    "ebitda": "<y.ps.ebitda.t / 1,000,000>",
-    "ebit": "<y.ps.ebit.t / 1,000,000>",
-    "net_income": "<y.ps.npatoshopc.t / 1,000,000>",
-    "depreciation_amortization": "<如能获取则填入>",
-    "operating_cash_flow": "<AkShare 经营现金流净额 / 1,000,000，如能获取则填入>"
-  },
-  "balance_sheet": {
-    "cash": "<现金类科目 / 1,000,000>",
-    "debt": "<(短债 + 长债) / 1,000,000>",
-    "minority_interest": "<少数股东权益 / 1,000,000>",
-    "preferred": 0,
-    "non_operating_assets": "<联营投资/其他非经营资产，如适用>"
-  },
-  "shares": {
-    "basic": "<mc / sp>",
-    "diluted": "<若无更好数据，可先与 basic 相同>"
-  },
-  "adjustments": {
-    "one_off_items": {
-      "ebit": "<非经常性 EBIT 调整>",
-      "net_income": "<非经常性净利润调整>"
-    },
-    "qoe": {
-      "ebit": {
-        "remove": {
-          "government_subsidies": "<政府补助，如需剔除>",
-          "asset_disposal_gains": "<资产处置收益，如需剔除>"
-        },
-        "add_back": {
-          "impairment_losses": "<减值损失，如判断为非经常可加回>"
-        }
-      },
-      "net_income": {
-        "remove": {
-          "fair_value_gains": "<公允价值变动收益，如需剔除>"
-        }
-      }
-    },
-    "restricted_cash": "<受限现金，如有>",
-    "lease_liabilities": "<租赁负债，如有>",
-    "maintenance_capex": "<维护性资本开支，如能估算>"
-  },
-  "assumptions": {
-    "cost_of_capital": {
-      "risk_free_rate": "<cn_10y 最新值>",
-      "equity_risk_premium": 0.06,
-      "beta": "<行业或回归 beta>",
-      "cost_of_debt": "<税前债务成本>",
-      "target_debt_weight": "<目标资本结构债务占比>"
-    }
-  },
-  "market": {
-    "current_price": "<sp>",
-    "price_date": "<最新交易日>",
-    "listing_market": "A",
-    "accounting_standard": "PRC GAAP",
-    "trading_currency": "CNY"
-  },
-  "source_map": {
-    "financials.revenue": {
-      "provider": "lixinger",
-      "dataset": "cn.company.fs.non_financial",
-      "field": "y.ps.toi.t",
-      "period_end": "<财报期末>",
-      "unit": "CNY",
-      "transform": "/ 1000000"
-    },
-    "financials.operating_cash_flow": {
-      "provider": "akshare",
-      "dataset": "stock_financial_report_sina",
-      "field": "经营活动产生的现金流量净额",
-      "period_end": "<财报期末>",
-      "unit": "CNY",
-      "transform": "/ 1000000"
-    },
-    "market.current_price": {
-      "provider": "lixinger",
-      "dataset": "cn.company.fundamental.non_financial",
-      "field": "sp",
-      "period_end": "<最新交易日>",
-      "unit": "CNY"
-    }
-  },
-  "source_notes": [
-    "利润表/资产负债表优先来自理杏仁，现金流与宏观缺口字段由 AkShare 补齐。",
-    "混用时已统一报告期、单位、币种与合并口径。"
-  ]
-}
-```
-
-## 多数据源组织建议
-
-后续接入更多数据源时，建议保持三层结构：
-
-1. **canonical 输入层**：下游估值只消费 `financials.*`、`balance_sheet.*`、`market.*` 等标准字段，不直接依赖供应商原始字段名。
-2. **source_map 溯源层**：每个关键字段记录 `provider`、`dataset`、`field`、`period_end`、`unit`、`transform`，方便回溯和替换数据源。
-3. **raw snapshot 原始层**：供应商原始返回单独存档，不混入估值入模 JSON；建议按 `provider/date/company` 归档。
-
-推荐按数据域维护主源优先级：
-- `financials`：`lixinger -> akshare -> manual`
-- `cashflow`：`akshare -> lixinger(若未来开放) -> manual`
-- `market`：`lixinger -> exchange/manual`
-- `macro`：`akshare -> lixinger -> manual`
-
-这样以后新增别的数据源时，只要补 `source_map` 和取数优先级，不需要改下游估值字段。
-
----
-
-## A股特殊注意事项
-
-- 单位：理杏仁财务数据默认单位为**元**，传入 valuation 时需换算为百万元（÷1,000,000）
-- 货币：A股报告货币为 CNY
-- 财报类型：银行/保险/证券公司使用 `cn.company.fs.financial` 而非 `non_financial`，EBITDA 不适用
-- 股本：理杏仁不直接返回股本数，用 `mc / sp` 计算总股本；如无摊薄信息，先令 `diluted = basic` 并在报告中说明
-- 标准化：优先输出 `reported -> normalized` 桥表，至少覆盖非经常项、政府补助/公允价值/处置收益等 QoE 项、受限现金、租赁负债、维护性 Capex
-- 数据源可混用：利润表/资产负债表优先用理杏仁，现金流、国债利率等缺口字段可用 AkShare 补齐；但必须保证报告期、单位、币种、合并口径一致
-- QoE补充：理杏仁通常不足以直接给出全部 QoE 科目，政府补助、公允价值变动、资产处置、减值等需结合年报附注或手工补充到 `adjustments.qoe`
-- 无风险利率：使用中国10年期国债收益率，而非美国国债
-- ERP：A股市场风险溢价建议使用 6%~8%（高于成熟市场）
-- 财年：A股财年为自然年，12月31日为年报日期
+- 优先复用已有 provider 文档和单命令示例
+- 优先先拿到最小有效结果，再决定是否补第二个 provider
+- 优先在任务边界上临时提取字段，不沉淀脆弱的全局映射
+- 只有当某类字段长期、稳定、重复出现时，才考虑补局部示例或固定抽取模板

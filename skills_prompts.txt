@@ -1,0 +1,248 @@
+# 理杏仁金融分析技能包 - Skill 使用提示词集合
+# 生成时间: $(date)
+# 总共 $(ls -1 /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/ | grep -v "^README.md$" | grep -v "^DATA_QUERIES_STATUS.md$" | wc -l) 个 Skills
+
+================================================================================
+A股市场分析 Skills
+================================================================================
+
+用 China-market_ab-ah-premium-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_block-deal-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_bse-selection-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_concept-board-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_convertible-bond-scanner 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_disclosure-notice-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_dividend-corporate-action-tracker 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_dragon-tiger-list-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_equity-pledge-risk-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_equity-research-orchestrator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_esg-screener 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_etf-allocator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_event-driven-detector 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_event-study 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_factor-crowding-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_financial-statement-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_fund-flow-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_goodwill-risk-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_high-dividend-strategy 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_hot-rank-sentiment-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_hsgt-holdings-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_industry-board-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_industry-chain-mapper 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_insider-trading-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_intraday-microstructure-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_investment-memo-generator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_ipo-lockup-risk-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_ipo-newlist-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_limit-up-limit-down-risk-checker 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_limit-up-pool-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_liquidity-impact-estimator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_macro-liquidity-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_margin-risk-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_market-breadth-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_market-overview-dashboard 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_northbound-flow-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_peer-comparison-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_policy-sensitivity-brief 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_portfolio-health-check 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_portfolio-monitor-orchestrator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_portfolio-stress-test 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_quant-factor-screener 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_rebalancing-planner 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_risk-adjusted-return-optimizer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_sector-rotation-detector 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_sector-valuation-heat-map 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_sentiment-reality-gap 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_share-repurchase-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_shareholder-risk-check 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_shareholder-structure-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_single-stock-health-check 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_small-cap-growth-identifier 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_st-delist-risk-scanner 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_stock-bond-yield-gap-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_suitability-report-generator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_tech-hype-vs-fundamentals 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_undervalued-stock-screener 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_valuation-regime-detector 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_volatility-regime-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 China-market_weekly-market-brief-generator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+================================================================================
+港股市场分析 Skills
+================================================================================
+
+用 HK-market_hk-concentration-risk 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-currency-risk 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-dividend-tracker 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-etf-flow 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-financial-statement 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-foreign-flow 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-liquidity-risk 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-market-breadth 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-market-overview 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-sector-rotation 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-southbound-flow 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 HK-market_hk-valuation-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+================================================================================
+美股市场分析 Skills
+================================================================================
+
+用 US-market_us-buyback-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-credit-spread-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-dividend-aristocrat-calculator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-earnings-reaction-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-equity-research-orchestrator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-esg-screener 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-etf-allocator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-event-driven-detector 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-event-study 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-factor-crowding-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-financial-statement-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-insider-sentiment-aggregator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-insider-trading-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-investment-memo-generator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-liquidity-impact-estimator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-macro-liquidity-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-market-breadth-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-options-strategy-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-peer-comparison-analyzer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-policy-sensitivity-brief 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-portfolio-health-check 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-portfolio-monitor-orchestrator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-quant-factor-screener 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-rebalancing-planner 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-risk-adjusted-return-optimizer 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-sector-rotation-detector 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-sentiment-reality-gap 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-small-cap-growth-identifier 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-suitability-report-generator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-tax-aware-rebalancing-planner 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-tech-hype-vs-fundamentals 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-undervalued-stock-screener 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-valuation-regime-detector 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-volatility-regime-monitor 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-weekly-market-brief-generator 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 US-market_us-yield-curve-regime-detector 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+================================================================================
+其他 Skills
+================================================================================
+
+用 analysis-market 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+用 lixinger-data-query 这个 skills 来用分析一下当前市场的情况。具体用到哪个数据。请更新更新一下同文件夹下的 references/data-queries.md。保证下次用到哪个数据，可以有尽可能多的参考
+
+================================================================================
+说明：
+- 共 119 个 Skills
+- A股市场: 66 个
+- 港股市场: 12 个
+- 美股市场: 37 个
+- 其他: 2 个 (analysis-market, lixinger-data-query)
+================================================================================

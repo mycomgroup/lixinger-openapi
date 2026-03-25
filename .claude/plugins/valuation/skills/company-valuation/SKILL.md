@@ -64,7 +64,7 @@ Run:
 ## Data Source Priority
 
 1. User-provided data
-2. **A股公司**：调用 `cn-data-source` skill 从理杏仁 API 获取数据（优先于 MCP）
+2. **A股公司**：先调用 `cn-data-source` skill 发现可用 provider、查询入口与来源说明，再按本次估值提取最小字段集
 3. MCP sources if available
 4. Audited filings or official reports
 5. Public market data for current prices or shares
@@ -72,8 +72,10 @@ Run:
 ### A股数据获取规则
 
 当股票代码为6位数字（如 600519、300750、000858）时：
-- 必须先执行 `cn-data-source` skill 的 Step 1~5 获取所有输入数据
+- 优先通过 `cn-data-source` 确定最合适的 provider 与查询命令
+- 仅将本次估值所需的最小字段整理为 `references/input-schema.md` 所需结构
 - 数据单位从元换算为百万元后再传入估值模型
+- 如混用多个 provider，为实际使用字段保留 `source_map` 或 `source_notes`
 - 无风险利率使用中国10年期国债收益率，ERP 使用 6%~8%
 
 ## Workflow

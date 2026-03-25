@@ -1,14 +1,24 @@
-# 数据源架构设计（多 Provider / 最小改动版）
+# 数据源架构设计（轻量 Provider Pack 版）
 
 ## 1. 背景
 
-当前 A 股估值主链已经形成了可工作的三段式结构：
+当前仓库已经有一条可工作的估值主链：
 
-1. `cn-data-source` 负责按估值场景组织取数步骤与字段映射。
-2. `.claude/skills/lixinger-data-query` 负责实际查询执行，当前已同时覆盖理杏仁与部分 AkShare。
-3. `company-valuation` 只消费标准化后的 canonical 输入，不直接关心上游 provider。
+1. `cn-data-source` 提供 A 股取数入口。
+2. `.claude/skills/lixinger-data-query` 承担实际查询执行。
+3. `company-valuation` 消费估值输入并完成计算。
 
-这条链路已经具备继续扩展的基础，但目前的扩展规则主要分散在多个 `SKILL.md` 中，缺少一份统一的数据源架构设计。为了后续接入更多数据源，同时避免大改 `auto_valuation.py` 和现有 skill，需要一份“最小代码改动”的统一方案。
+问题不在于“能不能扩数据源”，而在于**扩一个新 provider 的维护成本太高**。
+
+如果每新增一个 provider 都要补：
+- 一整套 provider -> canonical 映射
+- domain priority
+- 大量全局字段表
+- 统一路由规则
+
+那么 provider 一多，文档和映射都会变得脆弱，而且很难长期维护。
+
+因此本次方案的目标不是再搭一个大框架，而是把当前体系收缩成**最小接入协议**。
 
 ---
 
@@ -16,428 +26,395 @@
 
 ### 2.1 目标
 
-- 支持未来接入更多数据源，如更多行情、财务、宏观、行业、另类数据 provider。
-- 保持下游估值输入稳定，避免 provider 增长导致估值脚本频繁修改。
-- 允许字段级混用多个 provider。
-- 保留字段来源、报告期、单位、转换方式，方便审计与回溯。
-- 优先通过文档规范、目录约定、轻量 registry 解决问题，尽量少加执行层代码。
+- 新增一个 provider 时，最低只需要：
+  - 一份本地可读的 provider 文档
+  - 本地鉴权信息来源
+  - 最多一个查询命令或薄脚本
+- 不要求为每个 provider 预先维护完整字段映射。
+- `cn-data-source` 只做发现、路由、查询建议与溯源。
+- `company-valuation` 主脚本保持不动。
+- 允许按任务临时提取字段，而不是维护全局映射资产。
+- 保留最小来源信息，方便回溯与解释。
 
 ### 2.2 非目标
 
-- 本阶段不建设统一的重型 SDK。
-- 本阶段不重写 `query_tool.py`。
-- 本阶段不让 `company-valuation/scripts/auto_valuation.py` 直接感知 provider。
-- 本阶段不追求所有 provider 统一成一个复杂运行时框架。
+本阶段**不做**以下事情：
+
+- 不建设统一重型 SDK。
+- 不重写 `.claude/skills/lixinger-data-query/scripts/query_tool.py`。
+- 不引入全局 `provider registry` 作为强依赖运行时。
+- 不为所有 provider 建一张完整的 provider -> canonical 大表。
+- 不要求 `cn-data-source` 自动产出完整估值输入。
 
 ---
 
-## 3. 当前架构判断
+## 3. 核心结论
 
-### 3.1 当前事实
+### 结论 1：新增 provider 采用 `Provider Pack`
 
-- `cn-data-source` 是**数据源编排层**，不是可执行适配器。
-- `.claude/skills/lixinger-data-query` 是**当前实际执行层**；虽然名字叫 `lixinger-data-query`，但它已经承担“多数据源查询中枢”的角色。
-- `data-source-docs` 是**provider 文档摘要/缓存层**，适合做可发现性与轻量 registry，不适合直接承担估值取数。
-- `company-valuation` 已经是 **provider-agnostic** 的，只依赖 canonical 输入与 `source_map`。
+一个 provider 的最小接入单元就是一个 **Provider Pack**。
 
-### 3.2 关键判断
+它只需要包含四类信息：
 
-因此最小改动路线不是去改估值计算层，而是：
+1. **docs**：接口文档、说明文档或本地保存的网页/markdown
+2. **auth**：本地如何读取鉴权，不在文档中暴露密钥本身
+3. **one command**：一个最小可运行查询示例，或一个很薄的脚本
+4. **scope note**：这个 provider 适合覆盖哪些数据，已知限制是什么
 
-1. 继续把 `company-valuation` 当成稳定消费层。
-2. 把 `cn-data-source` 定位成“按场景装配 canonical 输入”的编排层。
-3. 把 `.claude/skills/lixinger-data-query` 继续当成默认执行层，并逐步容纳更多 provider 文档与调用方式。
-4. 用 `source_map` / `source_notes` 承担字段级溯源。
-5. 用一个轻量 `provider registry` 约定统一 provider 元数据与优先级。
+也就是说，后续新加 provider，不要求先统一 schema，只要求它**可被发现、可被调用、可被解释**。
 
----
+### 结论 2：`cn-data-source` 改成“发现 / 路由 / 溯源”层
 
-## 4. 核心设计原则
+`cn-data-source` 不再承担“完整 canonical 编排器”的职责。
 
-### 原则 1：canonical 字段稳定优先
+它负责：
+- 判断当前任务需要什么数据
+- 判断先看哪个 provider
+- 给出查询入口或命令
+- 说明结果来自哪里
+- 在需要时帮助提取本次任务真正要用的最小字段集
 
-下游一律消费：
-- `financials.*`
-- `balance_sheet.*`
-- `shares.*`
-- `market.*`
-- `adjustments.*`
-- `assumptions.*`
+它不再负责：
+- 维护全局字段映射表
+- 维护所有 provider 的 domain priority 资产
+- 为所有任务统一产出完整 canonical JSON
 
-新增 provider 时，优先改“字段映射与优先级”，不改估值公式与主脚本。
+### 结论 3：字段提取改为“按任务临时提取”
 
-### 原则 2：字段级 provenance 必须保留
+不预先维护 provider -> canonical 的全量映射。
 
-任一关键字段都应该可以回溯到：
-- 来自哪个 provider
-- 哪个 dataset / endpoint
-- 原始字段名
-- 报告期或交易日
-- 单位
-- 是否做过换算或公式桥接
-
-### 原则 3：执行层允许异构，不强行统一 SDK
-
-不同 provider 可以分别通过：
-- HTTP API
-- Python package
-- 本地脚本
-- 本地缓存
-
-接入，但对 `cn-data-source` 和 `company-valuation` 暴露的组织形式要统一。
-
-### 原则 4：按“数据域”管理优先级，而不是按 provider 全局一刀切
+而是：
+- 先根据当前任务找到合适的数据源
+- 再执行查询
+- 最后只提取本次任务真正需要的字段
 
 例如：
-- `financials` 适合理杏仁优先
-- `cashflow` 当前适合 AkShare 优先
-- `macro` 可能 AkShare 或官方源优先
-- `market` 可能理杏仁或交易所源优先
+- 做 `company-valuation` 时，只提取估值模型需要的最小字段
+- 做 `peer-analysis` 时，只提取可比公司与倍数相关字段
+- 做 `scenario-modeling` 时，只提取情景分析要用的变量
+
+### 结论 4：保留“任务边界上的最小标准化”
+
+虽然不再维护全局映射，但**估值计算边界**仍然需要最小标准化。
+
+换句话说：
+- 仓库层面不维护“大而全的全局 canonical 映射”
+- 但具体任务进入 `company-valuation` 之前，仍需把**本次运行的最小必需字段**整理为当前输入 schema
+
+这一步是**task-local extraction**，不是全局 provider 治理。
 
 ---
 
-## 5. 推荐目标架构
+## 4. 推荐目标架构
 
 ```text
-Provider Docs / Metadata
-    ├─ data-source-docs
-    └─ provider summaries / docs / cache
+Provider Docs / Summary
+    └─ data-source-docs
+         ├─ provider cached summary
+         └─ onboarding template
 
-Execution Adapters
-    ├─ lixinger-data-query/query_tool.py
-    ├─ api_new/api-docs/
-    ├─ api_new/akshare_data/
-    └─ future: api_new/{provider}_data/
+Execution Hub
+    └─ .claude/skills/lixinger-data-query
+         ├─ 理杏仁查询
+         ├─ AkShare 查询
+         └─ future provider docs / one-command examples
 
-Domain Orchestration
+Discovery / Routing / Provenance
     └─ cn-data-source
-         ├─ 根据估值场景决定需要哪些数据域
-         ├─ 根据优先级选择 provider
-         ├─ 组装 canonical JSON
-         └─ 写入 source_map/source_notes
+         ├─ 识别当前任务需要的数据
+         ├─ 选择 provider
+         ├─ 给出查询入口
+         └─ 记录来源说明
 
-Valuation Consumption
-    └─ company-valuation
-         ├─ input-schema.md
-         └─ auto_valuation.py
+Task Consumption
+    └─ company-valuation / peer-analysis / scenario-modeling
+         └─ 仅在当前任务里提取所需字段
 ```
 
-### 分层职责
+---
 
-#### A. Provider Docs / Metadata 层
-职责：
-- 管理 provider 文档摘要
-- 记录认证方式、主要 endpoint、数据域覆盖
-- 为后续新增 provider 提供可发现性
+## 5. 四层职责
 
-建议继续复用：
+### 5.1 Provider 文档与摘要层
+
+当前承载：
 - `.claude/plugins/valuation/skills/data-source-docs/`
 
-#### B. Execution Adapter 层
 职责：
-- 真正执行请求或脚本调用
-- 处理认证、缓存、参数格式、返回结果原样输出
-- 不直接负责估值字段标准化
+- 保存 provider 的最小摘要
+- 提供缓存后的 discoverability
+- 帮助快速判断一个 provider 能不能覆盖当前需求
 
-当前默认承载：
+不负责：
+- 不负责跨 provider 标准化
+- 不负责最终估值入模
+- 不负责统一执行
+
+### 5.2 执行层
+
+当前承载：
 - `.claude/skills/lixinger-data-query/`
 
-短期建议：
-- 不改 skill 名称
-- 继续在其目录下容纳更多 provider 文档与轻量调用说明
-
-#### C. Domain Orchestration 层
 职责：
-- 面向估值任务选择所需数据域
-- 按优先级从多个 provider 取数
-- 做单位统一、报告期对齐、字段映射
-- 输出 canonical JSON 和 `source_map`
+- 实际执行查询
+- 处理参数、鉴权、返回格式
+- 承载理杏仁、AkShare 和未来 provider 的单命令示例或薄脚本
+
+定位说明：
+- 这是**默认执行中枢**，不是标准化层
+- 名字虽然是 `lixinger-data-query`，但短期不改名，以减少改动面
+
+### 5.3 发现 / 路由 / 溯源层
 
 当前承载：
 - `.claude/plugins/valuation/skills/cn-data-source/SKILL.md`
 
-#### D. Valuation Consumption 层
 职责：
-- 消费标准化输入
-- 不感知上游 provider
-- 只保留必要的 provenance 展示
+- 面向任务做 provider 发现
+- 给出推荐查询路径
+- 提醒使用哪个命令 / 脚本
+- 记录本次结果来自哪个 provider、哪个接口、哪个日期或报告期
+
+不负责：
+- 不维护全局字段映射表
+- 不强制统一所有 provider 的返回结构
+- 不承诺产出完整 canonical 输入
+
+### 5.4 任务消费层
 
 当前承载：
 - `.claude/plugins/valuation/skills/company-valuation/`
+- `.claude/plugins/valuation/skills/peer-analysis/`
+- `.claude/plugins/valuation/skills/scenario-modeling/`
+
+职责：
+- 根据当前任务提取最小字段集
+- 在需要计算时，整理成任务所需的输入结构
+- 输出分析结果
+
+关键边界：
+- 只有在真正进入计算任务时，才做本次运行需要的最小标准化
+- 这不是仓库级的全局映射治理
 
 ---
 
-## 6. 轻量 Provider Registry 设计
+## 6. Provider Pack 最小接入协议
 
-本阶段建议先定义**规范**，不强制立即写执行代码消费它。
+新增一个 provider 时，只要求补下面这些最小信息。
 
-推荐 registry 逻辑位置：
-- 说明文档：本文件
-- 后续若要落地 machine-readable 文件，可放在：
-  - `.claude/plugins/valuation/skills/data-source-docs/references/provider-registry.json`
-  - 或 `.claude/plugins/valuation/skills/cn-data-source/references/provider-registry.json`
+### 6.1 必填信息
 
-推荐结构：
+1. `provider_key`
+2. `docs_location`
+3. `auth_source`
+4. `one_command_example` 或 `thin_script`
+5. `coverage`
+6. `known_limits`
 
-```json
-{
-  "providers": {
-    "lixinger": {
-      "role": "primary",
-      "type": "api",
-      "domains": ["company", "financials", "market", "industry"],
-      "executor": "python3 .claude/skills/lixinger-data-query/scripts/query_tool.py",
-      "docs_dir": ".claude/skills/lixinger-data-query/api_new/api-docs",
-      "auth": "token.cfg",
-      "status": "active"
-    },
-    "akshare": {
-      "role": "fallback",
-      "type": "python_package",
-      "domains": ["cashflow", "macro", "alt_data"],
-      "executor": "python3 -c 'import akshare as ak; ...'",
-      "docs_dir": ".claude/skills/lixinger-data-query/api_new/akshare_data",
-      "auth": "none",
-      "status": "active"
-    }
-  },
-  "priority_by_domain": {
-    "company": ["lixinger", "manual"],
-    "financials": ["lixinger", "akshare", "manual"],
-    "cashflow": ["akshare", "lixinger", "manual"],
-    "market": ["lixinger", "manual"],
-    "macro": ["akshare", "lixinger", "manual"],
-    "peers": ["lixinger", "manual"]
-  }
-}
+### 6.2 推荐存放位置
+
+文档可放在以下任一位置：
+
+- `.claude/skills/lixinger-data-query/api_new/{provider}_data/`
+- 本地保存的 doc 文件路径
+- 其他项目内固定可读目录
+
+摘要缓存继续由 `data-source-docs` 维护。
+
+### 6.3 鉴权规则
+
+只记录“如何读取鉴权”，不记录密钥本身。
+
+可接受的形式：
+- `token.cfg`
+- 环境变量名
+- cookie 文件路径
+- 本地配置文件名
+
+### 6.4 命令规则
+
+每个 provider 最多要求一个最小可运行命令，例如：
+
+```bash
+python3 some_query.py --symbol 600519 --field revenue
 ```
 
-### 这个 registry 的价值
+或直接是一段固定调用方式说明。
 
-- 统一记录“哪个 provider 负责什么”
-- 统一记录“不同数据域的优先级”
-- 让 `cn-data-source` 的编排规则可维护，而不是散落在多处文字说明里
-- 未来若要加自动路由脚本，可以直接消费这份 registry
+重点是：
+- 能跑通一个查询
+- 能证明 provider 可用
+- 能让后续任务复用
+
+不要求：
+- 不要求先补完整映射
+- 不要求先抽象成统一 SDK
 
 ---
 
-## 7. canonical 输入与 source_map 约定
+## 7. 推荐工作流
 
-### 7.1 canonical 层保持不变
+### Step 1：先确定当前任务真正需要什么
 
-继续使用现有 `company-valuation` 输入 schema，不新增 provider-specific 字段。
+不要一开始就试图把所有字段都拉齐。
 
-### 7.2 `source_map` 标准
+先明确：
+- 是估值
+- 是同行分析
+- 是情景分析
+- 还是单纯找某个财务/市场/宏观字段
 
-建议每个关键字段至少记录：
+### Step 2：先看摘要，再看文档
 
-```json
-{
-  "financials.revenue": {
-    "provider": "lixinger",
-    "dataset": "cn.company.fs.non_financial",
-    "field": "y.ps.toi.t",
-    "period_end": "2024-12-31",
-    "unit": "CNY",
-    "transform": "/ 1000000"
-  }
-}
-```
+优先顺序：
+1. `data-source-docs` 缓存摘要
+2. provider 原始文档
+3. 已有查询示例或薄脚本
 
-推荐扩展字段：
+### Step 3：选择最合适的 provider
+
+不依赖全局 priority 表，而是按当前任务判断：
+- 谁覆盖这个字段
+- 谁调用最稳定
+- 谁的口径更适合本次任务
+- 谁已经有可复用命令
+
+### Step 4：执行一个最小查询
+
+先拿到最小有效结果。
+
+不要在 provider 接入阶段就追求完整字段覆盖。
+
+### Step 5：只提取当前任务所需字段
+
+例如在估值任务中，只提取：
+- `revenue`
+- `ebitda`
+- `ebit`
+- `net_income`
+- `cash`
+- `debt`
+- `current_price`
+- `shares`
+- `risk_free_rate`
+
+如果其中某几个字段缺失，再按任务需要补第二个 provider。
+
+### Step 6：记录轻量溯源
+
+对本次实际使用的字段或结果，记录：
 - `provider`
-- `dataset`
+- `dataset` / `endpoint`
 - `field`
-- `period_end`
-- `currency`
+- `date` / `period_end`
 - `unit`
-- `transform`
-- `quality_flag`：如 `reported` / `estimated` / `manual`
 - `note`
 
-### 7.3 `source_notes` 用法
-
-适合记录：
-- 为什么混用了多个 provider
-- 是否统一到了合并口径
-- 是否存在报告期错位
-- 哪些字段为估算值
+不要求每次都输出完整 `source_map`；但如果混用了多个 provider，建议为**实际用到的字段**保留简短溯源说明。
 
 ---
 
-## 8. 数据域拆分建议
+## 8. `cn-data-source` 的新契约
 
-建议 `cn-data-source` 以后按数据域组织，而不是按 provider 组织：
+`cn-data-source` 的输出不再定义为“完整标准输入”，而是以下四类结果：
 
-1. `company_profile`
-2. `financials`
-3. `cashflow`
-4. `balance_sheet`
-5. `market`
-6. `dividend`
-7. `industry`
-8. `peers`
-9. `macro`
-10. `qoe_support`
+1. **provider 建议**
+   - 当前任务先用哪个 provider
+2. **查询入口**
+   - 推荐命令、脚本或文档位置
+3. **最小字段建议**
+   - 本次任务应该先拿哪些字段
+4. **来源说明**
+   - 数据来自哪里、有没有混源、有没有口径风险
 
-每个数据域维护：
-- canonical 字段列表
-- provider 优先级
-- 主 provider 查询模板
-- fallback 查询模板
-- 单位与口径校验规则
-
-这样新增 provider 时，只是给某些数据域补一套映射，而不是重写整个估值链。
+这意味着：
+- `cn-data-source` 是入口和路由器
+- 不是重型编排器
+- 不是统一大映射中心
 
 ---
 
-## 9. 最小代码改动实施方案
+## 9. `company-valuation` 的边界
 
-### Phase 0：文档规范先行（现在就可以做）
+`company-valuation` 继续保持现有脚本和输入结构不动。
 
-改动范围：
-- `cn-data-source/SKILL.md`
-- `company-valuation/references/input-schema.md`
-- 本设计文档
+但数据进入估值前的处理方式改成：
 
-目标：
-- 统一 `source_map` / `source_notes`
-- 明确 provider priority by domain
-- 明确新增 provider 的接入位置
+- 先由 `cn-data-source` 帮助找到 provider
+- 再执行最小查询
+- 然后只把本次估值真正需要的字段整理成 `references/input-schema.md` 所要求的结构
 
-### Phase 1：新增 provider 时只做三类改动
+重点：
+- 这是**本次运行的输入整理**
+- 不是为整个仓库沉淀一套 provider 全量映射
 
-#### 1) 补 provider 文档
-位置建议：
-- `.claude/skills/lixinger-data-query/api_new/{provider}_data/`
-- 或保留现有 `api-docs/` / `akshare_data/` 风格
-
-#### 2) 补 `cn-data-source` 映射与优先级
-包括：
-- 字段映射表
-- domain priority
-- `source_map` 示例
-- 该 provider 适用的数据域
-
-#### 3) 必要时补一个很薄的执行脚本
-只有在现有 `query_tool.py` 完全不适配时才新增。
-
-原则：
-- 先文档化
-- 再轻量脚本化
-- 最后才考虑统一路由
-
-### Phase 2：可选的轻量统一路由（未来再做）
-
-如果 provider 数量明显增加，再考虑新增一个很薄的：
-- `provider_dispatch.py`
-
-职责只做：
-- 根据 provider key 调不同执行器
-- 不做估值字段映射
-- 不做复杂 business logic
-
-这样不会破坏现有 `query_tool.py`，也不会影响 `auto_valuation.py`。
+因此：
+- `auto_valuation.py` 不需要修改
+- `input-schema.md` 首阶段也不需要因为新增 provider 而频繁修改
 
 ---
 
-## 10. 新数据源接入 checklist
+## 10. 当前默认实践
 
-新增一个 provider 时，建议按以下顺序：
+在现有仓库里，建议维持如下默认习惯：
 
-1. 明确它覆盖哪些数据域
-2. 确定它是 primary 还是 fallback
-3. 写 provider 文档摘要
-4. 在执行层增加文档目录或轻量调用脚本
-5. 在 `cn-data-source` 中补字段映射
-6. 给 canonical JSON 增加 `source_map` 示例
-7. 检查单位、币种、报告期、合并口径
-8. 只在 canonical 字段不够时才改 `input-schema.md`
-9. 只有在估值逻辑真的需要新字段时才改 `auto_valuation.py`
+- A 股公司、利润表、资产负债表、市场数据：优先看理杏仁
+- 现金流、无风险利率、部分宏观缺口字段：优先看 AkShare
+- 其他新 provider：优先按 Provider Pack 判断，而不是强行塞进全局优先级表
+
+这里的“优先”只是**实践经验**，不是必须维护成全局 registry。
 
 ---
 
-## 11. 对当前仓库的具体建议
+## 11. 新数据源接入 Checklist
 
-### 11.1 立即保持不动的部分
+新增一个 provider 时，按下面顺序处理即可：
 
-为了最小改动，以下部分短期不要动：
-- `.claude/plugins/valuation/skills/company-valuation/scripts/auto_valuation.py`
-- 现有 canonical 字段名
-- 现有 QoE / normalization 结构
+1. 放入 provider 文档
+2. 明确本地鉴权信息来源
+3. 写一个最小查询命令或薄脚本
+4. 用 `data-source-docs` 生成或刷新摘要
+5. 记录它适合的覆盖范围和限制
+6. 在真实任务里按需使用
+7. 只有在某类字段反复稳定复用时，才考虑沉淀局部映射示例
 
-### 11.2 建议优先维护的部分
+不需要默认做的事情：
+- 不需要先补完整 provider -> canonical 映射
+- 不需要先改 `auto_valuation.py`
+- 不需要先建全局优先级注册表
+- 不需要先建统一数据层
 
+---
+
+## 12. 本次方案对应的最小改动面
+
+本轮只需要收敛以下文件定位：
+
+- `docs/DATA_SOURCE_ARCHITECTURE_DESIGN.md`
 - `.claude/plugins/valuation/skills/cn-data-source/SKILL.md`
-- `.claude/plugins/valuation/skills/company-valuation/references/input-schema.md`
-- `.claude/skills/lixinger-data-query/api_new/`
-- `.claude/plugins/valuation/skills/data-source-docs/`
+- `.claude/plugins/valuation/skills/data-source-docs/SKILL.md`
+- `.claude/plugins/valuation/commands/cn-company-valuation.md`
+- `.claude/skills/lixinger-data-query/SKILL.md`
+- `.claude/plugins/valuation/skills/data-source-docs/references/provider-onboarding-template.md`
 
-### 11.3 关于 `.claude/skills/lixinger-data-query` 的定位
-
-虽然名称偏向理杏仁，但在最小改动方案里，建议将它视为：
-
-> 当前统一的数据查询执行层（execution hub），而不是单一 provider 的专属实现。
-
-短期不改名，避免：
-- skill 路径大面积调整
-- 命令文档失效
-- 现有调用链断裂
-
-如未来 provider 数量很多，再考虑通过 alias 或新 skill 名做软迁移。
-
----
-
-## 12. 推荐的目录约定
-
-### 12.1 当前保守方案
-
-```text
-.claude/plugins/valuation/skills/cn-data-source/
-  SKILL.md
-
-.claude/plugins/valuation/skills/data-source-docs/
-  SKILL.md
-  references/
-  scripts/
-
-.claude/skills/lixinger-data-query/
-  SKILL.md
-  scripts/
-  api_new/
-    api-docs/
-    akshare_data/
-    {future_provider}_data/
-```
-
-### 12.2 未来可演进但非必需
-
-若 provider 持续增加，可逐步演进为：
-
-```text
-.claude/skills/market-data-query/
-  scripts/
-    provider_dispatch.py
-  providers/
-    lixinger/
-    akshare/
-    future_provider/
-```
-
-但这属于第二阶段，不是现在必须做的事。
+如无必要，先不要动：
+- `company-valuation/scripts/auto_valuation.py`
+- `query_tool.py`
+- 全局 schema
 
 ---
 
 ## 13. 方案结论
 
-这套方案的核心不是“新建一个大框架”，而是明确三件事：
+这次方案收缩后的核心只有三句话：
 
-1. **下游 canonical schema 固定**：估值层不因 provider 增长而频繁改动。
-2. **上游按数据域扩展 provider**：通过 `cn-data-source` 做编排，通过 `source_map` 做溯源。
-3. **执行层继续复用现有能力**：短期继续使用 `.claude/skills/lixinger-data-query` 作为 execution hub，只在必要时增加轻量适配脚本。
+1. **新 provider 按 Provider Pack 接入**：`docs + auth + one command`。
+2. **`cn-data-source` 只做发现 / 路由 / 溯源**：不再维护全量映射。
+3. **字段整理改成按任务临时提取**：只在真正运行任务时整理最小字段集。
 
-这样做的好处是：
-- 对现有代码影响最小
-- 接入新 provider 的成本可控
-- 估值结果可追溯
-- 后续若要自动化升级，也有清晰演进路径
+这样做的收益是：
+- 新 provider 接入成本低
+- 文档维护面小
+- 不会因为 provider 变多而堆积脆弱映射
+- 仍然保留足够的来源说明和解释能力
+- 对现有执行脚本和估值主链改动最小
