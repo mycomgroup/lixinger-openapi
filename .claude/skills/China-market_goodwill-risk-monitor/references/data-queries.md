@@ -30,7 +30,7 @@
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.bs.goodwill.t", "q.bs.tse.t", "q.bs.ta.t", "q.bs.intangible.t", "q.ps.np.t"]}' \
   --columns "date,stockCode,q.bs.goodwill.t,q.bs.tse.t,q.bs.ta.t,q.bs.intangible.t,q.ps.np.t" \
@@ -52,7 +52,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["002594"], "date": "2026-03-24", "metricsList": ["mc", "pe_ttm", "pb"]}' \
   --columns "stockCode,name,mc,pe_ttm,pb"
@@ -71,7 +71,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.ps.toi.t", "q.ps.toi.t_y2y", "q.ps.np.t", "q.ps.np.t_y2y", "q.ps.gp_m.t", "q.ps.wroe.t"]}' \
   --columns "date,stockCode,q.ps.toi.t,q.ps.toi.t_y2y,q.ps.np.t,q.ps.np.t_y2y,q.ps.gp_m.t,q.ps.wroe.t" \
@@ -94,7 +94,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/announcement" \
   --params '{"stockCode": "002594", "startDate": "2025-01-01", "endDate": "2026-03-24"}' \
   --columns "date,linkText,linkType,types" \
@@ -116,7 +116,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"stockCode": "002594", "startDate": "2023-01-01"}' \
   --columns "date,shareholderName,changeReason,changeAmount,sharesRatio"
@@ -173,34 +173,34 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取商誉数据（5年数据）
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.bs.goodwill.t", "q.bs.tse.t", "q.bs.ta.t", "q.bs.intangible.t", "q.ps.np.t"]}' \
   --columns "date,stockCode,q.bs.goodwill.t,q.bs.tse.t,q.bs.ta.t,q.bs.intangible.t,q.ps.np.t" \
   --limit 100
 
 # 2. 获取估值数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["002594"], "date": "2026-03-24", "metricsList": ["mc", "pe_ttm", "pb"]}' \
   --columns "stockCode,name,mc,pe_ttm,pb"
 
 # 3. 获取财务数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.ps.toi.t", "q.ps.toi.t_y2y", "q.ps.np.t", "q.ps.np.t_y2y", "q.ps.gp_m.t", "q.ps.wroe.t"]}' \
   --columns "date,stockCode,q.ps.toi.t,q.ps.toi.t_y2y,q.ps.np.t,q.ps.np.t_y2y,q.ps.gp_m.t,q.ps.wroe.t" \
   --limit 100
 
 # 4. 获取公告数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/announcement" \
   --params '{"stockCode": "002594", "startDate": "2025-01-01", "endDate": "2026-03-24"}' \
   --columns "date,linkText,linkType,types" \
   --limit 50
 
 # 5. 获取股东数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"stockCode": "002594", "startDate": "2023-01-01"}' \
   --columns "date,shareholderName,changeReason,changeAmount,sharesRatio" \
@@ -228,5 +228,5 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 - 技能文档: `.claude/skills/China-market_goodwill-risk-monitor/`
 - 方法论文档: `.claude/skills/China-market_goodwill-risk-monitor/references/methodology.md`
 - 输出模板: `.claude/skills/China-market_goodwill-risk-monitor/references/output-template.md`
-- 查询工具: `.claude/skills/lixinger-data-query/scripts/query_tool.py`
+- 查询工具: `.claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py`
 

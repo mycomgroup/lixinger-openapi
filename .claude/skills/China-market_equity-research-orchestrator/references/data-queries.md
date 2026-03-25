@@ -9,7 +9,7 @@
 ### 查询Cn.Company.Fundamental.Non Financial
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \

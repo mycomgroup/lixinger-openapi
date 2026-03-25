@@ -20,7 +20,7 @@
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"date": "latest", "stockCodes": ["000922"]}' \
   --flatten "constituents" \
@@ -43,7 +43,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 **查询示例**:
 ```bash
 # 查询单只股票近5年分红
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519", "startDate": "2021-01-01", "endDate": "2026-03-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
@@ -69,7 +69,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 批量查询中证红利成分股分红（先用head控制请求量）
 tail -n +2 csi_dividend_000922_constituents.csv | cut -d, -f1 | head -n 10 | while read -r code; do
-  python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/company/dividend" \
     --params "{\"stockCode\": \"${code}\", \"startDate\": \"2021-01-01\", \"endDate\": \"2026-03-24\"}" \
     --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
@@ -86,7 +86,7 @@ done
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes":["600519","601398","601857"],"date":"2026-03-24","metricsList":["dyr","pe_ttm","pb","mc"]}' \
   --columns "stockCode,name,dyr,pe_ttm,pb,mc"
@@ -107,7 +107,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 **查询示例**:
 ```bash
 # 查询利润表和现金流量表关键指标
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes":["600519"],"startDate":"2021-01-01","endDate":"2026-03-24","metricsList":["q.ps.np.t","q.ps.gp_m.t","q.ps.op_m.t","q.cfs.op.t","q.cfs.fcf.t","q.bs.td.t","q.bs.tl.t","q.bs.ta.t"]}' \
   --columns "date,stockCode,q.ps.np.t,q.cfs.op.t,q.cfs.fcf.t,q.bs.tl.t,q.bs.ta.t"
@@ -133,7 +133,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source":"sw","level":"one","date":"2026-03-24"}' \
   --columns "industryCode,industryName,pe_ttm,pb,dyr"
@@ -148,7 +148,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 **查询示例**:
 ```bash
 # 获取后复权价格（包含分红再投资效应）
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "600519", "startDate": "2021-03-24", "endDate": "2026-03-24", "type": "bc_rights"}' \
   --columns "date,close" \

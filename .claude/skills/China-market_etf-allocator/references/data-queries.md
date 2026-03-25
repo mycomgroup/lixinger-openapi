@@ -10,7 +10,7 @@
 
 ```bash
 # 查询沪深300、中证500、创业板指的估值数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date":"2026-02-24","stockCodes":["000300","000905","399006"],"metricsList":["pe_ttm.mcw","pb.mcw","pe_ttm.y10.mcw.cvpos","pb.y10.mcw.cvpos","mc"]}' \
   --limit 10
@@ -42,7 +42,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询沪深300近1年的估值历史
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"startDate": "2026-01-01", "endDate": "2026-02-24", "stockCodes": ["000300"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "pe_ttm.y10.mcw.cvpos"]}' \
   --limit 365
@@ -62,7 +62,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询主要行业指数估值
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date":"2026-02-24","stockCodes":["000807","000808","000809"],"metricsList":["pe_ttm.mcw","pb.mcw","pe_ttm.y5.mcw.cvpos"]}' \
   --limit 10
@@ -81,7 +81,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3.1 查询行业数据（用于行业分布分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source":"sw","level":"one","date":"2026-02-27"}' \
   --columns "industryCode,industryName,pe_ttm,pb,roe"
@@ -90,7 +90,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3.2 查询成分股基本面（用于个股筛选）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes":["600519","601398","000858"],"date":"2026-02-24","metricsList":["pe_ttm","pb","mc"]}' \
   --columns "stockCode,name,pe_ttm,pb,mc"
@@ -102,7 +102,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询沪深300成分股
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"stockCode": "000300", "type": "normal", "date": "2026-02-24"}' \
   --columns "stockCode,stockName,weight" \
@@ -124,7 +124,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询沪深300近1年K线数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000300", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume,amount" \
@@ -214,7 +214,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询命令**：
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date":"2026-02-24","stockCodes":["000807","000808","000809","000810","000811","000812","000813","000814"],"metricsList":["pe_ttm.mcw","pb.mcw","pe_ttm.y5.mcw.cvpos","pb.y5.mcw.cvpos"]}' \
   --limit 20
@@ -241,28 +241,28 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 **查询命令**：
 ```bash
 # 食品饮料行业
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000807", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
   --columns "date,close" \
   --limit 500
 
 # 医药生物行业
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000808", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
   --columns "date,close" \
   --limit 500
 
 # 银行行业
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000813", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
   --columns "date,close" \
   --limit 500
 
 # 非银金融行业
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000814", "type": "normal", "startDate": "2024-02-24", "endDate": "2026-02-24"}' \
   --columns "date,close" \
@@ -281,7 +281,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询命令**：
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source":"sw","level":"one","date":"2026-02-24"}' \
   --columns "industryCode,industryName,pe_ttm,pb,roe" \

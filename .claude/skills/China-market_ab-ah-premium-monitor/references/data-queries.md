@@ -52,7 +52,7 @@ df_hist = ak.stock_zh_ah_daily(
 A股历史行情用理杏仁 `cn/company/candlestick`：
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "601318", "type": "normal", "startDate": "2025-01-01", "endDate": "2026-03-24"}' \
   --columns "date,close,volume"
@@ -158,7 +158,7 @@ fx_mid = (df_fx.iloc[-1]['参考汇率买入价'] + df_fx.iloc[-1]['参考汇率
 ### A股基本面（PE/PB/市值）
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["601318", "600036", "000333"], "date": "2026-03-24"}' \
   --columns "stockCode,name,pe_ttm,pb,totalMarketCap"
@@ -167,7 +167,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 ### 港股基本面
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["02318", "03968", "00300"], "date": "2026-03-24"}' \
   --columns "stockCode,name,pe_ttm,pb,totalMarketCap"
@@ -176,7 +176,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 ### 互联互通数据（北向持股）
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/mutual-market" \
   --params '{"stockCodes": ["601318"], "startDate": "2026-01-01", "endDate": "2026-03-24"}' \
   --columns "date,holdingShares,holdingRatio"

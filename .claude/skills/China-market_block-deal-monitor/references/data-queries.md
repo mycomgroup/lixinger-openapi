@@ -20,7 +20,7 @@
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/block-deal" \
   --params '{"stockCode": "600196", "startDate": "2026-03-19"}' \
   --columns "date,stockCode,tradingPrice,tradingVolume,tradingAmount,discountRate,buyBranch,sellBranch" \
@@ -57,7 +57,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/constituents/sw_2021" \
   --params '{"stockCodes":["370000"],"date":"2026-03-24"}' \
   --columns "stockCode,constituents" \
@@ -88,7 +88,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode":"600196","type":"normal","startDate":"2026-03-17","endDate":"2026-03-24"}' \
   --columns "date,close,pctChg,volume,amount" \
@@ -115,7 +115,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"stockCode": "600196", "startDate": "2025-01-01"}' \
   --columns "date,shareholderName,changeReason,changeAmount" \
@@ -136,7 +136,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/shareholders-num" \
   --params '{"stockCode": "600196", "startDate": "2025-01-01"}' \
   --columns "date,stockCode,shareholdersNum" \
@@ -156,7 +156,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/base-info" \
   --params '{"stockCodes":["600196"]}' \
   --columns "stockCode,stockName,industry" \
@@ -178,7 +178,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/share-lockup" \
   --params '{"stockCode": "600196", "startDate": "2026-01-01"}' \
   --columns "date,lockupType,lockupShares" \
@@ -222,7 +222,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询医药行业成分股
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/constituents/sw_2021" \
   --params '{"stockCodes":["370000"],"date":"2026-03-24"}' \
   --columns "stockCode,constituents" \
@@ -231,7 +231,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 # 批量查询医药龙头股大宗交易
 for code in 600276 000538 600196 300122 300142 603259 000661 300347 300759 002007; do
   echo "=== 查询 ${code} ==="
-  python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/company/block-deal" \
     --params '{"stockCode": "'"${code}"'", "startDate": "2026-03-19"}' \
     --columns "date,stockCode,tradingPrice,tradingVolume,tradingAmount,discountRate,buyBranch,sellBranch" \
@@ -243,14 +243,14 @@ done
 
 ```bash
 # 查询大宗交易数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/block-deal" \
   --params '{"stockCode": "002594", "startDate": "2026-03-20"}' \
   --columns "date,stockCode,tradingPrice,tradingVolume,tradingAmount,discountRate,buyBranch,sellBranch" \
   --limit 10
 
 # 查询同期K线数据验证承接
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode":"002594","type":"normal","startDate":"2026-03-18","endDate":"2026-03-24"}' \
   --columns "date,close,pctChg,volume,amount" \
@@ -268,5 +268,5 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 ### 相关文件
 
 - 技能文档: `.claude/skills/China-market_block-deal-monitor/`
-- 查询工具: `.claude/skills/lixinger-data-query/scripts/query_tool.py`
+- 查询工具: `.claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py`
 - API 文档: `.claude/skills/lixinger-data-query/api_new/api-docs/cn_company_block-deal.md`

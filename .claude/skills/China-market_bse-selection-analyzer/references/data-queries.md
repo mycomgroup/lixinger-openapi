@@ -9,7 +9,7 @@
 ### 1. 获取北证50成分股列表
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"date": "latest", "stockCodes": ["899050"]}' \
   --flatten "constituents" \
@@ -27,7 +27,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 获取北交所股票基本面数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "latest", "stockCodes": ["920001","920002","920019"], "metricsList": ["pe_ttm","pb","dyr","mc","to_r","ta"]}' \
   --columns "stockCode,pe_ttm,pb,dyr,mc,to_r,ta" \
@@ -49,7 +49,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3. 获取北交所股票财务数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"date": "latest", "stockCodes": ["920001","920002","920019"], "metricsList": ["q.ps.toi.t_y2y","q.ps.np.t_y2y","q.ps.gp_m.t"]}' \
   --columns "stockCode,q.ps.toi.t_y2y,q.ps.np.t_y2y,q.ps.gp_m.t" \
@@ -68,7 +68,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 4. 获取北交所股票基本信息（名称、行业）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"date": "latest", "stockCodes": ["920001","920002","920019"]}' \
   --columns "stockCode,name,industryName" \
@@ -85,7 +85,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 获取北证50指数基本面数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "latest", "stockCodes": ["899050"], "metricsList": ["pe_ttm.mcw","pb.mcw","dyr.mcw","mc","ta","cp","cpc"]}' \
   --limit 5
@@ -105,7 +105,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 6. 获取历史行情数据（用于流动性分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/quote/daily" \
   --params '{"date": "latest", "stockCodes": ["920001","920002"], "metricsList": ["to","ta","high","low","volume"], "count": 20}' \
   --flatten "quote" \

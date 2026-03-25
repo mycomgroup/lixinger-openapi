@@ -9,7 +9,7 @@
 ### 查询Cn.Company.Major Shareholder Change
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"date": "2026-02-24"}' --limit 20
 ```
@@ -17,7 +17,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Shareholders Num
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/shareholders-num" \
   --params '{"stockCode": "600519"}'
 ```
@@ -25,7 +25,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Majority Shareholders (前十大股东)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/majority-shareholders" \
   --params '{"stockCode": "600519", "date": "2026-02-24"}' \
   --columns "stockCode,holderName,holderType,holdAmount,holdRatio" \
@@ -35,7 +35,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Nolimit Shareholders (前十大流通股东)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/nolimit-shareholders" \
   --params '{"stockCode": "600519", "date": "2026-02-24"}' \
   --columns "stockCode,holderName,holderType,holdAmount,holdRatio" \
@@ -45,7 +45,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Fund Shareholders (公募基金持股)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fund-shareholders" \
   --params '{"stockCode": "600519", "date": "2026-02-24"}' \
   --columns "stockCode,fundName,holdAmount,holdRatio" \
@@ -55,7 +55,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Pledge (股权质押)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode": "600519", "date": "2026-02-24"}' \
   --columns "stockCode,pledgorName,pledgeAmount,pledgeRatio,startDate,endDate" \
@@ -65,7 +65,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Senior Executive Shares Change (高管增减持)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/senior-executive-shares-change" \
   --params '{"stockCode": "600519", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "stockCode,executiveName,position,changeType,changeAmount,changePrice,changeDate" \

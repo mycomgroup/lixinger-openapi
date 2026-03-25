@@ -9,7 +9,7 @@
 ### 查询大股东增减持数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"date": "2026-02-24"}' \
   --limit 20
@@ -18,7 +18,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股东人数变化
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/shareholders-num" \
   --params '{"stockCode": "600519", "startDate": "2025-01-01"}' \
   --limit 20
@@ -27,7 +27,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询前十大股东持股信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/majority-shareholders" \
   --params '{"stockCode": "600519", "date": "2026-02-24"}' \
   --limit 10
@@ -36,7 +36,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股权质押数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode": "600519", "startDate": "2025-01-01"}' \
   --limit 20
@@ -45,7 +45,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询高管增减持数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/senior-executive-shares-change" \
   --params '{"stockCode": "600519", "startDate": "2025-01-01"}' \
   --limit 20
@@ -54,7 +54,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询前十大流通股东持股信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/nolimit-shareholders" \
   --params '{"stockCode": "600519", "date": "2026-02-24"}' \
   --limit 10

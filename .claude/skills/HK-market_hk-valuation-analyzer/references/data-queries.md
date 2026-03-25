@@ -36,7 +36,7 @@
 ### 1. 获取恒生指数估值数据 ⭐ 核心
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "pb.y10.mcw.cvpos", "ps_ttm.mcw", "ps_ttm.y10.mcw.cvpos", "dyr.mcw", "dyr.y10.mcw.cvpos", "mc", "cp", "cpc"]}' \
   --columns "date,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,pb.y10.mcw.cvpos,ps_ttm.mcw,ps_ttm.y10.mcw.cvpos,dyr.mcw,dyr.y10.mcw.cvpos,mc,cp,cpc"
@@ -64,7 +64,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 获取多个指数估值对比
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI", "HSCEI", "HSCCI", "HSTECH"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "dyr.mcw"]}' \
   --columns "date,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,dyr.mcw"
@@ -75,7 +75,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3. 获取恒生指数历史估值数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
@@ -87,7 +87,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 4. 获取行业估值数据 ⭐ 核心
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "pb.y10.mcw.cvpos", "dyr.mcw", "mc"]}' \
   --columns "date,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,pb.y10.mcw.cvpos,dyr.mcw,mc"
@@ -105,7 +105,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 获取所有行业估值（用于排名）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "industryCode,date,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,dyr.mcw,mc" \
@@ -117,7 +117,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 6. 获取行业列表
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry" \
   --params '{"source": "hsi"}' \
   --columns "industryCode,industryName,industryLevel"
@@ -128,7 +128,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 7. 获取个股估值数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pe_ttm.y10.cvpos", "pb", "pb.y10.cvpos", "ps_ttm", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pe_ttm.y10.cvpos,pb,pb.y10.cvpos,ps_ttm,dyr,mc"
@@ -149,7 +149,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 8. 获取个股历史估值
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc"]}' \
   --columns "date,pe,pb,ps,dyr,mc" \
@@ -161,7 +161,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 9. 获取个股估值数据（用于估值分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc"]}' \
   --columns "date,pe_ttm,pb,ps_ttm,dyr,mc" \
@@ -182,13 +182,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 步骤1: 获取目标股票的行业
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/industries" \
   --params '{"stockCode": "00700"}' \
   --columns "industryCode,industryName"
 
 # 步骤2: 获取同行业所有股票
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{}' \
   --columns "stockCode,name,market" \
@@ -350,7 +350,7 @@ def valuation_range(historical_pe, current_price):
 ### 步骤1: 获取市场整体估值
 ```bash
 # 获取恒生指数估值及分位数
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "pb.y10.mcw.cvpos", "dyr.mcw", "dyr.y10.mcw.cvpos"]}' \
   --columns "date,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,pb.y10.mcw.cvpos,dyr.mcw,dyr.y10.mcw.cvpos"
@@ -359,7 +359,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 步骤2: 获取行业估值排名
 ```bash
 # 获取所有行业估值
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "dyr.mcw"]}' \
   --columns "industryCode,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,dyr.mcw" \
@@ -369,7 +369,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 步骤3: 获取个股估值分析
 ```bash
 # 获取个股估值指标
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pe_ttm.y10.cvpos", "pb", "pb.y10.cvpos", "dyr", "mc"]}' \
   --columns "date,pe_ttm,pe_ttm.y10.cvpos,pb,pb.y10.cvpos,dyr,mc"
@@ -378,7 +378,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 步骤4: 获取估值数据
 ```bash
 # 获取历史估值数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr"]}' \
   --columns "date,pe_ttm,pb,ps_ttm,dyr" \
@@ -457,7 +457,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取恒生指数估值
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw", "pb.y10.mcw.cvpos", "dyr.mcw", "dyr.y10.mcw.cvpos"]}' \
   --columns "date,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,pb.y10.mcw.cvpos,dyr.mcw,dyr.y10.mcw.cvpos"
@@ -475,14 +475,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取所有行业估值
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pe_ttm.y10.mcw.cvpos", "pb.mcw"]}' \
   --columns "industryCode,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw" \
   --limit 50
 
 # 2. 获取行业名称
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry" \
   --params '{"source": "hsi"}' \
   --columns "industryCode,industryName"
@@ -494,14 +494,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取历史估值数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr"]}' \
   --columns "date,pe_ttm,pb,dyr" \
   --limit 20
 
 # 2. 获取当前市值
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["mc"]}' \
   --columns "mc"

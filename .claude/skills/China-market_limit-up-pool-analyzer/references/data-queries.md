@@ -10,14 +10,14 @@
 
 ```bash
 # 查询单个股票K线，通过 pctChg 筛选涨停
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode":"600519","startDate":"2026-01-01","endDate":"2026-02-27"}' \
   --columns "date,stockCode,close,pctChg,volume,amount" \
   --row-filter "pctChg >= 9.9"
 
 # 批量查询多个股票（用于涨停池分析）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCodes":["600519","000858","002594"],"date":"2026-02-27"}' \
   --columns "date,stockCode,close,pctChg,volume,turnoverRate"
@@ -26,7 +26,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股票基本信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes":["600519"]}' \
   --columns "stockCode,name,ipoDate,market,areaCode"
@@ -35,7 +35,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询龙虎榜数据（涨停股常上榜）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/trading-abnormal" \
   --params '{"stockCode":"600519","startDate":"2026-02-01"}' \
   --columns "date,reason,buyAmount,sellAmount,netAmount"
@@ -44,7 +44,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询基本面数据（分析涨停原因）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes":["600519","000858"],"date":"2026-02-24","metricsList":["pe_ttm","pb","mc"]}' \
   --columns "stockCode,name,pe_ttm,pb,mc"
@@ -54,7 +54,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询股票所属概念
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes":["600519"]}' \
   --columns "stockCode,name,cnSpell"
@@ -65,7 +65,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```bash
 # 注意：此 API 需要指定 stockCodes，无法获取全市场热度排名
 # 可以查询特定股票的热度数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/hot/tr_dri" \
   --params '{"stockCodes":["600519","000858","601398"]}' \
   --limit 100

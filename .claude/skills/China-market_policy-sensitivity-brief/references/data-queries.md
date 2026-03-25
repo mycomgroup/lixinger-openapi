@@ -23,14 +23,14 @@
 
 ```bash
 # 示例 1: 查询单日多个股票（推荐用于筛选）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["600519", "000858"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr"]}' \
   --columns "stockCode,name,pe_ttm,pb,dyr" \
   --limit 20
 
 # 示例 2: 查询单个股票的时间序列（推荐用于趋势分析）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["600519"], "startDate": "2026-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm", "pb"]}' \
   --columns "date,stockCode,pe_ttm,pb"
@@ -82,20 +82,20 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 示例 1: 查询单日多个指数（推荐）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"stockCodes": ["000001", "399001", "000300"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pb.mcw"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw"
 
 # 示例 2: 查询单个指数的时间序列
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"stockCodes": ["000300"], "startDate": "2026-01-01", "endDate": "2026-02-24", "metricsList": ["pe_ttm.mcw"]}' \
   --columns "date,stockCode,pe_ttm.mcw"
 
 # 示例 3: 如需多个指数的时间序列，需要循环查询
 for code in 000001 399001 000300; do
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
+  python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/index/fundamental" \
     --params "{\"stockCodes\": [\"${code}\"], \"startDate\": \"2024-01-01\", \"metricsList\": [\"pe_ttm.mcw\"]}" \
     > index_${code}.csv
@@ -124,7 +124,7 @@ done
 ```bash
 # 示例：循环查询每个指数
 for code in 000001 399001; do
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
+  python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/index/fundamental" \
     --params "{\"stockCodes\": [\"${code}\"], \"startDate\": \"2026-01-01\", \"metricsList\": [\"pe_ttm.mcw\", \"pb.mcw\"]}" \
     --limit 10
@@ -151,7 +151,7 @@ done
 ### 查询行业数据（用于政策影响行业分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source":"sw","level":"one","date":"2026-02-27"}' \
   --columns "industryCode,industryName,pe_ttm,pb,roe"
@@ -161,19 +161,19 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 货币供应量
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/money-supply" \
   --params '{"areaCode":"cn","startDate":"2023-01-01","endDate":"2026-02-27","metricsList":["m.m0.t","m.m1.t","m.m2.t"]}' \
   --columns "date,m.m0.t,m.m1.t,m.m2.t"
 
 # GDP 数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/gdp" \
   --params '{"areaCode":"cn","startDate":"2023-01-01","endDate":"2026-02-27","metricsList":["m.gdp.t","m.gdp.yoy.t"]}' \
   --columns "date,m.gdp.t,m.gdp.yoy.t"
 
 # 价格指数（CPI/PPI）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/price-index" \
   --params '{"areaCode":"cn","startDate":"2023-01-01","endDate":"2026-02-27","metricsList":["m.cpi.t","m.ppi.t"]}' \
   --columns "date,m.cpi.t,m.ppi.t"
@@ -183,13 +183,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 个股 K线
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode":"600519","type":"normal","startDate":"2026-01-01","endDate":"2026-02-27"}' \
   --columns "date,stockCode,close,pctChg,volume"
 
 # 指数 K线（用于板块轮动分析）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode":"000300","type":"normal","startDate":"2026-01-01","endDate":"2026-02-27"}' \
   --columns "date,stockCode,close,pctChg"

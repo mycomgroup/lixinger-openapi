@@ -32,7 +32,7 @@
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.ps.toi.t", "q.ps.toi.t_y2y", "q.ps.np.t", "q.ps.np.t_y2y", "q.ps.gp_m.t", "q.bs.ta.t", "q.bs.tl.t", "q.ps.wroe.t", "q.ps.ebit.t", "q.bs.re.t", "q.ps.toi.t_qoq", "q.ps.np.t_qoq"]}' \
   --columns "date,stockCode,q.ps.toi.t,q.ps.toi.t_y2y,q.ps.np.t,q.ps.np.t_y2y,q.ps.gp_m.t,q.bs.ta.t,q.bs.tl.t,q.ps.wroe.t" \
@@ -61,7 +61,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["002594"], "date": "2026-03-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc", "ev_ebitda"]}' \
   --columns "stockCode,name,pe_ttm,pb,ps_ttm,dyr,mc,ev_ebitda"
@@ -83,7 +83,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"stockCode": "002594", "startDate": "2023-01-01"}' \
   --columns "date,shareholderName,changeReason,changeAmount,sharesRatio"
@@ -97,7 +97,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode": "002594", "startDate": "2023-01-01"}' \
   --columns "date,pledgeRatio,pledgor,pledgee,pledgeShares"
@@ -111,7 +111,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.cfs.nocf.t", "q.cfs.icf.t", "q.cfs.fcf.t", "q.cfs.nocf.t_y2y"]}' \
   --columns "date,stockCode,q.cfs.nocf.t,q.cfs.icf.t,q.cfs.fcf.t,q.cfs.nocf.t_y2y" \
@@ -132,7 +132,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.bs.ar.t", "q.bs.inv.t", "q.bs.ap.t", "q.bs.cash.t", "q.bs.goodwill.t", "q.bs.intangible.t", "q.bs.construction_in_progress.t", "q.bs.other_receivables.t"]}' \
   --columns "date,stockCode,q.bs.ar.t,q.bs.inv.t,q.bs.ap.t,q.bs.cash.t,q.bs.goodwill.t" \
@@ -155,41 +155,41 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取财务报表数据（5年数据）
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.ps.toi.t", "q.ps.toi.t_y2y", "q.ps.np.t", "q.ps.np.t_y2y", "q.ps.gp_m.t", "q.bs.ta.t", "q.bs.tl.t", "q.ps.wroe.t", "q.ps.ebit.t", "q.bs.re.t"]}' \
   --columns "date,stockCode,q.ps.toi.t,q.ps.toi.t_y2y,q.ps.np.t,q.ps.np.t_y2y,q.ps.gp_m.t,q.bs.ta.t,q.bs.tl.t,q.ps.wroe.t,q.ps.ebit.t,q.bs.re.t" \
   --limit 100
 
 # 2. 获取现金流量表数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.cfs.nocf.t", "q.cfs.icf.t", "q.cfs.fcf.t", "q.cfs.nocf.t_y2y"]}' \
   --columns "date,stockCode,q.cfs.nocf.t,q.cfs.icf.t,q.cfs.fcf.t,q.cfs.nocf.t_y2y" \
   --limit 100
 
 # 3. 获取资产负债表明细
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002594"], "startDate": "2021-01-01", "endDate": "2026-03-24", "metricsList": ["q.bs.ar.t", "q.bs.inv.t", "q.bs.ap.t", "q.bs.cash.t", "q.bs.goodwill.t", "q.bs.intangible.t", "q.bs.construction_in_progress.t", "q.bs.other_receivables.t"]}' \
   --columns "date,stockCode,q.bs.ar.t,q.bs.inv.t,q.bs.ap.t,q.bs.cash.t,q.bs.goodwill.t,q.bs.intangible.t,q.bs.construction_in_progress.t,q.bs.other_receivables.t" \
   --limit 100
 
 # 4. 获取估值数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["002594"], "date": "2026-03-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc", "ev_ebitda"]}' \
   --columns "stockCode,name,pe_ttm,pb,ps_ttm,dyr,mc,ev_ebitda"
 
 # 5. 获取股东数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"stockCode": "002594", "startDate": "2023-01-01"}' \
   --columns "date,shareholderName,changeReason,changeAmount,sharesRatio" \
   --limit 50
 
 # 6. 获取质押数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode": "002594", "startDate": "2023-01-01"}' \
   --columns "date,pledgeRatio,pledgor,pledgee,shareholderName" \
@@ -265,5 +265,5 @@ ROE = 税负系数 × 利息负担系数 × 营业利润率 × 资产周转率 �
 
 - 分析报告: `analysis_20260324_byd_financial.md`
 - 技能文档: `.claude/skills/China-market_financial-statement-analyzer/`
-- 查询工具: `.claude/skills/lixinger-data-query/scripts/query_tool.py`
+- 查询工具: `.claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py`
 

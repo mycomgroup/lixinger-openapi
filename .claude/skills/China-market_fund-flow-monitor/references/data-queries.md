@@ -14,7 +14,7 @@
 
 **查询示例**:
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["300750"], "startDate": "2026-03-17", "endDate": "2026-03-23", "metricsList": ["fnpa", "fb", "mm_nba", "ha_shm", "ta", "to_r", "spc"]}' \
   --columns "date,stockCode,fnpa,fb,mm_nba,ha_shm,ta,to_r,spc" \
@@ -53,7 +53,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"stockCodes": ["000300"], "startDate": "2026-03-17", "endDate": "2026-03-23", "metricsList": ["fnpa", "fb", "mm_nba", "ha_shm", "ta", "to_r", "cpc"]}' \
   --columns "date,fnpa,fb,mm_nba,ha_shm,ta,to_r,cpc" \
@@ -77,7 +77,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/margin-trading-and-securities-lending" \
   --params '{"stockCode": "000300", "startDate": "2026-03-17", "endDate": "2026-03-23"}' \
   --columns "date,financingBalance,securitiesBalance,financingBalanceToMarketCap" \
@@ -99,7 +99,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/margin-trading-and-securities-lending/sw_2021" \
   --params '{"stockCode": "490000", "startDate": "2026-03-17"}' \
   --columns "date,financingBalance,securitiesBalance,financingBalanceToMarketCap" \
@@ -124,14 +124,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 **查询示例**:
 ```bash
 # 指数K线
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000300", "startDate": "2026-03-17", "endDate": "2026-03-23", "type": "normal"}' \
   --columns "date,close,change,volume,amount" \
   --limit 10
 
 # 个股K线
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "300750", "startDate": "2026-03-17", "endDate": "2026-03-23"}' \
   --columns "date,close,change,volume,amount,to_r" \
@@ -180,7 +180,7 @@ end_date="2026-03-23"
 
 for stock in "${stocks[@]}"; do
   echo "=== 查询 ${stock} ==="
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
+  python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/company/fundamental/non_financial" \
     --params "{\"stockCodes\": [\"${stock}\"], \"startDate\": \"${start_date}\", \"endDate\": \"${end_date}\", \"metricsList\": [\"fnpa\", \"fb\", \"mm_nba\", \"ha_shm\", \"ta\", \"to_r\", \"spc\"]}" \
     --columns "date,stockCode,fnpa,fb,mm_nba,ha_shm,ta,to_r,spc" \
@@ -223,5 +223,5 @@ done
 ## 参考文档
 
 - 理杏仁API文档: `skills/lixinger-data-query/api_new/api-docs/`
-- 查询工具: `skills/lixinger-data-query/scripts/query_tool.py`
+- 查询工具: `plugins/query_data/lixinger-api-docs/scripts/query_tool.py`
 - 方法论文档: `references/methodology.md`

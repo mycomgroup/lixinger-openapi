@@ -9,7 +9,7 @@
 ### 查询CN.Index.Fundamental (上证指数基本面)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "2026-03-24", "stockCodes": ["000001"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询CN.Index.Fundamental (深证成指基本面)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "2026-03-24", "stockCodes": ["399001"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询CN.Index.Fundamental (沪深300基本面)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "2026-03-24", "stockCodes": ["000300"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询A股个股基本面数据 (用于个股选择)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2026-03-24", "stockCodes": ["600000", "000001", "600519"], "metricsList": ["pe_ttm", "pb", "roe", "dividendYield"]}' \
   --columns "date,stockCode,pe_ttm,pb,roe,dividendYield" \
@@ -49,7 +49,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询行业估值数据 (用于行业配置)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fundamental/sw_2021" \
   --params '{"date": "2026-03-24", "stockCodes": ["801010", "801020", "801030"], "metricsList": ["pe_ttm.ew", "pb.ew", "dividendYield.ew"]}' \
   --columns "date,stockCode,pe_ttm.ew,pb.ew,dividendYield.ew" \
@@ -59,7 +59,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询宏观数据 (用于宏观经济环境分析)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/china_gdp" \
   --params '{"startDate": "2023-01-01", "endDate": "2026-03-24"}' \
   --columns "date,realGrowthRate,nominalGrowthRate" \
@@ -69,7 +69,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询债券收益率数据 (用于固定收益配置)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/china_bond_yield" \
   --params '{"date": "2026-03-24"}' \
   --columns "date,10Y,5Y,1Y" \

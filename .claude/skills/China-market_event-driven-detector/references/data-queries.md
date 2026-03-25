@@ -56,7 +56,7 @@
 ### 查询公司公告（并购重组筛选）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/announcement" \
   --params '{"stockCodes": ["600519"], "startDate": "2025-01-01", "endDate": "2025-12-31"}' \
   --columns "stockCode,title,publishDate,announcementType" \
@@ -67,7 +67,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询大股东增减持数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"stockCodes": ["000858", "300750"], "startDate": "2025-01-01"}' \
   --columns "stockCode,shareholderName,changeType,changeNum,changeRatio,avgPrice" \
@@ -77,7 +77,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询指数成分股（用于判断指数调整影响）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"date": "2025-12-31", "stockCodes": ["000300"]}' \
   --flatten "constituents" \
@@ -88,7 +88,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股本变动（解禁数据）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/equity-change" \
   --params '{"stockCodes": ["600519"], "startDate": "2025-01-01"}' \
   --columns "stockCode,changeDate,changeType,changeReason,beforeNum,afterNum" \
@@ -98,7 +98,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询高管增减持
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/senior-executive-shares-change" \
   --params '{"stockCodes": ["000858"], "startDate": "2025-01-01"}' \
   --columns "stockCode,executiveName,changeType,changeNum,avgPrice" \
@@ -108,7 +108,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询大宗交易
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/block-deal" \
   --params '{"stockCodes": ["600519"], "startDate": "2025-01-01"}' \
   --columns "stockCode,tradeDate,volume,price,discountRate,buyerName,sellerName" \

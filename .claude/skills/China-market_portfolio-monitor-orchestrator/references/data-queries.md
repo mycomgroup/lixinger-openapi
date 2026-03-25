@@ -9,7 +9,7 @@
 ### 查询Cn.Company.Fundamental.Non Financial
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股权质押数据（用于质押风险监控）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,pledgeRatio,pledgeAmount" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询解禁风险数据（用于解禁风险监控）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/ipo-lockup-risk-monitor" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,unlockDate,unlockAmount,unlockRatio" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询ST/退市风险数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/st-delist-risk-scanner" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,stStatus,delistRisk,riskReason" \
@@ -49,7 +49,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询融资融券数据（用于市场情绪分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/margin-trading-and-securities-lending" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,marginBalance,shortBalance,totalBalance" \

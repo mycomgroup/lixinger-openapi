@@ -13,13 +13,13 @@
 - **查询示例**：
   ```bash
   # 沪深300 PE-TTM (当前值)
-  python3 ../../../lixinger-data-query/scripts/query_tool.py \
+  python3 ../../../../plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/index/fundamental" \
     --params '{"stockCodes": ["000300.SH"], "metricsList": ["pe_ttm.mcw"], "date": "2026-03-24"}' \
     --columns "stockCodes,pe_ttm.mcw,date"
   
   # 沪深300 PE-TTM 历史数据 (过去5年日频，用于分位点计算)
-  python3 ../../../lixinger-data-query/scripts/query_tool.py \
+  python3 ../../../../plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/index/fundamental" \
     --params '{"stockCodes": ["000300.SH"], "metricsList": ["pe_ttm.mcw"], "startDate": "2021-03-24", "endDate": "2026-03-24"}' \
     --columns "stockCodes,pe_ttm.mcw,date" \
@@ -37,7 +37,7 @@
 - **查询示例**：
   ```bash
   # 查询SHIBOR 1年期作为参考利率 (实际应用中需替换为真实的10Y国债收益率指标)
-  python3 ../../../lixinger-data-query/scripts/query_tool.py \
+  python3 ../../../../plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "macro/interest-rates" \
     --params '{"areaCode": "cn", "startDate": "2026-03-24", "endDate": "2026-03-24", "metricsList": ["shibor_y1"]}' \
     --columns "areaCode,metricsList,value,startDate,endDate"
@@ -50,7 +50,7 @@
 - **查询示例**：
   ```bash
   # 获取沪深300月频PE数据 (过去3年)
-  python3 ../../../lixinger-data-query/scripts/query_tool.py \
+  python3 ../../../../plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/index/fundamental" \
     --params '{"stockCodes": ["000300.SH"], "metricsList": ["pe_ttm.mcw"], "startDate": "2023-03-24", "endDate": "2026-03-24"}' \
     --columns "stockCodes,pe_ttm.mcw,date" \
@@ -80,7 +80,7 @@
 基于成功的测试查询，这里展示如何获取沪深300的估值数据：
 ```bash
 # 获取沪深300在2024年12月10日的PE-TTM (市值加权)
-python3 ../../../lixinger-data-query/scripts/query_tool.py \
+python3 ../../../../plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "2024-12-10", "stockCodes": ["000016"], "metricsList": ["pe_ttm.mcw", "mc"]}' \
   --columns "date,pe_ttm.mcw,mc,stockCode"

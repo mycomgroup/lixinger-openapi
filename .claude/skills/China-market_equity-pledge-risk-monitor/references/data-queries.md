@@ -17,7 +17,7 @@
 **查询示例**:
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode": "600519", "startDate": "2025-01-01", "endDate": "2026-02-26"}' \
   --columns "date,pledgor,pledgee,pledgeAmount,pledgePercentageOfTotalEquity,accumulatedPledgePercentageOfTotalEquity" \

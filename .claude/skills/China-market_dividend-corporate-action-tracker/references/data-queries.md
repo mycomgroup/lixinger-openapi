@@ -20,7 +20,7 @@
 
 ```bash
 # 查询分红信息
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate" \
@@ -40,7 +40,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询财务数据（净利润、ROE等）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCode": "600519"}' \
   --columns "reportDate,revenue,netProfit,roe,ocf" \
@@ -60,7 +60,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询基本面数据（PE、PB、市值等）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCode": "600519"}' \
   --columns "pe_ttm,pb,marketValue,dividendYield" \
@@ -79,7 +79,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询配股信息
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/allotment" \
   --params '{"stockCode": "600519"}' \
   --columns "date,allotmentRatio,allotmentPrice,recordDate" \
@@ -98,7 +98,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询股本变动数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/equity-change" \
   --params '{"stockCode": "600519"}' \
   --columns "date,totalShares,beforeShares,changeType,changeRatio" \
@@ -118,7 +118,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询K线数据（用于计算股息率）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "600519", "startDate": "2024-01-01", "endDate": "2024-12-31"}' \
   --columns "date,close,volume,turnoverRate" \
@@ -137,7 +137,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询分红再投入收益率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/hot/tr_dri" \
   --params '{"stockCode": "600519"}' \
   --columns "date,totalReturn,priceReturn,dividendReturn" \

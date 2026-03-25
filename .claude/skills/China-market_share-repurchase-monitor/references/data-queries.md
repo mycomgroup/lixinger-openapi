@@ -9,25 +9,25 @@
 ### 查询K线数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "date,close,volume"
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "date,close,volume"
 ```
 
 ### 查询股票基本信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company" --params '{"stockCodes": ["600519"]}' --columns "stockCode,name,ipoDate"
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "cn/company" --params '{"stockCodes": ["600519"]}' --columns "stockCode,name,ipoDate"
 ```
 
 ### 查询港股回购数据（推荐用于港股分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "hk/company/repurchase" --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "methodOfRepurchase,highestPrice,lowestPrice,avgPrice,num,totalPaid"
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "hk/company/repurchase" --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "methodOfRepurchase,highestPrice,lowestPrice,avgPrice,num,totalPaid"
 ```
 
 ### 查询A股回购公告（通过公告API过滤获取）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/announcement" --params '{"stockCode": "600519", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "date,linkText,linkUrl,types" --row-filter '{"types": {"contains": "srp"}}'
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "cn/company/announcement" --params '{"stockCode": "600519", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "date,linkText,linkUrl,types" --row-filter '{"types": {"contains": "srp"}}'
 ```
 
 ---

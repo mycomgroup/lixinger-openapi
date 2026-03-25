@@ -85,7 +85,7 @@ cat > ${PROJECT}/README.md << 'EOF'
 EOF
 
 # 下载数据到 data/
-python3 skills/lixinger-data-query/scripts/query_tool.py ... \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py ... \
   > ${PROJECT}/data/dividend_data.csv
 
 # 如需复杂计算，创建 Python 脚本到 scripts/
@@ -116,7 +116,7 @@ EOF
 PROJECT="analysis_20260225_143052_high_dividend"  # 已存在
 
 # 追加数据到 data/
-python3 skills/lixinger-data-query/scripts/query_tool.py ... \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py ... \
   > ${PROJECT}/data/dividend_history.csv
 
 # 更新 README.md
@@ -171,7 +171,7 @@ grep -r "股息" skills/lixinger-data-query/api_new/api-docs/
 cat skills/lixinger-data-query/api_new/api-docs/[api_name].md
 
 # 4. 执行查询
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519"}' \
   --columns "date,dividendPerShare"
@@ -200,7 +200,7 @@ python3 -c "import akshare as ak; print(ak.interface_name())"
 **所有 skills 都使用 `query_tool.py` 获取数据**：
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519"}' \
   --columns "date,dividendPerShare,dividendYield" \
@@ -265,7 +265,7 @@ cat ../China-market/high-dividend-strategy/references/data-queries.md
 cat skills/lixinger-data-query/api_new/api-docs/cn_company_dividend.md
 
 # 2. 下载数据到项目的 data/ 目录（使用最近日期）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519", "startDate": "2025-01-01"}' \
   > ${PROJECT}/data/dividend_data.csv
@@ -286,7 +286,7 @@ grep -r "关键词" skills/lixinger-data-query/api_new/api-docs/
 cat skills/lixinger-data-query/api_new/api-docs/[api_name].md
 
 # 3. 总结思路后再执行查询
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "600519"}'
 ```
@@ -328,7 +328,7 @@ cat skills/lixinger-data-query/api_new/api-docs/cn_company_dividend.md
 
 # 5. 获取数据（使用最近日期）
 for code in 601398 601288 600900; do
-  python3 skills/lixinger-data-query/scripts/query_tool.py \
+  python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/company/dividend" \
     --params "{\"stockCode\": \"${code}\", \"startDate\": \"2025-01-01\"}" \
     > ${PROJECT}/data/dividend_${code}.csv
@@ -369,7 +369,7 @@ python3 ${PROJECT}/scripts/calculate_metrics.py
 PROJECT="analysis_20260225_143052_high_dividend"
 
 # 追加数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode": "601398", "startDate": "2020-01-01"}' \
   > ${PROJECT}/data/dividend_history_601398.csv
@@ -437,7 +437,7 @@ cat token.cfg
 
 ```bash
 # 直接运行，无需激活虚拟环境
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes": ["600519"]}' \
   --columns "stockCode,name"

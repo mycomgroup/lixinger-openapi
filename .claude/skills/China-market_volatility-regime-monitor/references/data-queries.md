@@ -9,7 +9,7 @@
 ### 查询Cn.Index.K Line
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000001", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume" \

@@ -194,13 +194,13 @@ grep -r "龙虎榜" api_new/akshare_data/
 **基础示例**：
 ```bash
 # 查询银行股（推荐：使用 --columns 只返回需要的字段）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"fsTableType": "bank"}' \
   --columns "stockCode,name"
 
 # 过滤以 600 开头的股票（推荐：使用 --flatten 和 --row-filter）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"date": "2024-12-10", "stockCodes": ["000016"]}' \
   --flatten "constituents" \

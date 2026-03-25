@@ -9,13 +9,13 @@
 ### 查询K线数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "date,close,volume"
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "cn/company/candlestick" --params '{"stockCode": "600519", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' --columns "date,close,volume"
 ```
 
 ### 查询股票基本信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company" --params '{"stockCodes": ["600519"]}' --columns "stockCode,name,ipoDate"
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "cn/company" --params '{"stockCodes": ["600519"]}' --columns "stockCode,name,ipoDate"
 ```
 
 ---
@@ -55,7 +55,7 @@ print(stock_esg)
 ### 财务基本面数据（替代 `cn/company/finance`）
 ```bash
 # 使用 cn/company/fundamental/non_financial 获取 PE、PB、ROE 等基本面数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["600519"], "date": "2026-03-01", "metricsList": ["pe_ttm", "pb", "roe_ttm"]}' \
   --columns "stockCode,pe_ttm,pb,roe_ttm"
@@ -67,13 +67,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 前十大股东持股信息（了解控股股东集中度）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/majority-shareholders" \
   --params '{"stockCode": "600519"}' \
   --columns "stockCode,shareholderName,holdingRatio"
 
 # 前十大流通股东持股信息
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/nolimit-shareholders" \
   --params '{"stockCode": "600519"}' \
   --columns "stockCode,shareholderName,holdingRatio"
@@ -85,13 +85,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 监管措施信息（行政处罚、警示函等）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/measures" \
   --params '{"stockCode": "600519"}' \
   --columns "stockCode,measureType,measureDate"
 
 # 问询函信息（交易所问询）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/inquiry" \
   --params '{"stockCode": "600519"}' \
   --columns "stockCode,inquiryType,inquiryDate"

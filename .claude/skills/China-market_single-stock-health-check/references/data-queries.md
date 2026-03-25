@@ -9,7 +9,7 @@
 ### 查询公司概况
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/profile" \
   --params '{"stockCodes":["600519"]}'
 ```
@@ -17,7 +17,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询估值与交易指标
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes":["600519"],"startDate":"2023-01-01","endDate":"2026-02-23","metricsList":["pe_ttm","pb","ps_ttm","ev_ebitda_r","sp","ta","to_r"]}'
 ```
@@ -25,7 +25,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询财报核心指标
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes":["600519"],"startDate":"2023-01-01","endDate":"2026-02-23","metricsList":["q.ps.toi.t","q.ps.np.t","q.bs.ta.t","q.ps.gp_m.t","q.ps.op.t","q.ps.ebitda.t"]}'
 ```
@@ -47,7 +47,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询客户集中度
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/customers" \
   --params '{"stockCode":"600519","startDate":"2023-01-01"}' \
   --columns "date,declarationDate,top5Customer"
@@ -56,7 +56,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询供应商集中度
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/suppliers" \
   --params '{"stockCode":"600519","startDate":"2023-01-01"}' \
   --columns "date,declarationDate,top5Supplier"
@@ -65,7 +65,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询公募基金持股
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fund-shareholders" \
   --params '{"stockCode":"600519","startDate":"2025-01-01"}' \
   --columns "date,fundCode,name,holdings,marketCap,proportionOfCapitalization" \
@@ -75,7 +75,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询基金公司持股
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fund-collection-shareholders" \
   --params '{"stockCode":"600519","startDate":"2025-01-01"}' \
   --limit 20
@@ -84,7 +84,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询问询函
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/inquiry" \
   --params '{"stockCode":"600519","startDate":"2023-01-01"}' \
   --columns "date,type,displayTypeText,linkText"
@@ -93,7 +93,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询监管措施
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/measures" \
   --params '{"stockCode":"600519","startDate":"2023-01-01"}' \
   --columns "date,type,displayTypeText,referent"
@@ -102,7 +102,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询前十大流通股东
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/nolimit-shareholders" \
   --params '{"stockCode":"600519","startDate":"2025-01-01"}' \
   --columns "date,declarationDate,shareholderName,shareholderType,shares,sharesRatio"
@@ -111,7 +111,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股本变动历史
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/equity-change" \
   --params '{"stockCode":"600519","startDate":"2023-01-01"}' \
   --columns "date,changeDate,changeReason,totalShares,circulatingShares"
@@ -161,7 +161,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询分红数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
   --params '{"stockCode":"600519","startDate":"2020-01-01"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate"
@@ -170,7 +170,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股权质押
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode":"600519","startDate":"2023-01-01"}' \
   --columns "date,pledgeRatio,pledgor,pledgee,pledgeShares"
@@ -179,7 +179,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询融资融券
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/margin-trading-and-securities-lending" \
   --params '{"stockCode":"600519","startDate":"2025-01-01"}' \
   --columns "date,marginBalance,marginBuyAmount,securitiesLendingBalance"
@@ -195,7 +195,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询龙虎榜数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/trading-abnormal" \
   --params '{"stockCode":"600519","startDate":"2025-01-01"}' \
   --columns "date,reason,buyAmount,sellAmount,netAmount"
@@ -204,7 +204,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询行业数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source":"sw","level":"one","date":"2026-02-27"}' \
   --columns "industryCode,industryName,pe_ttm,pb,roe"

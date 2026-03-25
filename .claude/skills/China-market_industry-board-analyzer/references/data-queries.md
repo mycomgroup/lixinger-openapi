@@ -9,7 +9,7 @@
 ### 1. cn/industry - 行业分类信息
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source": "sw", "level": "one"}' \
   --columns "stockCode,name" \
@@ -27,7 +27,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 #### 2.1 当日快照（多行业批量查询）
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fundamental/sw_2021" \
   --params '{"date": "2026-03-23", "stockCodes": ["110000","210000","220000","230000","240000","270000","280000","330000","340000","350000","360000","370000","410000","420000","430000","450000","460000","480000","490000","510000","610000","620000","630000","640000","650000","710000","720000","730000"], "metricsList": ["pe_ttm.mcw","pe_ttm.y10.mcw.cvpos","pb.mcw","pb.y10.mcw.cvpos","dyr.mcw","mc","to_r","ta"]}' \
   --columns "stockCode,pe_ttm.mcw,pe_ttm.y10.mcw.cvpos,pb.mcw,pb.y10.mcw.cvpos,dyr.mcw,mc,to_r,ta" \
@@ -54,7 +54,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 #### 2.2 历史数据查询（单行业，用于计算涨跌幅）
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fundamental/sw_2021" \
   --params '{"startDate": "2026-02-20", "endDate": "2026-02-28", "stockCodes": ["490000"], "metricsList": ["mc"]}' \
   --columns "stockCode,date,mc" \
@@ -72,7 +72,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 for code in 110000 210000 220000 230000 240000 270000 280000 330000 340000 350000 360000 370000; do
-  python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
     --suffix "cn/industry/fundamental/sw_2021" \
     --params "{\"startDate\": \"2026-02-20\", \"endDate\": \"2026-02-28\", \"stockCodes\": [\"$code\"], \"metricsList\": [\"mc\"]}" \
     --columns "stockCode,date,mc" \
@@ -87,7 +87,7 @@ done
 ### 3. cn/industry/fs/sw_2021/hybrid - 行业财务数据
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fs/sw_2021/hybrid" \
   --params '{"date": "2025-09-30", "stockCodes": ["490000"], "metricsList": ["q.ps.oi.t","q.ps.oi.t_y2y","q.ps.np.t","q.ps.np.t_y2y"]}' \
   --columns "stockCode,q.ps.oi.t,q.ps.oi.t_y2y,q.ps.np.t,q.ps.np.t_y2y" \
@@ -200,7 +200,7 @@ total_score = pe_score * 0.3 + pb_score * 0.3 + perf_score * 0.3 + dyr_score * 0
 ### 1. 获取申万一级行业分类
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source": "sw", "level": "one"}' \
   --limit 50
@@ -213,7 +213,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 获取所有行业估值数据（批量查询）
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fundamental/sw_2021" \
   --params '{"date": "2026-03-23", "stockCodes": ["110000", "210000", "220000", "230000", "240000", "270000", "280000", "330000", "340000", "350000", "360000", "370000", "410000", "420000", "430000", "450000", "460000", "480000", "490000", "510000", "610000", "620000", "630000", "640000", "650000", "710000", "720000", "730000"], "metricsList": ["pe_ttm.y10.mcw.cvpos", "pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc", "ta"]}' \
   --columns "stockCode,date,pe_ttm.y10.mcw.cvpos,pe_ttm.mcw,pb.mcw,dyr.mcw,mc,ta"
@@ -242,7 +242,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 ### 3. 获取单行业历史数据（用于计算涨跌幅）
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fundamental/sw_2021" \
   --params '{"startDate": "2026-02-01", "endDate": "2026-03-24", "stockCodes": ["480000"], "metricsList": ["pe_ttm.y10.mcw.cvpos", "pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc", "ta"]}' \
   --columns "stockCode,date,pe_ttm.y10.mcw.cvpos,pe_ttm.mcw,pb.mcw,dyr.mcw,mc,ta" \

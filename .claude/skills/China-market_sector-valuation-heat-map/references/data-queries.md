@@ -19,21 +19,21 @@ According to the skill workflow, three main data categories are needed:
 
 ```bash
 # Step 1: Get list of Shenwan 2021 level 1 industries
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.industry" \
   --params '{"source":"sw_2021","level":"one"}' \
   --columns "stockCode,name" \
   --limit 50
 
 # Step 2: Get current PE/PB for multiple industries (batch query)
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.industry.fundamental.sw_2021" \
   --params '{"date":"2026-03-24","stockCodes":["110000","220000","480000","490000"],"metricsList":["pe_ttm.ew","pb.ew","mc"]}' \
   --columns "stockCode,pe_ttm,pb" \
   --format json
 
 # Step 3: Get 10-year historical percentiles
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.industry.fundamental.sw_2021" \
   --params '{"date":"2026-03-24","stockCodes":["110000","220000","480000","490000"],"metricsList":["pe_ttm.y10.ew.cvpos","pb.y10.ew.cvpos"]}' \
   --format json
@@ -72,7 +72,7 @@ df = ak.index_zh_a_hist(
 
 ```bash
 # Find industry-related indices
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.index" \
   --params '{}' \
   --columns "stockCode,name" \
@@ -103,7 +103,7 @@ fund_flow_df = ak.stock_sector_fund_flow_rank(indicator="今日", sector_type="�
 
 ```bash
 # Try fetching turnover rate
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.industry.fundamental.sw_2021" \
   --params '{"date":"2026-03-24","stockCodes":["480000"],"metricsList":["to_r","mc"]}' \
   --format json
@@ -115,7 +115,7 @@ To generate the valuation heat map, follow this sequence:
 
 ### Step 1: Get Industry List
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.industry" \
   --params '{"source":"sw_2021","level":"one"}' \
   --columns "stockCode,name" \
@@ -125,7 +125,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### Step 2: Get PE/PB Values (Batch)
 ```bash
 # Batch query - split into groups of ~10-15 for best results
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.industry.fundamental.sw_2021" \
   --params '{"date":"2026-03-24","stockCodes":["110000","220000","230000","240000","270000","280000","330000","340000","350000","360000","370000"],"metricsList":["pe_ttm.ew","pb.ew","mc"]}' \
   --format json
@@ -134,7 +134,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### Step 3: Get 10-Year Percentiles (Batch)
 ```bash
 # Use same batch as Step 2
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn.industry.fundamental.sw_2021" \
   --params '{"date":"2026-03-24","stockCodes":["110000","220000","230000","240000","270000","280000","330000","340000","350000","360000","370000"],"metricsList":["pe_ttm.y10.ew.cvpos","pb.y10.ew.cvpos"]}' \
   --format json

@@ -9,7 +9,7 @@
 ### 查询美股市场数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "us/index/fundamental" --params '{"date": "2026-02-24", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" --limit 20
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "us/index/fundamental" --params '{"date": "2026-02-24", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" --limit 20
 ```
 
 ---

@@ -12,7 +12,7 @@
 
 ## 查询工具
 
-使用 `query_tool.py` 进行数据查询，位于 `.claude/skills/lixinger-data-query/scripts/query_tool.py`
+使用 `query_tool.py` 进行数据查询，位于 `.claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py`
 
 ## API 接口
 
@@ -24,7 +24,7 @@
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"date": "latest", "stockCodes": ["000300"]}' \
   --flatten "constituents" \
@@ -40,7 +40,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858"], "metricsList": ["pe_ttm", "pb", "mc", "dyr"]}' \
   --columns "stockCode,pe_ttm,pb,mc,dyr" \
@@ -61,7 +61,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"date": "2025-09-30", "stockCodes": ["600519"], "metricsList": ["q.ps.toi.t", "q.ps.toi.t_y2y", "q.ps.np.t", "q.ps.np.t_y2y", "q.ps.gp_m.t", "q.bs.ta.t", "q.bs.tl.t", "q.ps.wroe.t"]}' \
   --columns "stockCode,q.ps.toi.t,q.ps.toi.t_y2y,q.ps.np.t,q.ps.np.t_y2y,q.ps.gp_m.t,q.bs.ta.t,q.bs.tl.t,q.ps.wroe.t" \

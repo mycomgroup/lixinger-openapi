@@ -9,7 +9,7 @@
 ### 查询Hk.Index.Fundamental
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw"]}' \
   --columns "date,pe_ttm.mcw,pb.mcw,dyr.mcw" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Hk.Company
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{"stockCodes": ["00700"]}' \
   --columns "stockCode,name,market" \

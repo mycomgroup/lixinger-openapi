@@ -9,7 +9,7 @@
 ### 1. 查询股票基本面数据（用于估值和基本面分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc", "roe"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc,roe" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 查询股票财务数据（用于营收和利润趋势分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["revenue", "profit", "netProfit"]}' \
   --columns "date,stockCode,revenue,profit,netProfit" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3. 查询股票K线数据（用于计算近6个月跌幅）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "type": "month", "count": 6}' \
   --columns "date,stockCode,open,high,low,close,volume" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 4. 查询指数数据（用于计算相对行业表现）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index" \
   --params '{"date": "2025-12-31", "indexCodes": ["801010", "801020", "801030"]}' \
   --columns "date,indexCode,close,changePct" \
@@ -49,7 +49,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 查询融资融券数据（用于分析融资余额变化）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/margin-trading-and-securities-lending" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,marginBalance,secLoanBalance,totalBalance" \
@@ -59,7 +59,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 6. 查询公募基金持仓数据（用于分析机构持仓变化）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fund-shareholders" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,holderName,holdingShares,holdingRatio" \
@@ -69,7 +69,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 7. 查询北向资金持仓数据（用于分析外资流向）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/mutual-market" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,sharesHolding,holdingMarketValue,netBuyAmount" \
@@ -79,7 +79,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 8. 查询指数成分股（用于获取行业指数成分股）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
   --params '{"date": "2025-12-31", "stockCodes": ["000905"]}' \
   --flatten "constituents" \

@@ -128,7 +128,7 @@ print(bond_zh_cov_value_analysis_df)
 如需获取正股基本面数据，可使用理杏仁 API：
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \

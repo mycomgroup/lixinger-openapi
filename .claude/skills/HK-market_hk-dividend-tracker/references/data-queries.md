@@ -31,7 +31,7 @@
 ### 1. 获取港股分红历史 ⭐ 核心
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/dividend" \
   --params '{"stockCode": "00005", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate,paymentDate,fsEndDate" \
@@ -52,7 +52,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 获取港股公司基本信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{"stockCodes": ["00005", "00011", "00002", "00006", "00388"]}' \
   --columns "stockCode,name,market,fsTableType,ipoDate" \
@@ -64,7 +64,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3. 获取港股基本面数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00005"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm", "pb", "dyr"]}' \
   --columns "date,stockCode,mc,pe_ttm,pb,dyr"
@@ -83,7 +83,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 4. 获取港股基本面数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["dyr", "pe_ttm", "pb"]}' \
   --columns "date,dyr,pe_ttm,pb" \
@@ -102,7 +102,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 获取港股K线数据（计算股息率）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/candlestick" \
   --params '{"stockCode": "00005", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,volume,amount" \
@@ -114,7 +114,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 6. 获取港股行业分类
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/industries" \
   --params '{"stockCode": "00005"}' \
   --columns "industryCode,industryName,industryLevel"
@@ -125,7 +125,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 7. 获取港股指数基本面（市场平均股息率）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["dyr.mcw", "pe_ttm.mcw", "pb.mcw"]}' \
   --columns "date,dyr.mcw,pe_ttm.mcw,pb.mcw"
@@ -136,7 +136,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 8. 获取港股行业基本面（行业平均股息率）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50"], "date": "2026-02-24", "metricsList": ["dyr.mcw", "pe_ttm.mcw"]}' \
   --columns "date,dyr.mcw,pe_ttm.mcw"
@@ -193,13 +193,13 @@ fcf_coverage = free_cash_flow / total_dividend
 ### 筛选条件示例
 ```bash
 # 1. 获取所有港股通股票
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{"mutualMarkets": ["ah"]}' \
   --columns "stockCode,name"
 
 # 2. 获取这些股票的股息率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700", "09988", ...], "date": "2026-02-24", "metricsList": ["dyr"]}' \
   --columns "stockCode,dyr"
@@ -250,20 +250,20 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取5年分红历史
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/dividend" \
   --params '{"stockCode": "00005", "startDate": "2020-01-01", "endDate": "2026-02-24"}' \
   --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio" \
   --limit 20
 
 # 2. 获取当前股息率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00005"], "date": "2026-02-24", "metricsList": ["dyr", "pe_ttm", "pb"]}' \
   --columns "date,dyr,pe_ttm,pb"
 
 # 3. 获取基本面数据评估可持续性
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00005"], "startDate": "2020-01-01", "metricsList": ["dyr", "pe_ttm"]}' \
   --columns "date,dyr,pe_ttm" \
@@ -274,13 +274,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取金融板块股票
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/constituents/hsi" \
   --params '{"industryCode": "HK_FINANCE"}' \
   --columns "stockCode,name"
 
 # 2. 获取股息率数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00005", "00011", "00012", "00023"], "date": "2026-02-24", "metricsList": ["dyr", "pe_ttm"]}' \
   --columns "stockCode,dyr,pe_ttm" \

@@ -20,7 +20,7 @@
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/mutual-market" \
   --params '{"stockCode": "600519", "startDate": "2026-01-01", "endDate": "2026-03-24"}' \
   --columns "date,shareholdings" \
@@ -226,7 +226,7 @@ print(stock_hsgt_board_rank_em_df)
 
 ```bash
 # 1. 获取个股互联互通数据（理杏仁）
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/mutual-market" \
   --params '{"stockCode": "600519", "startDate": "2026-01-01", "endDate": "2026-03-24"}' \
   --columns "date,shareholdings" \
@@ -278,6 +278,6 @@ print(stock_hsgt_board_rank_em_df)
 ### 相关文件
 
 - 技能文档: `.claude/skills/China-market_hsgt-holdings-monitor/`
-- 查询工具: `.claude/skills/lixinger-data-query/scripts/query_tool.py`
+- 查询工具: `.claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py`
 - AkShare文档: `.claude/skills/lixinger-data-query/api_new/akshare_data/`
 

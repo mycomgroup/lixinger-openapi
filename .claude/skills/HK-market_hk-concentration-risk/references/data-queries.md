@@ -30,7 +30,7 @@
 ### 1. 获取港股公司基本信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{"stockCodes": ["00700", "09988", "00005", "00011"]}' \
   --columns "stockCode,name,market,areaCode,fsTableType,ipoDate" \
@@ -42,7 +42,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 获取港股指数成分股
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/constituents" \
   --params '{"indexCode": "HSI"}' \
   --columns "stockCode,name,weight" \
@@ -54,7 +54,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3. 获取港股行业分类
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/industries" \
   --params '{"stockCode": "00700"}' \
   --columns "industryCode,industryName,industryLevel"
@@ -65,7 +65,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 4. 获取港股基本面数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm", "pb", "dyr"]}' \
   --columns "date,stockCode,mc,pe_ttm,pb,dyr" \
@@ -79,7 +79,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 获取港股通持仓数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/mutual-market" \
   --params '{"stockCode": "00700", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholdings,shareholdingsRatio" \
@@ -91,7 +91,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 6. 获取港股指数基本面
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm.mcw", "pb.mcw"]}' \
   --columns "date,mc,pe_ttm.mcw,pb.mcw"
@@ -102,7 +102,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 7. 获取港股行业基本面
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm.mcw"]}' \
   --columns "date,mc,pe_ttm.mcw"
@@ -129,7 +129,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 行业集中度指标
 ```bash
 # 1. 获取每只股票的行业分类
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/industries" \
   --params '{"stockCode": "00700"}' \
   --columns "industryCode,industryName,industryLevel"

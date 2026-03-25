@@ -25,14 +25,14 @@
 
 ```bash
 # 查询指定日期的高管增减持数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/senior-executive-shares-change" \
   --params '{"date": "2026-02-24"}' \
   --columns "date,stockCode,executiveName,duty,relationBetweenES,changedShares,avgPrice,sharesChangeAmount,beforeChangeShares,afterChangeShares" \
   --limit 100
 
 # 查询指定股票的增减持历史
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/senior-executive-shares-change" \
   --params '{"stockCode": "300750", "startDate": "2025-11-01", "endDate": "2026-02-24"}' \
   --columns "date,executiveName,duty,changedShares,avgPrice,sharesChangeAmount" \
@@ -58,14 +58,14 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询指定日期的大股东增减持数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"date": "2026-02-24"}' \
   --columns "date,stockCode,shareholderName,changeQuantity,avgPrice,sharesChangeAmount,sharesHeldAfterChange" \
   --limit 100
 
 # 查询指定股票的大股东增减持
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/major-shareholders-shares-change" \
   --params '{"stockCode": "300750", "startDate": "2025-11-01", "endDate": "2026-02-24"}' \
   --columns "date,shareholderName,changeQuantity,avgPrice,sharesChangeAmount" \
@@ -89,7 +89,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询指定股票的股权质押数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode": "300750", "startDate": "2025-02-24", "endDate": "2026-02-24"}' \
   --columns "date,pledgor,pledgeAmount,pledgePercentageOfTotalEquity,accumulatedPledgePercentageOfTotalEquity" \
@@ -112,7 +112,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询近1年K线数据（用于计算52周高低点）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "300750", "startDate": "2025-02-24", "endDate": "2026-02-24", "type": "ex_rights"}' \
   --columns "date,close,high,low,change" \
@@ -135,7 +135,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询指定股票的基本信息
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes": ["300750"]}' \
   --columns "stockCode,name,market,exchange,fsTableType,ipoDate" \
@@ -159,13 +159,13 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询指定股票的估值数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["300750"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm", "pb", "sp"]}' \
   --limit 10
 
 # 查询估值分位点（判断是否处于低位）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["300750"], "date": "2026-02-24", "metricsList": ["pe_ttm.y3.cvpos", "pb.y3.cvpos"]}' \
   --limit 10
@@ -189,7 +189,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 获取近90天高管增持数据（假设今天是2026-02-24）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/senior-executive-shares-change" \
   --params '{"startDate": "2025-11-26", "endDate": "2026-02-24"}' \
   --columns "date,stockCode,executiveName,duty,changedShares,avgPrice,sharesChangeAmount" \
@@ -205,12 +205,12 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 获取公司基本信息和估值
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes": ["300750", "600519"]}' \
   --columns "stockCode,name,market,exchange"
 
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["300750", "600519"], "date": "2026-02-24", "metricsList": ["mc", "pe_ttm", "pb", "sp"]}'
 ```
@@ -219,7 +219,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询股权质押数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/pledge" \
   --params '{"stockCode": "300750", "startDate": "2025-02-24", "endDate": "2026-02-24"}' \
   --columns "pledgor,accumulatedPledgePercentageOfTotalEquity" \
@@ -231,7 +231,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 获取近1年K线，计算52周高低点
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "300750", "startDate": "2025-02-24", "endDate": "2026-02-24"}' \
   --columns "date,close,high,low" \

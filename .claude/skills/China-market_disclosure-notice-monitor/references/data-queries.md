@@ -20,7 +20,7 @@
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/announcement" \
   --params '{"stockCode": "300750", "startDate": "2026-03-01", "endDate": "2026-03-24"}' \
   --columns "date,linkText,linkType,types" \
@@ -69,7 +69,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "300750", "startDate": "2026-02-01", "endDate": "2026-03-24", "type": "lxr_fc_rights"}' \
   --columns "date,open,close,high,low,volume,amount,change,to_r" \
@@ -107,7 +107,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **查询示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["300750"], "date": "2026-03-23", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,ps_ttm,dyr,mc" \
@@ -177,21 +177,21 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取公告数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/announcement" \
   --params '{"stockCode": "300750", "startDate": "2026-03-01", "endDate": "2026-03-24"}' \
   --columns "date,linkText,linkType,types" \
   --limit 50
 
 # 2. 获取股价数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "300750", "startDate": "2026-03-01", "endDate": "2026-03-24", "type": "lxr_fc_rights"}' \
   --columns "date,open,close,high,low,volume,change,to_r" \
   --limit 20
 
 # 3. 获取基本面数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["300750"], "startDate": "2026-03-01", "endDate": "2026-03-24", "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \

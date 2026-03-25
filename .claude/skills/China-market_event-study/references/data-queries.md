@@ -21,7 +21,7 @@
 
 ```bash
 # 查询宁德时代2024-2025年的公告，筛选包含"报告"的公告
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/announcement" \
   --params '{"stockCode": "300750", "startDate": "2024-01-01", "endDate": "2025-03-24", "limit": 200}' \
   --columns "date,linkText,types" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询宁德时代K线数据（前复权），用于计算事件窗[-20, +20]的收益率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "300750", "startDate": "2025-02-01", "endDate": "2025-04-30", "type": "lxr_fc_rights"}' \
   --columns "date,stockCode,close,change,volume,amount,to_r" \
@@ -66,7 +66,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询沪深300指数K线数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000300", "startDate": "2025-02-01", "endDate": "2025-04-30", "type": "normal"}' \
   --columns "date,close,change" \
@@ -85,7 +85,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询宁德时代基本面数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"stockCodes": ["300750"], "date": "2025-03-15", "metricsList": ["pe_ttm", "pb", "dyr", "mc", "to_r"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc,to_r"

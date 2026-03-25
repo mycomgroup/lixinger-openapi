@@ -22,7 +22,7 @@
 
 #### 1. 查询个股历史价格数据
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCodes": ["600519","000333"],"startDate":"2015-06-01","endDate":"2015-08-31"}' \
   --columns "stockCode,tradeDate,open,high,low,close,volume" \
@@ -31,7 +31,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 #### 2. 查询沪深300指数历史数据
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCodes": ["000300"],"startDate":"2015-06-01","endDate":"2015-08-31"}' \
   --columns "stockCode,tradeDate,open,high,low,close,volume" \
@@ -40,7 +40,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 #### 3. 查询股票基本信息（用于验证股票代码）
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes": ["600519","000333"]}' \
   --columns "stockCode,name,industry" \
@@ -80,7 +80,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ### 步骤1：查询贵州茅台历史数据
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCodes": ["600519"],"startDate":"2015-06-01","endDate":"2015-08-31"}' \
   --columns "stockCode,tradeDate,close" \
@@ -89,7 +89,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ### 步骤2：查询招商银行历史数据
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCodes": ["600003"],"startDate":"2015-06-01","endDate":"2015-08-31"}' \
   --columns "stockCode,tradeDate,close" \
@@ -98,7 +98,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ### 步骤3：查询沪深300指数历史数据
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCodes": ["000300"],"startDate":"2015-06-01","endDate":"2015-08-31"}' \
   --columns "stockCode,tradeDate,close" \

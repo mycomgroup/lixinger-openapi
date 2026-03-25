@@ -9,7 +9,7 @@
 ### 查询Hk.Index.Fundamental
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc", "ta"]}' \
   --columns "date,pe_ttm.mcw,pb.mcw,dyr.mcw,mc,ta" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Index.K Line
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"stockCode": "000001", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Macro.Money Supply
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/money-supply" \
   --params '{"areaCode": "cn", "startDate": "2025-02-01", "endDate": "2026-02-24", "metricsList": ["m.m0.t", "m.m1.t", "m.m2.t"]}' \
   --columns "date,m0,m1,m2" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Hk.Company
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{"stockCodes": ["00700"]}' \
   --columns "stockCode,name,market" \
@@ -49,7 +49,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Index.Fundamental
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "2026-02-24", "stockCodes": ["000001"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \

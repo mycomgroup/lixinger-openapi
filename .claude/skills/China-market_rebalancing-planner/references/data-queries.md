@@ -9,7 +9,7 @@
 ### 查询Cn.Company.Fundamental.Non Financial
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股票历史价格数据（用于再平衡计算）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,open,high,low,close,volume,turnover" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询指数数据（用于基准比较）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"date": "2025-12-31", "stockCodes": ["000300", "000905"]}' \
   --columns "date,stockCode,open,high,low,close,volume,turnover" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询股东结构数据（用于集中度分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/majority-shareholders" \
   --params '{"date": "2025-12-31", "stockCodes": ["600519", "000858", "300750"]}' \
   --columns "date,stockCode,holderName,holderType,holdingRatio" \

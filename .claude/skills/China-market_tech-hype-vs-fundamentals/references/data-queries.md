@@ -9,7 +9,7 @@
 ### 查询Cn.Company.Fundamental.Non Financial - 基本面数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["688001", "688012", "300750", "000001", "000858"], "metricsList": ["pe_ttm", "pb", "ps_ttm", "peg", "roe", "roic", "gross_margin", "net_margin", "fo_cfo_yoy", "free_cash_flow", "rd_exp", "sb_exp", "total_mv"]}' \
   --columns "date,stockCode,pe_ttm,pb,ps_ttm,peg,roe,roic,gross_margin,net_margin,fo_cfo_yoy,free_cash_flow,rd_exp,sb_exp,total_mv" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Fundamental.Non Financial - 研发及股份支付详情
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["688001", "688012", "300750"], "metricsList": ["rd_exp", "rd_exp_revenue", "sb_exp", "sb_exp_revenue", "capitalized_rd", "rd_to_total_exp"]}' \
   --columns "date,stockCode,rd_exp,rd_exp_revenue,sb_exp,sb_exp_revenue,capitalized_rd,rd_to_total_exp" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Fundamental.Non Financial - 国产替代相关指标
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["688001", "688012", "300750"], "metricsList": ["domestic_substitution_ratio", "import_substitution_progress", "policy_support_score", "technical_barrier_score", "self_reliance_index"]}' \
   --columns "date,stockCode,domestic_substitution_ratio,import_substitution_progress,policy_support_score,technical_barrier_score,self_reliance_index" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Index.Fundamental - 科技板块指数估值
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "2026-03-24", "stockCodes": ["399006", "399007", "883873", "883871"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "ps_ttm.mcw", "dividend_yield.mcw", "total_mv"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,ps_ttm.mcw,dividend_yield.mcw,total_mv" \
@@ -49,7 +49,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Financial.Non Financial - 利润表数据（用于增长分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/financial/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["688001", "688012", "300750", "000001", "000858"], "metricsList": ["revenue", "revenue_yoy", "net_profit", "net_profit_yoy", "gross_profit", "operating_profit"]}' \
   --columns "date,stockCode,revenue,revenue_yoy,net_profit,net_profit_yoy,gross_profit,operating_profit" \
@@ -59,7 +59,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Financial.Non Financial - 现金流量表数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/financial/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["688001", "688012", "300750"], "metricsList": ["operating_cash_flow", "investing_cash_flow", "financing_cash_flow", "free_cash_flow", "free_cash_flow_yoy"]}' \
   --columns "date,stockCode,operating_cash_flow,investing_cash_flow,financing_cash_flow,free_cash_flow,free_cash_flow_yoy" \
@@ -69,7 +69,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Financial.Non Financial - 资产负债表数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/financial/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["688001", "688012", "300750"], "metricsList": ["total_assets", "total_liabilities", "shareholder_equity", "debt_to_equity", "current_ratio", "quick_ratio"]}' \
   --columns "date,stockCode,total_assets,total_liabilities,shareholder_equity,debt_to_equity,current_ratio,quick_ratio" \
@@ -79,7 +79,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Cn.Company.Financial.Non Financial - 每股指标
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/financial/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["688001", "688012", "300750", "000001", "000858"], "metricsList": ["eps", "eps_yoy", "bps", "bps_yoy", "cfps", "cfps_yoy"]}' \
   --columns "date,stockCode,eps,eps_yoy,bps,bps_yoy,cfps,cfps_yoy" \

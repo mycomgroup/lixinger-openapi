@@ -9,7 +9,7 @@
 ### 查询Us.Index.K Line
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "us/index/candlestick" \
   --params '{"stockCode": ".INX", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Macro.Money Supply
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/money-supply" \
   --params '{"areaCode": "us", "startDate": "2025-02-01", "endDate": "2026-02-24", "metricsList": ["m.m0.t", "m.m1.t", "m.m2.t"]}' \
   --columns "date,m0,m1,m2" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Macro.Price Index
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/price-index" \
   --params '{"areaCode": "us", "startDate": "2021-01-01", "endDate": "2026-02-23", "metricsList": ["m.cpiaucsl.t_y2y", "m.ppifis.t_y2y"]}' \
   --columns "date,m.cpiaucsl.t_y2y,m.ppifis.t_y2y" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Macro.Gdp
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/gdp" \
   --params '{"areaCode": "us", "startDate": "2025-01-01", "endDate": "2026-02-24", "metricsList": ["q.gdp.t", "q.gdp.t_y2y"]}' \
   --limit 20
@@ -48,7 +48,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询Us.Index.Fundamental
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "us/index/fundamental" \
   --params '{"date": "2026-02-24", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \

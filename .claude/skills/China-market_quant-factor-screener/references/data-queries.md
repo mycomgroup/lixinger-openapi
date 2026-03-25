@@ -9,7 +9,7 @@
 ### 查询Cn.Company.Fundamental.Non Financial (价值、质量、成长因子基础数据)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["000001", "600519", "000858", "300750"], "metricsList": ["pe_ttm", "pb", "pcf_ttm", "ev_ebitda_r", "roe", "debt_to_assets", "ocf_to_net_profit", "rev_yoy_3", "profit_yoy_3", "gross_margin_yoy_3"]}' \
   --columns "date,stockCode,pe_ttm,pb,pcf_ttm,ev_ebitda_r,roe,debt_to_assets,ocf_to_net_profit,rev_yoy_3,profit_yoy_3,gross_margin_yoy_3" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询市值数据 (规模因子)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["000001", "600519", "000858", "300750"], "metricsList": ["mc", "cmc", "ecmc"]}' \
   --columns "date,stockCode,mc,cmc,ecmc" \
@@ -29,7 +29,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询价格和波动率数据 (动量、低波动因子)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"date": "2025-12-31", "stockCodes": ["000001", "600519", "000858", "300750"], "limit": 250}' \
   --columns "date,stockCode,open,high,low,close,volume,turnover_rate" \
@@ -39,7 +39,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询指数数据 (用于Beta计算和市场环境判断)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"date": "2025-12-31", "stockCodes": ["000300", "000905"], "limit": 250}' \
   --columns "date,stockCode,open,high,low,close,volume" \
@@ -49,7 +49,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询基本面统计数据 (用于行业中性化处理)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["000001", "600519", "000858", "300750"], "metricsList": ["pe_ttm.y1.cvpos", "pb.y1.cvpos", "roe.y1.cvpos"]}' \
   --columns "date,stockCode,pe_ttm.y1.cvpos,pb.y1.cvpos,roe.y1.cvpos" \
@@ -59,7 +59,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询宏观经济数据 (因子择时判断)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/gdp" \
   --params '{"startDate": "2024-01-01", "endDate": "2025-12-31"}' \
   --columns "date,period,gdp" \
@@ -67,7 +67,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/cpi" \
   --params '{"startDate": "2024-01-01", "endDate": "2025-12-31"}' \
   --columns "date,month,cpi_yoy" \
@@ -75,7 +75,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ```
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/interest-rates" \
   --params '{"startDate": "2024-01-01", "endDate": "2025-12-31"}' \
   --columns "date,rate_type,rate_value" \
@@ -85,7 +85,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询行业分类数据 (行业中性化必需)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/industries" \
   --params '{"date": "2025-12-31", "stockCodes": ["000001", "600519", "000858", "300750"]}' \
   --columns "date,stockCode,industry_name,industry_code" \
@@ -95,7 +95,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询换手率数据 (A股特有动量因子)
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2025-12-31", "stockCodes": ["000001", "600519", "000858", "300750"], "metricsList": ["to_r", "to_r.avgv"]}' \
   --columns "date,stockCode,to_r,to_r.avgv" \

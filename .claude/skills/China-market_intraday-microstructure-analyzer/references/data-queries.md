@@ -37,7 +37,7 @@
 
 **使用示例**:
 ```bash
-python3 /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
   --params '{"stockCode": "600519", "startDate": "2026-03-17", "endDate": "2026-03-24", "type": "ex_rights"}' \
   --columns "date,open,close,high,low,volume,amount,change,to_r" \
@@ -152,7 +152,7 @@ print(df_flow.tail(10))
 
 **使用示例**:
 ```bash
-python3 /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2026-03-24", "stockCodes": ["600519"], "metricsList": ["mc", "float_mc", "turnover_rate", "volume"]}' \
   --columns "date,stockCode,mc,float_mc,turnover_rate,volume" \

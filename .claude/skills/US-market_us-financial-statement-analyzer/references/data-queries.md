@@ -9,7 +9,7 @@
 ### 查询美股公司基本面数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "us/company/fundamental/non_financial" \
   --params '{"date": "2026-03-01", "stockCodes": ["AAPL", "MSFT", "GOOGL"], "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,stockCode,pe_ttm,pb,dyr,mc" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询美股财务数据（损益表）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "us/company/fs/non_financial" \
   --params '{"stockCodes": ["AAPL"], "startDate": "2020-01-01", "endDate": "2026-03-01", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}' \
   --limit 20
@@ -28,7 +28,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询美股指数基本面
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "us/index/fundamental" \
   --params '{"date": "2026-03-01", "stockCodes": [".INX"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "dyr.mcw", "mc"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,dyr.mcw,mc" \
@@ -38,7 +38,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 查询美股公司基本信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "us/company" \
   --params '{"stockCodes": ["AAPL", "MSFT"]}' \
   --columns "stockCode,name,ipoDate" \

@@ -9,7 +9,7 @@
 ### 查询融资融券
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py --suffix "cn/company/margin-trading-and-securities-lending" --params '{"stockCode": "600519"}' --columns "date,marginBalance,shortBalance"
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py --suffix "cn/company/margin-trading-and-securities-lending" --params '{"stockCode": "600519"}' --columns "date,marginBalance,shortBalance"
 ```
 
 ---

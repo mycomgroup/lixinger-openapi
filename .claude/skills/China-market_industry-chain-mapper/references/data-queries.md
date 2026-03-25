@@ -18,7 +18,7 @@
 
 **使用示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry" \
   --params '{"source": "sw", "level": "one"}' \
   --limit 20
@@ -43,7 +43,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **使用示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/operation-revenue-constitution" \
   --params '{"stockCode": "002371", "startDate": "2025-01-01"}' \
   --limit 20
@@ -76,7 +76,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **使用示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002371"], "startDate": "2024-01-01", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}' \
   --limit 10
@@ -107,7 +107,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 **使用示例**:
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fundamental/sw_2021" \
   --params '{"stockCodes": ["270100"], "date": "latest", "metricsList": ["pe_ttm.mcw", "pb.mcw", "mc"]}' \
   --limit 10
@@ -129,27 +129,27 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取半导体行业估值
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/industry/fundamental/sw_2021" \
   --params '{"stockCodes": ["270100"], "date": "latest", "metricsList": ["pe_ttm.mcw", "pb.mcw", "mc"]}'
 
 # 2. 获取北方华创财务数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["002371"], "startDate": "2024-01-01", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}'
 
 # 3. 获取北方华创营收结构
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/operation-revenue-constitution" \
   --params '{"stockCode": "002371", "startDate": "2025-01-01"}'
 
 # 4. 获取中芯国际财务数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["688981"], "startDate": "2024-01-01", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}'
 
 # 5. 获取韦尔股份财务数据
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCodes": ["603501"], "startDate": "2024-01-01", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t"]}'
 ```

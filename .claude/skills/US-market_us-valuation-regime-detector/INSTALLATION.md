@@ -64,7 +64,7 @@ pip install -r requirement.txt
 
 ```bash
 # 测试 API 连接
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes": ["600519"]}' \
   --columns "stockCode,cnName"

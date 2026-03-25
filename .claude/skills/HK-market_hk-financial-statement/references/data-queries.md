@@ -36,7 +36,7 @@
 ### 1. 获取最新财务报表数据 ⭐ 核心
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t", "q.ps.beps.t"]}' \
   --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t,q.ps.beps.t"
@@ -56,7 +56,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 获取损益表（利润表）数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.oc.t", "q.ps.gp.t", "q.ps.gp_m.t", "q.ps.se.t", "q.ps.ae.t", "q.ps.fe.t", "q.ps.rade.t", "q.ps.tp.t", "q.ps.np.t", "q.ps.npatoshopc.t", "q.ps.beps.t"]}' \
   --columns "date,q.ps.toi.t,q.ps.oc.t,q.ps.gp.t,q.ps.gp_m.t,q.ps.se.t,q.ps.ae.t,q.ps.fe.t,q.ps.rade.t,q.ps.tp.t,q.ps.np.t,q.ps.npatoshopc.t,q.ps.beps.t"
@@ -107,7 +107,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 获取历史财务数据（多年度）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t"]}' \
   --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t" \
@@ -121,7 +121,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 6. 获取同比环比增长数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.toi.t_y2y", "q.ps.toi.t_c2c", "q.ps.np.t", "q.ps.np.t_y2y", "q.ps.np.t_c2c"]}' \
   --columns "date,q.ps.toi.t,q.ps.toi.t_y2y,q.ps.toi.t_c2c,q.ps.np.t,q.ps.np.t_y2y,q.ps.np.t_c2c"
@@ -136,7 +136,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 7. 获取单季度数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.c", "q.ps.np.c", "q.ps.gp_m.c", "q.ps.np_s_r.c"]}' \
   --columns "date,q.ps.toi.c,q.ps.np.c,q.ps.gp_m.c,q.ps.np_s_r.c"
@@ -152,7 +152,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 8. 获取TTM数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.ttm", "q.ps.np.ttm", "q.ps.gp_m.ttm", "q.ps.np_s_r.ttm"]}' \
   --columns "date,q.ps.toi.ttm,q.ps.np.ttm,q.ps.gp_m.ttm,q.ps.np_s_r.ttm"
@@ -165,7 +165,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 9. 获取基本面数据（配合财务分析）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "ps_ttm", "dyr", "mc"]}' \
   --limit 20
@@ -178,7 +178,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 10. 获取公司基本信息
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{"stockCodes": ["00700"]}' \
   --columns "stockCode,name,market,fsTableType,ipoDate,areaCode"
@@ -393,7 +393,7 @@ def calculate_financial_health_score(ratios):
 ### 步骤1: 获取最新财务报表
 ```bash
 # 获取最新季度完整财务数据（利润表）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.oc.t", "q.ps.np.t", "q.ps.gp_m.t", "q.ps.np_s_r.t"]}' \
   --columns "date,q.ps.toi.t,q.ps.oc.t,q.ps.np.t,q.ps.gp_m.t,q.ps.np_s_r.t"
@@ -404,7 +404,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 步骤2: 获取历史趋势数据
 ```bash
 # 获取近5年财务数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.toi.t_y2y", "q.ps.np.t_y2y"]}' \
   --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.toi.t_y2y,q.ps.np.t_y2y" \
@@ -414,7 +414,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 步骤3: 获取估值数据
 ```bash
 # 获取估值指标
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --limit 20
@@ -515,7 +515,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取最新财务数据（利润表指标）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "latest", "metricsList": ["q.ps.toi.t", "q.ps.np.t", "q.ps.beps.t", "q.ps.gp.t", "q.ps.oc.t"]}' \
   --columns "date,q.ps.toi.t,q.ps.np.t,q.ps.beps.t,q.ps.gp.t,q.ps.oc.t"
@@ -538,7 +538,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取财务数据（利润表指标）
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["q.ps.toi.ttm", "q.ps.oc.ttm", "q.ps.np.ttm", "q.ps.gp.ttm", "q.ps.np_s_r.ttm"]}' \
   --columns "date,q.ps.toi.ttm,q.ps.oc.ttm,q.ps.np.ttm,q.ps.gp.ttm,q.ps.np_s_r.ttm"
@@ -554,7 +554,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 获取5年财务趋势
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fs/non_financial" \
   --params '{"stockCodes": ["00700"], "startDate": "2020-01-01", "endDate": "2026-02-24", "metricsList": ["q.ps.toi.t", "q.ps.toi.t_y2y", "q.ps.np.t", "q.ps.np.t_y2y", "q.ps.gp_m.t", "q.ps.np_s_r.t"]}' \
   --columns "date,q.ps.toi.t,q.ps.toi.t_y2y,q.ps.np.t,q.ps.np.t_y2y,q.ps.gp_m.t,q.ps.np_s_r.t" \

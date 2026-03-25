@@ -10,7 +10,7 @@
 
 ```bash
 # 港币兑美元汇率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/currency-exchange-rate" \
   --params '{"fromCurrency": "HKD", "toCurrency": "USD", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,open,high,low" \
@@ -19,7 +19,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 港币兑人民币汇率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/currency-exchange-rate" \
   --params '{"fromCurrency": "HKD", "toCurrency": "CNY", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,open,high,low" \
@@ -28,7 +28,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 港币兑欧元汇率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/currency-exchange-rate" \
   --params '{"fromCurrency": "HKD", "toCurrency": "EUR", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,open,high,low" \
@@ -37,7 +37,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 港币兑日元汇率
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/currency-exchange-rate" \
   --params '{"fromCurrency": "HKD", "toCurrency": "JPY", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,open,high,low" \
@@ -65,7 +65,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 获取美元兑港币汇率，用于分析美元资产的汇率风险。
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/currency-exchange-rate" \
   --params '{"fromCurrency": "USD", "toCurrency": "HKD", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,open,high,low" \
@@ -77,7 +77,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 获取人民币兑港币汇率，用于分析人民币资产的汇率风险。
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/currency-exchange-rate" \
   --params '{"fromCurrency": "CNY", "toCurrency": "HKD", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,open,high,low" \
@@ -89,7 +89,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 获取港股个股的基本面数据，用于分析个股的汇率敏感度。
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/fundamental/non_financial" \
   --params '{"stockCodes": ["00700"], "date": "2026-02-24", "metricsList": ["pe_ttm", "pb", "dyr", "mc"]}' \
   --columns "date,pe_ttm,pb,dyr,mc" \

@@ -22,7 +22,7 @@
 用于计算估值、市值等因子暴露：
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
   --params '{"date": "2026-03-21", "stockCodes": ["600519", "000858", "300750", "000001", "601318"], "metricsList": ["pe_ttm", "pb", "ps_ttm", "mc", "dyr", "pe_ttm.y3.cvpos", "pb.y3.cvpos"]}' \
   --columns "date,stockCode,pe_ttm,pb,ps_ttm,mc,dyr" \
@@ -69,7 +69,7 @@ for code in stock_codes:
 用于计算因子持仓集中度和机构暴露：
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/fund/shareholdings" \
   --params '{"startDate": "2025-01-01", "endDate": "2026-03-21", "stockCode": "510300"}' \
   --columns "date,stockCode,holdings,marketCap,netValueRatio" \
@@ -89,7 +89,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 用于对比因子组合与基准指数的表现：
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/fundamental" \
   --params '{"date": "2026-03-21", "stockCodes": ["000300", "000905", "399006"], "metricsList": ["pe_ttm.mcw", "pb.mcw", "mc", "pe_ttm.y10.mcw.cvpos"]}' \
   --columns "date,stockCode,pe_ttm.mcw,pb.mcw,mc" \
@@ -108,7 +108,7 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 获取指数 K 线数据（因子收益基准）
 
 ```bash
-python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
   --params '{"type": "lxr_fc_rights", "startDate": "2025-01-01", "endDate": "2026-03-21", "stockCode": "000300"}' \
   --columns "date,close,change,to_r" \

@@ -35,7 +35,7 @@
 ### 1. 获取恒生指数基本面 ⭐ 核心
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI"], "date": "2026-02-24", "metricsList": ["cp", "cpc", "mc", "pe_ttm.mcw", "pb.mcw", "dyr.mcw", "ta", "tv"]}' \
   --columns "date,cp,cpc,mc,pe_ttm.mcw,pb.mcw,dyr.mcw,ta,tv"
@@ -56,7 +56,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 2. 获取多个主要指数数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI", "HSCEI", "HSCCI", "HSTECH"], "date": "2026-02-24", "metricsList": ["cp", "cpc", "ta"]}' \
   --columns "date,cp,cpc,ta"
@@ -67,7 +67,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 3. 获取恒生指数K线数据
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/candlestick" \
   --params '{"stockCode": "HSI", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,open,high,low,close,volume,amount" \
@@ -79,7 +79,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 4. 获取恒生指数成分股
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/constituents" \
   --params '{"stockCodes": ["HSI"]}' \
   --columns "stockCode,name,weight" \
@@ -91,7 +91,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 5. 获取港股行业基本面
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50"], "date": "2026-02-24", "metricsList": ["mc", "ta", "pe_ttm.mcw"]}' \
   --columns "date,mc,ta,pe_ttm.mcw"
@@ -102,7 +102,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 6. 获取港股行业列表
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry" \
   --params '{"source": "hsi"}' \
   --columns "industryCode,industryName,industryLevel"
@@ -113,7 +113,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 7. 获取港股通资金流向（指数层面）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/mutual-market" \
   --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,netBuyAmount,shareholdings" \
@@ -125,7 +125,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 8. 获取港股公司列表（用于统计涨跌家数）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company" \
   --params '{"mutualMarkets": ["ah"]}' \
   --columns "stockCode,name,market" \
@@ -137,7 +137,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 9. 获取多只股票的当日表现（计算涨跌家数）
 
 ```bash
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/company/candlestick" \
   --params '{"stockCode": "00700", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,change,changePercent,volume,amount"
@@ -199,7 +199,7 @@ fear_greed_index = (
 ### 步骤1: 获取主要指数数据
 ```bash
 # 获取4个主要指数
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI", "HSCEI", "HSCCI", "HSTECH"], "date": "2026-02-24", "metricsList": ["cp", "cpc", "mc", "ta", "tv"]}' \
   --columns "date,cp,cpc,mc,ta,tv"
@@ -208,7 +208,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 步骤2: 获取行业板块数据
 ```bash
 # 获取所有行业表现
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["mc", "ta", "pe_ttm.mcw"]}' \
   --columns "industryCode,date,mc,ta,pe_ttm.mcw" \
@@ -218,7 +218,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 ### 步骤3: 获取南向资金数据
 ```bash
 # 获取南向资金流向
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/mutual-market" \
   --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,netBuyAmount,shareholdings"
@@ -285,20 +285,20 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 1. 获取主要指数
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/fundamental" \
   --params '{"stockCodes": ["HSI", "HSCEI", "HSCCI", "HSTECH"], "date": "2026-02-24", "metricsList": ["cp", "cpc", "ta"]}' \
   --columns "date,cp,cpc,ta"
 
 # 2. 获取行业表现
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/industry/fundamental/hsi" \
   --params '{"stockCodes": ["H50", "H5010", "H5020", "H5030", "H5040", "H5050", "H5060", "H5070", "H5080", "H5090", "H5100"], "date": "2026-02-24", "metricsList": ["mc", "ta"]}' \
   --columns "industryCode,mc,ta" \
   --limit 50
 
 # 3. 获取南向资金
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/mutual-market" \
   --params '{"stockCode": "HSI", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,netBuyAmount"
@@ -308,7 +308,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 获取近30天指数数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "hk/index/candlestick" \
   --params '{"stockCode": "HSI", "type": "normal", "startDate": "2026-01-01", "endDate": "2026-02-24"}' \
   --columns "date,close,volume,amount" \

@@ -91,7 +91,7 @@ print(df)
 
 ```bash
 # 查询半导体板块成分股的PE、PB等基本面数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes": ["002049", "603986", "600584"]}' \
   --columns "stockCode,name,pe_ttm,pb,marketCap"
@@ -101,7 +101,7 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ```bash
 # 查询个股财务数据
-python3 skills/lixinger-data-query/scripts/query_tool.py \
+python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
   --params '{"stockCode": "002049", "startDate": "2025-01-01", "endDate": "2026-03-24"}' \
   --columns "date,revenue,netProfit,roe"
