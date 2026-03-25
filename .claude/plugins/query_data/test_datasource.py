@@ -185,7 +185,6 @@ def test_financialdatasets(symbol: str) -> Tuple[str, Any]:
     return ("financialdatasets", data)
 
 
-
 def test_serpapi() -> Tuple[str, Any]:
     """Test SerpAPI."""
     api_key = _require_env("serp_api_key")
@@ -222,6 +221,17 @@ def test_tavily() -> Tuple[str, Any]:
     )
 
 
+def test_lixinger() -> Tuple[str, Any]:
+    """Test Lixinger (理杏仁) API."""
+    token = _require_env("LIXINGER_TOKEN")
+    url = "https://open.lixinger.com/api/cn/company"
+    data = {"stockCodes": ["600519"], "metrics": ["pe_ttm", "pb"], "token": token}
+    response = _http_post_json(url, data)
+    if not isinstance(response, dict) or response.get("code") != 1:
+        raise TestError(f"Lixinger API error: {response.get('msg', 'Unknown error')}")
+    return ("lixinger", {"status": "ok", "data_count": len(response.get("data", []))})
+
+
 def _run_tests(source: Optional[str], symbol: str) -> int:
     tests = [
         ("finnhub", lambda: test_finnhub(symbol)),
@@ -234,7 +244,7 @@ def _run_tests(source: Optional[str], symbol: str) -> int:
         ("brave_search", test_brave_search),
         ("eodhd", test_eodhd),
         ("financialdatasets", lambda: test_financialdatasets(symbol)),
-        ("qveris", test_qveris),
+        ("lixinger", test_lixinger),
         ("serpapi", test_serpapi),
         ("tavily", test_tavily),
     ]
@@ -278,6 +288,7 @@ def main() -> int:
             "brave_search",
             "eodhd",
             "financialdatasets",
+            "lixinger",
             "serpapi",
             "tavily",
         ],
