@@ -95,6 +95,18 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --limit 10
 ```
 
+**返回字段说明**:
+- `date`: 交易日期
+- `open`: 开盘价
+- `high`: 最高价
+- `low`: 最低价
+- `close`: 收盘价
+- `volume`: 成交量（股）
+- `amount`: 成交金额（元）
+- `pctChg`: 涨跌幅（%）
+- `turnover`: 换手率（%）
+- `turnoverFree`: 自由流通股换手率（%）
+
 #### 4. 获取股东增减持数据（用于交叉验证）
 
 **API**: `cn/company/major-shareholders-shares-change`
@@ -110,6 +122,12 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --limit 20
 ```
 
+**返回字段说明**:
+- `date`: 变动日期
+- `shareholderName`: 股东名称
+- `changeReason`: 变动原因（如：大宗交易、二级市场买卖、股权质押等）
+- `changeAmount`: 变动数量（股），正值为增持，负值为减持
+
 #### 5. 获取股东人数数据
 
 **API**: `cn/company/shareholders-num`
@@ -122,6 +140,48 @@ python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
   --suffix "cn/company/shareholders-num" \
   --params '{"stockCode": "600196", "startDate": "2025-01-01"}' \
   --columns "date,stockCode,shareholdersNum" \
+  --limit 20
+```
+
+**返回字段说明**:
+- `date`: 报告期
+- `stockCode`: 股票代码
+- `shareholdersNum`: 股东人数
+
+#### 6. 获取个股基本信息
+
+**API**: `cn/company/base-info`
+
+**用途**: 获取股票基本信息，用于了解公司基本情况
+
+**查询示例**:
+```bash
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/base-info" \
+  --params '{"stockCodes":["600196"]}' \
+  --columns "stockCode,stockName,industry" \
+  --limit 1
+```
+
+**返回字段说明**:
+- `stockCode`: 股票代码
+- `stockName`: 股票名称
+- `industry`: 所属行业
+- `totalShares`: 总股本
+- `floatShares`: 流通股本
+
+#### 7. 获取限售解禁数据
+
+**API**: `cn/company/share-lockup`
+
+**用途**: 获取限售股解禁数据，用于判断大宗交易是否临近解禁窗口
+
+**查询示例**:
+```bash
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/share-lockup" \
+  --params '{"stockCode": "600196", "startDate": "2026-01-01"}' \
+  --columns "date,lockupType,lockupShares" \
   --limit 20
 ```
 
@@ -179,6 +239,24 @@ for code in 600276 000538 600196 300122 300142 603259 000661 300347 300759 00200
 done
 ```
 
+**示例: 查询后验证股价承接情况**
+
+```bash
+# 查询大宗交易数据
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/block-deal" \
+  --params '{"stockCode": "002594", "startDate": "2026-03-20"}' \
+  --columns "date,stockCode,tradingPrice,tradingVolume,tradingAmount,discountRate,buyBranch,sellBranch" \
+  --limit 10
+
+# 查询同期K线数据验证承接
+python3 .claude/skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/candlestick" \
+  --params '{"stockCode":"002594","type":"normal","startDate":"2026-03-18","endDate":"2026-03-24"}' \
+  --columns "date,close,pctChg,volume,amount" \
+  --limit 10
+```
+
 ### 注意事项
 
 1. **API 限制**: 大宗交易 API 只接受单个 stockCode，批量查询需要循环调用
@@ -192,4 +270,3 @@ done
 - 技能文档: `.claude/skills/China-market_block-deal-monitor/`
 - 查询工具: `.claude/skills/lixinger-data-query/scripts/query_tool.py`
 - API 文档: `.claude/skills/lixinger-data-query/api_new/api-docs/cn_company_block-deal.md`
-

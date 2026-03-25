@@ -65,7 +65,24 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ---
 
-### 4. 获取北证50指数基本面数据
+### 4. 获取北交所股票基本信息（名称、行业）
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company" \
+  --params '{"date": "latest", "stockCodes": ["920001","920002","920019"]}' \
+  --columns "stockCode,name,industryName" \
+  --limit 50
+```
+
+**常用字段**：
+- `stockCode`: 股票代码
+- `name`: 公司名称
+- `industryName`: 所属行业
+
+---
+
+### 5. 获取北证50指数基本面数据
 
 ```bash
 python3 skills/lixinger-data-query/scripts/query_tool.py \
@@ -85,6 +102,26 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 
 ---
 
+### 6. 获取历史行情数据（用于流动性分析）
+
+```bash
+python3 skills/lixinger-data-query/scripts/query_tool.py \
+  --suffix "cn/company/quote/daily" \
+  --params '{"date": "latest", "stockCodes": ["920001","920002"], "metricsList": ["to","ta","high","low","volume"], "count": 20}' \
+  --flatten "quote" \
+  --columns "stockCode,date,to,ta,high,low,volume" \
+  --limit 100
+```
+
+**常用指标**：
+- `to`: 换手率
+- `ta`: 成交金额
+- `high`: 最高价
+- `low`: 最低价
+- `volume`: 成交量
+
+---
+
 ## 参数说明
 
 - `--suffix`: API 路径（参考下方可用 API 列表）
@@ -101,9 +138,44 @@ python3 skills/lixinger-data-query/scripts/query_tool.py \
 | API 路径 | 用途 | 示例 |
 |---------|------|------|
 | `cn/index/constituents` | 获取指数成分股 | 获取北证50成分股列表 |
-| `cn/company/fundamental/non_financial` | 获取个股基本面 | PE、PB、市值、换手率 |
+| `cn/company` | 获取公司基本信息 | 股票名称、所属行业 |
+| `cn/company/fundamental/non_financial` | 获取个股基本面 | PE、PB、市值、换手率、股价 |
 | `cn/company/fs/non_financial` | 获取个股财务数据 | 营收增速、利润增速、毛利率 |
+| `cn/company/quote/daily` | 获取日行情数据 | 历史换手率、成交额、价格 |
 | `cn/index/fundamental` | 获取指数基本面 | 指数PE、PB、点位 |
+
+---
+
+## 本次分析使用的数据接口汇总
+
+### 分析日期：2025-03-25
+
+| 序号 | 数据用途 | API路径 | 关键指标 |
+|------|---------|---------|---------|
+| 1 | 股票池构建 | `cn/index/constituents` | 北证50成分股代码 |
+| 2 | 公司信息 | `cn/company` | name, industryName |
+| 3 | 基本面数据 | `cn/company/fundamental/non_financial` | pe_ttm, pb, mc, to_r, ta, sp, spc |
+| 4 | 财务数据 | `cn/company/fs/non_financial` | q.ps.toi.t_y2y, q.ps.np.t_y2y, q.ps.gp_m.t |
+
+### 指标说明
+
+**估值指标**：
+- `pe_ttm`: 滚动市盈率（Price-to-Earnings Trailing Twelve Months）
+- `pb`: 市净率（Price-to-Book Ratio）
+- `mc`: 市值（Market Cap），单位：元
+
+**流动性指标**：
+- `to_r`: 换手率（Turnover Rate）
+- `ta`: 成交金额（Turnover Amount），单位：元
+
+**成长指标**：
+- `q.ps.toi.t_y2y`: 季度营收同比增速
+- `q.ps.np.t_y2y`: 季度净利润同比增速
+- `q.ps.gp_m.t`: 毛利率
+
+**价格指标**：
+- `sp`: 股价
+- `spc`: 涨跌幅
 
 ---
 
