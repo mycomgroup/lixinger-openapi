@@ -1,0 +1,7 @@
+interface:
+  display_name: "解禁冲击错杀机会"
+  short_description: "评估解禁冲击高估程度并估计价格修复窗口及交易节奏。"
+  default_prompt: "使用 $unlock-shock-mispricing，基于限售解禁、大宗交易、股东减持与资金流判断错杀概率和修复时间。"
+
+policy:
+  allow_implicit_invocation: true
