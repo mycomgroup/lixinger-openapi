@@ -1,0 +1,19 @@
+{
+  "name": "ipo-lockup-risk-monitor",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "监控限售解禁、重要股东减持与供给冲击风险，输出时间表与风险提示。当用户询问解禁/减持、供给冲击、或需要解禁风险清单时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "ipo-lockup-risk-monitor-plugin",
+      "description": "监控限售解禁、重要股东减持与供给冲击风险，输出时间表与风险提示。当用户询问解禁/减持、供给冲击、或需要解禁风险清单时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

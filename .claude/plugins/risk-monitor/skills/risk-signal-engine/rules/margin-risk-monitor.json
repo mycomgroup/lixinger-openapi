@@ -1,0 +1,19 @@
+{
+  "rule_id": "MARGIN_001",
+  "version": "0.1.0",
+  "status": "active",
+  "rule_type": "single_dimension",
+  "risk_dimensions": ["margin-risk-monitor"],
+  "scope": {"market": "CN-A", "universe": "all_watchlist", "position_stage": "post_position"},
+  "inputs_required": [
+    {"name": "financing_balance_change_20d", "type": "number", "source": "market", "required": true},
+    {"name": "price_return_20d", "type": "number", "source": "market", "required": true}
+  ],
+  "logic": {"expression": "financing_balance_change_20d > 0.2 && price_return_20d < -0.05", "thresholds": {"financing_balance_change_20d": 0.2, "price_return_20d": -0.05}, "lookback_window": "20d", "trigger_mode": "hybrid", "explain_template": "杠杆扩张与价格走弱背离，存在被动去杠杆踩踏。"},
+  "severity": {"mapping": [{"condition": "financing_balance_change_20d > 0.35", "level": "high"}], "default_level": "medium"},
+  "confidence": {"method": "heuristic", "base_score": 0.7},
+  "event_triggers": [{"source": "market_anomaly", "event_type": "margin_balance_spike", "action": "recompute"}],
+  "invalidation_conditions": ["financing_balance_change_20d <= 0", "price_return_20d >= 0"],
+  "output_contract": {"must_include_fields": ["alert_id", "security_id", "as_of_date", "risk_type", "severity", "thesis", "evidence_refs", "trigger_logic", "confidence", "expected_window", "invalidation_conditions", "monitor_next"]},
+  "ownership": {"owner": "risk-team", "reviewer": "trading-risk", "created_at": "2026-03-26"}
+}

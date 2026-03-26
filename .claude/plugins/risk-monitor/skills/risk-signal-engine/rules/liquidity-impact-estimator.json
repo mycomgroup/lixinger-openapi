@@ -1,0 +1,20 @@
+{
+  "rule_id": "LIQ_001",
+  "version": "0.1.0",
+  "status": "active",
+  "rule_type": "single_dimension",
+  "risk_dimensions": ["liquidity-impact-estimator"],
+  "scope": {"market": "CN-A", "universe": "all_watchlist", "position_stage": "post_selection_pre_position"},
+  "inputs_required": [
+    {"name": "order_value", "type": "number", "source": "portfolio", "required": true},
+    {"name": "adv20", "type": "number", "source": "market", "required": true},
+    {"name": "volatility_20d", "type": "number", "source": "market", "required": true}
+  ],
+  "logic": {"expression": "(order_value / adv20) >= 0.2", "thresholds": {"size_to_adv": 0.2}, "lookback_window": "20d", "trigger_mode": "batch", "explain_template": "交易规模相对流动性偏大，执行冲击和退出风险不可忽视。"},
+  "severity": {"mapping": [{"condition": "(order_value / adv20) >= 0.5", "level": "high"}], "default_level": "medium"},
+  "confidence": {"method": "heuristic", "base_score": 0.65},
+  "event_triggers": [{"source": "market_anomaly", "event_type": "liquidity_drop", "action": "recompute"}],
+  "invalidation_conditions": ["(order_value / adv20) < 0.1"],
+  "output_contract": {"must_include_fields": ["alert_id", "security_id", "as_of_date", "risk_type", "severity", "thesis", "evidence_refs", "trigger_logic", "confidence", "expected_window", "invalidation_conditions", "monitor_next"]},
+  "ownership": {"owner": "risk-team", "reviewer": "execution", "created_at": "2026-03-26"}
+}

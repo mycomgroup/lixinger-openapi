@@ -1,0 +1,29 @@
+{
+  "rule_id": "CROSS_001",
+  "version": "0.1.0",
+  "status": "active",
+  "rule_type": "cross_dimension",
+  "risk_dimensions": ["ipo-lockup-risk-monitor", "equity-pledge-risk-monitor", "liquidity-impact-estimator"],
+  "scope": {"market": "CN-A", "universe": "all_watchlist", "position_stage": "post_position"},
+  "inputs_required": [
+    {"name": "unlock_value_to_adv20", "type": "number", "source": "announcement+market", "required": true},
+    {"name": "pledge_ratio_controller", "type": "number", "source": "announcement", "required": true},
+    {"name": "size_to_adv", "type": "number", "source": "portfolio+market", "required": true}
+  ],
+  "logic": {
+    "expression": "unlock_value_to_adv20 >= 5 && pledge_ratio_controller >= 0.7 && size_to_adv >= 0.2",
+    "thresholds": {"unlock_value_to_adv20": 5, "pledge_ratio_controller": 0.7, "size_to_adv": 0.2},
+    "lookback_window": "30d",
+    "trigger_mode": "event",
+    "explain_template": "供给冲击、股东脆弱与执行流动性同时恶化，形成复合踩踏风险。"
+  },
+  "severity": {"mapping": [{"condition": "unlock_value_to_adv20 >= 8", "level": "critical"}], "default_level": "high"},
+  "confidence": {"method": "heuristic", "base_score": 0.78},
+  "event_triggers": [
+    {"source": "announcement", "event_type": "unlock_schedule_change", "action": "recompute"},
+    {"source": "news", "event_type": "controller_pledge_risk_news", "action": "escalate"}
+  ],
+  "invalidation_conditions": ["unlock_value_to_adv20 < 2", "pledge_ratio_controller < 0.5", "size_to_adv < 0.1"],
+  "output_contract": {"must_include_fields": ["alert_id", "security_id", "as_of_date", "risk_type", "severity", "thesis", "evidence_refs", "trigger_logic", "confidence", "expected_window", "invalidation_conditions", "monitor_next"]},
+  "ownership": {"owner": "risk-team", "reviewer": "cross-risk", "created_at": "2026-03-26"}
+}

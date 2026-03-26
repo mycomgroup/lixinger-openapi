@@ -1,0 +1,19 @@
+{
+  "name": "shareholder-risk-check",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "检查股东结构、股权质押、控制权稳定性等治理风险标签。当用户询问质押风险、股东结构、控制权风险或需要治理红旗检查时使用。",
+    "created": "2026-02-25",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "shareholder-risk-check-plugin",
+      "description": "检查股东结构、股权质押、控制权稳定性等治理风险标签。当用户询问质押风险、股东结构、控制权风险或需要治理红旗检查时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

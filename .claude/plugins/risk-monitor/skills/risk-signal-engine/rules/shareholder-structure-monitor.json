@@ -1,0 +1,16 @@
+{
+  "rule_id": "SHH_STRUCT_001",
+  "version": "0.1.0",
+  "status": "active",
+  "rule_type": "single_dimension",
+  "risk_dimensions": ["shareholder-structure-monitor"],
+  "scope": {"market": "CN-A", "universe": "all_watchlist", "position_stage": "post_position"},
+  "inputs_required": [{"name": "controller_stability_gap", "type": "number", "source": "filing", "required": true}],
+  "logic": {"expression": "controller_stability_gap <= 0.05", "thresholds": {"controller_stability_gap": 0.05}, "lookback_window": "4q", "trigger_mode": "batch", "explain_template": "控制权稳定性不足，关键股东变动可能触发治理不确定性。"},
+  "severity": {"mapping": [{"condition": "controller_stability_gap <= 0.03", "level": "high"}], "default_level": "medium"},
+  "confidence": {"method": "fixed", "base_score": 0.62},
+  "event_triggers": [{"source": "filing_update", "event_type": "top_shareholder_change", "action": "recompute"}],
+  "invalidation_conditions": ["controller_stability_gap >= 0.1 for 2 quarters"],
+  "output_contract": {"must_include_fields": ["alert_id", "security_id", "as_of_date", "risk_type", "severity", "thesis", "evidence_refs", "trigger_logic", "confidence", "expected_window", "invalidation_conditions", "monitor_next"]},
+  "ownership": {"owner": "risk-team", "reviewer": "governance", "created_at": "2026-03-26"}
+}

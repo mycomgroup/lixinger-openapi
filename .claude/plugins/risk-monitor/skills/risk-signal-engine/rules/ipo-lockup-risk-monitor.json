@@ -1,0 +1,19 @@
+{
+  "rule_id": "LOCKUP_001",
+  "version": "0.1.0",
+  "status": "active",
+  "rule_type": "single_dimension",
+  "risk_dimensions": ["ipo-lockup-risk-monitor"],
+  "scope": {"market": "CN-A", "universe": "all_watchlist", "position_stage": "post_selection_pre_position"},
+  "inputs_required": [
+    {"name": "unlock_value_to_adv20", "type": "number", "source": "announcement+market", "required": true},
+    {"name": "days_to_unlock", "type": "number", "source": "announcement", "required": true}
+  ],
+  "logic": {"expression": "days_to_unlock <= 30 && unlock_value_to_adv20 >= 5", "thresholds": {"days_to_unlock": 30, "unlock_value_to_adv20": 5}, "lookback_window": "30d", "trigger_mode": "hybrid", "explain_template": "解禁规模相对成交承接过大，存在集中供给冲击。"},
+  "severity": {"mapping": [{"condition": "unlock_value_to_adv20 >= 10", "level": "critical"}], "default_level": "high"},
+  "confidence": {"method": "heuristic", "base_score": 0.75},
+  "event_triggers": [{"source": "announcement", "event_type": "unlock_schedule_change", "action": "recompute"}],
+  "invalidation_conditions": ["days_to_unlock > 60", "actual_reduction_ratio_low_after_unlock"],
+  "output_contract": {"must_include_fields": ["alert_id", "security_id", "as_of_date", "risk_type", "severity", "thesis", "evidence_refs", "trigger_logic", "confidence", "expected_window", "invalidation_conditions", "monitor_next"]},
+  "ownership": {"owner": "risk-team", "reviewer": "liquidity", "created_at": "2026-03-26"}
+}

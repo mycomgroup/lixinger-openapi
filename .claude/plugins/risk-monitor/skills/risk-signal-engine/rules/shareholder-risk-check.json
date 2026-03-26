@@ -1,0 +1,19 @@
+{
+  "rule_id": "SHH_RISK_001",
+  "version": "0.1.0",
+  "status": "active",
+  "rule_type": "single_dimension",
+  "risk_dimensions": ["shareholder-risk-check"],
+  "scope": {"market": "CN-A", "universe": "all_watchlist", "position_stage": "post_selection_pre_position"},
+  "inputs_required": [
+    {"name": "planned_reduction_ratio", "type": "number", "source": "announcement", "required": true},
+    {"name": "reduction_pressure_days", "type": "number", "source": "market", "required": true}
+  ],
+  "logic": {"expression": "planned_reduction_ratio >= 0.01 && reduction_pressure_days >= 15", "thresholds": {"planned_reduction_ratio": 0.01, "reduction_pressure_days": 15}, "lookback_window": "90d", "trigger_mode": "hybrid", "explain_template": "大股东减持计划与成交承接能力错配，短期存在供给冲击。"},
+  "severity": {"mapping": [{"condition": "planned_reduction_ratio >= 0.03", "level": "high"}], "default_level": "medium"},
+  "confidence": {"method": "heuristic", "base_score": 0.68},
+  "event_triggers": [{"source": "announcement", "event_type": "shareholder_reduction_plan", "action": "recompute"}],
+  "invalidation_conditions": ["reduction_plan_cancelled", "reduction_completed_with_market_absorption"],
+  "output_contract": {"must_include_fields": ["alert_id", "security_id", "as_of_date", "risk_type", "severity", "thesis", "evidence_refs", "trigger_logic", "confidence", "expected_window", "invalidation_conditions", "monitor_next"]},
+  "ownership": {"owner": "risk-team", "reviewer": "governance", "created_at": "2026-03-26"}
+}

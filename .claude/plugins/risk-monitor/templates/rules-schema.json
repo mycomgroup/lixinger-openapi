@@ -1,0 +1,262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lixinger-openapi/.claude/plugins/risk-monitor/templates/rules-schema.json",
+  "title": "Risk Signal Rule Schema",
+  "description": "可扩展规则定义：支持单维风险、跨维风险、事件触发、持仓后监控与失效条件。",
+  "type": "object",
+  "required": [
+    "rule_id",
+    "version",
+    "status",
+    "rule_type",
+    "risk_dimensions",
+    "scope",
+    "inputs_required",
+    "logic",
+    "severity",
+    "confidence",
+    "event_triggers",
+    "invalidation_conditions",
+    "output_contract",
+    "ownership"
+  ],
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_-]{2,63}$",
+      "description": "唯一规则ID，例如 PLEDGE_001 或 CROSS_015"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "语义化版本"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "deprecated", "disabled"]
+    },
+    "rule_type": {
+      "type": "string",
+      "enum": ["single_dimension", "cross_dimension", "event_only", "portfolio_overlay"]
+    },
+    "risk_dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "equity-pledge-risk-monitor",
+          "shareholder-risk-check",
+          "shareholder-structure-monitor",
+          "goodwill-risk-monitor",
+          "st-delist-risk-scanner",
+          "ipo-lockup-risk-monitor",
+          "margin-risk-monitor",
+          "limit-up-limit-down-risk-checker",
+          "liquidity-impact-estimator"
+        ]
+      }
+    },
+    "scope": {
+      "type": "object",
+      "required": ["market", "universe", "position_stage"],
+      "properties": {
+        "market": {
+          "type": "string",
+          "enum": ["CN-A", "HK", "US", "MIXED"]
+        },
+        "universe": {
+          "type": "string",
+          "description": "适用标的范围，例如 all_watchlist / small_cap / high_leverage"
+        },
+        "position_stage": {
+          "type": "string",
+          "enum": ["pre_selection", "post_selection_pre_position", "post_position"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "inputs_required": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "source", "required"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "source": { "type": "string", "description": "数据来源，如 lixinger/api/news/announcement" },
+          "required": { "type": "boolean" },
+          "fallback": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "logic": {
+      "type": "object",
+      "required": ["expression", "thresholds", "lookback_window", "trigger_mode"],
+      "properties": {
+        "expression": {
+          "type": "string",
+          "description": "规则表达式，可为 DSL 或可执行表达式"
+        },
+        "thresholds": {
+          "type": "object",
+          "description": "阈值字典，便于后续扩展和市场分层覆写",
+          "additionalProperties": {
+            "oneOf": [
+              { "type": "number" },
+              { "type": "string" },
+              { "type": "array", "items": { "type": ["number", "string"] } }
+            ]
+          }
+        },
+        "lookback_window": {
+          "type": "string",
+          "description": "如 20d / 3m / 4q"
+        },
+        "trigger_mode": {
+          "type": "string",
+          "enum": ["batch", "event", "hybrid"]
+        },
+        "explain_template": {
+          "type": "string",
+          "description": "用于生成“问题发现”解释的模板片段"
+        }
+      },
+      "additionalProperties": false
+    },
+    "severity": {
+      "type": "object",
+      "required": ["mapping"],
+      "properties": {
+        "mapping": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["condition", "level"],
+            "properties": {
+              "condition": { "type": "string" },
+              "level": { "type": "string", "enum": ["critical", "high", "medium", "low", "info"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "default_level": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low", "info"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "confidence": {
+      "type": "object",
+      "required": ["method", "base_score"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["fixed", "heuristic", "backtest_calibrated", "model_score"]
+        },
+        "base_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "adjustments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["factor", "delta"],
+            "properties": {
+              "factor": { "type": "string" },
+              "delta": { "type": "number" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "event_triggers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "event_type", "action"],
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": ["announcement", "news", "market_anomaly", "filing_update", "manual"]
+          },
+          "event_type": { "type": "string" },
+          "action": {
+            "type": "string",
+            "enum": ["recompute", "escalate", "suppress", "open_watch"]
+          },
+          "debounce": {
+            "type": "string",
+            "description": "去抖窗口，如 2h"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "invalidation_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "description": "风险解除或规则失效条件"
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "required": ["must_include_fields"],
+      "properties": {
+        "must_include_fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "alert_id",
+              "security_id",
+              "as_of_date",
+              "risk_type",
+              "severity",
+              "thesis",
+              "evidence_refs",
+              "trigger_logic",
+              "confidence",
+              "expected_window",
+              "invalidation_conditions",
+              "monitor_next"
+            ]
+          }
+        },
+        "narrative_policy": {
+          "type": "string",
+          "description": "输出必须为问题发现导向，不允许仅罗列指标"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ownership": {
+      "type": "object",
+      "required": ["owner", "reviewer", "created_at"],
+      "properties": {
+        "owner": { "type": "string" },
+        "reviewer": { "type": "string" },
+        "created_at": { "type": "string", "format": "date" },
+        "last_validated_at": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "extensions": {
+      "type": "object",
+      "description": "预留扩展字段，避免未来改主schema",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

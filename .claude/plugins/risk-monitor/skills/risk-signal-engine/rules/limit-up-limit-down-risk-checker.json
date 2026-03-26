@@ -1,0 +1,19 @@
+{
+  "rule_id": "LIMIT_001",
+  "version": "0.1.0",
+  "status": "active",
+  "rule_type": "single_dimension",
+  "risk_dimensions": ["limit-up-limit-down-risk-checker"],
+  "scope": {"market": "CN-A", "universe": "all_watchlist", "position_stage": "post_position"},
+  "inputs_required": [
+    {"name": "down_limit_streak", "type": "integer", "source": "market", "required": true},
+    {"name": "turnover_ratio", "type": "number", "source": "market", "required": true}
+  ],
+  "logic": {"expression": "down_limit_streak >= 2 && turnover_ratio < 0.02", "thresholds": {"down_limit_streak": 2, "turnover_ratio": 0.02}, "lookback_window": "5d", "trigger_mode": "event", "explain_template": "连续跌停叠加换手不足，流动性锁死导致风险无法有效释放。"},
+  "severity": {"mapping": [{"condition": "down_limit_streak >= 3", "level": "critical"}], "default_level": "high"},
+  "confidence": {"method": "fixed", "base_score": 0.8},
+  "event_triggers": [{"source": "market_anomaly", "event_type": "limit_down_streak", "action": "escalate"}],
+  "invalidation_conditions": ["down_limit_streak == 0 for 3d", "turnover_ratio >= 0.05"],
+  "output_contract": {"must_include_fields": ["alert_id", "security_id", "as_of_date", "risk_type", "severity", "thesis", "evidence_refs", "trigger_logic", "confidence", "expected_window", "invalidation_conditions", "monitor_next"]},
+  "ownership": {"owner": "risk-team", "reviewer": "trading-risk", "created_at": "2026-03-26"}
+}
