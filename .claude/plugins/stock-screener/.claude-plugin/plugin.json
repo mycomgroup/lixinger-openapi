@@ -1,7 +1,7 @@
 {
   "name": "stock-screener",
-  "version": "0.1.0",
-  "description": "Extensible stock screening plugin with reusable strategy commands and shared candidate-pool workflow",
+  "version": "0.2.0",
+  "description": "Extensible stock selection plugin focused on anomaly discovery, opportunity classification, and follow-up tracking on top of a shared candidate-pool workflow",
   "author": {
     "name": "lixinger-openapi"
   }

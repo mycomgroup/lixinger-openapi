@@ -1,103 +1,94 @@
-# undervalued-stock-screener 安装指南
+# undervalued-stock-screener 安装与验证
 
-## 前置要求
+## 依赖
 
 - Python 3.8+
-- 理杏仁 API Key（免费）
+- Node.js 18+
+- 仓库根目录 `requirements.txt`
+- 理杏仁 OpenAPI Token（供 `query_data` 使用）
+- 理杏仁账号用户名/密码（仅在使用 `lixinger-screener/request` 批量建池时需要）
 
-## 第一步：获取 API Key
+## 1. 安装 Python 依赖
 
-### 1.1 注册理杏仁账号
-
-1. 访问 https://www.lixinger.com/
-2. 点击右上角"注册"
-3. 填写邮箱和密码
-4. 验证邮箱
-
-### 1.2 申请 API Key
-
-1. 登录后进入"个人中心"
-2. 点击"API 管理"
-3. 点击"创建 API Key"
-4. 选择套餐（免费版：1000次/天）
-5. 复制生成的 API Key
-
-**Key 格式示例**：`lx_1234567890abcdef1234567890abcdef`
-
-## 第二步：配置环境
-
-### 方式 A：临时配置
+在仓库根目录执行：
 
 ```bash
-export LIXINGER_API_KEY="lx_your_key_here"
+pip install -r requirements.txt
 ```
 
-### 方式 B：永久配置（推荐）
+## 2. 配置理杏仁 OpenAPI Token
 
-**macOS/Linux (zsh)**：
+`query_data` 优先读取以下任一方式：
+
+### 方式 A：环境变量
+
 ```bash
-echo 'export LIXINGER_API_KEY="lx_your_key_here"' >> ~/.zshrc
-source ~/.zshrc
+export LIXINGER_TOKEN="your_token_here"
 ```
 
-**验证配置**：
+### 方式 B：项目根目录 `token.cfg`
+
 ```bash
-echo $LIXINGER_API_KEY
-# 应该显示你的 API Key
+echo "your_token_here" > token.cfg
 ```
 
-### 方式 C：项目级配置
+## 3. 配置筛选器账号（可选）
 
-在项目根目录创建 `token.cfg`：
+如果需要使用 `.claude/skills/lixinger-screener/request/fetch-lixinger-screener.js` 批量建池，再配置：
+
 ```bash
-echo "LIXINGER_API_KEY=lx_your_key_here" > token.cfg
+export LIXINGER_USERNAME="your_account"
+export LIXINGER_PASSWORD="your_password"
 ```
 
-## 第三步：安装依赖
+## 4. 验证 OpenAPI 能力
+
+先验证 `query_data`：
 
 ```bash
-cd lixinger-openapi
-pip install -r requirement.txt
-```
-
-## 第四步：验证安装
-
-```bash
-# 测试 API 连接
-python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company" \
   --params '{"stockCodes": ["600519"]}' \
-  --columns "stockCode,cnName"
+  --columns "stockCode,name,ipoDate"
 ```
 
-**预期输出**：
-```csv
-stockCode,cnName
-600519,贵州茅台
+预期至少能返回 `600519` 对应的公司名称与上市日期。
+
+## 5. 验证低估值候选池能力
+
+进入筛选器目录执行：
+
+```bash
+cd .claude/skills/lixinger-screener
+node request/fetch-lixinger-screener.js \
+  --input-file low-valuation-high-dividend.json \
+  --output markdown
 ```
+
+这一步用于验证：
+- 用户名/密码登录正常
+- 批量建池链路可用
+- 低估值策略的基线模板可复用
+
+## 6. 最小可运行组合
+
+推荐的最小闭环是：
+1. 用 `low-valuation-high-dividend.json` 建第一轮候选池
+2. 用 `query_tool.py` 对少量入围股补查估值与财报数据
+3. 按 `SKILL.md` 和 `references/` 中的方法输出结论
 
 ## 常见问题
 
-### 问题 1: "LIXINGER_API_KEY 环境变量未找到"
+### `LIXINGER_TOKEN` 未生效
 
-**解决**：
-1. 确认已获取 API Key
-2. 重新配置环境变量
-3. 重启终端
+优先检查：
+- 是否在当前 shell 中导出环境变量
+- `token.cfg` 是否位于仓库根目录
+- `query_tool.py` 启动目录是否仍在本仓库内
 
-### 问题 2: "API 返回 401 错误"
+### `fetch-lixinger-screener.js` 登录失败
 
-**原因**：API Key 无效或过期
-
-**解决**：
-1. 检查 Key 是否正确
-2. 重新生成 API Key
-
-## 使用示例
-
-详见 `SKILL.md` 中的完整示例。
-
-## 技术支持
-
-- 理杏仁 API 文档：https://www.lixinger.com/api
-- 项目文档：../../../../../docs/
+优先检查：
+- `LIXINGER_USERNAME` / `LIXINGER_PASSWORD` 是否配置
+- 当前账号是否能正常登录理杏仁网页端
+- 是否在 `.claude/skills/lixinger-screener` 目录执行命令

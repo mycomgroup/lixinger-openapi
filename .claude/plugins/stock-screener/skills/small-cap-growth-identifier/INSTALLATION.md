@@ -1,103 +1,82 @@
-# small-cap-growth-identifier 安装指南
+# small-cap-growth-identifier 安装与验证
 
-## 前置要求
+## 依赖
 
 - Python 3.8+
-- 理杏仁 API Key（免费）
+- Node.js 18+
+- 仓库根目录 `requirements.txt`
+- 理杏仁 OpenAPI Token（供 `query_data` 使用）
+- 理杏仁账号用户名/密码（仅在使用 `lixinger-screener/request` 批量建池时需要）
 
-## 第一步：获取 API Key
-
-### 1.1 注册理杏仁账号
-
-1. 访问 https://www.lixinger.com/
-2. 点击右上角"注册"
-3. 填写邮箱和密码
-4. 验证邮箱
-
-### 1.2 申请 API Key
-
-1. 登录后进入"个人中心"
-2. 点击"API 管理"
-3. 点击"创建 API Key"
-4. 选择套餐（免费版：1000次/天）
-5. 复制生成的 API Key
-
-**Key 格式示例**：`lx_1234567890abcdef1234567890abcdef`
-
-## 第二步：配置环境
-
-### 方式 A：临时配置
+## 1. 安装 Python 依赖
 
 ```bash
-export LIXINGER_API_KEY="lx_your_key_here"
+pip install -r requirements.txt
 ```
 
-### 方式 B：永久配置（推荐）
+## 2. 配置 OpenAPI Token
 
-**macOS/Linux (zsh)**：
-```bash
-echo 'export LIXINGER_API_KEY="lx_your_key_here"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-**验证配置**：
-```bash
-echo $LIXINGER_API_KEY
-# 应该显示你的 API Key
-```
-
-### 方式 C：项目级配置
-
-在项目根目录创建 `token.cfg`：
-```bash
-echo "LIXINGER_API_KEY=lx_your_key_here" > token.cfg
-```
-
-## 第三步：安装依赖
+### 方式 A：环境变量
 
 ```bash
-cd lixinger-openapi
-pip install -r requirement.txt
+export LIXINGER_TOKEN="your_token_here"
 ```
 
-## 第四步：验证安装
+### 方式 B：项目根目录 `token.cfg`
 
 ```bash
-# 测试 API 连接
-python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
-  --suffix "cn/company" \
-  --params '{"stockCodes": ["600519"]}' \
-  --columns "stockCode,cnName"
+echo "your_token_here" > token.cfg
 ```
 
-**预期输出**：
-```csv
-stockCode,cnName
-600519,贵州茅台
+## 3. 配置筛选器账号（可选）
+
+```bash
+export LIXINGER_USERNAME="your_account"
+export LIXINGER_PASSWORD="your_password"
 ```
+
+## 4. 验证财报补查能力
+
+```bash
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+  --suffix "cn/company/fs/non_financial" \
+  --params '{"date":"latest","stockCodes":["300750"],"metricsList":["q.ps.toi.t_y2y","q.ps.np.t_y2y","q.ps.gp_m.t","q.ps.rade.t","q.ps.wroe.t"]}' \
+  --columns "date,stockCode,q.ps.toi.t_y2y,q.ps.np.t_y2y,q.ps.gp_m.t,q.ps.rade.t,q.ps.wroe.t"
+```
+
+## 5. 验证互联互通补查能力
+
+```bash
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+  --suffix "cn/company/mutual-market" \
+  --params '{"stockCode":"300750","startDate":"2025-01-01"}' \
+  --columns "date,shareholdings"
+```
+
+这一步用于验证股东/资金侧的补充链路。
+
+## 6. 验证候选池能力（可选）
+
+```bash
+cd .claude/skills/lixinger-screener
+node request/fetch-lixinger-screener.js \
+  --query "总市值小于150亿，营收增长率较高，排除ST" \
+  --output markdown
+```
+
+## 7. 最小可运行组合
+
+1. 先用筛选器圈定小市值成长候选池
+2. 再用 `fs/non_financial` 补查增长、利润率、研发和 ROE
+3. 必要时再用 `mutual-market`、`industries` 做辅助判断
+4. 输出时明确写出高质量成长、预期差与伪成长预警
 
 ## 常见问题
 
-### 问题 1: "LIXINGER_API_KEY 环境变量未找到"
+### 想直接用英文别名字段
 
-**解决**：
-1. 确认已获取 API Key
-2. 重新配置环境变量
-3. 重启终端
+不要使用 `operating_revenue`、`gross_profit_margin` 这类未在文档中定义的字段名。`fs/non_financial` 应使用 `q.ps...`、`q.bs...` 这类正式指标格式。
 
-### 问题 2: "API 返回 401 错误"
+### 想拿机构持仓或专精特新标签做硬判断
 
-**原因**：API Key 无效或过期
-
-**解决**：
-1. 检查 Key 是否正确
-2. 重新生成 API Key
-
-## 使用示例
-
-详见 `SKILL.md` 中的完整示例。
-
-## 技术支持
-
-- 理杏仁 API 文档：https://www.lixinger.com/api
-- 项目文档：../../../../../docs/
+当前仓库里这部分更适合做外部补充，不应伪装成已验证的内置字段。

@@ -1,75 +1,91 @@
-# 北交所选股数据获取指南
+# 北交所策略数据查询指南
 
 ## 定位
 
-本策略优先使用 `lixinger-screener` 生成北交所候选池，再对入围名单补充北证50、行情和财务数据。
+本策略采用“先收敛范围，再补查交易性与成长性”的工作流：
 
-## 推荐工作流
+1. 用 `.claude/skills/lixinger-screener` 初步生成北交所候选池
+2. 用 `.claude/plugins/query_data` 补查北证50样本、行情、估值和财报数据
 
-### 第一步：用 `lixinger-screener` 构建北交所候选池
+## 1. 候选池入口
+
+### 自然语言快速收敛
 
 ```bash
-cd /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-screener
-
+cd .claude/skills/lixinger-screener
 node request/fetch-lixinger-screener.js \
-  --query "北交所，PE-TTM小于30，股息率大于1%，季度营收同比增长率大于10%，换手率大于1%" \
-  --output csv
+  --query "北交所，股息率大于1%，季度营收同比增长率大于10%" \
+  --output markdown
 ```
 
-如果 request 版字段映射不稳定，可切到 browser 版验证页面字段：
+如果 request 版字段映射不稳定，可临时使用 browser 版验证字段表达，但最终报告仍要回到可复现结果。
 
-```bash
-cd /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-screener
+## 2. 对入围股补查 OpenAPI
 
-node run-skill.js --query "北交所，流动性较好，成长性较高" --headless false
-```
+### 2.1 北证50成分股
 
-## 第二步：对入围名单补充北交所专属数据
-
-### 北证50成分股
+使用 `cn/index/constituents`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/constituents" \
-  --params '{"date": "latest", "stockCodes": ["899050"]}' \
+  --params '{"date":"latest","stockCodes":["899050"]}' \
   --flatten "constituents" \
   --columns "stockCode"
 ```
 
-### 基本面与流动性
+### 2.2 估值与流动性
+
+使用 `cn/company/fundamental/non_financial`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date": "latest", "stockCodes": ["920001", "920002"], "metricsList": ["pe_ttm", "pb", "dyr", "mc", "to_r", "ta"]}' \
+  --params '{"date":"latest","stockCodes":["920001","920002"],"metricsList":["pe_ttm","pb","dyr","mc","to_r","ta"]}' \
   --columns "stockCode,pe_ttm,pb,dyr,mc,to_r,ta"
 ```
 
-### 财务成长数据
+适合判断：
+- 估值是否与成长匹配
+- 换手率和成交额是否支持交易
+- 市值是否过小导致执行风险放大
+
+### 2.3 财报与成长兑现
+
+使用 `cn/company/fs/non_financial`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
-  --params '{"date": "latest", "stockCodes": ["920001", "920002"], "metricsList": ["q.ps.toi.t_y2y", "q.ps.np.t_y2y", "q.ps.gp_m.t"]}' \
-  --columns "stockCode,q.ps.toi.t_y2y,q.ps.np.t_y2y,q.ps.gp_m.t"
+  --params '{"date":"latest","stockCodes":["920001","920002"],"metricsList":["q.ps.toi.t_y2y","q.ps.np.t_y2y","q.ps.gp_m.t","q.ps.wroe.t"]}' \
+  --columns "date,stockCode,q.ps.toi.t_y2y,q.ps.np.t_y2y,q.ps.gp_m.t,q.ps.wroe.t"
 ```
 
-### 历史行情
+适合判断：
+- 增长是否真实
+- 毛利率与 ROE 是否稳定
+- 是否已有业绩兑现线索
+
+### 2.4 历史行情
+
+使用 `cn/company/candlestick`，不要再使用不存在的 `cn/company/quote/daily`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
-  --suffix "cn/company/quote/daily" \
-  --params '{"date": "latest", "stockCodes": ["920001"], "metricsList": ["to", "ta", "high", "low", "volume"], "count": 20}' \
-  --flatten "quote" \
-  --columns "stockCode,date,to,ta,high,low,volume"
+  --suffix "cn/company/candlestick" \
+  --params '{"stockCode":"920001","startDate":"2025-01-01","endDate":"latest","type":"bc_rights"}' \
+  --columns "date,close,amount,to_r,change"
 ```
 
-## 适用边界
+## 3. 推荐分析顺序
 
-- `lixinger-screener` 适合先筛出北交所候选池和基础流动性条件。
-- 北证50、历史行情、公司基础信息等更适合通过 `query_data` 补充。
-- 若需要更细的专精特新标签或政策属性，可继续接入其他数据源。
+1. 先看是否属于 `北证50` 或候选池内的可研究样本
+2. 再看 `ta`、`to_r` 等交易性指标
+3. 再看营收、利润、毛利率、ROE 的兑现情况
+4. 最后再判断属于流动性错杀、专精特新龙头、业绩兑现或高风险样本
 
-## 查找更多 API
+## 4. 当前边界
 
-详细的 API 查找和使用方法，请参考：`../../../../query_data/lixinger-api-docs/SKILL.md`
+- 当前仓库能较可靠支持交易性与基础成长验证
+- 更细的订单、专精特新认定、产业位置仍需结合外部公开资料
+- 缺少交易约束的北交所结论视为不完整

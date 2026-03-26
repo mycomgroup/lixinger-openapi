@@ -1,91 +1,125 @@
 # Stock Screener Plugin
 
-可扩展的股票策略筛选插件。
+面向选股决策的策略筛选插件。
 
-当前作用：
-- 统一承载股票策略筛选类 skill
+它的目标不是只给出一份候选名单，而是让每次执行都回答 3 个问题：
+- 这批股票为什么值得现在看
+- 当前最异常、最可能产生预期差的地方是什么
+- 未来 1-2 个财报期该跟踪什么信号
+
+## 插件定位
+
+- 统一承载可扩展的股票策略型 `skill`
 - 为每个策略提供独立 `/command` 入口
-- 统一约定先用 `lixinger-screener` 建候选池，再按策略需要补充其他数据
+- 保持 `lixinger-screener` 只负责候选池与基础筛选，不承载具体策略分析编排
+- 统一策略输出标准，让不同策略都能产出“发现”而不只是“结果”
 
 ## 当前已接入策略
 
-| Strategy | Description |
-|---|---|
-| `undervalued-stock-screener` | 低估股票筛选器 |
-| `high-dividend-strategy` | 高股息策略 |
-| `quant-factor-screener` | 量化因子筛选器 |
-| `small-cap-growth-identifier` | 小盘成长股识别器 |
-| `bse-selection-analyzer` | 北交所选股分析器 |
-| `esg-screener` | ESG 筛选器 |
+| Strategy | 核心定位 | 重点机会 |
+|---|---|---|
+| `undervalued-stock-screener` | 便宜但在变好 | 深度价值、修复型价值、价值陷阱识别 |
+| `high-dividend-strategy` | 高股东回报而非只看高股息 | 稳定收息、分红成长、红利再评级 |
+| `small-cap-growth-identifier` | 被忽视的小而强、小而早 | 业绩释放前夜、预期差成长、伪成长排除 |
+| `quant-factor-screener` | 因子共振与因子冲突识别 | 高共振候选、风格受益、低估待启动 |
+| `bse-selection-analyzer` | 流动性折价中的北交所机会 | 流动性错杀、专精特新龙头、再评级线索 |
+| `esg-screener` | 治理与风险代理筛选 | 治理改善、监管风险回避、资本配置优化 |
 
 ## Commands
 
-| Command | Description |
+| Command | 用途 |
 |---|---|
-| `/undervalued-stock-screener [股票池/条件]` | 低估值筛选 |
-| `/high-dividend-strategy [股票池/条件]` | 高股息筛选 |
-| `/quant-factor-screener [股票池/条件]` | 多因子筛选 |
-| `/small-cap-growth-identifier [股票池/条件]` | 小盘成长筛选 |
-| `/bse-selection-analyzer [股票池/条件]` | 北交所标的筛选 |
-| `/esg-screener [股票池/条件]` | ESG 候选池与补充评分 |
+| `/undervalued-stock-screener [股票池/条件]` | 寻找低估但基本面或预期开始改善的标的 |
+| `/high-dividend-strategy [股票池/条件]` | 寻找分红可持续、总回报更优的红利标的 |
+| `/small-cap-growth-identifier [股票池/条件]` | 寻找仍被低估认知的小盘成长股 |
+| `/quant-factor-screener [股票池/条件]` | 寻找因子共振、并识别因子失效与风格冲突 |
+| `/bse-selection-analyzer [股票池/条件]` | 寻找兼顾成长与可交易性的北交所标的 |
+| `/esg-screener [股票池/条件]` | 从治理、合规、争议与资本配置角度做筛选 |
 
-## Data Layer
+## 统一执行链路
 
-### 1. 通用建池 / 筛选
+所有策略统一遵循 4 层分析：
+
+1. **硬筛选层**  
+   先剔除明显不适合继续研究的公司，如财务质量过弱、流动性过差、风险事件过多等。
+
+2. **策略强化层**  
+   引入该策略最有辨识度的筛选与判断逻辑，避免所有策略都只是在改权重。
+
+3. **异常发现层**  
+   每次执行都要指出不寻常的信号，例如估值与盈利修复背离、股息率与现金流背离、成长与订单兑现背离等。
+
+4. **机会归类层**  
+   最终不只给一个排序，而是把结果分为确定性机会、预期差机会、困境反转机会、错误定价机会、观察名单或风险预警。
+
+## 统一输出要求
+
+每个策略执行完成后，结果至少包含以下 3 段：
+
+1. **本次异常发现**  
+   写出最值得关注的异常信号，不要只复述筛选条件。
+
+2. **潜在机会清单**  
+   明确说明机会来源、属于哪一类机会、为什么当前值得看。
+
+3. **未来跟踪信号**  
+   为候选标的列出后续验证点，如利润率、现金流、分红率、订单兑现、监管事件、负债率等。
+
+## 数据分层
+
+### 1. 通用建池 / 基础筛选
 
 统一优先复用：
 - `.claude/skills/lixinger-screener`
 
 定位：
-- 通用股票筛选
-- 条件表达
-- 自然语言筛选
-- request / browser 双入口
-- 推荐顺序：`request` 默认，`browser` 仅用于字段映射验证、自然语言试错或 request 异常时兜底
+- 建候选池
+- 做基础条件筛选
+- 做字段映射与表达式筛选
+- 默认优先 `request` 入口，`browser` 仅用于字段验证、自然语言试错或 request 异常时兜底
 
-约束：
-- 不把具体策略逻辑塞进 `lixinger-screener`
-- 它只负责候选池与基础筛选，不负责各策略的完整分析编排
+边界：
+- 不在 `lixinger-screener` 内编排具体策略分析
+- 不把策略结论、机会分类、异常识别写死在建池层
 
-### 2. 补充数据
+### 2. 策略补数 / 二次验证
 
-当策略需要更多字段时，按需补充：
+当候选池需要更深入判断时，按需补充：
 - `.claude/plugins/query_data`
-- 其他外部接口（如 AkShare、监管/治理类接口）
+- 外部来源（如 AkShare、监管公告、公开治理信息）
 
-## Directory Layout
+边界：
+- 只补充候选名单所需的验证数据，不默认做全市场逐股深拉
+- 对无法在仓库内验证的字段或能力，必须显式说明数据边界
 
-```text
-.claude/plugins/stock-screener/
-├── README.md
-├── .claude-plugin/plugin.json
-├── commands/
-│   ├── undervalued-stock-screener.md
-│   ├── high-dividend-strategy.md
-│   ├── quant-factor-screener.md
-│   ├── small-cap-growth-identifier.md
-│   ├── bse-selection-analyzer.md
-│   └── esg-screener.md
-└── skills/
-    ├── undervalued-stock-screener/
-    ├── high-dividend-strategy/
-    ├── quant-factor-screener/
-    ├── small-cap-growth-identifier/
-    ├── bse-selection-analyzer/
-    └── esg-screener/
-```
+## 推荐工作流
 
-## Expansion Rule
+1. 明确股票池范围、行业边界、数量与排序偏好
+2. 先用 `lixinger-screener` 建候选池
+3. 再按策略做强化筛选、异常识别与机会分类
+4. 仅对入围股补数，不对全市场做重度拉取
+5. 最终输出结论、证据、失效条件与后续跟踪信号
 
-后续增加新策略时：
+## 未来可扩展策略池
+
+以下方向适合后续继续扩展，但本轮仅做路线预留，不实现：
+
+- 景气反转策略
+- 困境反转策略
+- 股东回报增强策略
+- 现金牛复利策略
+- 订单驱动成长策略
+- 行业龙头补跌错杀策略
+- 国企改革重估策略
+- 资本开支周期策略
+- 供需格局改善策略
+- 监管出清后重估策略
+
+## 扩展规则
+
+后续新增策略时：
 1. 在 `skills/` 下新增策略目录
 2. 在 `commands/` 下新增同名命令文档
-3. 更新本 README 的“当前已接入策略”列表
+3. 在本 README 中补充策略定位、机会类型与输出要求
 4. 如需被全局 skill 索引发现，同步更新 `.claude/plugins.json`
-
-## Recommended Workflow
-
-1. 先确定筛选范围、行业、板块、数量与排序逻辑
-2. 使用 `lixinger-screener` 生成候选池
-3. 对入围名单做策略专属打分或深度分析
-4. 仅在需要时补充额外数据，避免全市场逐股深拉
+5. 保持 `lixinger-screener` 作为通用候选池底座，不把新增策略逻辑塞回底座

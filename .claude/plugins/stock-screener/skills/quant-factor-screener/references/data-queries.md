@@ -1,80 +1,111 @@
-# 量化因子筛选数据获取指南
+# 多因子策略数据查询指南
 
 ## 定位
 
-本策略优先把 `lixinger-screener` 作为 **候选池构建器**，再对入围名单补充因子计算所需数据。
+本策略采用“先建 Universe，再补查因子数据”的工作流：
 
-- **第一层**：`lixinger-screener` 负责 universe 筛选、基础条件过滤和导出候选池
-- **第二层**：`query_data` 负责价格、行业、宏观、补充基本面等因子输入
+1. 用 `.claude/skills/lixinger-screener` 做基础 Universe 收敛
+2. 用 `.claude/plugins/query_data` 补查价值、质量、成长、行业、行情与利率数据
 
-## 推荐工作流
+## 1. 候选池入口
 
-### 第一步：用 `lixinger-screener` 缩小候选池
+### 自然语言快速收敛
 
 ```bash
-cd /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-screener
-
+cd .claude/skills/lixinger-screener
 node request/fetch-lixinger-screener.js \
-  --query "PE-TTM小于30，PB小于4，ROE大于8%，资产负债率小于60%，上市日期早于2020-01-01" \
-  --output csv
+  --query "PE-TTM较低，PB较低，排除ST，上市时间较长" \
+  --output markdown
 ```
 
-适合先放进候选池的条件：
-- 估值：`PE-TTM`、`PB`、`EV/EBITDA`
-- 质量：`ROE`、资产负债率、毛利率
-- 成长：营收增长率、净利润增长率
-- 流动性：市值、成交额、换手率
-- 基础排除：ST、退市、过新上市公司
+这一步适合先控制：
+- 估值与基础质量
+- 市值范围
+- ST / 退市 / 过新上市公司排除
 
-## 第二步：对入围名单补充因子计算数据
+## 2. 对入围股补查 OpenAPI
 
-### 基本面与行业数据
+### 2.1 价值与规模因子
+
+使用 `cn/company/fundamental/non_financial`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date": "latest", "stockCodes": ["000001", "600519"], "metricsList": ["pe_ttm", "pb", "pcf_ttm", "ev_ebitda_r", "roe", "debt_to_assets", "ocf_to_net_profit", "mc", "to_r"]}' \
-  --columns "date,stockCode,pe_ttm,pb,pcf_ttm,ev_ebitda_r,roe,debt_to_assets,ocf_to_net_profit,mc,to_r"
+  --params '{"date":"latest","stockCodes":["000651","600519"],"metricsList":["d_pe_ttm","pb_wo_gw","pcf_ttm","ev_ebitda_r","mc","to_r"]}' \
+  --columns "stockCode,d_pe_ttm,pb_wo_gw,pcf_ttm,ev_ebitda_r,mc,to_r"
 ```
+
+### 2.2 质量与成长因子
+
+使用 `cn/company/fs/non_financial`：
+
+```bash
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+  --suffix "cn/company/fs/non_financial" \
+  --params '{"date":"latest","stockCodes":["000651","600519"],"metricsList":["q.ps.wroe.t","q.ps.toi.t_y2y","q.ps.np.t_y2y","q.ps.gp_m.t","q.bs.tl.t","q.bs.ta.t"]}' \
+  --columns "date,stockCode,q.ps.wroe.t,q.ps.toi.t_y2y,q.ps.np.t_y2y,q.ps.gp_m.t,q.bs.tl.t,q.bs.ta.t"
+```
+
+### 2.3 行业归属
+
+使用 `cn/company/industries`，注意参数是单个 `stockCode`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/industries" \
-  --params '{"date": "latest", "stockCodes": ["000001", "600519"]}' \
-  --columns "date,stockCode,industry_name,industry_code"
+  --params '{"stockCode":"600519"}' \
+  --columns "stockCode,name,source"
 ```
 
-### 价格、动量、低波动
+### 2.4 个股价格序列
+
+使用 `cn/company/candlestick`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
-  --params '{"date": "latest", "stockCodes": ["000001", "600519"], "limit": 250}' \
-  --columns "date,stockCode,open,high,low,close,volume,turnover_rate"
+  --params '{"stockCode":"600519","type":"bc_rights","startDate":"2025-01-01","endDate":"latest"}' \
+  --columns "date,close,change,to_r"
 ```
 
-### 基准与宏观环境
+适合计算：
+- 中期动量
+- 波动与回撤
+- 成交活跃度变化
+
+### 2.5 指数基准
+
+使用 `cn/index/candlestick`，注意参数是单个 `stockCode` 且必须带 `type`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/index/candlestick" \
-  --params '{"date": "latest", "stockCodes": ["000300", "000905"], "limit": 250}' \
-  --columns "date,stockCode,open,high,low,close,volume"
+  --params '{"stockCode":"000300","type":"normal","startDate":"2025-01-01","endDate":"latest"}' \
+  --columns "date,close,change"
 ```
+
+### 2.6 利率环境（可选）
+
+使用 `macro/interest-rates`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "macro/interest-rates" \
-  --params '{"startDate": "2025-01-01", "endDate": "latest"}' \
-  --columns "date,rate_type,rate_value"
+  --params '{"areaCode":"cn","startDate":"2025-01-01","endDate":"latest","metricsList":["lpr_y1","lpr_y5","shibor_m3"]}' \
+  --columns "date,lpr_y1,lpr_y5,shibor_m3"
 ```
 
-## 适用边界
+## 3. 推荐分析顺序
 
-- `lixinger-screener` 适合先完成 universe builder，不适合直接代替完整因子计算引擎。
-- 动量、波动率、Beta、行业中性化等计算仍需要价格、指数和行业数据补充。
-- 如果策略要做宏观择时或风格轮动，需要继续调用宏观与指数接口。
+1. 先建候选池，控制 Universe
+2. 再补查价值、质量、成长因子
+3. 用行业接口做行业内比较
+4. 用个股和指数 K 线判断动量与低波
+5. 最后才做风格解释与机会分类
 
-## 查找更多 API
+## 4. 当前边界
 
-详细的 API 查找和使用方法，请参考：`../../../../query_data/lixinger-api-docs/SKILL.md`
+- 因子是研究框架，不是现成回测系统
+- 行业接口是单只查询，不适合暴力批量传数组
+- 利率与宏观数据只适合做轻量风格解释，不适合伪精确择时

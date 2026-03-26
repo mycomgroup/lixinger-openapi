@@ -1,63 +1,94 @@
-# 小盘成长策略数据获取指南
+# 小盘成长策略数据查询指南
 
 ## 定位
 
-本策略把 `lixinger-screener` 作为小市值成长候选池入口，再对入围名单补充经营质量、现金流和股东结构数据。
+本策略采用“先初筛、后补查”的工作流：
 
-## 推荐工作流
+1. 用 `.claude/skills/lixinger-screener` 初步圈定小市值成长候选池
+2. 用 `.claude/plugins/query_data` 对入围股补查成长质量、行业与互联互通数据
 
-### 第一步：用 `lixinger-screener` 构建小盘成长候选池
+## 1. 候选池入口
+
+### 自然语言快速建池
 
 ```bash
-cd /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-screener
-
+cd .claude/skills/lixinger-screener
 node request/fetch-lixinger-screener.js \
-  --query "总市值小于150亿，营业收入增长率(3年复合)大于15%，净利润增长率(3年复合)大于15%，净资产收益率(TTM)大于10%，资产负债率小于60%" \
-  --output csv
+  --query "总市值小于150亿，营收增长率较高，净利润增长率较高，排除ST" \
+  --output markdown
 ```
 
-适合先放进候选池的条件：
+适合候选池阶段处理的条件：
 - 总市值 / 流通市值
 - 营收增长率 / 净利润增长率
-- ROE / 毛利率 / 资产负债率
-- ST 排除、上市年限、板块限制
+- 毛利率、ROE、资产负债率等基础质量约束
+- 板块、行业、上市时间等通用过滤条件
 
-## 第二步：对入围名单补充质量与股东数据
+## 2. 对入围股补查 OpenAPI
 
-### 财务基本面
+### 2.1 市值与估值
+
+使用 `cn/company/fundamental/non_financial`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date": "latest", "stockCodes": ["300750"], "metricsList": ["mc", "pe_ttm", "pb", "roe"]}' \
-  --columns "date,stockCode,mc,pe_ttm,pb,roe"
+  --params '{"date":"latest","stockCodes":["300750"],"metricsList":["mc","pe_ttm","pb","to_r"]}' \
+  --columns "stockCode,mc,pe_ttm,pb,to_r"
 ```
 
-### 营收、利润率与现金流
+### 2.2 成长质量与研发
+
+使用 `cn/company/fs/non_financial`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
-  --params '{"date": "latest", "stockCodes": ["300750"], "metricsList": ["operating_revenue", "gross_profit_margin", "net_profit_margin", "net_operate_cash_flow"]}' \
-  --columns "date,stockCode,operating_revenue,gross_profit_margin,net_profit_margin,net_operate_cash_flow"
+  --params '{"date":"latest","stockCodes":["300750"],"metricsList":["q.ps.toi.t_y2y","q.ps.np.t_y2y","q.ps.gp_m.t","q.ps.rade.t","q.ps.wroe.t"]}' \
+  --columns "date,stockCode,q.ps.toi.t_y2y,q.ps.np.t_y2y,q.ps.gp_m.t,q.ps.rade.t,q.ps.wroe.t"
 ```
 
-### 股东或资金侧补充
+适合判断：
+- 收入和利润是否同步增长
+- 毛利率是否稳定
+- 研发投入是否在增强
+- ROE 是否支持成长质量
+
+### 2.3 行业归属
+
+使用 `cn/company/industries`，注意参数是 `stockCode` 而不是 `stockCodes`：
+
+```bash
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+  --suffix "cn/company/industries" \
+  --params '{"stockCode":"300750"}' \
+  --columns "stockCode,name,source"
+```
+
+### 2.4 互联互通持股变化
+
+使用 `cn/company/mutual-market`，注意需要 `stockCode` 和 `startDate`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/mutual-market" \
-  --params '{"date": "latest"}' \
-  --columns "date,stockCode,holder_name,hold_ratio,hold_type" \
-  --limit 100
+  --params '{"stockCode":"300750","startDate":"2025-01-01"}' \
+  --columns "date,shareholdings"
 ```
 
-## 适用边界
+适合观察：
+- 外部资金是否开始关注
+- 持股变化是否与成长兑现同步
 
-- `lixinger-screener` 非常适合先做“小市值 + 增长 + 盈利能力”的批量初筛。
-- 更细的经营质量、现金流、股东结构、机构持仓等信息，建议只对入围名单补查。
-- 若要识别专精特新、产业链位置或管理层特征，可继续使用其他数据源补充。
+## 3. 推荐分析顺序
 
-## 查找更多 API
+1. 先用筛选器控制小市值与基础成长范围
+2. 再用 `fs/non_financial` 验证成长质量与研发投入
+3. 再用 `industries` 看行业归属，用 `mutual-market` 看关注度变化
+4. 最后再判断是真成长、预期差还是伪成长
 
-详细的 API 查找和使用方法，请参考：`../../../../query_data/lixinger-api-docs/SKILL.md`
+## 4. 当前边界
+
+- 当前仓库内没有可直接复用的专精特新名单接口
+- 机构持仓、公募覆盖、订单金额等更适合作为外部补充数据
+- 缺乏验证证据时，不要把“成长故事”直接写成“成长事实”

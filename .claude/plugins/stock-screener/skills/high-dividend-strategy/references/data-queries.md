@@ -1,91 +1,108 @@
-# 高股息策略数据获取指南
+# 高股东回报策略数据查询指南
 
 ## 定位
 
-本策略的数据获取分两层：
+本策略采用两段式数据链路：
 
-1. **候选池构建**：优先使用 `.claude/skills/lixinger-screener`
-2. **补充数据**：对入围名单再按需调用 `.claude/plugins/query_data` 或其他接口
+1. 用 `.claude/skills/lixinger-screener` 先做红利候选池
+2. 用 `.claude/plugins/query_data` 对少量入围股补充分红历史、估值与财报验证
 
-这样可以先批量筛出高股息候选股，再对少量入围公司检查分红可持续性，避免全市场逐股深拉。
+## 1. 候选池入口
 
-## 推荐工作流
+当前仓库**没有** `high-dividend-screen.json`。不要继续引用不存在的文件。
 
-### 第一步：用 `lixinger-screener` 建候选池
+推荐做法：
+- 先复用 `.claude/skills/lixinger-screener/low-valuation-high-dividend.json`
+- 或直接使用自然语言 query，只保留红利与基础质量条件
+
+### 复用现有模板
 
 ```bash
-cd /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-screener
-
+cd .claude/skills/lixinger-screener
 node request/fetch-lixinger-screener.js \
-  --query "股息率大于3%，PE-TTM小于20，PB小于2，上市日期早于2018-01-01" \
+  --input-file low-valuation-high-dividend.json \
   --output markdown
 ```
 
-更稳定的方式是使用参数文件：
+### 自然语言快速建池
 
 ```bash
-cd /Users/fengzhi/Downloads/git/lixinger-openapi/.claude/skills/lixinger-screener
-
+cd .claude/skills/lixinger-screener
 node request/fetch-lixinger-screener.js \
-  --input-file high-dividend-screen.json \
-  --output csv
+  --query "股息率大于3%，上市日期早于2018-01-01，排除ST" \
+  --output markdown
 ```
 
-建议的候选池条件：
-- `股息率`：先做初筛
-- `PE-TTM` / `PB`：过滤极端高估值标的
-- `上市日期`：过滤上市时间过短的公司
-- `excludeSpecialTreatment`：排除 ST
-- 行业、板块、指数范围：按策略需要限定
+## 2. 对入围股补查 OpenAPI
 
-## 第二步：对入围名单补充分红与财务数据
+### 2.1 历史分红
 
-候选池确定后，再对少量股票补充分红、自由现金流和资产负债率等字段。
-
-### 历史分红
+使用 `cn/company/dividend`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/dividend" \
-  --params '{"stockCode": "600519", "startDate": "2021-01-01"}' \
-  --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate"
+  --params '{"stockCode":"600519","startDate":"2021-01-01"}' \
+  --columns "date,dividend,dividendAmount,annualNetProfitDividendRatio,exDate,paymentDate"
 ```
 
-### 财务与估值补数
+适合回答：
+- 分红是否连续
+- 分红金额是否稳定
+- 年度净利润分红比例是否过高
+
+### 2.2 估值与市场信息
+
+使用 `cn/company/fundamental/non_financial`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"stockCodes":["600519"],"date":"latest","metricsList":["dyr","pe_ttm","pb","mc"]}' \
-  --columns "stockCode,dyr,pe_ttm,pb,mc"
+  --params '{"date":"latest","stockCodes":["600519","601088"],"metricsList":["dyr","pe_ttm","pb","pcf_ttm","mc"]}' \
+  --columns "stockCode,dyr,pe_ttm,pb,pcf_ttm,mc"
 ```
+
+适合回答：
+- 当前股息率是否足够有吸引力
+- 估值是否仍有安全边际
+- `PCF-TTM` 是否支持现金流质量判断
+
+### 2.3 财报侧验证
+
+使用 `cn/company/fs/non_financial`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
-  --params '{"stockCodes":["600519"],"startDate":"2021-01-01","endDate":"latest","metricsList":["q.ps.np.t","q.cfs.fcf.t","q.bs.tl.t","q.bs.ta.t"]}' \
-  --columns "date,stockCode,q.ps.np.t,q.cfs.fcf.t,q.bs.tl.t,q.bs.ta.t"
+  --params '{"date":"latest","stockCodes":["600519","601088"],"metricsList":["q.ps.da.t","q.ps.d_np_r.t","q.ps.np.t","q.bs.tl.t","q.bs.ta.t"]}' \
+  --columns "date,stockCode,q.ps.da.t,q.ps.d_np_r.t,q.ps.np.t,q.bs.tl.t,q.bs.ta.t"
 ```
 
-### 总回报所需价格
+适合验证：
+- 当前分红金额与分红率
+- 利润能否支撑分红
+- 资产负债表是否在变差
+
+### 2.4 总回报所需价格
+
+使用 `cn/company/candlestick`：
 
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/candlestick" \
-  --params '{"stockCode": "600519", "startDate": "2021-01-01", "endDate": "latest", "type": "bc_rights"}' \
-  --columns "date,close"
+  --params '{"stockCode":"600519","startDate":"2021-01-01","endDate":"latest","type":"bc_rights"}' \
+  --columns "date,close,change"
 ```
 
-## 适用边界
+## 3. 推荐分析顺序
 
-- `lixinger-screener` 适合构建高股息候选池，不负责完整分红历史与现金流覆盖计算。
-- `cn/company/dividend` 只支持单个 `stockCode`，因此更适合对入围股补查，而不是全市场直接循环。
-- 若需要更复杂的红利指数成分、行业暴露或外部收益率对比，可继续使用其他接口补数。
+1. 先用筛选器做红利候选池
+2. 再用 `cn/company/dividend` 核对分红连续性和分红率
+3. 再用 `fundamental/non_financial` 与 `fs/non_financial` 看估值、利润、负债
+4. 最后再判断属于稳定收息、分红成长、重估还是陷阱
 
-## 相关文件
+## 4. 当前边界
 
-- 技能文档：`.claude/plugins/stock-screener/skills/high-dividend-strategy/`
-- 计算方法：`.claude/plugins/stock-screener/skills/high-dividend-strategy/references/calculation-methodology.md`
-- 输出模板：`.claude/plugins/stock-screener/skills/high-dividend-strategy/references/output-template.md`
-- 理杏仁筛选底座：`.claude/skills/lixinger-screener/`
-- 补充数据接口：`.claude/plugins/query_data/lixinger-api-docs/`
+- `cn/company/dividend` 更适合单个或少量股票补查
+- 当前仓库没有现成的专属红利输入文件，先复用已有模板即可
+- 如需精确现金流覆盖与公告核验，应继续补查财报和公告，不要只凭股息率下结论

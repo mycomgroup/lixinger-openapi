@@ -1,103 +1,86 @@
-# bse-selection-analyzer 安装指南
+# bse-selection-analyzer 安装与验证
 
-## 前置要求
+## 依赖
 
 - Python 3.8+
-- 理杏仁 API Key（免费）
+- Node.js 18+
+- 仓库根目录 `requirements.txt`
+- 理杏仁 OpenAPI Token（供 `query_data` 使用）
+- 理杏仁账号用户名/密码（仅在使用 `lixinger-screener/request` 批量建池时需要）
 
-## 第一步：获取 API Key
-
-### 1.1 注册理杏仁账号
-
-1. 访问 https://www.lixinger.com/
-2. 点击右上角"注册"
-3. 填写邮箱和密码
-4. 验证邮箱
-
-### 1.2 申请 API Key
-
-1. 登录后进入"个人中心"
-2. 点击"API 管理"
-3. 点击"创建 API Key"
-4. 选择套餐（免费版：1000次/天）
-5. 复制生成的 API Key
-
-**Key 格式示例**：`lx_1234567890abcdef1234567890abcdef`
-
-## 第二步：配置环境
-
-### 方式 A：临时配置
+## 1. 安装 Python 依赖
 
 ```bash
-export LIXINGER_API_KEY="lx_your_key_here"
+pip install -r requirements.txt
 ```
 
-### 方式 B：永久配置（推荐）
+## 2. 配置 OpenAPI Token
 
-**macOS/Linux (zsh)**：
-```bash
-echo 'export LIXINGER_API_KEY="lx_your_key_here"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-**验证配置**：
-```bash
-echo $LIXINGER_API_KEY
-# 应该显示你的 API Key
-```
-
-### 方式 C：项目级配置
-
-在项目根目录创建 `token.cfg`：
-```bash
-echo "LIXINGER_API_KEY=lx_your_key_here" > token.cfg
-```
-
-## 第三步：安装依赖
+### 方式 A：环境变量
 
 ```bash
-cd lixinger-openapi
-pip install -r requirement.txt
+export LIXINGER_TOKEN="your_token_here"
 ```
 
-## 第四步：验证安装
+### 方式 B：项目根目录 `token.cfg`
 
 ```bash
-# 测试 API 连接
-python3 plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
-  --suffix "cn/company" \
-  --params '{"stockCodes": ["600519"]}' \
-  --columns "stockCode,cnName"
+echo "your_token_here" > token.cfg
 ```
 
-**预期输出**：
-```csv
-stockCode,cnName
-600519,贵州茅台
+## 3. 配置筛选器账号（可选）
+
+```bash
+export LIXINGER_USERNAME="your_account"
+export LIXINGER_PASSWORD="your_password"
 ```
+
+## 4. 验证北交所相关 OpenAPI
+
+先验证北证50成分补查：
+
+```bash
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+  --suffix "cn/index/constituents" \
+  --params '{"date":"latest","stockCodes":["899050"]}' \
+  --flatten "constituents" \
+  --columns "stockCode"
+```
+
+这一步用于确认北证50样本获取链路可用。
+
+## 5. 验证行情补查能力
+
+```bash
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+  --suffix "cn/company/candlestick" \
+  --params '{"stockCode":"920001","startDate":"2025-01-01","endDate":"latest","type":"bc_rights"}' \
+  --columns "date,close,amount,to_r"
+```
+
+如样本代码不可用，可替换为实际北交所代码。
+
+## 6. 验证候选池能力（可选）
+
+```bash
+cd .claude/skills/lixinger-screener
+node request/fetch-lixinger-screener.js --help
+```
+
+北交所自然语言筛选更依赖字段映射，先验证脚本可运行，再逐步收紧条件。
+
+## 7. 最小可运行组合
+
+1. 先用筛选器圈定北交所范围
+2. 再用 `cn/index/constituents`、`fundamental/non_financial`、`candlestick` 补查
+3. 输出时务必附带流动性门槛、仓位约束和退出条件
 
 ## 常见问题
 
-### 问题 1: "LIXINGER_API_KEY 环境变量未找到"
+### 历史行情接口报错
 
-**解决**：
-1. 确认已获取 API Key
-2. 重新配置环境变量
-3. 重启终端
+不要再使用不存在的 `cn/company/quote/daily`。当前仓库应统一使用 `cn/company/candlestick`。
 
-### 问题 2: "API 返回 401 错误"
+### 只给成长逻辑，没有交易约束
 
-**原因**：API Key 无效或过期
-
-**解决**：
-1. 检查 Key 是否正确
-2. 重新生成 API Key
-
-## 使用示例
-
-详见 `SKILL.md` 中的完整示例。
-
-## 技术支持
-
-- 理杏仁 API 文档：https://www.lixinger.com/api
-- 项目文档：../../../../../docs/
+这类结果不完整。北交所策略必须先写可交易性，再写成长与估值。
