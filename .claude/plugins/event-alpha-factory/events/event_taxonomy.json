@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-03-26T00:00:00Z",
+  "axes": ["market", "family", "event_type", "direction", "severity"],
+  "families": [
+    {
+      "id": "earnings",
+      "name": "业绩事件",
+      "types": ["earnings_beat", "earnings_miss", "guidance_raise", "guidance_cut"]
+    },
+    {
+      "id": "capital_actions",
+      "name": "资本行为",
+      "types": ["share_repurchase", "insider_buy", "insider_sell"]
+    },
+    {
+      "id": "ipo",
+      "name": "IPO/解禁",
+      "types": ["ipo_newlist", "lockup_expiry_risk"]
+    }
+  ],
+  "mapping_rules": [
+    {
+      "source": "cn_disclosure",
+      "pattern": "回购|股份回购",
+      "mapped": {
+        "family": "capital_actions",
+        "event_type": "share_repurchase",
+        "direction": "positive",
+        "severity": "medium"
+      }
+    },
+    {
+      "source": "us_earnings",
+      "pattern": "beat|above consensus",
+      "mapped": {
+        "family": "earnings",
+        "event_type": "earnings_beat",
+        "direction": "positive",
+        "severity": "high"
+      }
+    },
+    {
+      "source": "cn_ipo_lockup",
+      "pattern": "解禁|限售股上市流通",
+      "mapped": {
+        "family": "ipo",
+        "event_type": "lockup_expiry_risk",
+        "direction": "negative",
+        "severity": "medium"
+      }
+    }
+  ]
+}

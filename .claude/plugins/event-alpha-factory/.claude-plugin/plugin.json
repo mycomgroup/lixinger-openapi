@@ -1,0 +1,8 @@
+{
+  "name": "event-alpha-factory",
+  "version": "0.1.0",
+  "description": "Event-driven alpha middle layer: taxonomy normalization, abnormal-return comparison, and 1D/5D/20D post-event validation playbooks",
+  "author": {
+    "name": "lixinger-openapi"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "abnormal_return_panel",
+  "type": "object",
+  "required": [
+    "event_id",
+    "symbol",
+    "market",
+    "event_type",
+    "event_time",
+    "ar_1d",
+    "ar_5d",
+    "ar_20d",
+    "pct_rank_1d",
+    "pct_rank_5d",
+    "pct_rank_20d"
+  ],
+  "properties": {
+    "event_id": { "type": "string" },
+    "symbol": { "type": "string" },
+    "market": { "type": "string", "enum": ["CN", "US", "HK"] },
+    "event_type": { "type": "string" },
+    "event_time": { "type": "string", "format": "date-time" },
+    "raw_ret_1d": { "type": "number" },
+    "raw_ret_5d": { "type": "number" },
+    "raw_ret_20d": { "type": "number" },
+    "bench_ret_1d": { "type": "number" },
+    "bench_ret_5d": { "type": "number" },
+    "bench_ret_20d": { "type": "number" },
+    "ar_1d": { "type": "number" },
+    "ar_5d": { "type": "number" },
+    "ar_20d": { "type": "number" },
+    "pct_rank_1d": { "type": "number", "minimum": 0, "maximum": 1 },
+    "pct_rank_5d": { "type": "number", "minimum": 0, "maximum": 1 },
+    "pct_rank_20d": { "type": "number", "minimum": 0, "maximum": 1 },
+    "zscore_1d": { "type": "number" },
+    "zscore_5d": { "type": "number" },
+    "zscore_20d": { "type": "number" },
+    "confounder_flag": { "type": "boolean" },
+    "data_quality_score": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": true
+}
