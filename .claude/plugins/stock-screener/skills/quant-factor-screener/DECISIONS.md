@@ -61,3 +61,21 @@
 - 伪精确宏观择时
 - 把单一风格行情误写成长期因子有效性结论
 - 把单一高股息或单一动量误写成完整多因子共振
+
+## 8. 第一轮改造清单
+
+按当前优先方向并入设计，后续优先回填以下位置：
+
+1. `SKILL.md`
+   - 固定 `cash-cow-compounder` 与 `leader-oversold-recovery` 两个解释层接口
+   - 输出时显式标明服务的主线与对应母策略分类
+2. `references/factor-methodology.md`
+   - 固定 `价值 + 质量 + 成长 + 股东回报` 用于 `cash-cow-compounder`
+   - 固定 `价值 + 质量 + 动量 / 低波冲突` 用于 `leader-oversold-recovery`
+3. `references/output-template.md`
+   - 新增 `主线归属`、`因子共振点`、`因子冲突点`、`不应越权替代的主判断`
+
+本策略继续保持解释层边界：
+- 不替代 `high-dividend-strategy`
+- 不替代 `undervalued-stock-screener`
+- 只解释为什么成立、哪里冲突、哪些结果不能追

@@ -21,6 +21,15 @@
 - `small-cap-growth-identifier` 与 `bse-selection-analyzer` 暂不扩张，避免无证据扩散
 - `business-cycle-turnaround` 只作为条件性新增候选，只有现有四个母策略无法清晰承接时才创建
 
+## 优先方向设计入口
+
+当前 4 个最高优先方向的并入方案，统一见 [PRIORITY_STRATEGY_INTEGRATION_DESIGN.md](PRIORITY_STRATEGY_INTEGRATION_DESIGN.md)：
+
+- `shareholder-yield-enhancer` -> `high-dividend-strategy`
+- `cash-cow-compounder` -> `high-dividend-strategy` + `quant-factor-screener`
+- `leader-oversold-recovery` -> `undervalued-stock-screener` + `quant-factor-screener`
+- `soe-rerating` -> `high-dividend-strategy` + `esg-screener`
+
 ## 当前已接入策略
 
 | Strategy | 核心定位 | 重点机会 |

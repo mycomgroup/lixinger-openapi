@@ -65,3 +65,21 @@
 - 在缺少现金流或公告证据时断言分红一定可持续
 - 把未验证的自由现金流、回购、ROIC 叙事写成确定事实
 - 默认构造不存在的输入文件或未验证字段
+
+## 8. 第一轮改造清单
+
+按当前优先方向并入设计，后续优先回填以下位置：
+
+1. `SKILL.md`
+   - 固定 `shareholder-yield-enhancer`、`cash-cow-compounder`、`soe-rerating` 分红重估面的执行分支
+   - 在异常发现与机会分类中继续显式保留 `现金牛复利`、`央国企分红重估`
+2. `references/calculation-methodology.md`
+   - 补齐派息率提升、回购 / 特别分红、市值管理、自由现金流覆盖的判断顺序
+   - 明确 `soe-rerating` 在本策略内只承接分红重估面，治理证据必须转交 `esg-screener`
+3. `references/output-template.md`
+   - 固定 `主线标签`、`股东回报增强证据`、`待验证公告 / 治理线索` 三个槽位
+
+这样可以让本策略直接承接：
+- `shareholder-yield-enhancer`
+- `cash-cow-compounder`
+- `soe-rerating` 的分红重估面

@@ -142,6 +142,8 @@
 | `leader-oversold-recovery` | `undervalued-stock-screener` + `quant-factor-screener` | 本质是低估值 + 质量约束，不值得再拆独立命令 |
 | `soe-rerating` | `high-dividend-strategy` + `esg-screener` | 分红重估和治理验证是两个更清晰的现有承接面 |
 
+这 4 个方向如何落到现有母策略、如何协同调用解释层与治理验证层、以及统一输出和数据边界的设计，统一见 [PRIORITY_STRATEGY_INTEGRATION_DESIGN.md](PRIORITY_STRATEGY_INTEGRATION_DESIGN.md)。
+
 ### 4.2 第二优先级：保留为进攻型卫星储备
 
 - `business-cycle-turnaround`
