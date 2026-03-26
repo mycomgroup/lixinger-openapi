@@ -4,13 +4,14 @@
 
 ## 插件目标
 
-将以下 5 个能力统一编排，形成从“市场观察 → 轮动判断 → 产业链验证 → 政策映射 → 跟踪监控”的完整闭环：
+将以下 6 个能力统一编排，形成从“市场观察 → 轮动判断 → 产业链验证 → 政策映射 → 研报校验 → 跟踪监控”的完整闭环：
 
 - `industry-board-analyzer`：行业板块分析
 - `sector-rotation-detector`：行业轮动探测
 - `industry-chain-mapper`：产业链映射与景气跟踪
 - `concept-board-analyzer`：概念板块分析
 - `policy-sensitivity-brief`：政策敏感度简报
+- `industry-report-analyzer`：行业研报分析
 
 ## 目录结构
 
@@ -26,6 +27,7 @@
 - `/concept-board-analyzer [概念主题]`
 - `/policy-sensitivity-brief [政策主题]`
 - `/industry-concept-research [研究主题]`（综合编排入口）
+- `/industry-report-analyzer [行业/公司/时间窗]`
 
 ## 统一执行流程
 
@@ -33,4 +35,5 @@
 2. 再用轮动框架判断“为什么强、能否持续”；
 3. 用产业链映射验证“利润与景气是否可传导”；
 4. 用政策敏感度判断“催化与扰动方向”；
-5. 最终输出可执行监控清单与失效条件。
+5. 用行业研报分析补充一致预期与关键分歧；
+6. 最终输出可执行监控清单与失效条件。
