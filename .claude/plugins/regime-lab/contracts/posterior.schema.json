@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "regime/posterior.schema.json",
+  "type": "object",
+  "required": [
+    "as_of_date",
+    "market",
+    "top_state",
+    "confidence",
+    "state_probs",
+    "switching_speed",
+    "leading_signals",
+    "lagging_signals"
+  ],
+  "properties": {
+    "as_of_date": { "type": "string", "format": "date" },
+    "market": { "type": "string", "enum": ["CN", "HK", "US", "EU", "JP"] },
+    "top_state": {
+      "type": "string",
+      "enum": ["LIQUIDITY_DRIVEN", "EARNINGS_DRIVEN", "RISK_OFF", "POLICY_DOMINATED", "SHOCK_TRANSITION"]
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "state_probs": {
+      "type": "object",
+      "required": ["LIQUIDITY_DRIVEN", "EARNINGS_DRIVEN", "RISK_OFF", "POLICY_DOMINATED", "SHOCK_TRANSITION"],
+      "properties": {
+        "LIQUIDITY_DRIVEN": { "type": "number", "minimum": 0, "maximum": 1 },
+        "EARNINGS_DRIVEN": { "type": "number", "minimum": 0, "maximum": 1 },
+        "RISK_OFF": { "type": "number", "minimum": 0, "maximum": 1 },
+        "POLICY_DOMINATED": { "type": "number", "minimum": 0, "maximum": 1 },
+        "SHOCK_TRANSITION": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "switching_speed": { "type": "number", "minimum": 0, "maximum": 1 },
+    "leading_signals": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "lagging_signals": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  },
+  "additionalProperties": false
+}

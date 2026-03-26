@@ -1,0 +1,18 @@
+[
+  {
+    "thesis_id": "CN_liquidity_driven_001",
+    "market": "CN",
+    "invalidation_metric": "volatility",
+    "trigger_condition": "volatility > 0.75 for 3 sessions",
+    "lookback_window": "3D",
+    "action_on_trigger": "reduce gross exposure by 20% and rerun regime model"
+  },
+  {
+    "thesis_id": "CN_liquidity_driven_002",
+    "market": "CN",
+    "invalidation_metric": "breadth",
+    "trigger_condition": "breadth < 0.35 for 5 sessions",
+    "lookback_window": "5D",
+    "action_on_trigger": "downgrade confidence and rotate to defensive industries"
+  }
+]

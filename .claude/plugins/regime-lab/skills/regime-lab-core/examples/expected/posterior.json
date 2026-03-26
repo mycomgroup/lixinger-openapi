@@ -1,0 +1,22 @@
+{
+  "as_of_date": "2026-03-26",
+  "market": "CN",
+  "top_state": "LIQUIDITY_DRIVEN",
+  "confidence": 0.4739,
+  "state_probs": {
+    "LIQUIDITY_DRIVEN": 0.473903,
+    "EARNINGS_DRIVEN": 0.117802,
+    "RISK_OFF": 0.059502,
+    "POLICY_DOMINATED": 0.199338,
+    "SHOCK_TRANSITION": 0.149456
+  },
+  "switching_speed": 0.7254,
+  "leading_signals": [
+    "breadth",
+    "policy_impulse"
+  ],
+  "lagging_signals": [
+    "volatility",
+    "valuation"
+  ]
+}

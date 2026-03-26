@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "regime/driver_attribution.schema.json",
+  "type": "object",
+  "required": ["as_of_date", "market", "drivers"],
+  "properties": {
+    "as_of_date": { "type": "string", "format": "date" },
+    "market": { "type": "string", "enum": ["CN", "HK", "US", "EU", "JP"] },
+    "drivers": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["name", "raw_score", "normalized_score", "contribution_pct", "confidence", "direction"],
+        "properties": {
+          "name": { "type": "string" },
+          "raw_score": { "type": "number" },
+          "normalized_score": { "type": "number", "minimum": 0, "maximum": 1 },
+          "contribution_pct": { "type": "number", "minimum": 0, "maximum": 1 },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "direction": { "type": "string", "enum": ["positive", "negative", "neutral"] }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,54 @@
+{
+  "as_of_date": "2026-03-26",
+  "market": "CN",
+  "drivers": [
+    {
+      "name": "breadth",
+      "raw_score": 0.72,
+      "normalized_score": 0.72,
+      "contribution_pct": 0.216216,
+      "confidence": 0.888,
+      "direction": "positive"
+    },
+    {
+      "name": "policy_impulse",
+      "raw_score": 0.66,
+      "normalized_score": 0.66,
+      "contribution_pct": 0.198198,
+      "confidence": 0.864,
+      "direction": "positive"
+    },
+    {
+      "name": "sentiment_gap",
+      "raw_score": 0.61,
+      "normalized_score": 0.61,
+      "contribution_pct": 0.183183,
+      "confidence": 0.844,
+      "direction": "positive"
+    },
+    {
+      "name": "microstructure",
+      "raw_score": 0.57,
+      "normalized_score": 0.57,
+      "contribution_pct": 0.171171,
+      "confidence": 0.828,
+      "direction": "positive"
+    },
+    {
+      "name": "valuation",
+      "raw_score": 0.42,
+      "normalized_score": 0.42,
+      "contribution_pct": 0.126126,
+      "confidence": 0.768,
+      "direction": "negative"
+    },
+    {
+      "name": "volatility",
+      "raw_score": 0.35,
+      "normalized_score": 0.35,
+      "contribution_pct": 0.105105,
+      "confidence": 0.74,
+      "direction": "negative"
+    }
+  ]
+}

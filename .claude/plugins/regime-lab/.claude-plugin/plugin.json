@@ -1,0 +1,8 @@
+{
+  "name": "regime-lab",
+  "version": "0.1.0",
+  "description": "Cross-market and industry regime detection plugin with machine-readable intermediate outputs",
+  "author": {
+    "name": "lixinger-openapi"
+  }
+}

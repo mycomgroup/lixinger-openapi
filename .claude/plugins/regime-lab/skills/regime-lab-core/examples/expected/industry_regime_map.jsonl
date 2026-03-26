@@ -1,0 +1,3 @@
+{"as_of_date": "2026-03-26", "market": "CN", "industry_code": "SW_801010", "industry_state": "LEADING_CONFIRM", "state_prob": 0.636667, "relative_strength": 0.75, "crowding_score": 0.42, "policy_beta": 0.58}
+{"as_of_date": "2026-03-26", "market": "CN", "industry_code": "SW_801750", "industry_state": "LAGGING_RECOVERY", "state_prob": 0.56, "relative_strength": 0.63, "crowding_score": 0.67, "policy_beta": 0.72}
+{"as_of_date": "2026-03-26", "market": "CN", "industry_code": "SW_801780", "industry_state": "VALUATION_TRAP", "state_prob": 0.506667, "relative_strength": 0.41, "crowding_score": 0.38, "policy_beta": 0.49}

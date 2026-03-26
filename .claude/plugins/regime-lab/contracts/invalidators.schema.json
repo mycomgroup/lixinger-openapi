@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "regime/invalidators.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "thesis_id",
+      "market",
+      "invalidation_metric",
+      "trigger_condition",
+      "lookback_window",
+      "action_on_trigger"
+    ],
+    "properties": {
+      "thesis_id": { "type": "string" },
+      "market": { "type": "string", "enum": ["CN", "HK", "US", "EU", "JP"] },
+      "invalidation_metric": { "type": "string" },
+      "trigger_condition": { "type": "string" },
+      "lookback_window": { "type": "string" },
+      "action_on_trigger": { "type": "string" }
+    },
+    "additionalProperties": false
+  }
+}
