@@ -386,13 +386,54 @@ data = make_request("/financial-metrics/snapshot", {"ticker": "AAPL"})
 
 ---
 
+## API定价与免费额度
+
+### 免费API（1个）
+
+| API | 端点 | 说明 |
+|-----|------|------|
+| **Company Facts** | `/company/facts` | 获取公司基本信息（名称、CIK、行业、板块、交易所等） |
+
+**说明**: Company Facts API 是实验性的免费API，无需付费即可访问。支持通过 `ticker` 或 `cik` 参数查询。
+
+### 付费API（26个）
+
+其余所有API均为付费API，包括：
+
+| 类别 | API数量 | 端点示例 |
+|------|---------|----------|
+| 股票价格 | 2 | `/prices`, `/prices/snapshot` |
+| 财务报表 | 4 | `/financials/income-statements`, `/financials/balance-sheets`, `/financials/cash-flow-statements`, `/financials/all-financial-statements` |
+| 财务指标 | 2 | `/financial-metrics`, `/financial-metrics/snapshot` |
+| 盈利数据 | 2 | `/earnings`, `/earnings/press-releases` |
+| 分析师预测 | 1 | `/analyst-estimates` |
+| 内幕交易 | 1 | `/insider-trades` |
+| 机构持仓 | 2 | `/institutional-ownership`, `/institutional-ownership/investor` |
+| 新闻 | 1 | `/news` |
+| SEC文件 | 2 | `/filings`, `/filings/items` |
+| 宏观经济 | 2 | `/macro/interest-rates`, `/macro/interest-rates/snapshot` |
+| 股票筛选 | 2 | `/financials/search/screener`, `/financials/search/line-items` |
+| 分部财务 | 1 | `/financials/segmented-revenues` |
+| Ticker列表 | 4 | 各端点 `/tickers/` 或 `/ciks/` 后缀 |
+
+**总计**: 27个API端点中，**1个免费**，**26个付费**。
+
+### 付费提示
+
+- **HTTP 402**: 当调用付费API但账户没有有效订阅时，会返回 `402 Payment Required` 状态码
+- **订阅计划**: 参考官方定价页面了解不同套餐的调用限制和价格
+- **免费试用**: 部分功能可能提供免费试用额度，需查看官网最新政策
+
+---
+
 ## 注意事项
 
 1. **速率限制**: 根据订阅计划有不同的API调用限制
 2. **数据覆盖**: 主要覆盖美国上市股票
-3. **免费API**: Company Facts API是免费的
+3. **免费API**: 仅 Company Facts API 是免费的（实验性功能）
 4. **日期格式**: 所有日期使用 YYYY-MM-DD 格式
 5. **货币**: 默认使用公司报告货币（通常是USD）
+6. **付费订阅**: 大部分数据需要付费订阅才能访问
 
 ---
 

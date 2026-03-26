@@ -47,6 +47,50 @@ Add `format=csv` or `format=json` to your request parameters.
 
 ---
 
+## Data Availability & Pricing Tiers
+
+Tiingo provides **free access to most data endpoints** with usage limits. All accounts start with the **Basic Plan (Free)** and can be upgraded for higher limits or commercial use.
+
+### Pricing Plans Overview
+
+| Plan | Cost | Use Case | Redistribution |
+|------|------|----------|----------------|
+| **Basic** | Free | Internal & Personal | Not Allowed |
+| **Power** | Paid | Internal & Personal | Not Allowed |
+| **Commercial** | Paid | Internal Commercial Use | Not Allowed |
+| **Redistribution** | Contact Sales | Data Distribution | Allowed |
+
+### Free vs Paid Endpoints
+
+#### Free Endpoints (Basic Plan)
+All endpoints below are available with the free Basic plan, subject to usage limits:
+
+- ✅ End-of-Day (EOD) Prices - US Equities, ETFs, Mutual Funds
+- ✅ Cryptocurrency Prices - 60+ exchanges, 8000+ pairs
+- ✅ Forex Rates - 140+ currency pairs
+- ✅ Search & Meta Data
+- ✅ News Feed (with limit of 100 articles per request)
+- ✅ Corporate Actions (Dividends, Splits)
+- ✅ Mutual Fund & ETF Fees
+- ✅ All WebSocket Streams (IEX, Crypto, Forex)
+
+#### Limited/Paid Endpoints
+
+**Fundamentals Data** - Limited free tier, full access requires Power/Commercial:
+- Dow 30 tickers: 3 years of historical data (free)
+- All other tickers: Requires paid plan
+- Endpoints: `/tiingo/fundamentals/*`
+
+**IEX Full TOPS Feed** - Requires IEX Market Data Agreement:
+- Free tier provides derived reference prices
+- Full TOPS data requires agreement with IEX (institutional)
+
+**News Bulk Download** - Institutional only:
+- `/tiingo/news/bulk_download`
+- Available only for Commercial plan customers
+
+---
+
 ## Endpoints
 
 ### 1. End-of-Day Prices (EOD)
@@ -440,3 +484,17 @@ There are no per-minute or per-second limits.
 | Fundamentals | `/tiingo/fundamentals/{ticker}/statements` | Financial statements |
 | News | `/tiingo/news` | Financial news feed |
 | Search | `/tiingo/utilities/search` | Find tickers |
+
+### Free vs Paid Endpoints Summary
+
+| Endpoint | Free Tier | Paid Tier Required | Notes |
+|----------|-----------|-------------------|-------|
+| EOD Prices | ✅ | No | Basic plan includes all tickers |
+| IEX Real-time | ✅ (derived) | Full TOPS feed | IEX agreement required for full data |
+| Crypto Prices | ✅ | No | 60+ exchanges available |
+| Forex Rates | ✅ | No | 140+ currency pairs |
+| Fundamentals | ⚠️ Limited | Full access | Dow 30 only for free tier (3 years) |
+| News | ✅ | Bulk download only | 100 articles/request limit |
+| Search | ✅ | No | Full search capability |
+| Corporate Actions | ✅ | No | Included with EOD |
+| WebSockets | ✅ | No | All streams available on free tier |

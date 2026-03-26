@@ -511,6 +511,75 @@ const { getJson } = require("serpapi");
 - **公司**: SerpApi, LLC (Austin, TX)
 - **联系方式**: contact@serpapi.com
 
+### 免费 API（无需 API Key）
+
+以下接口**无需付费**即可访问，不消耗 API 额度：
+
+| API 名称 | 端点 | 功能说明 |
+|---------|------|---------|
+| **Locations API** | `GET https://serpapi.com/locations.json` | 搜索支持的地理位置，返回按覆盖人数排序的地点列表 |
+| **Google Domains API** | `GET https://serpapi.com/google-domains.json` | 获取 Google 支持的所有国家/地区域名（共 184 个） |
+| **Bing Domains API** | `GET https://serpapi.com/bing-domains.json` | 获取 Bing 支持的所有国家/地区域名 |
+| **Yahoo Domains API** | `GET https://serpapi.com/yahoo-domains.json` | 获取 Yahoo 支持的所有国家/地区域名 |
+| **Languages API** | `GET https://serpapi.com/languages.json` | 获取所有支持的语言代码列表 |
+
+**免费 API 使用示例**：
+```bash
+# Locations API - 搜索地点
+curl "https://serpapi.com/locations.json?q=Austin&limit=5"
+
+# Google Domains API - 获取支持的域名
+curl "https://serpapi.com/google-domains.json"
+
+# Languages API - 获取支持的语言
+curl "https://serpapi.com/languages.json"
+```
+
+### 付费 API 概览
+
+其余 **227 个 API** 均需要有效的 API Key 并消耗搜索额度：
+
+#### 主要搜索引擎（7 个）
+- **Google** (含 Light/Fast/AI Mode 等变体) - 约 50+ 个细分 API
+- **Bing** - 搜索、图片、新闻、视频等
+- **Yahoo** - 搜索、图片、新闻等
+- **DuckDuckGo** - 搜索、轻量版
+- **Yandex** - 搜索、图片、视频等
+- **Baidu** - 搜索、图片、新闻等
+- **Naver** - 韩国搜索引擎
+
+#### 电商平台（4 个）
+- **Amazon** - 产品搜索、筛选器、商品详情
+- **eBay** - 产品搜索、商品详情、交易
+- **Walmart** - 产品搜索
+- **The Home Depot** - 家居建材搜索
+
+#### Google 专项服务（30+ 个）
+- AI Overview、Images、News、Maps、Shopping
+- Jobs、Hotels、Flights、Finance、Videos
+- Scholar、Trends、Autocomplete、Patents 等
+
+#### 社交媒体与内容平台（5 个）
+- **YouTube** - 视频搜索
+- **Facebook** - 个人资料搜索
+- **Yelp** - 本地商家搜索和评论
+- **Tripadvisor** - 旅游点评
+- **OpenTable** - 餐厅预订
+
+#### 应用商店（2 个）
+- **Apple App Store** - 应用搜索、详情、评论
+- **Google Play Store** - 应用、图书、游戏
+
+#### 其他实用工具（10+ 个）
+- 各种筛选器 API、自动补全、趋势分析等
+
+### 付费计划说明
+
+- **免费试用**: 250 次搜索/月（需注册获取 API Key）
+- **付费计划**: 根据搜索量提供不同等级的订阅方案
+- **所有付费 API** 均通过 `https://serpapi.com/search` 端点访问
+- **必需参数**: `api_key` 和 `engine`
+
 ---
 
 **注意**: 此 SKILL 文档总结了 SerpApi 的主要 API 功能。具体参数和响应结构可能随 API 更新而变化，建议参考官方文档获取最新信息。

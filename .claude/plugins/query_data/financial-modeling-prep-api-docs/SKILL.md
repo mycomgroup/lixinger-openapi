@@ -865,18 +865,144 @@ Crowdfunding and equity offering data.
 
 ---
 
+## Data Access Tiers & Pricing
+
+### Subscription Plans Overview
+
+Financial Modeling Prep API offers different access tiers based on subscription level:
+
+| Plan | Monthly Bandwidth | API Calls/Min | Data Range | Features |
+|------|------------------|---------------|------------|----------|
+| **Free** | 500MB | Low frequency | Limited history | Basic endpoints only |
+| **Starter** | 20GB | Standard | Extended | More endpoints, some real-time |
+| **Premium** | 50GB | Higher | 30+ years | Most endpoints, real-time data |
+| **Ultimate** | 150GB | High | 30+ years | All endpoints, priority data |
+| **Enterprise** | 1TB+ | 3,000+ | 30+ years | All features + redistribution rights |
+
+### Free Tier Endpoints (18 Available)
+
+The following endpoints are available with a free API key:
+
+#### Market Data (6)
+| Endpoint | Path | Description |
+|----------|------|-------------|
+| Company Symbols List | `/company-symbols-list` | All available stock symbols |
+| Stock Quote Light | `/quote-short` | Basic stock quotes (delayed) |
+| Most Active Stocks | `/most-active` | Top volume stocks |
+| Biggest Gainers | `/biggest-gainers` | Daily top gainers |
+| Biggest Losers | `/biggest-losers` | Daily top losers |
+| Sector Performance | `/sector-performance-snapshot` | Sector performance data |
+
+#### Historical Data (1)
+| Endpoint | Path | Description |
+|----------|------|-------------|
+| Historical Price Light | `/historical-price-eod/light` | Daily price (date, close, volume only) |
+
+#### Financial Data (3)
+| Endpoint | Path | Description |
+|----------|------|-------------|
+| Income Statement | `/income-statement` | Quarterly/annual income data |
+| Financial Ratios | `/metrics-ratios` | Basic financial ratios |
+| Company Key Stats | `/key-metrics` | Key company statistics |
+
+#### Market Indices (3)
+| Endpoint | Path | Description |
+|----------|------|-------------|
+| Dow Jones Quote | `/dow-jones` | Dow Jones index data |
+| Index List | `/indexes-list` | Available market indices |
+| Index Quote | `/index-quote` | Index quotes |
+
+#### Alternative Data (5)
+| Endpoint | Path | Description |
+|----------|------|-------------|
+| Cryptocurrency List | `/cryptocurrency-list` | Available crypto symbols |
+| Crypto Quote | `/cryptocurrency-quote` | Crypto prices |
+| Forex Pairs | `/forex-list` | Currency pairs |
+| Forex Quote | `/forex-quote` | Exchange rates |
+| Bitcoin Price | `/cryptocurrency-quote?symbol=BTCUSD` | Bitcoin spot price |
+
+### Paid Tier Features
+
+#### Starter Plan ($19-29/month)
+- Real-time stock quotes
+- Full historical price data (OHLCV)
+- Complete financial statements (3 statements)
+- Basic technical indicators
+- SEC filing access
+- 20GB monthly bandwidth
+
+#### Premium Plan ($49-79/month)
+- All Starter features
+- Advanced technical indicators (RSI, MACD, etc.)
+- ETF and mutual fund holdings
+- Insider trading data
+- Analyst ratings and price targets
+- 50GB monthly bandwidth
+
+#### Ultimate Plan ($199+/month)
+- All Premium features
+- ESG data and ratings
+- Congressional trading data (Senate/House)
+- COT reports
+- Earnings transcripts
+- Bulk/batch endpoints
+- 150GB monthly bandwidth
+
+#### Enterprise Plan (Custom pricing)
+- All Ultimate features
+- Commercial redistribution license
+- 3,000+ calls/minute
+- 1TB+ bandwidth
+- Priority support
+- Custom API solutions
+
+### Access Limitations by Tier
+
+| Feature | Free | Starter | Premium | Ultimate | Enterprise |
+|---------|------|---------|---------|----------|------------|
+| Real-time quotes | ❌ Delayed | ✅ | ✅ | ✅ | ✅ |
+| After-hours data | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Full historical OHLCV | ❌ (Light only) | ✅ | ✅ | ✅ | ✅ |
+| All 3 financial statements | ❌ (Income only) | ✅ | ✅ | ✅ | ✅ |
+| Financial statement growth | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Technical indicators | ❌ | Basic | ✅ | ✅ | ✅ |
+| SEC filings | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Insider trading | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ETF holdings | ❌ | ❌ | ✅ | ✅ | ✅ |
+| Analyst estimates | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ESG data | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Congressional trades | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Bulk endpoints | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Redistribution rights | ❌ | ❌ | ❌ | ❌ | ✅ |
+
+### Data Delay by Tier
+
+| Data Type | Free | Paid Plans |
+|-----------|------|------------|
+| Stock quotes | 15-20 min delayed | Real-time |
+| Financial statements | Quarterly updates | Quarterly updates |
+| SEC filings | N/A | Real-time |
+| News | Delayed | Near real-time |
+
+---
+
 ## Rate Limits
 
 API rate limits vary by subscription tier:
 
-| Tier | Requests/Day | Features |
-|------|---------------|----------|
-| Free | Limited | Basic endpoints, delayed data |
-| Starter | Higher limits | More endpoints, real-time data |
-| Professional | High limits | All endpoints, premium data |
-| Enterprise | Unlimited | All features, priority support |
+| Tier | Bandwidth/30 Days | Rate Limit |
+|------|-------------------|------------|
+| Free | 500MB | Low frequency (approx. 250 calls/day) |
+| Starter | 20GB | Standard |
+| Premium | 50GB | Higher |
+| Ultimate | 150GB | High |
+| Enterprise | 1TB+ | 3,000+ calls/minute |
 
-**Note:** Check your FMP dashboard for specific rate limits based on your subscription.
+**Note:** 
+- Bandwidth is calculated on a trailing 30-day basis
+- Exceeding bandwidth limits will result in 429 errors until the next period
+- Check your FMP dashboard for specific usage statistics
+- Free tier users may encounter stricter rate limiting during peak hours
 
 ---
 
@@ -965,11 +1091,41 @@ The API returns standard HTTP status codes:
 
 ---
 
+## API Coverage Summary
+
+### Documented Endpoints
+
+| Category | Count |
+|----------|-------|
+| **Total Endpoints Documented** | 258+ |
+| **Free Tier Endpoints** | 18 |
+| **Paid Tier Endpoints** | 240+ |
+
+### Free Tier Availability by Category
+
+| Data Category | Free Endpoints | Example Endpoints |
+|---------------|----------------|-------------------|
+| Stock Quotes | 6 | `/quote-short`, `/most-active`, `/biggest-gainers` |
+| Historical Data | 1 | `/historical-price-eod/light` |
+| Financial Statements | 3 | `/income-statement`, `/metrics-ratios`, `/key-metrics` |
+| Market Indices | 3 | `/dow-jones`, `/indexes-list`, `/index-quote` |
+| Crypto/Forex | 5 | `/cryptocurrency-list`, `/forex-quote`, BTC price |
+
+### Pricing Reference
+
+- **Free Plan**: 500MB/month, 18 endpoints, delayed data
+- **Starter**: $19-29/month, 20GB/month, real-time basics
+- **Premium**: $49-79/month, 50GB/month, full market data
+- **Ultimate**: $199+/month, 150GB/month, advanced data
+- **Enterprise**: Custom pricing, 1TB+/month, commercial use
+
+---
+
 ## Changelog
 
 This documentation covers the stable API endpoints as of March 2026. For the latest updates and new endpoints, refer to the official FMP documentation.
 
-**Total Stable Endpoints Documented: 258**
+**Total Stable Endpoints Documented: 258+**
 
 ---
 

@@ -501,16 +501,18 @@ class CrawlerMain {
       // Wait for page to load
       await this.browserManager.waitForLoad(page, this.config.crawler.timeout);
 
+      // 先确定解析器，避免通用展开逻辑误触发站点内导航
+      const parser = await this.pageParser.parserManager.selectParser(url);
+      const useParserLinkDiscovery = parser.supportsLinkDiscovery && parser.supportsLinkDiscovery();
+
       // Expand collapsible content (only useful if JS is running)
-      if (this.config.crawler.fetchMethod !== 'request') {
+      if (this.config.crawler.fetchMethod !== 'request' && !useParserLinkDiscovery) {
         await this.linkFinder.expandCollapsibles(page);
       }
 
-      // Check if the parser supports custom link discovery
-      const parser = await this.pageParser.parserManager.selectParser(url);
       let newLinks = [];
 
-      if (parser.supportsLinkDiscovery && parser.supportsLinkDiscovery()) {
+      if (useParserLinkDiscovery) {
         this.logger.info('Using parser-based link discovery');
         newLinks = await parser.discoverLinks(page);
       } else {

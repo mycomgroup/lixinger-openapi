@@ -8,6 +8,29 @@ Brave Search API 是一个隐私优先的搜索API，提供独立的搜索索引
 - **文档地址**: https://api-dashboard.search.brave.com/documentation
 - **认证方式**: API Key (X-Subscription-Token Header)
 
+## 定价与免费额度
+
+**⚠️ 付费服务** - Brave Search API 为付费服务，无完全免费的接口。
+
+**每月免费额度**:
+- 每月赠送 **$5 积分**，自动抵扣费用
+- Web 搜索: 约 1000 次免费请求/月
+- Spellcheck/Autosuggest: 约 10000 次免费请求/月
+
+**价格明细**:
+
+| 服务 | 价格 | 说明 |
+|------|------|------|
+| **Web 搜索** | $5.00/1000 请求 | 包含网页、新闻、图片、视频搜索 |
+| **AI Answers** | $4.00/1000 查询 + $5.00/1M tokens | LLM 生成答案服务 |
+| **Spellcheck** | $5.00/10000 请求 | 拼写检查 |
+| **Autosuggest** | $5.00/10000 请求 | 自动建议/搜索补全 |
+
+**容量限制**:
+- Web 搜索: 50 请求/秒
+- Answers: 2 请求/秒
+- Spellcheck/Autosuggest: 100 请求/秒
+
 ## 认证
 
 所有请求必须在Header中包含订阅令牌：

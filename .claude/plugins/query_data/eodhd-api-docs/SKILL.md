@@ -262,6 +262,67 @@ Common HTTP status codes:
 - Exchange Codes: See documentation for complete list
 - Blog & Updates: https://eodhd.com/financial-apis-blog/
 
+## Free Access Options
+
+### Demo Key (无需注册)
+
+使用 `api_token=demo` 可以免费测试大部分API功能，但有以下限制：
+
+**支持的股票代码**（仅限以下代码）：
+- `AAPL.US` - 苹果公司
+- `TSLA.US` - 特斯拉
+- `VTI.US` - Vanguard Total Stock Market ETF
+- `AMZN.US` - 亚马逊
+- `BTC-USD` / `BTC-USD.CC` - 比特币
+- `EUR-USD` / `EUR.FOREX` - 欧元/美元
+
+**免费访问的API接口**（18个）：
+
+| 序号 | API 名称 | 端点路径 | 说明 |
+|-----|---------|---------|------|
+| 1 | **历史EOD数据** | `/api/eod/{TICKER}` | 日终OHLCV数据 |
+| 2 | **实时价格** | `/api/real-time/{TICKER}` | 延迟15-20分钟的实时价格 |
+| 3 | **基本面数据** | `/api/fundamentals/{TICKER}` | 财务报表、估值指标等 |
+| 4 | **日内数据** | `/api/intraday/{TICKER}` | 历史日内价格数据 |
+| 5 | **技术指标** | `/api/technical/{TICKER}` | SMA、EMA、RSI等技术指标 |
+| 6 | **股息历史** | `/api/div/{TICKER}` | 历史股息数据 |
+| 7 | **股票拆股** | `/api/splits/{TICKER}` | 历史拆股记录 |
+| 8 | **加密货币EOD** | `/api/eod/{CRYPTO}.CC` | 加密货币历史数据 |
+| 9 | **加密货币实时** | `/api/real-time/{CRYPTO}.CC` | 加密货币实时价格 |
+| 10 | **加密货币基本面** | `/api/fundamentals/{CRYPTO}.CC` | 加密货币项目信息 |
+| 11 | **历史市值** | `/api/historical-market-cap/{TICKER}` | 历史市值数据 |
+| 12 | **Tick数据** | `/api/ticks/` | 美股逐笔交易数据 |
+| 13 | **经济事件** | `/api/economic-events` | 财经日历事件 |
+| 14 | **代码变更历史** | `/api/symbol-change-history` | 股票代码变更记录 |
+| 15 | **CBOE欧洲指数** | `/api/cboe/indices` | 欧洲市场指数数据 |
+| 16 | **批量实时数据** | `/api/real-time/{TICKER}?ex=US` | 美国交易所批量实时价格 |
+| 17 | **外汇EOD** | `/api/eod/{FOREX}.FOREX` | 外汇历史数据 |
+| 18 | **外汇实时** | `/api/real-time/{FOREX}.FOREX` | 外汇实时价格 |
+
+**示例请求**：
+```bash
+# 获取苹果历史价格
+curl "https://eodhd.com/api/eod/AAPL.US?api_token=demo&fmt=json"
+
+# 获取实时价格
+curl "https://eodhd.com/api/real-time/AAPL.US?api_token=demo&fmt=json"
+
+# 获取基本面数据
+curl "https://eodhd.com/api/fundamentals/AAPL.US?api_token=demo"
+```
+
+### Free Plan（免费计划）
+
+注册后可获得免费API Key，限制：
+- **API调用次数**: 20次/天
+- **数据范围**: 几乎所有股票代码
+- **历史数据**: 仅限过去1年
+- **支持接口**: EOD历史数据、交易所股票列表
+
+**不支持Demo Key的接口**：
+- Search API (`/api/search/{query}`) - 明确需要注册后获取真实API key
+- Exchange Symbol List API (`/api/exchange-symbol-list/{CODE}`) - 交易所股票列表
+
 ## Subscription Plans
 
 Different plans provide access to different endpoints and data limits:
