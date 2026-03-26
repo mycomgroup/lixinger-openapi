@@ -1,4 +1,5 @@
 {
+  "_example_notice": "此文件为结构示例，不代表当前事实。使用前必须按目标日期重取最新可验证数据；无新证据时请用 tentative/null 降级，不得模型补数。",
   "subject": { "ticker": "300750", "name": "宁德时代" },
   "as_of_date": "2025-12-31",
   "claims": [

@@ -1,4 +1,5 @@
 {
+  "_example_notice": "此文件为结构示例，不代表当前事实。verdict 需基于当期 claims 与可验证证据重算，不可直接复用。",
   "subject": { "ticker": "300750", "name": "宁德时代" },
   "as_of_date": "2025-12-31",
   "position": "leader",

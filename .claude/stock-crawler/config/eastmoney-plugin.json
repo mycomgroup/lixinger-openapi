@@ -8,15 +8,15 @@
   ],
   "urlRules": {
     "include": [
-      ".*eastmoney\.com/.*",
-      ".*emweb\.securities\.eastmoney\.com/.*"
+      ".*eastmoney\\.com/.*",
+      ".*emweb\\.securities\\.eastmoney\\.com/.*"
     ],
     "exclude": [
       ".*login.*",
       ".*register.*",
       ".*passport.*",
       ".*account.*",
-      ".*sso\..*",
+      ".*sso\\..*",
       ".*auth.*"
     ]
   },
@@ -27,31 +27,31 @@
   "targets": {
     "news_list": {
       "parser": "list-parser",
-      "urlPattern": ".*finance\.eastmoney\.com.*",
+      "urlPattern": ".*finance\\.eastmoney\\.com.*",
       "description": "财经新闻列表页面",
       "exampleUrl": "https://finance.eastmoney.com/"
     },
     "news_article": {
       "parser": "article-parser",
-      "urlPattern": ".*/a/\d{8,}\d+\.html",
+      "urlPattern": ".*/a/\\d{8,}\\d+\\.html",
       "description": "财经新闻正文页面",
       "exampleUrl": "https://finance.eastmoney.com/a/202603251234567.html"
     },
     "stock_data": {
       "parser": "table-only-parser",
-      "urlPattern": ".*emweb\.securities\.eastmoney\.com/PC_HSF10/.*",
+      "urlPattern": ".*emweb\\.securities\\.eastmoney\\.com/PC_HSF10/.*",
       "description": "个股数据页面(F10)",
       "exampleUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/Index?type=web&code=SH600000"
     },
     "market_overview": {
       "parser": "generic-parser",
-      "urlPattern": ".*quote\.eastmoney\.com/.*",
+      "urlPattern": ".*quote\\.eastmoney\\.com/.*",
       "description": "市场概况与行情页面",
       "exampleUrl": "https://quote.eastmoney.com/"
     },
     "search_results": {
       "parser": "search-result-parser",
-      "urlPattern": ".*search.*eastmoney\.com.*",
+      "urlPattern": ".*search.*eastmoney\\.com.*",
       "description": "站内搜索结果页面",
       "exampleUrl": "https://search.eastmoney.com/"
     }

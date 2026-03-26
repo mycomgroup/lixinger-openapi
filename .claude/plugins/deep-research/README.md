@@ -6,9 +6,9 @@
 
 ### 1) 直接用命令触发工作流
 
-- `/financial-quality [company]`：财务质量（FQE）MVP
-- `/competitive-positioning [company]`：竞争格局（CPE）manual-first MVP，参考 `skills/competitive-positioning-engine/examples/catl_300750/`
-- `/deep-research-qa [case_path]`：对 case 产物做 QA
+- `/financial-quality [company]`：财务质量（FQE）MVP（先采集最新可验证财务事实）
+- `/competitive-positioning [company]`：竞争格局（CPE）evidence-first（先采集最新可验证证据，再生成四件套 JSON）
+- `/deep-research-qa [case_path]`：对 case 产物做 QA（含证据与时效完整性核查）
 
 ### 2) 本地执行层（生成中间产物 JSON）
 
@@ -80,7 +80,7 @@ QA 检查项（v0.3）：
 - `fqe_mvp.py`：应计质量口径修正（`total_assets` 优先）；趋势红旗改用 trailing run length
 - `fqe_mvp_rules.json`：升至 v0.3.0，趋势规则参数改为 `min_run`
 - `fqe-output-contract.json`：加入 `accrual_quality`、`score_metadata`、`grade_thresholds`
-- `competitive-positioning-engine`：从空壳升级为 manual-first MVP，新增宁德时代（300750）真实样例，新增 `cpe-output-contract.json`
+- `competitive-positioning-engine`：从空壳升级为 evidence-first MVP（文档约束），新增宁德时代（300750）样例，新增 `cpe-output-contract.json`
 - 端到端验证：`research_cases/case_20260324_300750_catl/` 完整跑通（FQE grade=A + CPE leader/wide/narrowing，QA Pass，1 条 Info）
 
 ### v0.2
