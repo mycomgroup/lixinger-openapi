@@ -1,0 +1,4 @@
+interface:
+  display_name: "高分红防御增强"
+  short_description: "识别高股息真现金牛并规避分红陷阱的评分工作流"
+  default_prompt: "请基于分红送配、现金流量表、资产负债表和估值分析，构建防御增强模型，区分真现金牛与分红陷阱并输出评分表。"
