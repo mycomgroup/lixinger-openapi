@@ -90,7 +90,7 @@
       "filename": "concept-board-analyzer",
       "type": "skill",
       "metadata": {
-        "sourcePath": "skills/China-market_concept-board-analyzer",
+        "sourcePath": "plugins/industry-concept-research/skills/concept-board-analyzer",
         "filename": "concept-board-analyzer",
         "name": "concept-board-analyzer",
         "description": "分析概念板块（同花顺/东方财富）的实时/历史表现、成分股、资金流与热度，用于识别主题热点与轮动。当用户询问概念板块走势、概念轮动、板块成分、概念资金流、或需要概念板块分析时使用。",
@@ -342,7 +342,7 @@
       "filename": "industry-board-analyzer",
       "type": "skill",
       "metadata": {
-        "sourcePath": "skills/China-market_industry-board-analyzer",
+        "sourcePath": "plugins/industry-concept-research/skills/industry-board-analyzer",
         "filename": "industry-board-analyzer",
         "name": "industry-board-analyzer",
         "description": "分析行业板块（行业指数、成分股、资金流排名、历史表现）用于行业强弱与轮动判断。当用户询问行业板块表现、行业轮动、行业资金流、行业成分、或需要行业板块对比时使用。",
@@ -356,7 +356,7 @@
       "filename": "industry-chain-mapper",
       "type": "skill",
       "metadata": {
-        "sourcePath": "skills/China-market_industry-chain-mapper",
+        "sourcePath": "plugins/industry-concept-research/skills/industry-chain-mapper",
         "filename": "industry-chain-mapper",
         "name": "industry-chain-mapper",
         "description": "构建产业链上下游映射并跟踪景气信号（价格、产能、订单、库存等可得代理）。当用户询问产业链分析、上下游联动、景气跟踪或需要产业链地图时使用。",
@@ -566,7 +566,7 @@
       "filename": "policy-sensitivity-brief",
       "type": "skill",
       "metadata": {
-        "sourcePath": "skills/China-market_policy-sensitivity-brief",
+        "sourcePath": "plugins/industry-concept-research/skills/policy-sensitivity-brief",
         "filename": "policy-sensitivity-brief",
         "name": "policy-sensitivity-brief",
         "description": "将政策/宏观数据发布映射到行业/风格敏感度，输出可监控清单与情景推演。当用户询问政策变化影响哪些行业、或需要政策影响简报时使用。",
@@ -650,7 +650,7 @@
       "filename": "sector-rotation-detector",
       "type": "skill",
       "metadata": {
-        "sourcePath": "skills/China-market_sector-rotation-detector",
+        "sourcePath": "plugins/industry-concept-research/skills/sector-rotation-detector",
         "filename": "sector-rotation-detector",
         "name": "sector-rotation-detector",
         "description": "通过分析中国宏观经济指标和经济周期定位，识别A股市场行业轮动信号，判断未来6–12个月哪些行业可能跑赢或跑输大盘。当用户询问行业轮动、宏观驱动的板块配置、经济周期投资、超配或低配哪些行业、利率/通胀对行业的影响、或A股宏观投资策略时使用此技能。",

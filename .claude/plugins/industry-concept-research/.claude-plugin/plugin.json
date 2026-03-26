@@ -1,0 +1,8 @@
+{
+  "name": "industry-concept-research",
+  "version": "0.1.0",
+  "description": "Integrated A-share industry and concept board research plugin with rotation, chain mapping, and policy sensitivity workflows",
+  "author": {
+    "name": "lixinger-openapi"
+  }
+}
