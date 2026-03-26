@@ -1,0 +1,17 @@
+{
+  "as_of_date": "2026-03-26",
+  "market": "CN",
+  "features": {
+    "breadth": 0.72,
+    "volatility": 0.35,
+    "valuation": 0.42,
+    "sentiment_gap": 0.61,
+    "microstructure": 0.57,
+    "policy_impulse": 0.66
+  },
+  "industries": [
+    {"industry_code": "SW_801010", "relative_strength": 0.75, "crowding_score": 0.42, "policy_beta": 0.58},
+    {"industry_code": "SW_801750", "relative_strength": 0.63, "crowding_score": 0.67, "policy_beta": 0.72},
+    {"industry_code": "SW_801780", "relative_strength": 0.41, "crowding_score": 0.38, "policy_beta": 0.49}
+  ]
+}
