@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Owner Mix Contract",
+  "type": "object",
+  "required": ["as_of", "market", "window", "owner_mix"],
+  "properties": {
+    "as_of": {"type": "string"},
+    "market": {"type": "string"},
+    "window": {"type": "string"},
+    "owner_mix": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["weight", "delta_5d"],
+        "properties": {
+          "weight": {"type": "number"},
+          "delta_5d": {"type": "number"}
+        }
+      }
+    }
+  }
+}

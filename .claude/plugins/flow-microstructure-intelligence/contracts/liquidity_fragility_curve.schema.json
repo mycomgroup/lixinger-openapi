@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Liquidity Fragility Curve Contract",
+  "type": "object",
+  "required": ["as_of", "x_axis", "y_axis", "curve", "fragility_risk_score"],
+  "properties": {
+    "as_of": {"type": "string"},
+    "x_axis": {"type": "string"},
+    "y_axis": {"type": "string"},
+    "fragility_risk_score": {"type": "number"},
+    "curve": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["x", "y"],
+        "properties": {
+          "x": {"type": "number"},
+          "y": {"type": "number"}
+        }
+      }
+    }
+  }
+}

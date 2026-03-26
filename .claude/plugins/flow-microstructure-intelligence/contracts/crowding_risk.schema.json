@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Crowding Risk Contract",
+  "type": "object",
+  "required": ["as_of", "crowding_risk_score", "risk_level", "concentration"],
+  "properties": {
+    "as_of": {"type": "string"},
+    "crowding_risk_score": {"type": "number"},
+    "risk_level": {"type": "string", "enum": ["low", "medium", "high"]},
+    "concentration": {
+      "type": "object",
+      "required": ["top5_theme_flow_share", "same_side_trade_concentration"],
+      "properties": {
+        "top5_theme_flow_share": {"type": "number"},
+        "same_side_trade_concentration": {"type": "number"}
+      }
+    }
+  }
+}

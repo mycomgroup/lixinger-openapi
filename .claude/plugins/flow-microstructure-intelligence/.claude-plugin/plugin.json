@@ -1,0 +1,8 @@
+{
+  "name": "flow-microstructure-intelligence",
+  "version": "0.1.0",
+  "description": "Capital-structure and microstructure behavior engine for distinguishing sustainable trend flows from crowded pulse flows",
+  "author": {
+    "name": "lixinger-openapi"
+  }
+}

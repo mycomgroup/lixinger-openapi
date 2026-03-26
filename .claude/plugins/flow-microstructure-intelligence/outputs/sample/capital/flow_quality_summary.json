@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-03-26T15:00:00Z",
+  "scores": {
+    "source_quality_score": 93.4,
+    "stability_score": 68.33,
+    "structure_health_score": 60.3,
+    "crowding_risk_score": 62.75,
+    "fragility_risk_score": 58.75,
+    "flow_quality_score": 40.62
+  },
+  "regime": "CROWDING_PULSE",
+  "trading_translation": {
+    "holding_horizon": "intraday_to_short (0-3d)",
+    "position_cap": 0.2471,
+    "ban_new_chase": false
+  }
+}

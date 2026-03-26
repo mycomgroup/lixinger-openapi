@@ -1,0 +1,35 @@
+{
+  "as_of": "2026-03-26T15:00:00Z",
+  "market": "CN+HK",
+  "window": "20d",
+  "owner_mix": {
+    "northbound": {
+      "weight": 0.22,
+      "delta_5d": 0.03
+    },
+    "southbound": {
+      "weight": 0.11,
+      "delta_5d": 0.01
+    },
+    "hk_foreign": {
+      "weight": 0.06,
+      "delta_5d": 0.01
+    },
+    "etf_passive": {
+      "weight": 0.18,
+      "delta_5d": -0.02
+    },
+    "institution_active": {
+      "weight": 0.27,
+      "delta_5d": 0.02
+    },
+    "short_term_speculative": {
+      "weight": 0.12,
+      "delta_5d": 0.04
+    },
+    "retail_proxy": {
+      "weight": 0.04,
+      "delta_5d": -0.01
+    }
+  }
+}

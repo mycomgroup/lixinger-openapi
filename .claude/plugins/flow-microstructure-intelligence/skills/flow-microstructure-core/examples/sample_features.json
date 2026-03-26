@@ -1,0 +1,45 @@
+{
+  "market": "CN+HK",
+  "as_of": "2026-03-26T15:00:00Z",
+  "window": "20d",
+  "owner_flows": {
+    "northbound": 0.22,
+    "southbound": 0.11,
+    "hk_foreign": 0.06,
+    "etf_passive": 0.18,
+    "institution_active": 0.27,
+    "short_term_speculative": 0.12,
+    "retail_proxy": 0.04
+  },
+  "owner_flow_delta_5d": {
+    "northbound": 0.03,
+    "southbound": 0.01,
+    "hk_foreign": 0.01,
+    "etf_passive": -0.02,
+    "institution_active": 0.02,
+    "short_term_speculative": 0.04,
+    "retail_proxy": -0.01
+  },
+  "stability_features": {
+    "northbound_holding_stability": 0.74,
+    "block_deal_retention": 0.68,
+    "etf_creation_redemption_stability": 0.63
+  },
+  "structure_features": {
+    "active_buy_ratio": 0.57,
+    "close_auction_dependency": 0.31,
+    "limit_up_seal_quality": 0.54,
+    "limit_up_reopen_rate": 0.22
+  },
+  "crowding_features": {
+    "factor_crowding_percentile": 0.72,
+    "same_side_trade_concentration": 0.47,
+    "theme_top5_flow_share": 0.60
+  },
+  "fragility_curve_points": [
+    {"x": 0.5, "y": 8.2},
+    {"x": 1.0, "y": 14.9},
+    {"x": 2.0, "y": 29.7},
+    {"x": 3.0, "y": 47.5}
+  ]
+}

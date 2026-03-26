@@ -1,0 +1,24 @@
+{
+  "as_of": "2026-03-26T15:00:00Z",
+  "x_axis": "estimated_order_size_pct_adv",
+  "y_axis": "expected_impact_bps",
+  "curve": [
+    {
+      "x": 0.5,
+      "y": 8.2
+    },
+    {
+      "x": 1.0,
+      "y": 14.9
+    },
+    {
+      "x": 2.0,
+      "y": 29.7
+    },
+    {
+      "x": 3.0,
+      "y": 47.5
+    }
+  ],
+  "fragility_risk_score": 58.75
+}
