@@ -1,0 +1,206 @@
+{
+  "id": "industry-concept-research",
+  "name": "行业与概念研究一体化分析插件",
+  "version": "2.0.0",
+  "description": "面向 A 股行业板块与概念板块研究的一体化分析插件。整合行业估值、轮动探测、产业链映射、概念分析、政策敏感度、涨跌停联动、研报分析、行业细分拆解、因子归因、板块拥挤度监控十大分析模块，支持快速模式（T+0 复盘）和完整模式（深度研究），输出带置信度、失效条件和监控清单的结构化研究结论。",
+  "author": "lixinger-openapi",
+  "license": "MIT",
+  "created_at": "2025-01-01",
+  "updated_at": "2026-03-27",
+  "status": "production",
+  "target_market": "A股",
+
+  "capabilities": [
+    "行业板块横截面估值分析（申万28个一级行业）",
+    "宏观经济周期驱动的行业轮动信号（超配/标配/低配）",
+    "申万一级→二级→三级行业细分拆解与强弱分层",
+    "产业链上下游传导分析（价格/业绩/供需三层传导）",
+    "概念主题生命周期识别（启动/扩散/拥挤/退潮四阶段）",
+    "政策敏感度评估与情景推演（超预期/符合/低于预期）",
+    "涨跌停联动与板块扩散追踪",
+    "板块因子归因（估值扩张/EPS上修/风险溢价三维）",
+    "板块拥挤度监控与脆弱触发器识别",
+    "卖方研报综合分析与多空分歧评估"
+  ],
+
+  "commands": [
+    {
+      "id": "industry-concept-research",
+      "path": "commands/industry-concept-research.md",
+      "description": "统一 Orchestrator 入口：自动编排所有分析模块，支持 quick/full/detailed 三种模式，输出带 QA 自检的结构化研究结论",
+      "is_primary": true
+    },
+    {
+      "id": "industry-board-analyzer",
+      "path": "commands/industry-board-analyzer.md",
+      "description": "行业板块横截面分析：估值分位数、动量、股息率、综合评分"
+    },
+    {
+      "id": "sector-rotation-detector",
+      "path": "commands/sector-rotation-detector.md",
+      "description": "宏观驱动的行业轮动信号探测：五大宏观支柱 + 经济周期定位"
+    },
+    {
+      "id": "industry-chain-mapper",
+      "path": "commands/industry-chain-mapper.md",
+      "description": "产业链上下游传导分析：价格/业绩/供需三层传导框架"
+    },
+    {
+      "id": "concept-board-analyzer",
+      "path": "commands/concept-board-analyzer.md",
+      "description": "概念板块主题生命周期分析：启动/扩散/拥挤/退潮四阶段判断"
+    },
+    {
+      "id": "policy-sensitivity-brief",
+      "path": "commands/policy-sensitivity-brief.md",
+      "description": "政策敏感度简报：政策链条传导分析 + 情景推演"
+    },
+    {
+      "id": "limit-up-down-linkage-detector",
+      "path": "commands/limit-up-down-linkage-detector.md",
+      "description": "涨跌停联动探测：板块扩散追踪 + 主力意图识别"
+    },
+    {
+      "id": "industry-report-analyzer",
+      "path": "commands/industry-report-analyzer.md",
+      "description": "行业研报综合分析：卖方观点聚合 + 多空分歧评估"
+    },
+    {
+      "id": "industry-subsector-decomposer",
+      "path": "commands/industry-subsector-decomposer.md",
+      "description": "行业细分拆解：申万一级→二级→三级下钻，识别细分强弱和 Alpha 来源"
+    },
+    {
+      "id": "sector-factor-attributor",
+      "path": "commands/sector-factor-attributor.md",
+      "description": "板块因子归因：估值扩张/EPS预期上修/风险溢价三维归因 + 风格因子暴露"
+    },
+    {
+      "id": "board-crowding-risk-monitor",
+      "path": "commands/board-crowding-risk-monitor.md",
+      "description": "板块拥挤度监控：拥挤度评分 + 脆弱触发器识别 + 降仓/观察建议"
+    }
+  ],
+
+  "skills": [
+    { "id": "industry-board-analyzer",           "path": "skills/industry-board-analyzer/SKILL.md",           "standalone": true  },
+    { "id": "sector-rotation-detector",           "path": "skills/sector-rotation-detector/SKILL.md",           "standalone": true  },
+    { "id": "industry-chain-mapper",              "path": "skills/industry-chain-mapper/SKILL.md",              "standalone": true  },
+    { "id": "concept-board-analyzer",             "path": "skills/concept-board-analyzer/SKILL.md",             "standalone": true  },
+    { "id": "policy-sensitivity-brief",           "path": "skills/policy-sensitivity-brief/SKILL.md",           "standalone": true  },
+    { "id": "limit-up-down-linkage-detector",     "path": "skills/limit-up-down-linkage-detector/SKILL.md",     "standalone": true  },
+    { "id": "industry-report-analyzer",           "path": "skills/industry-report-analyzer/SKILL.md",           "standalone": true  },
+    { "id": "industry-subsector-decomposer",      "path": "skills/industry-subsector-decomposer/SKILL.md",      "standalone": true  },
+    { "id": "sector-factor-attributor",           "path": "skills/sector-factor-attributor/SKILL.md",           "standalone": true  },
+    { "id": "board-crowding-risk-monitor",        "path": "skills/board-crowding-risk-monitor/SKILL.md",        "standalone": true  }
+  ],
+
+  "contracts": {
+    "research_conclusion":   "contracts/research-conclusion.schema.json",
+    "monitoring_checklist":  "contracts/monitoring-checklist.schema.json",
+    "data_gap_report":       "contracts/data-gap-report.schema.json",
+    "inter_plugin_interface":"contracts/inter-plugin-interface.schema.json",
+    "qc_rules":              "contracts/qc-rules.schema.json"
+  },
+
+  "reuse_patterns": [
+    {
+      "pattern_id": "P1",
+      "pattern_name": "SINGLE_INDUSTRY_ANALYSIS",
+      "description": "对单一申万行业做完整的估值+轮动+产业链+政策全维度分析",
+      "entry_command": "industry-concept-research",
+      "entry_skills": ["industry-board-analyzer", "sector-rotation-detector", "industry-chain-mapper", "policy-sensitivity-brief"],
+      "typical_use_case": "分析'电子行业'当前投资价值"
+    },
+    {
+      "pattern_id": "P2",
+      "pattern_name": "INDUSTRY_COMPARISON",
+      "description": "跨多个行业的横截面对比分析，识别相对强弱",
+      "entry_command": "industry-board-analyzer",
+      "entry_skills": ["industry-board-analyzer", "sector-rotation-detector"],
+      "typical_use_case": "对比消费/科技/金融三个行业的配置价值"
+    },
+    {
+      "pattern_id": "P3",
+      "pattern_name": "SECTOR_ROTATION_TRACKING",
+      "description": "持续跟踪行业轮动动态，识别资金流入/流出信号",
+      "entry_command": "sector-rotation-detector",
+      "entry_skills": ["sector-rotation-detector", "limit-up-down-linkage-detector", "board-crowding-risk-monitor"],
+      "typical_use_case": "每周更新行业配置建议，跟踪轮动方向"
+    },
+    {
+      "pattern_id": "P4",
+      "pattern_name": "CONCEPT_THEME_TRACKING",
+      "description": "跟踪主题概念板块的生命周期状态和拥挤度风险",
+      "entry_command": "concept-board-analyzer",
+      "entry_skills": ["concept-board-analyzer", "board-crowding-risk-monitor", "limit-up-down-linkage-detector"],
+      "typical_use_case": "跟踪'AI算力'概念板块是否处于拥挤阶段"
+    },
+    {
+      "pattern_id": "P5",
+      "pattern_name": "POLICY_RESPONSE_ANALYSIS",
+      "description": "政策事件发生后，快速评估受益/受损行业和传导路径",
+      "entry_command": "policy-sensitivity-brief",
+      "entry_skills": ["policy-sensitivity-brief", "industry-chain-mapper", "industry-board-analyzer"],
+      "typical_use_case": "国务院出台新能源补贴政策后，评估各相关行业的政策敏感度"
+    }
+  ],
+
+  "external_consumers": [
+    {
+      "consumer_plugin": "valuation",
+      "consumed_skills": ["industry-board-analyzer", "industry-chain-mapper"],
+      "consumption_pattern": "在估值分析中获取目标公司所属行业的估值分位数和产业链地位，作为相对估值参考基准"
+    },
+    {
+      "consumer_plugin": "regime-lab",
+      "consumed_skills": ["sector-rotation-detector"],
+      "consumption_pattern": "将行业轮动信号作为 regime 状态的行业层面验证，增强 regime 判断的置信度"
+    },
+    {
+      "consumer_plugin": "deep-research",
+      "consumed_skills": ["industry-board-analyzer", "industry-chain-mapper", "policy-sensitivity-brief"],
+      "consumption_pattern": "在深度研报中获取行业背景、产业链分析和政策敏感度作为研究证据链的一部分"
+    }
+  ],
+
+  "dependencies": {
+    "data_sources": [
+      {
+        "id": "lixinger-openapi",
+        "description": "理杏仁 OpenAPI（行业基本面、估值、财务数据）",
+        "query_tool": "python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py",
+        "required": true
+      },
+      {
+        "id": "akshare",
+        "description": "AKShare（概念板块资金流向、换手率等高频数据）",
+        "required": false,
+        "fallback": "降级为仅使用理杏仁估值数据，置信度下调"
+      }
+    ],
+    "plugins": [
+      {
+        "id": "query_data",
+        "usage": "数据查询底座，提供 query_tool.py 统一接口",
+        "required": true
+      }
+    ]
+  },
+
+  "quality_gates": {
+    "output_decision_thresholds": {
+      "CONCLUSION": { "confidence_min": 0.6, "required_skills_min": 3 },
+      "WARNING":    { "confidence_range": [0.3, 0.6] },
+      "REFUSE":     { "confidence_max": 0.3 }
+    },
+    "qc_rules_ref": "contracts/qc-rules.schema.json"
+  },
+
+  "fail_safe": {
+    "strategy": "GRACEFUL_DEGRADE",
+    "description": "任一模块缺数时，优先使用降级方案继续分析并在输出中标注缺口；仅当置信度低于30%或核心模块全部失败时触发 REFUSE。",
+    "never_silent_degrade": true,
+    "data_gap_disclosure_field": "data_gaps"
+  }
+}

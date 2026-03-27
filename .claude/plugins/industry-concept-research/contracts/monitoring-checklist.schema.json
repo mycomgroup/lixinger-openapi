@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "industry-concept-research/monitoring-checklist.schema.json",
+  "title": "行业/概念研究监控清单",
+  "description": "研究结论发出后的持续监控指标体系，规定观测频率、触发阈值和复评时间点。",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "checklist_id",
+      "research_subject",
+      "as_of_date",
+      "review_date",
+      "indicators"
+    ],
+    "properties": {
+      "checklist_id": {
+        "type": "string",
+        "description": "清单唯一ID，格式：{subject}-{YYYYMMDD}，如'电子-20260327'"
+      },
+      "research_subject": {
+        "type": "string",
+        "description": "对应研究主体"
+      },
+      "as_of_date": {
+        "type": "string",
+        "format": "date",
+        "description": "清单生成日期"
+      },
+      "review_date": {
+        "type": "string",
+        "format": "date",
+        "description": "下次复评日期"
+      },
+      "review_frequency": {
+        "type": "string",
+        "enum": ["DAILY", "WEEKLY", "BIWEEKLY", "MONTHLY"],
+        "description": "复评频率",
+        "default": "WEEKLY"
+      },
+      "indicators": {
+        "type": "array",
+        "description": "监控指标列表",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": ["indicator_name", "category", "current_value", "alert_threshold", "alert_direction"],
+          "properties": {
+            "indicator_name": {
+              "type": "string",
+              "description": "指标名称，如'PE-TTM 10年分位数'、'换手率5日均值'"
+            },
+            "category": {
+              "type": "string",
+              "enum": ["VALUATION", "MOMENTUM", "SENTIMENT", "FUNDAMENTAL", "POLICY", "MACRO", "CROWDING"],
+              "description": "指标类别"
+            },
+            "current_value": {
+              "type": "string",
+              "description": "当前值（带单位），如'35.2%'、'2.1x'"
+            },
+            "alert_threshold": {
+              "type": "string",
+              "description": "触发复评的阈值，如'>60%'、'<1.5x'"
+            },
+            "alert_direction": {
+              "type": "string",
+              "enum": ["ABOVE", "BELOW", "CHANGE_RATE"],
+              "description": "触发方向：超过阈值/低于阈值/变化速率超过阈值"
+            },
+            "observable_trigger": {
+              "type": "string",
+              "description": "具体可观测的触发事件描述，如'PE分位数突破60%且连续3日'"
+            },
+            "action_on_trigger": {
+              "type": "string",
+              "enum": ["RERUN_SKILL", "FULL_REANALYSIS", "DOWNGRADE_CONCLUSION", "NOTIFY_ONLY"],
+              "description": "触发后建议动作"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "additionalProperties": false
+  }
+}

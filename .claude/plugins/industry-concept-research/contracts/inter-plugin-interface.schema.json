@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "industry-concept-research/inter-plugin-interface.schema.json",
+  "title": "跨插件调用接口声明",
+  "description": "声明 industry-concept-research 插件可被外部插件直接消费的输出接口，以及各 skill 的独立调用约定。外部插件（valuation、regime-lab、deep-research 等）通过此契约了解如何接入。",
+  "type": "object",
+  "required": [
+    "plugin_id",
+    "version",
+    "exportable_outputs",
+    "standalone_skills",
+    "external_consumers",
+    "reuse_patterns"
+  ],
+  "properties": {
+    "plugin_id": {
+      "type": "string",
+      "const": "industry-concept-research"
+    },
+    "version": {
+      "type": "string"
+    },
+    "exportable_outputs": {
+      "type": "array",
+      "description": "可被外部插件直接消费的输出字段列表",
+      "items": {
+        "type": "object",
+        "required": ["field_path", "schema_ref", "description", "consumer_plugins"],
+        "properties": {
+          "field_path": {
+            "type": "string",
+            "description": "输出字段路径，如'research_conclusion.drivers'、'sector_signal.recommendation'"
+          },
+          "schema_ref": {
+            "type": "string",
+            "description": "对应 schema 文件引用"
+          },
+          "description": {
+            "type": "string"
+          },
+          "consumer_plugins": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "可消费此字段的外部插件列表"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "standalone_skills": {
+      "type": "array",
+      "description": "支持独立调用（无需通过 Orchestrator）的 skill 列表及其独立接口",
+      "items": {
+        "type": "object",
+        "required": ["skill_name", "standalone_input", "standalone_output", "load_instruction"],
+        "properties": {
+          "skill_name": {
+            "type": "string",
+            "description": "skill 标识符"
+          },
+          "standalone_input": {
+            "type": "object",
+            "description": "独立调用时的最小输入集合",
+            "properties": {
+              "required_params": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "optional_params": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "standalone_output": {
+            "type": "object",
+            "description": "独立调用时的输出结构（字段名 → 类型/说明）",
+            "additionalProperties": { "type": "string" }
+          },
+          "load_instruction": {
+            "type": "string",
+            "description": "外部插件加载此 skill 的指令，如'Load skill: .claude/plugins/industry-concept-research/skills/industry-board-analyzer/SKILL.md'"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "external_consumers": {
+      "type": "array",
+      "description": "已声明的外部消费插件及其消费方式",
+      "items": {
+        "type": "object",
+        "required": ["consumer_plugin", "consumed_skills", "consumption_pattern"],
+        "properties": {
+          "consumer_plugin": { "type": "string" },
+          "consumed_skills": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "consumption_pattern": {
+            "type": "string",
+            "description": "消费模式说明"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "reuse_patterns": {
+      "type": "array",
+      "description": "支持的 5 种标准复用模式",
+      "items": {
+        "type": "object",
+        "required": ["pattern_id", "pattern_name", "description", "entry_skills", "typical_use_case"],
+        "properties": {
+          "pattern_id": { "type": "string" },
+          "pattern_name": {
+            "type": "string",
+            "enum": [
+              "SINGLE_INDUSTRY_ANALYSIS",
+              "INDUSTRY_COMPARISON",
+              "SECTOR_ROTATION_TRACKING",
+              "CONCEPT_THEME_TRACKING",
+              "POLICY_RESPONSE_ANALYSIS"
+            ]
+          },
+          "description": { "type": "string" },
+          "entry_skills": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "typical_use_case": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 5,
+      "maxItems": 5
+    }
+  },
+  "additionalProperties": false,
+
+  "examples": [
+    {
+      "plugin_id": "industry-concept-research",
+      "version": "2.0.0",
+      "exportable_outputs": [
+        {
+          "field_path": "research_conclusion.drivers",
+          "schema_ref": "research-conclusion.schema.json#/properties/drivers",
+          "description": "行业/概念核心驱动因子，可作为 valuation 插件的行业背景输入",
+          "consumer_plugins": ["valuation", "deep-research"]
+        },
+        {
+          "field_path": "sector_rotation_signal",
+          "schema_ref": "research-conclusion.schema.json",
+          "description": "行业轮动信号，可直接传入 regime-lab 作为行业层面验证",
+          "consumer_plugins": ["regime-lab"]
+        }
+      ],
+      "standalone_skills": [
+        {
+          "skill_name": "industry-board-analyzer",
+          "standalone_input": {
+            "required_params": ["industry_name", "as_of_date"],
+            "optional_params": ["time_horizon", "include_subsectors"]
+          },
+          "standalone_output": {
+            "valuation_summary": "string - 估值分位数摘要",
+            "momentum_signal": "string - 动量信号（超配/标配/低配）",
+            "confidence": "number - 0-1",
+            "key_risks": "array of strings"
+          },
+          "load_instruction": "Load skill: .claude/plugins/industry-concept-research/skills/industry-board-analyzer/SKILL.md"
+        }
+      ],
+      "external_consumers": [
+        {
+          "consumer_plugin": "valuation",
+          "consumed_skills": ["industry-board-analyzer", "industry-chain-mapper"],
+          "consumption_pattern": "在估值分析中获取目标公司所属行业的估值分位数和产业链地位，作为相对估值参考基准"
+        },
+        {
+          "consumer_plugin": "regime-lab",
+          "consumed_skills": ["sector-rotation-detector"],
+          "consumption_pattern": "将行业轮动信号作为 regime 状态的行业层面验证，增强 regime 判断的置信度"
+        },
+        {
+          "consumer_plugin": "deep-research",
+          "consumed_skills": ["industry-board-analyzer", "industry-chain-mapper", "policy-sensitivity-brief"],
+          "consumption_pattern": "在深度研报中获取行业背景、产业链分析和政策敏感度作为研究证据链的一部分"
+        }
+      ],
+      "reuse_patterns": [
+        {
+          "pattern_id": "P1",
+          "pattern_name": "SINGLE_INDUSTRY_ANALYSIS",
+          "description": "对单一申万行业做完整的估值+轮动+产业链+政策全维度分析",
+          "entry_skills": ["industry-board-analyzer", "sector-rotation-detector", "industry-chain-mapper", "policy-sensitivity-brief"],
+          "typical_use_case": "分析'电子行业'当前投资价值"
+        },
+        {
+          "pattern_id": "P2",
+          "pattern_name": "INDUSTRY_COMPARISON",
+          "description": "跨多个行业的横截面对比分析，识别相对强弱",
+          "entry_skills": ["industry-board-analyzer", "sector-rotation-detector"],
+          "typical_use_case": "对比消费/科技/金融三个行业的配置价值"
+        },
+        {
+          "pattern_id": "P3",
+          "pattern_name": "SECTOR_ROTATION_TRACKING",
+          "description": "持续跟踪行业轮动动态，识别资金流入/流出信号",
+          "entry_skills": ["sector-rotation-detector", "limit-up-down-linkage-detector", "board-crowding-risk-monitor"],
+          "typical_use_case": "每周更新行业配置建议，跟踪轮动方向"
+        },
+        {
+          "pattern_id": "P4",
+          "pattern_name": "CONCEPT_THEME_TRACKING",
+          "description": "跟踪主题概念板块的生命周期状态和拥挤度风险",
+          "entry_skills": ["concept-board-analyzer", "board-crowding-risk-monitor", "limit-up-down-linkage-detector"],
+          "typical_use_case": "跟踪'AI算力'概念板块是否处于拥挤阶段"
+        },
+        {
+          "pattern_id": "P5",
+          "pattern_name": "POLICY_RESPONSE_ANALYSIS",
+          "description": "政策事件发生后，快速评估受益/受损行业和传导路径",
+          "entry_skills": ["policy-sensitivity-brief", "industry-chain-mapper", "industry-board-analyzer"],
+          "typical_use_case": "国务院出台新能源补贴政策后，评估各相关行业的政策敏感度"
+        }
+      ]
+    }
+  ]
+}

@@ -1,136 +1,122 @@
 # 行业与概念板块研究插件架构设计
 
-## 1. 背景与目标
+## 1. 目标与定位
 
-本插件用于整合行业与概念板块研究能力，解决原先多个分散 skill 难以协同的问题。目标是把“涨跌停联动、行业表现、轮动判断、产业链验证、政策映射”打通成统一研究流水线。
+`industry-concept-research` 用于把行业与概念研究能力统一为可复用、可审计、可降级的研究流水线。
 
-### 1.1 设计目标
+目标：
 
-- **统一入口**：支持单点命令触发全链路研究。
-- **模块解耦**：保留 6 个 skill 的独立性，便于单模块迭代。
-- **证据闭环**：每个结论都能回溯到数据与逻辑层。
-- **可监控可失效**：输出必须包含跟踪指标与反转条件。
+- 统一入口编排（Orchestrator）
+- 模块独立可调用（10 skills）
+- 输出结构统一（contracts）
+- 质量门禁可执行（QA 三档决策）
+- 异常处理可追踪（fail-safe + data_gaps）
 
-## 2. 范围与边界
+## 2. 分层架构
 
-### 2.1 覆盖能力
+### L0：命令编排层（commands）
 
-1. 涨跌停联动识别（主线扩散、退潮风险、新概念孵化）
-2. 行业板块分析（横截面强弱、资金流、成分股）
-3. 行业轮动判断（宏观周期、风格切换、超/低配建议）
-4. 产业链图谱（上中下游联动、价格/库存/订单代理）
-5. 概念板块分析（主题热度、轮动节奏、拥挤度）
-6. 政策敏感度（政策—行业映射、情景推演、触发条件）
+- 主入口：`/industry-concept-research`
+- 支持 `quick | full | detailed` 三种模式
+- 职责：路由技能、聚合证据、执行 QA、给出最终决策
 
-### 2.2 不包含内容
+### L1：分析模块层（skills）
 
-- 个股深度尽调与财务建模（交由个股研究插件）
-- 高频交易与日内择时执行
-- 自动下单或投资建议落地
+既有 7 项：
 
-## 3. 总体架构
+1. `industry-board-analyzer`
+2. `sector-rotation-detector`
+3. `industry-chain-mapper`
+4. `concept-board-analyzer`
+5. `policy-sensitivity-brief`
+6. `limit-up-down-linkage-detector`
+7. `industry-report-analyzer`
 
-## 3.1 分层模型
+P0 新增 3 项（已落地）：
 
-- **L0：编排层（Orchestrator）**
-  - 入口：`/industry-concept-research`
-  - 功能：根据用户目标选择 6 个模块的执行顺序与深度
+8. `industry-subsector-decomposer`
+9. `sector-factor-attributor`
+10. `board-crowding-risk-monitor`
 
-- **L1：分析模块层（6 Skills）**
-  - `limit-up-down-linkage-detector`
-  - `industry-board-analyzer`
-  - `sector-rotation-detector`
-  - `industry-chain-mapper`
-  - `concept-board-analyzer`
-  - `policy-sensitivity-brief`
-  - `industry-report-analyzer`
+> 每个 skill 均提供“§ 独立调用接口”，可直接被外部插件加载。
 
-- **L2：数据层（Data Adapters）**
-  - 理杏仁接口、公开行情/政策公告数据、用户自定义股票池
+### L2：数据层
 
-- **L3：输出层（Report & Monitoring）**
-  - 研究简报、策略备忘录、监控看板字段、失效条件清单
+- 理杏仁 OpenAPI（`query_tool.py`）
+- AKShare（概念与交易结构补充）
 
-## 3.2 核心设计原则
+### L3：契约与输出层（contracts）
 
-- **先结论后证据**：先给 3-5 条可解释结论，再展开证据链。
-- **默认概率化表达**：对轮动与政策影响使用概率/置信度。
-- **单模块可降级**：任一模块数据缺失时，可退化为其余模块继续输出。
-- **统一字段口径**：指标日期、频率、分类体系（申万/概念源）必须明确。
+- `research-conclusion.schema.json`
+- `monitoring-checklist.schema.json`
+- `data-gap-report.schema.json`
+- `inter-plugin-interface.schema.json`
+- `qc-rules.schema.json`
 
-## 4. 关键流程设计
+用于保证跨 skill、跨插件输出口径一致。
 
-### 4.1 标准执行流
+## 3. Orchestrator 执行流程
 
-1. **任务定义**：确认范围（A 股/行业分类/时间窗/风险偏好）
-2. **横截面扫描**：行业板块 + 概念板块识别当前主线与分化
-3. **轮动归因**：宏观与流动性框架解释“驱动与持续性”
-4. **产业链验证**：验证景气是否由上游向中下游传导
-5. **政策映射**：匹配即将发布政策/会议/监管变化的敏感方向
-6. **研报校验**：用行业研报分析补充一致预期与关键分歧
-7. **结果整合**：输出机会清单、风险矩阵、监控指标、失效条件
+1. 输入标准化（主题、范围、窗口、模式）
+2. 横截面扫描（行业/概念）
+3. 轮动归因与结构验证
+4. 产业链与政策映射
+5. 研报一致预期校验
+6. 细分拆解 / 因子归因 / 拥挤度监控（按模式）
+7. 统一聚合并产出 `skill_outputs[]`
+8. 执行 QA 自检规则
+9. 输出 `CONCLUSION | WARNING | REFUSE`
 
-### 4.2 快速模式与完整模式
+## 4. QA 闭环与三档决策
 
-- **快速模式（T+0 复盘）**：优先步骤 2 + 4 + 6
-- **完整模式（周度/专题）**：执行全部 7 步
+依据 `qc-rules.schema.json`：
 
-## 5. 模块职责划分
+- `CONCLUSION`：置信度 >= 0.60 且关键字段完整
+- `WARNING`：置信度 0.30-0.60 或存在显著缺口
+- `REFUSE`：置信度 < 0.30 或核心模块不可用
 
-| 模块 | 输入 | 产出 | 关键价值 |
-|---|---|---|---|
-| limit-up-down-linkage-detector | 涨停/跌停样本、连板结构、成交强度 | 主线/退潮/新概念候选清单 | 识别“情绪扩散与风险拐点” |
-| industry-board-analyzer | 行业表现、成分、资金流 | 强弱分层与行业雷达图 | 找到“当下主线” |
-| sector-rotation-detector | 宏观指标、周期位置 | 超配/低配建议与置信度 | 判断“下一段主线” |
-| industry-chain-mapper | 产业链节点与代理指标 | 传导路径与景气图谱 | 验证“业绩兑现链路” |
-| concept-board-analyzer | 概念指数、热度、成交 | 主题拥挤度与轮动节奏 | 捕捉“情绪与催化” |
-| policy-sensitivity-brief | 政策事件与行业暴露 | 敏感度矩阵与情景推演 | 识别“政策弹性/风险” |
-| industry-report-analyzer | 券商/机构行业研报 | 核心观点拆解与假设清单 | 校准“预期与现实偏差” |
+输出必须包含：
 
-## 6. 新解决方案（整合后）
+- 证据链：`skill_outputs[]`
+- 缺口声明：`data_gaps`
+- 质量状态：`qc_status/errors/warnings`
+- 监控清单：`monitoring_checklist`
 
-## 6.1 一体化命令方案
+## 5. Fail-safe 机制
 
-新增综合命令：`/industry-concept-research`（并支持调用 `/industry-report-analyzer` 进行研报专项分析）
+### 5.1 模块级降级
 
-### 输入
-- 研究主题（如“AI 算力链”“低空经济”“地产链修复”）
-- 时间窗口（短线/中期）
-- 输出偏好（列表评分 / 简报 / 备忘录）
+- 非核心模块缺数：允许降级执行
+- 核心模块缺数：下调决策到 `WARNING` 或 `REFUSE`
 
-### 输出
-- 主线结论（行业 + 概念双视角）
-- 轮动方向（超配/标配/低配）
-- 产业链兑现路径（价格、库存、订单、产能）
-- 政策敏感度与情景触发条件
-- 行业研报关键假设与反证点
-- 下周/下月监控清单
+### 5.2 缺口强制披露
 
-## 6.2 双引擎策略
+任何降级都必须写入 `data_gaps`：
 
-- **Structure Engine（结构引擎）**：涨跌停联动 + 行业板块 + 宏观轮动 + 产业链
-- **Theme Engine（主题引擎）**：概念热度 + 政策敏感度
+- 缺失字段
+- 缺失原因
+- fallback 方法
+- 对置信度影响
 
-最终采用“结构分 + 主题分”融合排序，降低单一维度误判。
+### 5.3 冲突与异常
 
-## 6.3 研究闭环机制
+- 若不同 skill 结论冲突，触发一致性规则并降权
+- 若数据时效超阈值，标记时效风险并设置复评点
 
-- 每次输出都要包含：
-  - 置信度
-  - 核心风险
-  - 失效触发条件（可观测）
-  - 下次复评时间点（如下一次 PMI / 社融 / 重要会议后）
+## 6. 复用与边界
 
-## 7. 扩展计划
+跨插件复用通过 `inter-plugin-interface.schema.json` 与 `plugin.json` 声明：
 
-- 接入统一 schema（结论、证据、风险、监控）
-- 增加跨市场映射（A/H/美股中概）
-- 增加主题生命周期识别（启动-扩散-拥挤-退潮）
+- 外部消费者：`valuation`、`regime-lab`、`deep-research`
+- 复用模式：信号注入、风险门控、监控转发、主题联动、结论摘要消费
 
-## 8. 迁移说明
+边界约束：
 
-本次迁移将以下原 `skills/China-market_*` 目录统一移动至：
+- 本插件不做个股尽调与自动交易执行
+- 仅提供结构化研究判断与监控框架
 
-`.claude/plugins/industry-concept-research/skills/`
+## 7. 演进方向
 
-并通过命令层统一暴露，后续迭代仅在插件内进行，不再分散维护。
+- 维持 contracts 先行，避免输出口径漂移
+- 持续扩展 P1/P2 技能，但必须遵守同一 QA 与 fail-safe 规范
+- 优先提升数据可得性与降级质量，而非扩展无契约的新能力

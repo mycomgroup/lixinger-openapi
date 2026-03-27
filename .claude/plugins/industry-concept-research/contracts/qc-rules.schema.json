@@ -1,0 +1,263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "industry-concept-research/qc-rules.schema.json",
+  "title": "输出 QA 自检规则契约",
+  "description": "定义 Orchestrator 在生成最终输出前必须执行的 QA 自检规则集。对标 valuation 插件的 qc_status/errors/warnings 机制。",
+  "type": "object",
+  "required": [
+    "qc_version",
+    "output_decision_rules",
+    "required_field_rules",
+    "consistency_rules",
+    "confidence_calculation_rules"
+  ],
+  "properties": {
+    "qc_version": {
+      "type": "string",
+      "description": "QC 规则版本号"
+    },
+    "output_decision_rules": {
+      "type": "object",
+      "description": "三档输出决策规则（CONCLUSION / WARNING / REFUSE）",
+      "required": ["CONCLUSION", "WARNING", "REFUSE"],
+      "properties": {
+        "CONCLUSION": {
+          "type": "object",
+          "required": ["confidence_min", "required_skills_min", "description"],
+          "properties": {
+            "confidence_min": { "type": "number", "const": 0.6, "description": "最低置信度阈值" },
+            "required_skills_min": { "type": "integer", "description": "至少须完成执行的 skill 数量（COMPLETED 或 DEGRADED 状态）" },
+            "required_fields_complete": { "type": "boolean", "const": true, "description": "所有 required 字段必须已填充" },
+            "description": { "type": "string" }
+          }
+        },
+        "WARNING": {
+          "type": "object",
+          "required": ["confidence_range", "description"],
+          "properties": {
+            "confidence_range": {
+              "type": "object",
+              "properties": {
+                "min": { "type": "number", "const": 0.3 },
+                "max": { "type": "number", "const": 0.6 }
+              }
+            },
+            "triggers": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "除置信度外，其他触发 WARNING 的条件"
+            },
+            "description": { "type": "string" }
+          }
+        },
+        "REFUSE": {
+          "type": "object",
+          "required": ["confidence_max", "description"],
+          "properties": {
+            "confidence_max": { "type": "number", "const": 0.3, "description": "低于此置信度强制 REFUSE" },
+            "triggers": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "除置信度外，其他强制触发 REFUSE 的条件（如核心模块全部 FAILED）"
+            },
+            "description": { "type": "string" }
+          }
+        }
+      }
+    },
+    "required_field_rules": {
+      "type": "array",
+      "description": "必填字段完整性规则列表",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "field_path", "condition", "error_message"],
+        "properties": {
+          "rule_id": { "type": "string" },
+          "field_path": { "type": "string", "description": "JSON 字段路径，如'confidence'、'skill_outputs[].status'" },
+          "condition": { "type": "string", "description": "校验条件描述，如'必须存在且为 0-1 之间的数值'" },
+          "severity": { "type": "string", "enum": ["ERROR", "WARNING"], "description": "违反时的严重程度" },
+          "error_message": { "type": "string", "description": "QC 报告中展示的错误信息" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "consistency_rules": {
+      "type": "array",
+      "description": "跨字段一致性检验规则，防止矛盾结论",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "rule_description", "check_logic", "severity", "error_message"],
+        "properties": {
+          "rule_id": { "type": "string" },
+          "rule_description": { "type": "string", "description": "规则说明" },
+          "check_logic": { "type": "string", "description": "检验逻辑伪代码，如'if output_decision==CONCLUSION then confidence >= 0.6'" },
+          "severity": { "type": "string", "enum": ["ERROR", "WARNING"] },
+          "error_message": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "confidence_calculation_rules": {
+      "type": "object",
+      "description": "置信度综合计算规则",
+      "required": ["base_formula", "skill_weights", "deduction_rules"],
+      "properties": {
+        "base_formula": {
+          "type": "string",
+          "description": "基础置信度计算公式说明"
+        },
+        "skill_weights": {
+          "type": "object",
+          "description": "各 skill 对整体置信度的权重（须加总为 1.0）",
+          "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "deduction_rules": {
+          "type": "array",
+          "description": "置信度扣减规则",
+          "items": {
+            "type": "object",
+            "required": ["condition", "deduction", "description"],
+            "properties": {
+              "condition": { "type": "string" },
+              "deduction": { "type": "number", "minimum": 0, "maximum": 1, "description": "扣减幅度（如 0.15 表示扣 15%）" },
+              "description": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+
+  "examples": [
+    {
+      "qc_version": "2.0.0",
+      "output_decision_rules": {
+        "CONCLUSION": {
+          "confidence_min": 0.6,
+          "required_skills_min": 3,
+          "required_fields_complete": true,
+          "description": "置信度≥60%、至少3个skill完成（COMPLETED或DEGRADED）、所有必填字段齐全时，输出正式结论"
+        },
+        "WARNING": {
+          "confidence_range": { "min": 0.3, "max": 0.6 },
+          "triggers": [
+            "置信度在30%-60%之间",
+            "存在POOR级别数据缺口（fallback_quality=POOR）",
+            "超过2个skill处于DEGRADED状态",
+            "存在互相矛盾的 driver 和 risk（同一因子既是正向驱动又是高概率风险）"
+          ],
+          "description": "置信度30-60%或存在数据质量问题时，输出带警告的参考性结论，用户需知悉局限性"
+        },
+        "REFUSE": {
+          "confidence_max": 0.3,
+          "triggers": [
+            "置信度<30%",
+            "核心 skill（industry-board-analyzer 或 sector-rotation-detector）全部 FAILED",
+            "research_subject 无法对应任何有效的申万行业代码或已知概念板块",
+            "所有 skill_outputs 均为 FAILED 或 SKIPPED"
+          ],
+          "description": "数据极度缺乏或置信度极低时，拒绝给出结论，明确说明原因，建议后续数据补充方案"
+        }
+      },
+      "required_field_rules": [
+        {
+          "rule_id": "RF-001",
+          "field_path": "confidence",
+          "condition": "必须存在，且为0到1之间的数值",
+          "severity": "ERROR",
+          "error_message": "缺少 confidence 字段，QA 检验无法执行"
+        },
+        {
+          "rule_id": "RF-002",
+          "field_path": "output_decision",
+          "condition": "必须为 CONCLUSION、WARNING、REFUSE 三值之一",
+          "severity": "ERROR",
+          "error_message": "output_decision 值非法，必须为 CONCLUSION/WARNING/REFUSE"
+        },
+        {
+          "rule_id": "RF-003",
+          "field_path": "skill_outputs",
+          "condition": "至少存在1个 skill_output 条目",
+          "severity": "ERROR",
+          "error_message": "skill_outputs 为空，无法形成证据链"
+        },
+        {
+          "rule_id": "RF-004",
+          "field_path": "drivers",
+          "condition": "output_decision=CONCLUSION 时，drivers 不能为空",
+          "severity": "WARNING",
+          "error_message": "结论中缺少驱动因子分析，建议补充"
+        },
+        {
+          "rule_id": "RF-005",
+          "field_path": "invalidation_conditions",
+          "condition": "output_decision=CONCLUSION 时，至少需要1个失效触发条件",
+          "severity": "WARNING",
+          "error_message": "结论中缺少失效触发条件，无法支持持续监控"
+        }
+      ],
+      "consistency_rules": [
+        {
+          "rule_id": "CS-001",
+          "rule_description": "output_decision 与 confidence 一致性",
+          "check_logic": "if output_decision=='CONCLUSION' then confidence >= 0.6; if output_decision=='REFUSE' then confidence < 0.3",
+          "severity": "ERROR",
+          "error_message": "output_decision 与 confidence 不一致：CONCLUSION 要求≥0.6，REFUSE 要求<0.3"
+        },
+        {
+          "rule_id": "CS-002",
+          "rule_description": "REFUSE 时 summary 不应给出投资方向结论",
+          "check_logic": "if output_decision=='REFUSE' then summary should not contain '超配' or '低配' or '买入' or '卖出'",
+          "severity": "ERROR",
+          "error_message": "REFUSE 决策下不允许输出明确投资方向结论"
+        },
+        {
+          "rule_id": "CS-003",
+          "rule_description": "data_gaps 置信度影响加总不超过置信度本身",
+          "check_logic": "sum(data_gaps[].confidence_impact) <= original_confidence",
+          "severity": "WARNING",
+          "error_message": "数据缺口累计置信度折损超过基础置信度，结论可靠性存疑"
+        },
+        {
+          "rule_id": "CS-004",
+          "rule_description": "CONCLUSION 时 monitoring_checklist 不能为空",
+          "check_logic": "if output_decision=='CONCLUSION' then len(monitoring_checklist) >= 1",
+          "severity": "WARNING",
+          "error_message": "正式结论须配备监控清单，以支持持续跟踪"
+        }
+      ],
+      "confidence_calculation_rules": {
+        "base_formula": "confidence = Σ(skill_weight[i] × skill_confidence[i]) × (1 - Σ(data_gap.confidence_impact)) 其中 skill_confidence: COMPLETED=1.0, DEGRADED=0.6, SKIPPED=0 (主动跳过，不影响权重), FAILED=0（影响权重）",
+        "skill_weights": {
+          "industry-board-analyzer": 0.25,
+          "sector-rotation-detector": 0.20,
+          "industry-chain-mapper": 0.15,
+          "concept-board-analyzer": 0.10,
+          "policy-sensitivity-brief": 0.10,
+          "limit-up-down-linkage-detector": 0.08,
+          "industry-report-analyzer": 0.07,
+          "board-crowding-risk-monitor": 0.05
+        },
+        "deduction_rules": [
+          {
+            "condition": "存在 fallback_quality=POOR 的数据缺口",
+            "deduction": 0.15,
+            "description": "每个 POOR 级缺口扣减 15% 置信度"
+          },
+          {
+            "condition": "核心 skill（industry-board-analyzer 或 sector-rotation-detector）处于 DEGRADED 状态",
+            "deduction": 0.10,
+            "description": "核心 skill 降级每个扣减 10%"
+          },
+          {
+            "condition": "skill_outputs 中 FAILED 数量超过总数的 50%",
+            "deduction": 0.25,
+            "description": "超过半数 skill 失败时额外扣减 25%"
+          }
+        ]
+      }
+    }
+  ]
+}

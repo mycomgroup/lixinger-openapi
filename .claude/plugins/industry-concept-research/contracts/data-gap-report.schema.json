@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "industry-concept-research/data-gap-report.schema.json",
+  "title": "数据缺口与降级声明",
+  "description": "规范化记录每次分析中的数据缺口、降级策略和置信度影响。所有降级必须显式声明，不允许无声略过。",
+  "type": "object",
+  "required": [
+    "as_of_date",
+    "research_subject",
+    "overall_confidence_adjustment",
+    "gaps"
+  ],
+  "properties": {
+    "as_of_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "research_subject": {
+      "type": "string"
+    },
+    "overall_confidence_adjustment": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 0,
+      "description": "各 gap 累计置信度折损（负数，-0.3 表示置信度下调 30%）"
+    },
+    "gaps": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "required": [
+          "gap_id",
+          "affected_skill",
+          "missing_field",
+          "missing_reason",
+          "fallback_method",
+          "fallback_quality",
+          "confidence_impact"
+        ],
+        "properties": {
+          "gap_id": {
+            "type": "string",
+            "description": "缺口唯一标识，格式：{skill}-{field}，如'industry-board-analyzer-fund_flow'"
+          },
+          "affected_skill": {
+            "type": "string",
+            "description": "受影响的 skill 名称"
+          },
+          "missing_field": {
+            "type": "string",
+            "description": "缺失字段或数据源名称"
+          },
+          "missing_reason": {
+            "type": "string",
+            "enum": ["API_UNAVAILABLE", "DATA_STALE", "PERMISSION_DENIED", "FIELD_NOT_EXIST", "PARTIAL_DATA"],
+            "description": "缺失原因"
+          },
+          "fallback_method": {
+            "type": "string",
+            "description": "降级替代方法描述，如'使用PE分位数替代资金流数据'、'仅用3项指标中的2项计算'"
+          },
+          "fallback_quality": {
+            "type": "string",
+            "enum": ["GOOD", "ACCEPTABLE", "POOR"],
+            "description": "降级后分析质量评估：GOOD=结果基本不受影响 / ACCEPTABLE=结果可用但有局限 / POOR=结果仅供参考"
+          },
+          "confidence_impact": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "对整体置信度的负向影响（0=无影响，0.3=置信度下调30%）"
+          },
+          "user_notification": {
+            "type": "string",
+            "description": "应向用户展示的缺口提示文字"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
