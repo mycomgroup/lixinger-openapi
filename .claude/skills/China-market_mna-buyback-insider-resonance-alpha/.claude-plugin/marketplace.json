@@ -1,0 +1,19 @@
+{
+  "name": "mna-buyback-insider-resonance-alpha",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "分析A股并购重组、股票回购与管理层增持三重共振信号，验证是否显著提升后续胜率。用于事件驱动筛选、公告联动分析与胜率统计。",
+    "created": "2026-03-26",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "mna-buyback-insider-resonance-alpha-plugin",
+      "description": "分析A股并购重组、股票回购与管理层增持三重共振信号，验证是否显著提升后续胜率。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AH溢价与行业资金联动交易"
+  short_description: "基于AAH比价、沪深港通、行业资金流与估值判断AH价差回归有效市场环境。"
+  default_prompt: "请基于AAH股比价、沪深港通、行业资金流和估值，判断当前AH价差回归交易是否有效，并给出交易框架。"

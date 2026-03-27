@@ -1,0 +1,19 @@
+{
+  "name": "institutional-research-heat-validator",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "验证A股机构调研热度是否能转化为业绩与股价，识别真假景气与失效模式。",
+    "created": "2026-03-26",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "institutional-research-heat-validator-plugin",
+      "description": "验证A股机构调研热度是否能转化为业绩与股价，识别真假景气与失效模式。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}
