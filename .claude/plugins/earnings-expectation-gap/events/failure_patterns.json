@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0",
+  "patterns": [
+    {
+      "id": "oneoff_gain",
+      "name": "一次性损益驱动",
+      "description": "利润超预期主要来自非经常性项目，主业指标未同步改善",
+      "rule_hint": "deducted_np_yoy < 0 AND surprise_fy0 > 0"
+    },
+    {
+      "id": "valuation_ceiling",
+      "name": "估值天花板",
+      "description": "超预期但估值分位过高，后续难以继续扩张",
+      "rule_hint": "valuation_percentile > 0.9"
+    },
+    {
+      "id": "crowded_lhb",
+      "name": "龙虎榜拥挤",
+      "description": "游资高集中抢筹导致次日冲高回落概率上升",
+      "rule_hint": "lhb_concentration > 0.8 AND turnover_pct_rank > 0.9"
+    }
+  ]
+}

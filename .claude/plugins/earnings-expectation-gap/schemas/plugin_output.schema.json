@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "plugin_output.schema.json",
+  "title": "EarningsExpectationGapOutput",
+  "type": "object",
+  "required": ["meta", "candidates"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["input", "total_selected", "min_surprise", "min_undertraded"],
+      "properties": {
+        "input": { "type": "string" },
+        "total_selected": { "type": "integer", "minimum": 0 },
+        "min_surprise": { "type": "number" },
+        "min_undertraded": { "type": "number" }
+      },
+      "additionalProperties": true
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "symbol",
+          "surprise_fy0",
+          "undertraded_score",
+          "continuation_score",
+          "continuation_grade"
+        ],
+        "properties": {
+          "symbol": { "type": "string" },
+          "surprise_fy0": { "type": "number" },
+          "undertraded_score": { "type": "number", "minimum": 0, "maximum": 1 },
+          "continuation_score": { "type": "number", "minimum": 0, "maximum": 1 },
+          "continuation_grade": { "type": "string", "enum": ["A", "B", "C"] },
+          "price_underreact": { "type": "number", "minimum": 0, "maximum": 1 },
+          "flow_underconfirm": { "type": "number", "minimum": 0, "maximum": 1 },
+          "seat_not_crowded": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

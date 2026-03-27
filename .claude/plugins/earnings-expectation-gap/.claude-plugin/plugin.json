@@ -1,0 +1,8 @@
+{
+  "name": "earnings-expectation-gap",
+  "version": "0.1.0",
+  "description": "Detect earnings-preannouncement positive surprise names that remain under-traded and score continuation probability",
+  "author": {
+    "name": "lixinger-openapi"
+  }
+}

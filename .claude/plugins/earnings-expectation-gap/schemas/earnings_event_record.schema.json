@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "earnings_event_record.schema.json",
+  "title": "EarningsExpectationGapInputRecord",
+  "type": "object",
+  "required": [
+    "symbol",
+    "guidance_mid",
+    "cons_fy0",
+    "open_day_ret",
+    "gap_ret",
+    "net_main_inflow_ratio",
+    "net_xl_inflow_ratio",
+    "turnover_pct_rank",
+    "lhb_net_buy_ratio",
+    "lhb_concentration",
+    "revision_up_diffusion",
+    "valuation_percentile"
+  ],
+  "properties": {
+    "symbol": { "type": "string" },
+    "guidance_mid": { "type": "number" },
+    "cons_fy0": { "type": "number" },
+    "open_day_ret": { "type": "number", "minimum": -1, "maximum": 1 },
+    "gap_ret": { "type": "number", "minimum": -1, "maximum": 1 },
+    "net_main_inflow_ratio": { "type": "number" },
+    "net_xl_inflow_ratio": { "type": "number" },
+    "turnover_pct_rank": { "type": "number", "minimum": 0, "maximum": 1 },
+    "lhb_net_buy_ratio": { "type": "number" },
+    "lhb_concentration": { "type": "number", "minimum": 0, "maximum": 1 },
+    "revision_up_diffusion": { "type": "number", "minimum": 0, "maximum": 1 },
+    "valuation_percentile": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": false
+}
