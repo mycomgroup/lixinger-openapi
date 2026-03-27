@@ -134,3 +134,4 @@ skills_analysis.json
 
 # data
 analysis_*
+*.pkl

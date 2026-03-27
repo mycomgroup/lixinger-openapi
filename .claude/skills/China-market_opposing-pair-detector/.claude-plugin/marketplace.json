@@ -1,0 +1,19 @@
+{
+  "name": "opposing-pair-detector",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "识别A股当前市场的“对手盘/跷跷板”结构，优先寻找当日一涨一跌且分差最大的风格或板块对，例如银行 vs 科技、沪深300/上证50 vs 中证2000、周期 vs 科技。当用户询问当前市场谁在做对手盘、今天是银行对科技还是大盘对小盘、风格对杀、跷跷板、或需要一个当日市场对手盘分析时使用。",
+    "created": "2026-03-27",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "opposing-pair-detector-plugin",
+      "description": "识别A股当前市场的“对手盘/跷跷板”结构，优先寻找当日一涨一跌且分差最大的风格或板块对，例如银行 vs 科技、沪深300/上证50 vs 中证2000、周期 vs 科技。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}
