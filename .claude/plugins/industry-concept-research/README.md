@@ -11,6 +11,7 @@
 - `industry-chain-mapper`：产业链映射与景气跟踪
 - `concept-board-analyzer`：概念板块分析
 - `policy-sensitivity-brief`：政策敏感度简报
+- `limit-up-down-linkage-detector`：涨跌停联动识别（主线/退潮/新概念）
 - `industry-report-analyzer`：行业研报分析
 
 ## 目录结构
@@ -26,6 +27,7 @@
 - `/industry-chain-mapper [产业链主题]`
 - `/concept-board-analyzer [概念主题]`
 - `/policy-sensitivity-brief [政策主题]`
+- `/limit-up-down-linkage-detector [窗口/范围]`
 - `/industry-report-analyzer [行业/研报主题]`
 - `/industry-concept-research [研究主题]`（综合编排入口）
 - `/industry-report-analyzer [行业/公司/时间窗]`
