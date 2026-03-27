@@ -1,0 +1,31 @@
+{
+  "name": "质量低估_独立基线",
+  "areaCode": "cn",
+  "industrySource": "sw_2021",
+  "industryLevel": "three",
+  "pageSize": 100,
+  "ranges": {
+    "market": "a",
+    "stockBourseTypes": [],
+    "mutualMarkets": { "selectedMutualMarkets": [], "selectType": "include" },
+    "multiMarketListedType": { "selectedMultiMarketListedTypes": [], "selectType": "include" },
+    "excludeBlacklist": true,
+    "excludeDelisted": true,
+    "excludeSpecialTreatment": true,
+    "specialTreatmentOnly": false
+  },
+  "conditions": [
+    { "metric": "PE-TTM(扣非)统计值", "selectors": ["10年", "分位点%"], "max": 30 },
+    { "metric": "PB(不含商誉)统计值", "selectors": ["10年", "分位点%"], "max": 35 },
+    { "metric": "PE-TTM(扣非)", "min": 0.1 },
+    { "metric": "PCF-TTM", "min": 0 },
+    { "metric": "归属于母公司普通股股东的扣除非经常性损益的净利润", "category": "利润表", "subCondition": "TTM", "min": 0 },
+    { "metric": "经营活动产生的现金流量净额", "category": "现金流量表", "subCondition": "TTM", "min": 0 },
+    { "metric": "上市日期", "subCondition": "上市时间", "max": "2023-01-01" }
+  ],
+  "sort": {
+    "metric": "PE-TTM(扣非)统计值",
+    "selectors": ["10年", "分位点%"],
+    "order": "asc"
+  }
+}

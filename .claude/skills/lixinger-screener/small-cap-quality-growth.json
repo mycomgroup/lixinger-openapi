@@ -1,0 +1,33 @@
+{
+  "name": "小盘成长质量_独立基线",
+  "areaCode": "cn",
+  "industrySource": "sw_2021",
+  "industryLevel": "three",
+  "pageSize": 100,
+  "ranges": {
+    "market": "a",
+    "stockBourseTypes": [],
+    "mutualMarkets": { "selectedMutualMarkets": [], "selectType": "include" },
+    "multiMarketListedType": { "selectedMultiMarketListedTypes": [], "selectType": "include" },
+    "excludeBlacklist": true,
+    "excludeDelisted": true,
+    "excludeSpecialTreatment": true,
+    "specialTreatmentOnly": false
+  },
+  "conditions": [
+    { "metric": "市值", "max": 200 },
+    { "metric": "流通市值", "min": 15 },
+    { "metric": "PE-TTM(扣非)", "min": 0.1 },
+    { "metric": "营业收入", "category": "利润表", "subCondition": "TTM同比", "min": 15 },
+    { "metric": "归属于母公司普通股股东的扣除非经常性损益的净利润", "category": "利润表", "subCondition": "TTM", "min": 0 },
+    { "metric": "归属于母公司普通股股东的扣除非经常性损益的净利润", "category": "利润表", "subCondition": "TTM同比", "min": 15 },
+    { "metric": "经营活动产生的现金流量净额", "category": "现金流量表", "subCondition": "TTM", "min": 0 },
+    { "metric": "毛利率(GM)", "category": "财务指标", "min": 20 },
+    { "metric": "归属于母公司普通股股东的加权ROE", "category": "财务指标", "min": 8 },
+    { "metric": "上市日期", "subCondition": "上市时间", "max": "2023-01-01" }
+  ],
+  "sort": {
+    "metric": "市值",
+    "order": "asc"
+  }
+}

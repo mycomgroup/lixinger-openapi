@@ -17,6 +17,8 @@
   "conditions": [
     { "metric": "PE-TTM(扣非)统计值", "category": "基本指标", "selectors": ["10年", "分位点%"], "max": 30 },
     { "metric": "PB(不含商誉)统计值", "category": "基本指标", "selectors": ["10年", "分位点%"], "max": 30 },
+    { "metric": "PE-TTM(扣非)", "category": "基本指标", "min": 0.1 },
+    { "metric": "PCF-TTM", "category": "基本指标", "min": 0 },
     { "metric": "股息率", "category": "基本指标", "min": 2.5 },
     { "metric": "上市日期", "category": "基本指标", "subCondition": "上市时间", "max": "2015-01-01" },
     { "metric": "过去250个交易日涨跌幅", "category": "热度指标", "min": -20, "max": 20 },

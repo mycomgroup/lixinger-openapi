@@ -1,0 +1,19 @@
+{
+  "name": "deep-decline-bottom-volume",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "识别A股中经历双腰斩（累计跌幅≥75%）后横盘震荡2-3年、近期在底部出现放量大阴线的股票。当用户要找深度下跌后底部洗盘、恐慌出清、主力吸筹、底部放量异动或长期超跌横盘后的潜在反转机会时使用此技能。",
+    "created": "2026-03-26",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "deep-decline-bottom-volume-plugin",
+      "description": "识别A股中经历双腰斩（累计跌幅≥75%）后横盘震荡2-3年、近期在底部出现放量大阴线的股票。当用户要找深度下跌后底部洗盘、恐慌出清、主力吸筹、底部放量异动或长期超跌横盘后的潜在反转机会时使用此技能。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

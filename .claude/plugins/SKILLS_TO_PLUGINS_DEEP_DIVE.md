@@ -258,4 +258,63 @@
 4. 在两个 plugin 内先接入最小 QA（字段完整性 + 结论冲突检查）。
 5. 连续跑 4 周样本，验证“结论稳定性 + 执行可用性”。
 
-如果你愿意，我下一步可以直接给你一份“**从现有目录迁移到这 6 个插件的目录级改造方案**”（包括每个 skill 的迁移目标路径、命令命名、兼容层与弃用计划）。
+## 7) 目录级改造方案（源路径 → 目标插件路径）
+
+### 7.1 统一命名与分层
+- 市场层统一：`cn` / `hk` / `us`
+- 能力层统一：`signals` / `engines` / `orchestrators` / `qa`
+- skill 目录规范：`skills/{market}/{capability}/{skill_slug}/`
+- 兼容入口规范：保留旧 skill 名称，内部转发到新路径
+
+### 7.2 六大插件迁移映射
+
+1. **Regime Lab**
+   - 源模式：`.claude/skills/*(macro-liquidity|market-breadth|sector-rotation|valuation-regime|volatility-regime|yield-gap|credit-spread|yield-curve-regime)*`
+   - 目标：`.claude/plugins/regime-lab/skills/{market}/signals/{skill_slug}/`
+
+2. **Flow-Microstructure Intelligence**
+   - 源模式：`.claude/skills/*(fund-flow|northbound-flow|southbound-flow|foreign-flow|etf-flow|hsgt-holdings|dragon-tiger|block-deal|limit-up-pool|intraday-microstructure|factor-crowding)*`
+   - 目标：`.claude/plugins/flow-microstructure-intelligence/skills/{market}/signals/{skill_slug}/`
+
+3. **Event Alpha Factory**
+   - 源模式：`.claude/skills/*(event-driven|event-study|earnings-reaction|disclosure-notice|ipo-|share-repurchase|buyback|insider-trading)*`
+   - 目标：`.claude/plugins/event-alpha-factory/skills/{market}/engines/{skill_slug}/`
+
+4. **Fundamental Forensics**
+   - 源模式：`.claude/skills/*(financial-statement|goodwill-risk|equity-pledge|margin-risk|shareholder-|st-delist|insider-sentiment|esg|tech-hype-vs-fundamentals|sentiment-reality-gap)*`
+   - 目标：`.claude/plugins/fundamental-forensics/skills/{market}/engines/{skill_slug}/`
+
+5. **Portfolio OS（新增插件）**
+   - 源模式：`.claude/skills/*(portfolio-|risk-adjusted-return|rebalancing|tax-aware-rebalancing|liquidity-impact|etf-allocator|suitability-report)*`
+   - 目标：`.claude/plugins/portfolio-os/skills/{market}/orchestrators/{skill_slug}/`
+
+6. **Research Assembly Line（新增插件）**
+   - 源模式A：`.claude/skills/*(equity-research-orchestrator|investment-memo-generator|peer-comparison|weekly-market-brief|screener|valuation)*`
+   - 源模式B：`.claude/plugins/(stock-screener|deep-research|valuation)/skills/*`
+   - 目标：`.claude/plugins/research-assembly-line/skills/{domain}/{skill_slug}/`
+
+## 8) 兼容层与弃用计划（12 周）
+
+### 8.1 兼容层
+- 在旧 skill 目录保留轻量壳层：
+  - 标准提示头：`[DEPRECATED] moved_to: <new_path>`
+  - 统一转发参数：`market`, `as_of_date`, `universe`, `risk_profile`
+- 在插件入口增加 `aliases`：支持旧命令无缝调用新路径
+
+### 8.2 弃用时间线
+- **W1-W2**：完成 Regime Lab + Portfolio OS 迁移，旧路径仅告警不失败
+- **W3-W6**：迁移 Event Alpha + Fundamental Forensics，补齐 QA 与样例
+- **W7-W10**：迁移 Research Assembly Line + Flow-Microstructure
+- **W11-W12**：冻结旧路径写入、仅保留读取和转发；发布最终迁移清单
+
+### 8.3 回滚策略
+- 每个插件保留 `legacy/` 快照分支
+- 每次批量迁移以“插件”为原子提交，支持插件级回滚
+- 回滚触发条件：核心契约字段缺失率 > 2%，或 QA 冲突率连续 3 天上升
+
+## 9) 迁移验收门槛（必须同时满足）
+
+1. 覆盖率：目标插件下可执行 skill 数量 ≥ 旧目录同类 skill 的 95%
+2. 一致性：同输入下新旧输出主结论一致率 ≥ 90%
+3. 可追溯：100% 结论携带证据链接与 invalidator
+4. 运行质量：4 周样本中，失败任务率不高于迁移前基线

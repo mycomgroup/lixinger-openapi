@@ -57,9 +57,14 @@ node request/fetch-lixinger-screener.js \
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date":"latest","stockCodes":["600519","000651"],"metricsList":["d_pe_ttm","pb_wo_gw","pcf_ttm","dyr","mc"]}' \
-  --columns "stockCode,d_pe_ttm,pb_wo_gw,pcf_ttm,dyr,mc"
+  --params '{"date":"latest","stockCodes":["600519","000651"],"metricsList":["d_pe_ttm","pe_ttm","pb_wo_gw","pcf_ttm","dyr","mc"]}' \
+  --columns "stockCode,d_pe_ttm,pe_ttm,pb_wo_gw,pcf_ttm,dyr,mc"
 ```
+
+这里优先先做 `hard guards` 复核：
+- `d_pe_ttm` 或 `pe_ttm` 必须为正
+- `pcf_ttm` 不能为负
+- 市值与估值要匹配，不能只是“市值小 + 指标畸低”
 
 适合回答：
 - 当前到底便宜到什么程度
@@ -100,10 +105,11 @@ python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
 
 ## 3. 推荐分析顺序
 
-1. 先用候选池模板控制范围
-2. 再用 `fundamental/non_financial` 确认估值与市值
-3. 再用 `fs/non_financial` 检查利润率、ROE 与负债结构
-4. 最后用 `candlestick` 看近期回撤与换手是否支持“错杀”判断
+1. 先用独立低估值基线模板控制范围
+2. 再用 `fundamental/non_financial` 先复核正 PE、正 `PCF-TTM` 与市值匹配
+3. 再用 `fs/non_financial` 检查扣非净利润、经营现金流、利润率、ROE 与负债结构
+4. 再用 `candlestick` 看近期回撤、成交额与换手是否支持“错杀”判断
+5. 输出前先标记策略家族与去重后角色，避免与红利主线重复计票
 
 ## 4. 当前边界
 

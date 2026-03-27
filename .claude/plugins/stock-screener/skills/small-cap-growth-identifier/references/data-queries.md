@@ -9,19 +9,28 @@
 
 ## 1. 候选池入口
 
+### 默认基线模板
+
+```bash
+cd .claude/skills/lixinger-screener
+node request/fetch-lixinger-screener.js \
+  --input-file small-cap-quality-growth.json \
+  --output markdown
+```
+
 ### 自然语言快速建池
 
 ```bash
 cd .claude/skills/lixinger-screener
 node request/fetch-lixinger-screener.js \
-  --query "总市值小于150亿，营收增长率较高，净利润增长率较高，排除ST" \
+  --query "总市值小于200亿，流通市值大于15亿，营业收入TTM同比大于15%，扣非净利润TTM同比大于15%，排除ST" \
   --output markdown
 ```
 
 适合候选池阶段处理的条件：
 - 总市值 / 流通市值
-- 营收增长率 / 净利润增长率
-- 毛利率、ROE、资产负债率等基础质量约束
+- 营收增长 / 扣非净利润增长
+- 毛利率、ROE、经营现金流等基础质量约束
 - 板块、行业、上市时间等通用过滤条件
 
 ## 2. 对入围股补查 OpenAPI
@@ -33,9 +42,14 @@ node request/fetch-lixinger-screener.js \
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fundamental/non_financial" \
-  --params '{"date":"latest","stockCodes":["300750"],"metricsList":["mc","pe_ttm","pb","to_r"]}' \
-  --columns "stockCode,mc,pe_ttm,pb,to_r"
+  --params '{"date":"latest","stockCodes":["300750"],"metricsList":["mc","cmc","d_pe_ttm","pe_ttm","pb","to_r"]}' \
+  --columns "stockCode,mc,cmc,d_pe_ttm,pe_ttm,pb,to_r"
 ```
+
+这里先复核：
+- 小市值是否仍落在策略范围内
+- `d_pe_ttm` 或 `pe_ttm` 是否为正
+- 流通市值是否低到影响可执行性
 
 ### 2.2 成长质量与研发
 
@@ -44,12 +58,13 @@ python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
 ```bash
 python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --suffix "cn/company/fs/non_financial" \
-  --params '{"date":"latest","stockCodes":["300750"],"metricsList":["q.ps.toi.t_y2y","q.ps.np.t_y2y","q.ps.gp_m.t","q.ps.rade.t","q.ps.wroe.t"]}' \
-  --columns "date,stockCode,q.ps.toi.t_y2y,q.ps.np.t_y2y,q.ps.gp_m.t,q.ps.rade.t,q.ps.wroe.t"
+  --params '{"date":"latest","stockCodes":["300750"],"metricsList":["q.ps.toi.t_y2y","q.ps.npadnrpatoshaopc.t_y2y","q.ps.npadnrpatoshaopc.t","q.cfs.ncffoa.t","q.ps.gp_m.t","q.ps.rade.t","q.ps.wroe.t"]}' \
+  --columns "date,stockCode,q.ps.toi.t_y2y,q.ps.npadnrpatoshaopc.t_y2y,q.ps.npadnrpatoshaopc.t,q.cfs.ncffoa.t,q.ps.gp_m.t,q.ps.rade.t,q.ps.wroe.t"
 ```
 
 适合判断：
-- 收入和利润是否同步增长
+- 收入和扣非净利润是否同步增长
+- 扣非净利润与经营现金流是否都为正
 - 毛利率是否稳定
 - 研发投入是否在增强
 - ROE 是否支持成长质量
@@ -80,12 +95,30 @@ python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
 - 外部资金是否开始关注
 - 持股变化是否与成长兑现同步
 
+### 2.5 可交易性与拥挤度验证
+
+使用 `cn/company/candlestick`：
+
+```bash
+python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
+  --suffix "cn/company/candlestick" \
+  --params '{"stockCode":"300750","startDate":"2026-02-01","endDate":"latest","type":"bc_rights"}' \
+  --columns "date,close,change,to_r,amount"
+```
+
+至少复核：
+- 近 20 个交易日日均成交额是否 >= `0.5` 亿元
+- 近 20 个交易日平均换手率是否 >= `1%`
+- 最近 1 日成交额是否只是短期脉冲，构成“单日放量幻觉”
+- 是否存在连续涨停、极端拥挤或短期不可执行风险
+
 ## 3. 推荐分析顺序
 
-1. 先用筛选器控制小市值与基础成长范围
-2. 再用 `fs/non_financial` 验证成长质量与研发投入
-3. 再用 `industries` 看行业归属，用 `mutual-market` 看关注度变化
-4. 最后再判断是真成长、预期差还是伪成长
+1. 先用独立小盘成长基线模板控制范围
+2. 再用 `fundamental/non_financial` 与 `fs/non_financial` 复核正 PE、正扣非净利润、正经营现金流
+3. 再用 `candlestick` 计算 20 日成交额、20 日平均换手率、单日放量幻觉与拥挤度
+4. 再用 `industries` 看行业归属，用 `mutual-market` 看关注度变化
+5. 最后再判断是真成长、预期差还是伪成长，并标记是否只能作为观察名单
 
 ## 4. 当前边界
 
