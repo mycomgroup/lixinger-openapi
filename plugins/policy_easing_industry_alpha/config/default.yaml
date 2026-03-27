@@ -1,0 +1,21 @@
+regime:
+  easing_threshold: 0.65
+  lookback_months: 24
+
+scoring:
+  weights:
+    macro_beta: 0.20
+    flow_resonance: 0.25
+    research_revision: 0.20
+    valuation_re_rate: 0.20
+    earnings_confirmation: 0.15
+  risk_penalty:
+    valuation_high_percentile: 0.08
+
+runtime:
+  top_n: 10
+  supported_patterns:
+    - pattern_A
+    - pattern_B
+    - pattern_C
+    - pattern_D

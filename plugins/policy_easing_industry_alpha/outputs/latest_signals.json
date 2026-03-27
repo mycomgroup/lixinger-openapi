@@ -1,0 +1,66 @@
+{
+  "asof_date": "2026-03-31",
+  "regime": {
+    "state": "easing",
+    "probability": 0.74
+  },
+  "industries": [
+    {
+      "name": "机械设备",
+      "pattern": "pattern_A",
+      "lead_lag_quarters": 2,
+      "scores": {
+        "macro_beta": 0.74,
+        "flow_resonance": 0.73,
+        "research_revision": 0.58,
+        "valuation_re_rate": 0.74,
+        "earnings_confirmation": 0.44,
+        "overall": 0.6605000000000001
+      },
+      "decomposition": {
+        "delta_valuation": 0.6271186440677966,
+        "delta_earnings": 0.3728813559322034,
+        "delta_riskpremium_residual": 0.0
+      },
+      "risk_flags": []
+    },
+    {
+      "name": "电力设备",
+      "pattern": "pattern_A",
+      "lead_lag_quarters": 2,
+      "scores": {
+        "macro_beta": 0.69,
+        "flow_resonance": 0.73,
+        "research_revision": 0.58,
+        "valuation_re_rate": 0.74,
+        "earnings_confirmation": 0.44,
+        "overall": 0.6505000000000001
+      },
+      "decomposition": {
+        "delta_valuation": 0.6271186440677966,
+        "delta_earnings": 0.3728813559322034,
+        "delta_riskpremium_residual": 0.0
+      },
+      "risk_flags": []
+    },
+    {
+      "name": "有色金属",
+      "pattern": "pattern_A",
+      "lead_lag_quarters": 2,
+      "scores": {
+        "macro_beta": 0.66,
+        "flow_resonance": 0.73,
+        "research_revision": 0.58,
+        "valuation_re_rate": 0.74,
+        "earnings_confirmation": 0.44,
+        "overall": 0.6445000000000001
+      },
+      "decomposition": {
+        "delta_valuation": 0.6271186440677966,
+        "delta_earnings": 0.3728813559322034,
+        "delta_riskpremium_residual": 0.0
+      },
+      "risk_flags": []
+    }
+  ]
+}

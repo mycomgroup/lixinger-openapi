@@ -1,0 +1,9 @@
+{
+  "name": "policy_easing_industry_alpha",
+  "version": "0.1.0",
+  "description": "Detect industries that re-rate on valuation before earnings in easing-credit regimes.",
+  "entrypoint": "pipelines/run_detection.py",
+  "outputs": [
+    "outputs/latest_signals.json"
+  ]
+}
