@@ -92,7 +92,7 @@ def compute_irr(cash_flows: List[float]) -> Optional[float]:
     if all(cf >= 0 for cf in cash_flows) or all(cf <= 0 for cf in cash_flows):
         return None
 
-    low, high = -0.9, 1.0
+    low, high = -0.9, 5.0
     npv_low = discount_cash_flows(cash_flows, low, start_at_zero=True)
     npv_high = discount_cash_flows(cash_flows, high, start_at_zero=True)
     if npv_low * npv_high > 0:
@@ -123,7 +123,7 @@ def deep_merge(base: Dict[str, Any], overrides: Dict[str, Any]) -> Dict[str, Any
 
 
 def safe_ratio(numerator: float, denominator: float) -> Optional[float]:
-    if denominator == 0:
+    if abs(denominator) < 1e-10:
         return None
     return numerator / denominator
 
@@ -588,6 +588,7 @@ def build_projections(
     }
 
     revenue_prev = revenue_base
+    nwc_prev = revenue_base * nwc_pct  # NWC balance at t=0 (base year)
     for year in range(projection_years):
         revenue = revenue_prev * (1 + revenue_growth[year])
         ebit = revenue * ebit_margin[year]
@@ -596,17 +597,19 @@ def build_projections(
         da = revenue * da_pct
         capex = revenue * capex_pct
         nwc = revenue * nwc_pct
-        fcf = nopat + da - capex - nwc
+        delta_nwc = nwc - nwc_prev  # change in NWC, not the balance
+        fcf = nopat + da - capex - delta_nwc
 
         projections["revenue"].append(revenue)
         projections["ebit"].append(ebit)
         projections["nopat"].append(nopat)
         projections["da"].append(da)
         projections["capex"].append(capex)
-        projections["nwc"].append(nwc)
+        projections["nwc"].append(delta_nwc)
         projections["fcf"].append(fcf)
 
         revenue_prev = revenue
+        nwc_prev = nwc
 
     return projections
 
@@ -629,14 +632,14 @@ def calc_dcf(
 
     pv_fcf = 0.0
     for idx, fcf in enumerate(projections["fcf"], start=1):
-        pv_fcf += fcf / ((1 + wacc) ** idx)
+        pv_fcf += fcf / ((1 + wacc) ** (idx - 0.5))  # mid-year convention
 
     terminal_fcf = projections["fcf"][-1] * (1 + terminal_growth)
     terminal_value = None
     pv_terminal = None
     if terminal_growth < wacc:
         terminal_value = terminal_fcf / (wacc - terminal_growth)
-        pv_terminal = terminal_value / ((1 + wacc) ** projection_years)
+        pv_terminal = terminal_value / ((1 + wacc) ** projection_years)  # terminal value discounted at year-end
 
     enterprise_value = pv_fcf + (pv_terminal or 0.0)
     terminal_share = None
