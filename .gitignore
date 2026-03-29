@@ -135,3 +135,7 @@ skills_analysis.json
 # data
 analysis_*
 *.pkl
+
+# Valuation plugin outputs
+.claude/plugins/valuation/skills/*/outputs/
+.claude/plugins/valuation/skills/*/examples/*/output_*.json

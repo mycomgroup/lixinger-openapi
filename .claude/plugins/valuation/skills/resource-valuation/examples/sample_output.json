@@ -1,0 +1,26 @@
+{
+  "type": "resource",
+  "value": 820.5,
+  "value_type": "enterprise",
+  "details": {
+    "discount_rate": 0.10,
+    "class_npvs": {
+      "proved": 614.5,
+      "probable": 307.2,
+      "possible": 153.6
+    },
+    "class_rnpvs": {
+      "proved": 614.5,
+      "probable": 153.6,
+      "possible": 15.36
+    },
+    "rnpv": 783.46,
+    "total_reserves": 100.0,
+    "unit_value": 7.83,
+    "probabilities": {
+      "proved": 1.0,
+      "probable": 0.5,
+      "possible": 0.1
+    }
+  }
+}

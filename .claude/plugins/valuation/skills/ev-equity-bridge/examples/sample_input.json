@@ -1,0 +1,10 @@
+{
+  "enterprise_value": 10000.0,
+  "balance_sheet": {
+    "cash": 500.0,
+    "debt": 1200.0,
+    "preferred": 100.0,
+    "minority_interest": 150.0,
+    "non_operating_assets": 200.0
+  }
+}

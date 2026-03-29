@@ -1,0 +1,39 @@
+{
+  "financials": {
+    "revenue": 5000.0,
+    "ebit": 750.0,
+    "ebitda": 950.0,
+    "net_income": 550.0,
+    "depreciation_amortization": 200.0
+  },
+  "balance_sheet": {
+    "cash": 300.0,
+    "debt": 800.0,
+    "preferred": 0.0,
+    "minority_interest": 50.0,
+    "non_operating_assets": 100.0
+  },
+  "base_assumptions": {
+    "projection_years": 5,
+    "wacc": 0.09,
+    "terminal_growth": 0.025,
+    "tax_rate": 0.25,
+    "revenue_growth": [0.08, 0.07, 0.06, 0.05, 0.05],
+    "ebit_margin": [0.15, 0.155, 0.16, 0.16, 0.16],
+    "da_pct_revenue": 0.04,
+    "capex_pct_revenue": 0.05,
+    "nwc_pct_revenue": 0.10
+  },
+  "scenarios": {
+    "upside": {
+      "revenue_growth": [0.12, 0.11, 0.10, 0.08, 0.07],
+      "ebit_margin": [0.17, 0.175, 0.18, 0.18, 0.18],
+      "wacc": 0.085
+    },
+    "downside": {
+      "revenue_growth": [0.04, 0.03, 0.03, 0.03, 0.03],
+      "ebit_margin": [0.12, 0.12, 0.13, 0.13, 0.13],
+      "wacc": 0.10
+    }
+  }
+}

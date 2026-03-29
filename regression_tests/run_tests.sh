@@ -94,6 +94,28 @@ if [ "$TEST_MODE" == "e2e-only" ] || [ "$TEST_MODE" == "full" ]; then
     echo ""
 fi
 
+# 4. Valuation Plugin Regression Validation
+echo "================================================================================"
+echo -e "${BLUE}核心测试 3: Valuation Plugin 回归验证${NC}"
+echo "================================================================================"
+echo "验证 auto_valuation.py 核心计算结果与基准值一致（容差 ±1%）"
+echo ""
+
+VALUATION_SCRIPT="$SCRIPT_DIR/../.claude/plugins/valuation/skills/company-valuation/scripts/validate_sample.py"
+if [ -f "$VALUATION_SCRIPT" ]; then
+    TOTAL_SUITES=$((TOTAL_SUITES + 1))
+    if python3 "$VALUATION_SCRIPT"; then
+        echo -e "${GREEN}✅ Valuation Plugin 回归验证通过${NC}"
+        PASSED_SUITES=$((PASSED_SUITES + 1))
+    else
+        echo -e "${RED}❌ Valuation Plugin 回归验证失败${NC}"
+        FAILED_SUITES=$((FAILED_SUITES + 1))
+    fi
+else
+    echo -e "${YELLOW}⚠️  validate_sample.py 未找到，跳过 Valuation Plugin 回归验证${NC}"
+fi
+echo ""
+
 # Summary
 echo "================================================================================"
 echo -e "${BLUE}测试总结${NC}"

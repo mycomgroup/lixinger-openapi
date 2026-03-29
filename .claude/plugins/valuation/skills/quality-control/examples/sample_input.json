@@ -1,0 +1,53 @@
+{
+  "dcf": {
+    "enterprise_value": 8500.0,
+    "equity_value": 7800.0,
+    "terminal_share": 0.72,
+    "terminal_value": 6120.0,
+    "implied_terminal_ev_ebitda": null,
+    "projections": {
+      "revenue": [5400.0, 5778.0, 6124.68, 6430.91, 6752.46],
+      "ebit": [810.0, 895.59, 979.95, 1028.95, 1080.39],
+      "da": [216.0, 231.1, 244.99, 257.24, 270.1],
+      "fcf": [520.0, 580.0, 630.0, 660.0, 695.0]
+    }
+  },
+  "raw_comps": {
+    "peers": [
+      {"ticker": "PEER1", "listing_market": "US"},
+      {"ticker": "PEER2", "listing_market": "US"},
+      {"ticker": "PEER3", "listing_market": "US"},
+      {"ticker": "PEER4", "listing_market": "US"},
+      {"ticker": "PEER5", "listing_market": "US"},
+      {"ticker": "PEER6", "listing_market": "US"}
+    ],
+    "multiples": {
+      "ev_ebitda": {"p25": 8.0, "median": 10.5, "p75": 13.0}
+    }
+  },
+  "scenarios": {
+    "base": {"equity_value": 7800.0},
+    "upside": {"equity_value": 10500.0},
+    "downside": {"equity_value": 5200.0}
+  },
+  "normalized_inputs": {
+    "qoe": {
+      "normalized_ebit": 780.0,
+      "ebit_remove_ratio": 0.05,
+      "ebit_adjustment_ratio": 0.08,
+      "net_income_adjustment_ratio": 0.10,
+      "cash_conversion": 0.92,
+      "operating_cash_flow": 620.0
+    },
+    "bridges": {
+      "income_statement": {
+        "normalized_net_income": 560.0,
+        "owner_earnings": 480.0
+      }
+    }
+  },
+  "shares": {
+    "basic": 100.0,
+    "diluted": 105.0
+  }
+}

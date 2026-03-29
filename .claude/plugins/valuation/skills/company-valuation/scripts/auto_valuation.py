@@ -983,6 +983,100 @@ def calc_project_finance_model(inputs: Dict[str, Any], issues: Issues) -> Dict[s
     return {"type": "project_finance", "value": value, "value_type": value_type, "details": details}
 
 
+def calc_reit_model(inputs: Dict[str, Any], issues: Issues) -> Dict[str, Any]:
+    """
+    REIT valuation: P/FFO (equity value range) and NAV (net asset value per share).
+
+    Inputs:
+        ffo:          Funds From Operations
+        pffo_low:     Low end of P/FFO multiple range
+        pffo_high:    High end of P/FFO multiple range
+        asset_value:  Total asset replacement value (for NAV)
+        liabilities:  Total liabilities (for NAV)
+        shares:       Shares outstanding (for NAV per share)
+    """
+    ffo = safe_float(inputs.get("ffo"))
+    pffo_low = safe_float(inputs.get("pffo_low"))
+    pffo_high = safe_float(inputs.get("pffo_high"))
+    asset_value = safe_float(inputs.get("asset_value"))
+    liabilities = safe_float(inputs.get("liabilities"))
+    shares = safe_float(inputs.get("shares"))
+
+    equity_value_low = None
+    equity_value_high = None
+    nav = None
+    nav_per_share = None
+
+    if ffo > 0 and pffo_low > 0 and pffo_high > 0:
+        equity_value_low = ffo * pffo_low
+        equity_value_high = ffo * pffo_high
+    else:
+        issues.add_warning("REIT model: ffo or pffo range missing/invalid; P/FFO valuation skipped.")
+
+    if asset_value > 0:
+        nav = asset_value - liabilities
+        if shares > 0:
+            nav_per_share = nav / shares
+        else:
+            issues.add_warning("REIT model: shares missing/invalid; NAV per share not computed.")
+    else:
+        issues.add_warning("REIT model: asset_value missing/invalid; NAV valuation skipped.")
+
+    # Primary value: midpoint of P/FFO range; fallback to NAV
+    value = None
+    if equity_value_low is not None and equity_value_high is not None:
+        value = (equity_value_low + equity_value_high) / 2
+    elif nav is not None:
+        value = nav
+
+    details = {
+        "ffo": ffo,
+        "pffo_low": pffo_low,
+        "pffo_high": pffo_high,
+        "equity_value_low": equity_value_low,
+        "equity_value_high": equity_value_high,
+        "asset_value": asset_value,
+        "liabilities": liabilities,
+        "nav": nav,
+        "nav_per_share": nav_per_share,
+    }
+    return {"type": "reit", "value": value, "value_type": "equity", "details": details}
+
+
+def calc_saas_model(inputs: Dict[str, Any], issues: Issues) -> Dict[str, Any]:
+    """
+    SaaS valuation: EV/ARR multiple range.
+
+    Inputs:
+        arr:          Annual Recurring Revenue
+        ev_arr_low:   Low end of EV/ARR multiple range
+        ev_arr_high:  High end of EV/ARR multiple range
+    """
+    arr = safe_float(inputs.get("arr"))
+    ev_arr_low = safe_float(inputs.get("ev_arr_low"))
+    ev_arr_high = safe_float(inputs.get("ev_arr_high"))
+
+    ev_low = None
+    ev_high = None
+
+    if arr > 0 and ev_arr_low > 0 and ev_arr_high > 0:
+        ev_low = arr * ev_arr_low
+        ev_high = arr * ev_arr_high
+    else:
+        issues.add_warning("SaaS model: arr or ev_arr range missing/invalid; EV/ARR valuation skipped.")
+
+    value = (ev_low + ev_high) / 2 if ev_low is not None and ev_high is not None else None
+
+    details = {
+        "arr": arr,
+        "ev_arr_low": ev_arr_low,
+        "ev_arr_high": ev_arr_high,
+        "ev_low": ev_low,
+        "ev_high": ev_high,
+    }
+    return {"type": "saas", "value": value, "value_type": "enterprise", "details": details}
+
+
 def calc_industry_model(industry_model: Dict[str, Any], issues: Issues) -> Optional[Dict[str, Any]]:
     if not industry_model:
         return None
@@ -995,6 +1089,10 @@ def calc_industry_model(industry_model: Dict[str, Any], issues: Issues) -> Optio
         return calc_resource_model(inputs, issues)
     if model_type in {"project_finance", "project-finance", "project"}:
         return calc_project_finance_model(inputs, issues)
+    if model_type in {"reit", "reits"}:
+        return calc_reit_model(inputs, issues)
+    if model_type in {"saas", "arr"}:
+        return calc_saas_model(inputs, issues)
 
     issues.add_warning(f"Unsupported industry_model type: {model_type}")
     return None

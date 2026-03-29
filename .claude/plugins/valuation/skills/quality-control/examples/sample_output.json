@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "warnings": [],
+  "info": [],
+  "checks": {
+    "peer_count": {"passed": true, "value": 6, "note": "Peer set has 6 names"},
+    "scenario_ordering": {"passed": true, "note": "upside > base > downside"},
+    "terminal_ev_ebitda": {"passed": true, "value": 5.83, "note": "Within peer range [8.0, 13.0]"},
+    "owner_earnings": {"passed": true, "note": "Owner earnings positive"},
+    "qoe_ebit_remove_ratio": {"passed": true, "value": 0.05, "note": "Below 10% threshold"},
+    "qoe_ebit_adjustment_ratio": {"passed": true, "value": 0.08, "note": "Below 15% threshold"},
+    "qoe_net_income_adjustment_ratio": {"passed": true, "value": 0.10, "note": "Below 20% threshold"},
+    "cash_conversion": {"passed": true, "value": 0.92, "note": "Above 80% threshold"},
+    "diluted_vs_basic_shares": {"passed": true, "note": "Diluted (105) >= basic (100)"}
+  }
+}

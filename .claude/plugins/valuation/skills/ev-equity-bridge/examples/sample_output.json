@@ -1,0 +1,13 @@
+{
+  "enterprise_value": 10000.0,
+  "equity_value": 9250.0,
+  "bridge": {
+    "enterprise_value": 10000.0,
+    "plus_cash": 500.0,
+    "plus_non_operating_assets": 200.0,
+    "less_debt": -1200.0,
+    "less_preferred": -100.0,
+    "less_minority_interest": -150.0,
+    "equity_value": 9250.0
+  }
+}

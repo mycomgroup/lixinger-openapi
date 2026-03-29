@@ -1,0 +1,16 @@
+{
+  "type": "project_finance",
+  "value": 285.4,
+  "value_type": "equity",
+  "details": {
+    "discount_rate": 0.08,
+    "cfads_npv": 1523.6,
+    "dscr_min": 1.50,
+    "dscr_avg": 2.05,
+    "covenant_min_dscr": 1.20,
+    "llcr": 1.90,
+    "plcr": 1.90,
+    "equity_npv": 285.4,
+    "equity_irr": 0.185
+  }
+}
