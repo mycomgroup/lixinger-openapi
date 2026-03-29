@@ -31,7 +31,7 @@ _SCRIPTS_DIR = Path(__file__).parent
 _EXAMPLES_DIR = _SCRIPTS_DIR.parent / "examples"
 
 DEFAULT_INPUT_PATH = _EXAMPLES_DIR / "sample_input.json"
-DEFAULT_EXPECTED_PATH = _EXAMPLES_DIR / "valuation_summary.json"
+DEFAULT_EXPECTED_PATH = _EXAMPLES_DIR / "outputs" / "valuation_summary.json"
 DEFAULT_TOLERANCE = 0.01  # ±1%
 
 # Fields to validate
@@ -190,7 +190,10 @@ def validate_sample(
     with input_path.open("r", encoding="utf-8") as fh:
         inputs = json.load(fh)
     with expected_path.open("r", encoding="utf-8") as fh:
-        expected = json.load(fh)
+        expected_raw = json.load(fh)
+
+    # Fields are nested under "dcf" in valuation_summary.json
+    expected = expected_raw.get("dcf", expected_raw)
 
     # Run valuation
     try:

@@ -37,30 +37,30 @@ def calc_vc_method(
     target_return: float,
     dilution: float,
     exit_year: int = 5,
+    investment_amount: Optional[float] = None,
 ) -> Dict[str, Any]:
     """
     VC Method valuation.
 
     Args:
-        revenue_or_arr: Current revenue or ARR (annual recurring revenue).
-        growth_rate:    Annual revenue growth rate (e.g. 0.5 for 50%).
-        exit_multiple:  EV/Revenue (or EV/ARR) multiple at exit.
-        target_return:  Required return multiple (e.g. 3.0 for 3x).
-        dilution:       Expected dilution from future rounds (e.g. 0.20 for 20%).
-        exit_year:      Years until exit (default: 5).
+        revenue_or_arr:    Current revenue or ARR (annual recurring revenue).
+        growth_rate:       Annual revenue growth rate (e.g. 0.5 for 50%).
+        exit_multiple:     EV/Revenue (or EV/ARR) multiple at exit.
+        target_return:     Required return multiple (e.g. 3.0 for 3x).
+        dilution:          Expected dilution from future rounds (e.g. 0.20 for 20%).
+        exit_year:         Years until exit (default: 5).
+        investment_amount: Amount being invested (optional). When provided,
+                           pre_money = post_money - investment_amount.
+                           When omitted, pre_money is not returned.
 
     Returns:
         {
           "exit_revenue": float,
           "exit_value": float,
-          "required_ownership_pre_dilution": float,
-          "required_ownership_post_dilution": float,
-          "pre_money": float,
           "post_money": float,
-          "ownership_impact": {
-            "pre_dilution": float,
-            "post_dilution": float,
-          }
+          "pre_money": float | None,   # None when investment_amount not provided
+          "required_ownership_post_dilution": float,
+          "ownership_impact": {"pre_dilution": float, "post_dilution": float}
         }
     """
     if revenue_or_arr <= 0:
@@ -76,38 +76,23 @@ def calc_vc_method(
     exit_revenue = revenue_or_arr * ((1 + growth_rate) ** exit_year)
     exit_value = exit_revenue * exit_multiple
 
-    # Required ownership at exit (pre-dilution) to achieve target return on investment
-    # target_return = exit_value * ownership / investment
-    # → ownership = target_return * investment / exit_value
-    # We solve for pre_money given investment = post_money - pre_money
-    # Simplified: required_ownership_pre_dilution = target_return / (exit_value / investment)
-    # We express ownership as a fraction of exit_value needed per unit invested:
-    # ownership_pre_dilution = target_return / exit_value  (per unit of investment)
-    # Then post_money = investment / ownership_pre_dilution
-    # We assume investment = 1 unit to derive the ratio, then scale.
     # Standard VC Method:
-    #   post_money = exit_value / (target_return * (1 / (1 - dilution)))
-    #   pre_money  = post_money - investment
-    # Here we compute post_money per unit of investment:
-    #   post_money_per_unit = exit_value / target_return * (1 - dilution)
-    # This gives the valuation at which the investor achieves target_return after dilution.
-
+    #   post_money = exit_value * (1 - dilution) / target_return
+    #   pre_money  = post_money - investment_amount
     post_money = exit_value * (1 - dilution) / target_return
-    # pre_money is post_money minus the investment; since investment is variable,
-    # we return post_money and note that pre_money = post_money - investment_amount.
-    # For a standard output we set investment = 1 and show the ratio.
-    # Callers should scale: pre_money = post_money - investment_size.
+    pre_money = (post_money - investment_amount) if investment_amount is not None else None
 
+    # Required ownership fractions (per unit of investment)
     required_ownership_pre_dilution = target_return / exit_value  # per unit invested
     required_ownership_post_dilution = required_ownership_pre_dilution / (1 - dilution)
 
     return {
         "exit_revenue": exit_revenue,
         "exit_value": exit_value,
+        "post_money": post_money,
+        "pre_money": pre_money,
         "required_ownership_pre_dilution": required_ownership_pre_dilution,
         "required_ownership_post_dilution": required_ownership_post_dilution,
-        "pre_money": post_money,   # pre_money = post_money when investment → 0; callers subtract investment
-        "post_money": post_money,
         "ownership_impact": {
             "pre_dilution": required_ownership_pre_dilution,
             "post_dilution": required_ownership_post_dilution,
@@ -123,22 +108,26 @@ def calc_first_chicago(
     scenarios: List[Dict[str, Any]],
     target_return: float,
     dilution: float,
+    investment_amount: Optional[float] = None,
 ) -> Dict[str, Any]:
     """
     First Chicago Method: probability-weighted scenario valuation.
 
     Args:
-        scenarios:     List of {name, prob, exit_value} dicts.
-                       Probabilities must sum to 1.0 (within PROB_TOLERANCE).
-        target_return: Required return multiple (e.g. 3.0 for 3x).
-        dilution:      Expected dilution from future rounds (e.g. 0.20 for 20%).
+        scenarios:         List of {name, prob, exit_value} dicts.
+                           Probabilities must sum to 1.0 (within PROB_TOLERANCE).
+        target_return:     Required return multiple (e.g. 3.0 for 3x).
+        dilution:          Expected dilution from future rounds (e.g. 0.20 for 20%).
+        investment_amount: Amount being invested (optional). When provided,
+                           weighted_pre_money = weighted_post_money - investment_amount.
+                           When omitted, weighted_pre_money is not returned.
 
     Returns:
         {
           "scenario_table": [{name, prob, exit_value, weighted_exit_value}],
           "weighted_exit_value": float,
-          "weighted_pre_money": float,
           "weighted_post_money": float,
+          "weighted_pre_money": float | None,
           "ownership_impact": {pre_dilution, post_dilution},
         }
 
@@ -174,9 +163,8 @@ def calc_first_chicago(
             "weighted_exit_value": weighted,
         })
 
-    # Derive post_money from weighted exit value
     weighted_post_money = weighted_exit_value * (1 - dilution) / target_return
-    weighted_pre_money = weighted_post_money  # pre_money = post_money - investment (investment subtracted by caller)
+    weighted_pre_money = (weighted_post_money - investment_amount) if investment_amount is not None else None
 
     required_ownership_pre = target_return / weighted_exit_value if weighted_exit_value > 0 else None
     required_ownership_post = (required_ownership_pre / (1 - dilution)) if required_ownership_pre is not None else None
@@ -184,8 +172,8 @@ def calc_first_chicago(
     return {
         "scenario_table": scenario_table,
         "weighted_exit_value": weighted_exit_value,
-        "weighted_pre_money": weighted_pre_money,
         "weighted_post_money": weighted_post_money,
+        "weighted_pre_money": weighted_pre_money,
         "ownership_impact": {
             "pre_dilution": required_ownership_pre,
             "post_dilution": required_ownership_post,
@@ -205,6 +193,7 @@ def _vc_command(args: Any) -> int:
         target_return=args.target_return,
         dilution=args.dilution,
         exit_year=args.exit_year,
+        investment_amount=args.investment_amount,
     )
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0
@@ -241,6 +230,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     vc_parser.add_argument("--target-return", type=float, required=True, dest="target_return", help="Required return multiple (e.g. 3.0)")
     vc_parser.add_argument("--dilution", type=float, required=True, help="Expected dilution (e.g. 0.20)")
     vc_parser.add_argument("--exit-year", type=int, default=5, dest="exit_year", help="Years to exit (default: 5)")
+    vc_parser.add_argument("--investment", type=float, default=None, dest="investment_amount", help="Investment amount (to compute pre_money = post_money - investment)")
 
     # First Chicago subcommand
     fc_parser = subparsers.add_parser("first-chicago", help="First Chicago Method valuation")

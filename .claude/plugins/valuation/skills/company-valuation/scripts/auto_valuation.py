@@ -583,7 +583,7 @@ def build_projections(
         "nopat": [],
         "da": [],
         "capex": [],
-        "nwc": [],
+        "delta_nwc": [],
         "fcf": [],
     }
 
@@ -605,7 +605,7 @@ def build_projections(
         projections["nopat"].append(nopat)
         projections["da"].append(da)
         projections["capex"].append(capex)
-        projections["nwc"].append(delta_nwc)
+        projections["delta_nwc"].append(delta_nwc)
         projections["fcf"].append(fcf)
 
         revenue_prev = revenue

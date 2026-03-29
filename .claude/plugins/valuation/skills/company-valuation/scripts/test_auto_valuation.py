@@ -28,11 +28,18 @@ from auto_valuation import (
     build_projections,
     calc_comps,
     calc_dcf,
+    calc_reit_model,
+    calc_saas_model,
     compute_irr,
     ev_to_equity,
     normalize_inputs,
     safe_ratio,
 )
+
+# vc_model lives in a sibling plugin directory
+_VC_SCRIPTS_DIR = _SCRIPTS_DIR.parent.parent.parent.parent / "vc-startup-model" / "scripts"
+sys.path.insert(0, str(_VC_SCRIPTS_DIR))
+from vc_model import calc_vc_method, calc_first_chicago
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -174,8 +181,8 @@ class TestDCFCalculation:
         # Year 1: revenue = 1050, nwc_balance = 105, delta = 105 - 100 = 5
         # Year 2: revenue = 1102.5, nwc_balance = 110.25, delta = 110.25 - 105 = 5.25
         expected_delta_y1 = 1000.0 * 1.05 * 0.10 - 1000.0 * 0.10  # = 5.0
-        assert abs(projections["nwc"][0] - expected_delta_y1) < 0.01, (
-            f"NWC year-1 delta mismatch: got {projections['nwc'][0]:.4f}, expected {expected_delta_y1:.4f}"
+        assert abs(projections["delta_nwc"][0] - expected_delta_y1) < 0.01, (
+            f"NWC year-1 delta mismatch: got {projections['delta_nwc'][0]:.4f}, expected {expected_delta_y1:.4f}"
         )
 
         # FCF with delta_nwc should be higher than FCF with full balance subtracted
@@ -375,3 +382,162 @@ class TestEdgeCases:
 
         result_above = safe_ratio(1.0, 1.01e-10)
         assert result_above is not None, "denominator just above 1e-10 should return a value"
+
+
+# ===========================================================================
+# class TestREITModel
+# ===========================================================================
+
+
+class TestREITModel:
+    """Tests for calc_reit_model."""
+
+    def test_pffo_valuation(self) -> None:
+        """P/FFO range produces correct equity value low/high."""
+        issues = Issues(errors=[], warnings=[], info=[])
+        inputs = {
+            "ffo": 500.0,
+            "pffo_low": 12.0,
+            "pffo_high": 16.0,
+            "asset_value": 10000.0,
+            "liabilities": 4000.0,
+            "shares": 200.0,
+        }
+        result = calc_reit_model(inputs, issues)
+        assert result["details"]["equity_value_low"] == 500.0 * 12.0
+        assert result["details"]["equity_value_high"] == 500.0 * 16.0
+        assert result["value"] == (500.0 * 12.0 + 500.0 * 16.0) / 2
+
+    def test_nav_valuation(self) -> None:
+        """NAV and NAV per share computed correctly."""
+        issues = Issues(errors=[], warnings=[], info=[])
+        inputs = {
+            "ffo": 500.0,
+            "pffo_low": 12.0,
+            "pffo_high": 16.0,
+            "asset_value": 10000.0,
+            "liabilities": 4000.0,
+            "shares": 200.0,
+        }
+        result = calc_reit_model(inputs, issues)
+        assert result["details"]["nav"] == 10000.0 - 4000.0
+        assert abs(result["details"]["nav_per_share"] - 6000.0 / 200.0) < 1e-9
+
+    def test_missing_ffo_warns(self) -> None:
+        """Missing FFO triggers a warning and skips P/FFO valuation."""
+        issues = Issues(errors=[], warnings=[], info=[])
+        inputs = {"ffo": 0.0, "pffo_low": 12.0, "pffo_high": 16.0}
+        result = calc_reit_model(inputs, issues)
+        assert result["details"]["equity_value_low"] is None
+        assert any("P/FFO" in w for w in issues.warnings)
+
+
+# ===========================================================================
+# class TestSaaSModel
+# ===========================================================================
+
+
+class TestSaaSModel:
+    """Tests for calc_saas_model."""
+
+    def test_ev_arr_range(self) -> None:
+        """EV/ARR range produces correct EV low/high and midpoint."""
+        issues = Issues(errors=[], warnings=[], info=[])
+        inputs = {"arr": 100.0, "ev_arr_low": 8.0, "ev_arr_high": 12.0}
+        result = calc_saas_model(inputs, issues)
+        assert result["details"]["ev_low"] == 800.0
+        assert result["details"]["ev_high"] == 1200.0
+        assert result["value"] == 1000.0
+        assert result["value_type"] == "enterprise"
+
+    def test_missing_arr_warns(self) -> None:
+        """Missing ARR triggers a warning."""
+        issues = Issues(errors=[], warnings=[], info=[])
+        inputs = {"arr": 0.0, "ev_arr_low": 8.0, "ev_arr_high": 12.0}
+        result = calc_saas_model(inputs, issues)
+        assert result["value"] is None
+        assert any("SaaS" in w for w in issues.warnings)
+
+
+# ===========================================================================
+# class TestVCModel
+# ===========================================================================
+
+
+class TestVCModel:
+    """Tests for calc_vc_method and calc_first_chicago in vc_model.py."""
+
+    def test_vc_method_post_money(self) -> None:
+        """post_money = exit_value * (1 - dilution) / target_return."""
+        result = calc_vc_method(
+            revenue_or_arr=1_000_000,
+            growth_rate=0.5,
+            exit_multiple=8.0,
+            target_return=3.0,
+            dilution=0.20,
+            exit_year=5,
+        )
+        exit_revenue = 1_000_000 * (1.5 ** 5)
+        exit_value = exit_revenue * 8.0
+        expected_post_money = exit_value * 0.80 / 3.0
+        assert abs(result["post_money"] - expected_post_money) < 0.01
+
+    def test_vc_method_pre_money_with_investment(self) -> None:
+        """pre_money = post_money - investment_amount when investment provided."""
+        investment = 5_000_000.0
+        result = calc_vc_method(
+            revenue_or_arr=1_000_000,
+            growth_rate=0.5,
+            exit_multiple=8.0,
+            target_return=3.0,
+            dilution=0.20,
+            exit_year=5,
+            investment_amount=investment,
+        )
+        assert result["pre_money"] is not None
+        assert abs(result["pre_money"] - (result["post_money"] - investment)) < 0.01
+
+    def test_vc_method_pre_money_none_without_investment(self) -> None:
+        """pre_money is None when investment_amount not provided."""
+        result = calc_vc_method(
+            revenue_or_arr=1_000_000,
+            growth_rate=0.5,
+            exit_multiple=8.0,
+            target_return=3.0,
+            dilution=0.20,
+        )
+        assert result["pre_money"] is None
+
+    def test_first_chicago_weighted_exit(self) -> None:
+        """Weighted exit value = sum(prob * exit_value)."""
+        scenarios = [
+            {"name": "Base", "prob": 0.5, "exit_value": 50_000_000},
+            {"name": "Upside", "prob": 0.3, "exit_value": 120_000_000},
+            {"name": "Downside", "prob": 0.2, "exit_value": 5_000_000},
+        ]
+        result = calc_first_chicago(scenarios, target_return=3.0, dilution=0.20)
+        expected_weighted = 0.5 * 50e6 + 0.3 * 120e6 + 0.2 * 5e6
+        assert abs(result["weighted_exit_value"] - expected_weighted) < 0.01
+
+    def test_first_chicago_prob_sum_validation(self) -> None:
+        """Raises ValueError when probabilities don't sum to 1."""
+        import pytest as _pytest
+        scenarios = [
+            {"name": "A", "prob": 0.5, "exit_value": 10_000_000},
+            {"name": "B", "prob": 0.3, "exit_value": 5_000_000},
+        ]
+        with _pytest.raises(ValueError, match="sum to 1.0"):
+            calc_first_chicago(scenarios, target_return=3.0, dilution=0.20)
+
+    def test_first_chicago_pre_money_with_investment(self) -> None:
+        """weighted_pre_money = weighted_post_money - investment when provided."""
+        scenarios = [
+            {"name": "Base", "prob": 0.6, "exit_value": 50_000_000},
+            {"name": "Downside", "prob": 0.4, "exit_value": 10_000_000},
+        ]
+        investment = 2_000_000.0
+        result = calc_first_chicago(
+            scenarios, target_return=3.0, dilution=0.20, investment_amount=investment
+        )
+        assert result["weighted_pre_money"] is not None
+        assert abs(result["weighted_pre_money"] - (result["weighted_post_money"] - investment)) < 0.01

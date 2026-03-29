@@ -34,7 +34,8 @@
 | Financials (P/B + ROE, DDM) | ✅ 已实现 | auto_valuation.py / calc_financials_model |
 | Resource (NAV/rNPV) | ✅ 已实现 | auto_valuation.py / calc_resource_model |
 | Project Finance | ✅ 已实现 | auto_valuation.py / calc_project_finance_model |
-| EV/ARR, P/User (SaaS/平台) | ✅ 已实现 | auto_valuation.py / calc_saas_model |
+| EV/ARR (SaaS) | ✅ 已实现 | auto_valuation.py / calc_saas_model |
+| P/User (平台) | 🔲 LLM 辅助 | vc-startup-model skill |
 | RNAV (地产开发商) | 🔲 LLM 辅助 | 待实现 |
 | P/FFO (REITs) | ✅ 已实现 | auto_valuation.py / calc_reit_model |
 | RAB DCF (受监管公用事业) | 🔲 LLM 辅助 | 待实现 |
