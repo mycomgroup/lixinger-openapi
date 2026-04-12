@@ -1,0 +1,19 @@
+{
+  "name": "wealth-advisor-monthly-report",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "生成月度综合资产配置分析报告（宏观、A股、债券、黄金外汇、配置建议），基于确定性数据与系统化监测指标体系。当用户要求月度报告/月度复盘/资产配置分析/财富顾问报告时使用。",
+    "created": "2026-04-04",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "wealth-advisor-monthly-report-plugin",
+      "description": "生成月度综合资产配置分析报告（宏观、A股、债券、黄金外汇、配置建议），基于确定性数据与系统化监测指标体系。当用户要求月度报告/月度复盘/资产配置分析/财富顾问报告时使用。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}

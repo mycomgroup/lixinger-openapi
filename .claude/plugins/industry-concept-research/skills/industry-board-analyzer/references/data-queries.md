@@ -16,7 +16,7 @@ python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --limit 50
 ```
 
-**用途**: 获取申万一级行业分类列表（28个行业）
+**用途**: 获取申万一级行业分类列表（申万2021，31个一级行业）
 
 **返回字段**: stockCode, name
 
@@ -206,7 +206,7 @@ python3 .claude/plugins/query_data/lixinger-api-docs/scripts/query_tool.py \
   --limit 50
 ```
 
-**结果**: 获取到28个申万一级行业
+**结果**: 获取到31个申万2021一级行业
 
 ---
 

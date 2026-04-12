@@ -1,17 +1,16 @@
 {
   "id": "industry-concept-research",
   "name": "行业与概念研究一体化分析插件",
-  "version": "2.0.0",
-  "description": "面向 A 股行业板块与概念板块研究的一体化分析插件。整合行业估值、轮动探测、产业链映射、概念分析、政策敏感度、涨跌停联动、研报分析、行业细分拆解、因子归因、板块拥挤度监控十大分析模块，支持快速模式（T+0 复盘）和完整模式（深度研究），输出带置信度、失效条件和监控清单的结构化研究结论。",
+  "version": "2.1.0",
+  "description": "面向 A 股行业板块与概念板块研究的一体化分析插件。整合行业估值、轮动探测、产业链映射、概念分析、政策敏感度、涨跌停联动、研报分析、行业细分拆解、因子归因、板块拥挤度监控十大分析模块，支持快速模式（T+0 复盘）和完整模式（深度研究），输出带置信度、失效条件和嵌套 monitoring_checklist（checklist + indicators[]）的结构化研究结论。",
   "author": "lixinger-openapi",
   "license": "MIT",
   "created_at": "2025-01-01",
-  "updated_at": "2026-03-27",
+  "updated_at": "2026-04-10",
   "status": "production",
   "target_market": "A股",
-
   "capabilities": [
-    "行业板块横截面估值分析（申万28个一级行业）",
+    "行业板块横截面估值分析（申万2021一级行业，31个）",
     "宏观经济周期驱动的行业轮动信号（超配/标配/低配）",
     "申万一级→二级→三级行业细分拆解与强弱分层",
     "产业链上下游传导分析（价格/业绩/供需三层传导）",
@@ -22,7 +21,6 @@
     "板块拥挤度监控与脆弱触发器识别",
     "卖方研报综合分析与多空分歧评估"
   ],
-
   "commands": [
     {
       "id": "industry-concept-research",
@@ -81,35 +79,77 @@
       "description": "板块拥挤度监控：拥挤度评分 + 脆弱触发器识别 + 降仓/观察建议"
     }
   ],
-
   "skills": [
-    { "id": "industry-board-analyzer",           "path": "skills/industry-board-analyzer/SKILL.md",           "standalone": true  },
-    { "id": "sector-rotation-detector",           "path": "skills/sector-rotation-detector/SKILL.md",           "standalone": true  },
-    { "id": "industry-chain-mapper",              "path": "skills/industry-chain-mapper/SKILL.md",              "standalone": true  },
-    { "id": "concept-board-analyzer",             "path": "skills/concept-board-analyzer/SKILL.md",             "standalone": true  },
-    { "id": "policy-sensitivity-brief",           "path": "skills/policy-sensitivity-brief/SKILL.md",           "standalone": true  },
-    { "id": "limit-up-down-linkage-detector",     "path": "skills/limit-up-down-linkage-detector/SKILL.md",     "standalone": true  },
-    { "id": "industry-report-analyzer",           "path": "skills/industry-report-analyzer/SKILL.md",           "standalone": true  },
-    { "id": "industry-subsector-decomposer",      "path": "skills/industry-subsector-decomposer/SKILL.md",      "standalone": true  },
-    { "id": "sector-factor-attributor",           "path": "skills/sector-factor-attributor/SKILL.md",           "standalone": true  },
-    { "id": "board-crowding-risk-monitor",        "path": "skills/board-crowding-risk-monitor/SKILL.md",        "standalone": true  }
+    {
+      "id": "industry-board-analyzer",
+      "path": "skills/industry-board-analyzer/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "sector-rotation-detector",
+      "path": "skills/sector-rotation-detector/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "industry-chain-mapper",
+      "path": "skills/industry-chain-mapper/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "concept-board-analyzer",
+      "path": "skills/concept-board-analyzer/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "policy-sensitivity-brief",
+      "path": "skills/policy-sensitivity-brief/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "limit-up-down-linkage-detector",
+      "path": "skills/limit-up-down-linkage-detector/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "industry-report-analyzer",
+      "path": "skills/industry-report-analyzer/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "industry-subsector-decomposer",
+      "path": "skills/industry-subsector-decomposer/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "sector-factor-attributor",
+      "path": "skills/sector-factor-attributor/SKILL.md",
+      "standalone": true
+    },
+    {
+      "id": "board-crowding-risk-monitor",
+      "path": "skills/board-crowding-risk-monitor/SKILL.md",
+      "standalone": true
+    }
   ],
-
   "contracts": {
-    "research_conclusion":   "contracts/research-conclusion.schema.json",
-    "monitoring_checklist":  "contracts/monitoring-checklist.schema.json",
-    "data_gap_report":       "contracts/data-gap-report.schema.json",
-    "inter_plugin_interface":"contracts/inter-plugin-interface.schema.json",
-    "qc_rules":              "contracts/qc-rules.schema.json"
+    "research_conclusion": "contracts/research-conclusion.schema.json",
+    "monitoring_checklist": "contracts/monitoring-checklist.schema.json",
+    "data_gap_report": "contracts/data-gap-report.schema.json",
+    "inter_plugin_interface": "contracts/inter-plugin-interface.schema.json",
+    "qc_rules": "contracts/qc-rules.schema.json"
   },
-
   "reuse_patterns": [
     {
       "pattern_id": "P1",
       "pattern_name": "SINGLE_INDUSTRY_ANALYSIS",
       "description": "对单一申万行业做完整的估值+轮动+产业链+政策全维度分析",
       "entry_command": "industry-concept-research",
-      "entry_skills": ["industry-board-analyzer", "sector-rotation-detector", "industry-chain-mapper", "policy-sensitivity-brief"],
+      "entry_skills": [
+        "industry-board-analyzer",
+        "sector-rotation-detector",
+        "industry-chain-mapper",
+        "policy-sensitivity-brief"
+      ],
       "typical_use_case": "分析'电子行业'当前投资价值"
     },
     {
@@ -117,7 +157,10 @@
       "pattern_name": "INDUSTRY_COMPARISON",
       "description": "跨多个行业的横截面对比分析，识别相对强弱",
       "entry_command": "industry-board-analyzer",
-      "entry_skills": ["industry-board-analyzer", "sector-rotation-detector"],
+      "entry_skills": [
+        "industry-board-analyzer",
+        "sector-rotation-detector"
+      ],
       "typical_use_case": "对比消费/科技/金融三个行业的配置价值"
     },
     {
@@ -125,7 +168,11 @@
       "pattern_name": "SECTOR_ROTATION_TRACKING",
       "description": "持续跟踪行业轮动动态，识别资金流入/流出信号",
       "entry_command": "sector-rotation-detector",
-      "entry_skills": ["sector-rotation-detector", "limit-up-down-linkage-detector", "board-crowding-risk-monitor"],
+      "entry_skills": [
+        "sector-rotation-detector",
+        "limit-up-down-linkage-detector",
+        "board-crowding-risk-monitor"
+      ],
       "typical_use_case": "每周更新行业配置建议，跟踪轮动方向"
     },
     {
@@ -133,7 +180,11 @@
       "pattern_name": "CONCEPT_THEME_TRACKING",
       "description": "跟踪主题概念板块的生命周期状态和拥挤度风险",
       "entry_command": "concept-board-analyzer",
-      "entry_skills": ["concept-board-analyzer", "board-crowding-risk-monitor", "limit-up-down-linkage-detector"],
+      "entry_skills": [
+        "concept-board-analyzer",
+        "board-crowding-risk-monitor",
+        "limit-up-down-linkage-detector"
+      ],
       "typical_use_case": "跟踪'AI算力'概念板块是否处于拥挤阶段"
     },
     {
@@ -141,29 +192,40 @@
       "pattern_name": "POLICY_RESPONSE_ANALYSIS",
       "description": "政策事件发生后，快速评估受益/受损行业和传导路径",
       "entry_command": "policy-sensitivity-brief",
-      "entry_skills": ["policy-sensitivity-brief", "industry-chain-mapper", "industry-board-analyzer"],
+      "entry_skills": [
+        "policy-sensitivity-brief",
+        "industry-chain-mapper",
+        "industry-board-analyzer"
+      ],
       "typical_use_case": "国务院出台新能源补贴政策后，评估各相关行业的政策敏感度"
     }
   ],
-
   "external_consumers": [
     {
       "consumer_plugin": "valuation",
-      "consumed_skills": ["industry-board-analyzer", "industry-chain-mapper"],
+      "consumed_skills": [
+        "industry-board-analyzer",
+        "industry-chain-mapper"
+      ],
       "consumption_pattern": "在估值分析中获取目标公司所属行业的估值分位数和产业链地位，作为相对估值参考基准"
     },
     {
       "consumer_plugin": "regime-lab",
-      "consumed_skills": ["sector-rotation-detector"],
+      "consumed_skills": [
+        "sector-rotation-detector"
+      ],
       "consumption_pattern": "将行业轮动信号作为 regime 状态的行业层面验证，增强 regime 判断的置信度"
     },
     {
       "consumer_plugin": "deep-research",
-      "consumed_skills": ["industry-board-analyzer", "industry-chain-mapper", "policy-sensitivity-brief"],
+      "consumed_skills": [
+        "industry-board-analyzer",
+        "industry-chain-mapper",
+        "policy-sensitivity-brief"
+      ],
       "consumption_pattern": "在深度研报中获取行业背景、产业链分析和政策敏感度作为研究证据链的一部分"
     }
   ],
-
   "dependencies": {
     "data_sources": [
       {
@@ -187,16 +249,24 @@
       }
     ]
   },
-
   "quality_gates": {
     "output_decision_thresholds": {
-      "CONCLUSION": { "confidence_min": 0.6, "required_skills_min": 3 },
-      "WARNING":    { "confidence_range": [0.3, 0.6] },
-      "REFUSE":     { "confidence_max": 0.3 }
+      "CONCLUSION": {
+        "confidence_min": 0.6,
+        "required_skills_min": 3
+      },
+      "WARNING": {
+        "confidence_range": [
+          0.3,
+          0.6
+        ]
+      },
+      "REFUSE": {
+        "confidence_max": 0.3
+      }
     },
     "qc_rules_ref": "contracts/qc-rules.schema.json"
   },
-
   "fail_safe": {
     "strategy": "GRACEFUL_DEGRADE",
     "description": "任一模块缺数时，优先使用降级方案继续分析并在输出中标注缺口；仅当置信度低于30%或核心模块全部失败时触发 REFUSE。",

@@ -128,10 +128,17 @@ argument-hint: "[研究主题] [--mode quick|full|detailed] [--horizon 1m|3m|6m|
 按 `contracts/qc-rules.schema.json` 的 `confidence_calculation_rules` 计算综合置信度：
 
 ```
-confidence = Σ(skill_weight[i] × skill_confidence[i]) × (1 - Σ(data_gap.confidence_impact))
+raw_confidence = Σ(skill_weight[i] × skill_confidence[i])
+overall_confidence_impact = min(1, Σ(data_gap.confidence_impact))
+confidence = clamp(raw_confidence × (1 - overall_confidence_impact), 0, 1)
 
 skill_confidence: COMPLETED=1.0, DEGRADED=0.6, FAILED=0（影响权重）, SKIPPED=0（不影响权重）
 ```
+
+说明：
+- `data_gap.confidence_impact` 统一使用**非负折损**（禁止负数编码）。
+- 若累计折损超过 1，按 `overall_confidence_impact = 1` 截断处理。
+- 最终 `confidence` 必须截断在 `[0,1]`。
 
 各 skill 权重：`industry-board-analyzer`=25%、`sector-rotation-detector`=20%、`industry-chain-mapper`=15%、`concept-board-analyzer`=10%、`policy-sensitivity-brief`=10%、`limit-up-down-linkage-detector`=8%、`industry-report-analyzer`=7%、`board-crowding-risk-monitor`=5%
 
@@ -166,7 +173,26 @@ skill_confidence: COMPLETED=1.0, DEGRADED=0.6, FAILED=0（影响权重）, SKIPP
   "risks": [...],
   "invalidation_conditions": [...],
   "skill_outputs": [...],
-  "monitoring_checklist": [...],
+  "monitoring_checklist": [
+    {
+      "checklist_id": "电子-20260410",
+      "research_subject": "电子",
+      "as_of_date": "YYYY-MM-DD",
+      "review_date": "YYYY-MM-DD",
+      "review_frequency": "WEEKLY",
+      "indicators": [
+        {
+          "indicator_name": "PE-TTM 10年分位数",
+          "category": "VALUATION",
+          "current_value": "58%",
+          "alert_threshold": ">60%",
+          "alert_direction": "ABOVE",
+          "observable_trigger": "估值分位连续3日高于60%",
+          "action_on_trigger": "DOWNGRADE_CONCLUSION"
+        }
+      ]
+    }
+  ],
   "data_gaps": [...],
   "qc_status": { "passed": true|false, "errors": [...], "warnings": [...] }
 }

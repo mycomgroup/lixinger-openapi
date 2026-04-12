@@ -13,6 +13,17 @@
 5. 研报校验（一致预期与分歧）
 6. 拥挤度与风险刹车（脆弱触发器）
 
+
+## 行业口径说明
+
+- **分类版本**：统一使用申万行业分类 `sw_2021`。
+- **一级行业总数**：31 个（一级行业口径）。
+- **口径更新时间**：2026-04-10。
+- **边界说明**：
+  - 本插件行业分析默认仅覆盖申万2021一级行业，不混用中信/Wind/GICS 口径。
+  - 如需二级/三级下钻，仍基于同一 `sw_2021` 体系展开。
+  - 若外部数据源出现分类变更，需在输出中显式披露并触发口径复核。
+
 ## 目录结构
 
 - `commands/`：命令层（统一入口 + 各模块命令）
@@ -62,10 +73,22 @@
 ## Contracts（统一输出 Schema）
 
 - `research-conclusion.schema.json`：统一研究结论结构（结论、证据链、置信度、风险、失效条件）
-- `monitoring-checklist.schema.json`：统一监控清单结构（指标、阈值、触发动作）
+- `monitoring-checklist.schema.json`：统一监控清单结构（checklist 元信息 + indicators[] 嵌套指标条目）
 - `data-gap-report.schema.json`：统一缺数与降级声明（缺口来源、降级方法、置信度影响）
 - `inter-plugin-interface.schema.json`：跨插件复用接口声明（输出可消费项、独立调用约定）
 - `qc-rules.schema.json`：输出 QA 自检规则（三档决策、完整性、矛盾检测）
+
+
+## 契约版本变更说明（monitoring_checklist）
+
+- **生效版本**：`industry-concept-research` `v2.1.0`（2026-04-10）。
+- **唯一权威结构**：`monitoring_checklist` 采用 `checklist + indicators[]` 嵌套结构；不再接受历史扁平条目（如 `indicator/current_value/alert_threshold/review_date` 直接挂在数组元素上）。
+- **兼容窗口**：旧格式仅在 `v2.0.x` 视为兼容输入，`2026-06-30` 后废弃；`2026-07-01` 起按新契约严格校验。
+- **迁移方法**：
+  1. 将旧条目按研究主题聚合为 checklist 对象，补齐 `checklist_id/research_subject/as_of_date/review_date`；
+  2. 原 flat 字段迁移到 `indicators[]`：`indicator -> indicator_name`，其余字段映射为 `current_value/alert_threshold`；
+  3. 新增必填：`category` 与 `alert_direction`（可按指标语义补全）；
+  4. 建议直接复用 `contracts/monitoring-checklist.schema.json`，避免局部定义漂移。
 
 ## 输出与质量门禁
 
@@ -80,6 +103,18 @@ Orchestrator 强制输出三档决策：
 - `skill_outputs[]` 中间产物（证据链）
 - `data_gaps` 缺口声明（不可静默降级）
 - `qc_status / errors / warnings` 自检结果
+
+置信度折损统一使用 `confidence_impact` 正数编码，并按以下规则聚合：
+
+- `overall_confidence_impact = min(1, sum(data_gaps[].confidence_impact))`
+- `final_confidence = clamp(raw_confidence × (1 - overall_confidence_impact), 0, 1)`
+
+示例：
+
+- **单个 gap**：`raw_confidence=0.80`，`data_gaps=[{confidence_impact:0.20}]`  
+  则 `overall_confidence_impact=0.20`，`final_confidence=0.80×(1-0.20)=0.64`。
+- **多个 gap**：`raw_confidence=0.75`，`data_gaps=[0.15,0.30,0.70]`（累计 1.15）  
+  则 `overall_confidence_impact=min(1,1.15)=1`，`final_confidence=0.75×(1-1)=0`（累计超过 1 时按 1 截断）。
 
 ## 异常处理与 Fail-safe
 

@@ -7,7 +7,7 @@
   "required": [
     "as_of_date",
     "research_subject",
-    "overall_confidence_adjustment",
+    "overall_confidence_impact",
     "gaps"
   ],
   "properties": {
@@ -18,11 +18,11 @@
     "research_subject": {
       "type": "string"
     },
-    "overall_confidence_adjustment": {
+    "overall_confidence_impact": {
       "type": "number",
-      "minimum": -1,
-      "maximum": 0,
-      "description": "各 gap 累计置信度折损（负数，-0.3 表示置信度下调 30%）"
+      "minimum": 0,
+      "maximum": 1,
+      "description": "各 gap 累计置信度折损（正数编码）。计算规则：overall_confidence_impact = min(1, Σ(gaps[].confidence_impact))"
     },
     "gaps": {
       "type": "array",
@@ -69,7 +69,7 @@
             "type": "number",
             "minimum": 0,
             "maximum": 1,
-            "description": "对整体置信度的负向影响（0=无影响，0.3=置信度下调30%）"
+            "description": "对整体置信度的负向影响（0=无影响，0.3=置信度下调30%）。禁止负数编码。"
           },
           "user_notification": {
             "type": "string",

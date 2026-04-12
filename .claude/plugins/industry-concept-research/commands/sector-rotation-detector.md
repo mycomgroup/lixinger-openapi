@@ -12,7 +12,7 @@ argument-hint: "[--horizon 6m|12m] [--risk-pref conservative|balanced|aggressive
 1. **确认参数**：
    - `horizon`：预测时间窗口，默认 `6m`（6个月）
    - `risk-pref`：风险偏好，`conservative`（小幅偏离）/ `balanced`（显著超配低配）/ `aggressive`（集中押注）
-   - `industries`：可选，指定分析的行业子集；不填则覆盖全部28个申万一级行业
+   - `industries`：可选，指定分析的行业子集；不填则覆盖全量申万2021一级行业（31个）
 
 2. 加载 `sector-rotation-detector` skill（`.claude/plugins/industry-concept-research/skills/sector-rotation-detector/SKILL.md`），执行：
    - **五大宏观支柱评估**：货币政策 + 通胀 + 经济增长 + 就业消费 + 政策导向

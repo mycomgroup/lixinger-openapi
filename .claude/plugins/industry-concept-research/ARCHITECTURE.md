@@ -12,6 +12,17 @@
 - 质量门禁可执行（QA 三档决策）
 - 异常处理可追踪（fail-safe + data_gaps）
 
+
+## 行业口径说明
+
+- **分类版本**：申万行业分类 `sw_2021`。
+- **一级行业总数**：31 个。
+- **口径更新时间**：2026-04-10。
+- **边界说明**：
+  - L1/L2 层涉及行业横截面、轮动、归因时，默认行业宇宙为申万2021一级行业。
+  - 二级/三级行业分析仅作为同口径下钻扩展，不与其他行业标准混算。
+  - 若数据源口径漂移（行业合并/拆分/命名调整），必须通过 `data_gaps` 披露并下调置信度。
+
 ## 2. 分层架构
 
 ### L0：命令编排层（commands）
@@ -80,7 +91,7 @@ P0 新增 3 项（已落地）：
 - 证据链：`skill_outputs[]`
 - 缺口声明：`data_gaps`
 - 质量状态：`qc_status/errors/warnings`
-- 监控清单：`monitoring_checklist`
+- 监控清单：`monitoring_checklist`（`checklist_id/research_subject/... + indicators[]` 嵌套结构）
 
 ## 5. Fail-safe 机制
 

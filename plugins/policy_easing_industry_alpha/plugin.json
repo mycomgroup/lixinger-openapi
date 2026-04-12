@@ -5,5 +5,9 @@
   "entrypoint": "pipelines/run_detection.py",
   "outputs": [
     "outputs/latest_signals.json"
-  ]
+  ],
+  "quality_gates": {
+    "qc_rules_ref": "contracts/qc-rules.v2.0.0.json",
+    "qc_rules_schema_ref": "contracts/qc-rules.schema.json"
+  }
 }

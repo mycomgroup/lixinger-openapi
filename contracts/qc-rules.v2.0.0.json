@@ -1,0 +1,60 @@
+{
+  "version": "v2.0.0",
+  "metadata": {
+    "effective_from": "2026-04-10",
+    "notes": "当前生效的质量门控规则配置。"
+  },
+  "rules": [
+    {
+      "id": "signal-strength-min",
+      "name": "信号强度最低门槛",
+      "enabled": true,
+      "weight": 0.35,
+      "threshold": {
+        "metric": "signal_strength",
+        "operator": ">=",
+        "value": 0.65
+      },
+      "trigger": {
+        "when": "score_updated",
+        "window": "close",
+        "cooldown_days": 1
+      }
+    },
+    {
+      "id": "liquidity-floor",
+      "name": "流动性底线",
+      "enabled": true,
+      "weight": 0.4,
+      "threshold": {
+        "metric": "avg_turnover_20d",
+        "operator": ">=",
+        "value": 50000000
+      },
+      "trigger": {
+        "when": "daily_rebalance",
+        "window": "close",
+        "cooldown_days": 0
+      }
+    },
+    {
+      "id": "valuation-band",
+      "name": "估值分位带限制",
+      "enabled": true,
+      "weight": 0.25,
+      "threshold": {
+        "metric": "valuation_percentile_5y",
+        "operator": "between",
+        "value": [
+          0.15,
+          0.85
+        ]
+      },
+      "trigger": {
+        "when": "regime_changed",
+        "window": "t+1-open",
+        "cooldown_days": 3
+      }
+    }
+  ]
+}

@@ -215,10 +215,10 @@
         },
         {
           "rule_id": "CS-003",
-          "rule_description": "data_gaps 置信度影响加总不超过置信度本身",
-          "check_logic": "sum(data_gaps[].confidence_impact) <= original_confidence",
+          "rule_description": "data_gaps 置信度折损采用正数编码且聚合后截断到[0,1]",
+          "check_logic": "assert all(data_gaps[].confidence_impact >= 0); overall_confidence_impact = min(1, sum(data_gaps[].confidence_impact))",
           "severity": "WARNING",
-          "error_message": "数据缺口累计置信度折损超过基础置信度，结论可靠性存疑"
+          "error_message": "data_gaps 必须使用非负 confidence_impact，且累计折损需按 min(1, sum(...)) 聚合"
         },
         {
           "rule_id": "CS-004",
@@ -229,7 +229,7 @@
         }
       ],
       "confidence_calculation_rules": {
-        "base_formula": "confidence = Σ(skill_weight[i] × skill_confidence[i]) × (1 - Σ(data_gap.confidence_impact)) 其中 skill_confidence: COMPLETED=1.0, DEGRADED=0.6, SKIPPED=0 (主动跳过，不影响权重), FAILED=0（影响权重）",
+        "base_formula": "raw_confidence = Σ(skill_weight[i] × skill_confidence[i]); overall_confidence_impact = min(1, Σ(data_gap.confidence_impact)); confidence = clamp(raw_confidence × (1 - overall_confidence_impact), 0, 1)。其中 confidence_impact 与 overall_confidence_impact 均为非负折损；skill_confidence: COMPLETED=1.0, DEGRADED=0.6, SKIPPED=0 (主动跳过，不影响权重), FAILED=0（影响权重）",
         "skill_weights": {
           "industry-board-analyzer": 0.25,
           "sector-rotation-detector": 0.20,

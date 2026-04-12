@@ -29,12 +29,21 @@
     },
     "subject_type": {
       "type": "string",
-      "enum": ["INDUSTRY_BOARD", "CONCEPT_BOARD", "SUBSECTOR", "MIXED"],
+      "enum": [
+        "INDUSTRY_BOARD",
+        "CONCEPT_BOARD",
+        "SUBSECTOR",
+        "MIXED"
+      ],
       "description": "研究主体类型：行业板块 / 概念板块 / 细分行业 / 混合"
     },
     "output_decision": {
       "type": "string",
-      "enum": ["CONCLUSION", "WARNING", "REFUSE"],
+      "enum": [
+        "CONCLUSION",
+        "WARNING",
+        "REFUSE"
+      ],
       "description": "三档输出决策：CONCLUSION=置信度≥60%且关键字段齐全 / WARNING=置信度30-60%或存在数据缺口 / REFUSE=置信度<30%或核心模块无数据"
     },
     "confidence": {
@@ -52,12 +61,39 @@
       "description": "核心驱动因子列表，按重要性排序",
       "items": {
         "type": "object",
-        "required": ["factor", "direction", "strength", "evidence"],
+        "required": [
+          "factor",
+          "direction",
+          "strength",
+          "evidence"
+        ],
         "properties": {
-          "factor": { "type": "string", "description": "驱动因子名称，如'估值修复'、'政策催化'、'盈利上修'" },
-          "direction": { "type": "string", "enum": ["POSITIVE", "NEGATIVE", "NEUTRAL"], "description": "方向" },
-          "strength": { "type": "string", "enum": ["STRONG", "MODERATE", "WEAK"], "description": "强度" },
-          "evidence": { "type": "string", "description": "关键数据证据" }
+          "factor": {
+            "type": "string",
+            "description": "驱动因子名称，如'估值修复'、'政策催化'、'盈利上修'"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "POSITIVE",
+              "NEGATIVE",
+              "NEUTRAL"
+            ],
+            "description": "方向"
+          },
+          "strength": {
+            "type": "string",
+            "enum": [
+              "STRONG",
+              "MODERATE",
+              "WEAK"
+            ],
+            "description": "强度"
+          },
+          "evidence": {
+            "type": "string",
+            "description": "关键数据证据"
+          }
         },
         "additionalProperties": false
       },
@@ -68,11 +104,34 @@
       "description": "核心风险列表",
       "items": {
         "type": "object",
-        "required": ["risk", "probability", "impact"],
+        "required": [
+          "risk",
+          "probability",
+          "impact"
+        ],
         "properties": {
-          "risk": { "type": "string", "description": "风险描述" },
-          "probability": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW"], "description": "发生概率" },
-          "impact": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW"], "description": "影响程度" }
+          "risk": {
+            "type": "string",
+            "description": "风险描述"
+          },
+          "probability": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ],
+            "description": "发生概率"
+          },
+          "impact": {
+            "type": "string",
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW"
+            ],
+            "description": "影响程度"
+          }
         },
         "additionalProperties": false
       },
@@ -83,12 +142,34 @@
       "description": "失效触发条件：具体可观测的数据点，出现后结论需复评",
       "items": {
         "type": "object",
-        "required": ["condition", "metric", "threshold", "action"],
+        "required": [
+          "condition",
+          "metric",
+          "threshold",
+          "action"
+        ],
         "properties": {
-          "condition": { "type": "string", "description": "失效条件描述" },
-          "metric": { "type": "string", "description": "监测指标名称" },
-          "threshold": { "type": "string", "description": "触发阈值" },
-          "action": { "type": "string", "enum": ["DOWNGRADE_TO_WARNING", "DOWNGRADE_TO_REFUSE", "FULL_REANALYSIS"], "description": "触发后动作" }
+          "condition": {
+            "type": "string",
+            "description": "失效条件描述"
+          },
+          "metric": {
+            "type": "string",
+            "description": "监测指标名称"
+          },
+          "threshold": {
+            "type": "string",
+            "description": "触发阈值"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "DOWNGRADE_TO_WARNING",
+              "DOWNGRADE_TO_REFUSE",
+              "FULL_REANALYSIS"
+            ],
+            "description": "触发后动作"
+          }
         },
         "additionalProperties": false
       },
@@ -99,13 +180,40 @@
       "description": "各 skill 模块的中间产物列表，形成可审计的证据链",
       "items": {
         "type": "object",
-        "required": ["skill_name", "status", "key_finding"],
+        "required": [
+          "skill_name",
+          "status",
+          "key_finding"
+        ],
         "properties": {
-          "skill_name": { "type": "string", "description": "skill 名称，如'industry-board-analyzer'" },
-          "status": { "type": "string", "enum": ["COMPLETED", "SKIPPED", "DEGRADED", "FAILED"], "description": "执行状态" },
-          "key_finding": { "type": "string", "description": "核心发现一句话摘要，SKIPPED/FAILED 时为跳过原因" },
-          "confidence_contribution": { "type": "number", "minimum": 0, "maximum": 1, "description": "对整体置信度的贡献权重" },
-          "data_gap_note": { "type": "string", "description": "数据缺口说明（有缺口时必填）" }
+          "skill_name": {
+            "type": "string",
+            "description": "skill 名称，如'industry-board-analyzer'"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "COMPLETED",
+              "SKIPPED",
+              "DEGRADED",
+              "FAILED"
+            ],
+            "description": "执行状态"
+          },
+          "key_finding": {
+            "type": "string",
+            "description": "核心发现一句话摘要，SKIPPED/FAILED 时为跳过原因"
+          },
+          "confidence_contribution": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "对整体置信度的贡献权重"
+          },
+          "data_gap_note": {
+            "type": "string",
+            "description": "数据缺口说明（有缺口时必填）"
+          }
         },
         "additionalProperties": false
       },
@@ -113,30 +221,37 @@
     },
     "monitoring_checklist": {
       "type": "array",
-      "description": "后续监控指标清单，引用 monitoring-checklist.schema.json 实例",
+      "description": "后续监控清单，结构与 contracts/monitoring-checklist.schema.json 的 items 完全一致。",
       "items": {
-        "type": "object",
-        "required": ["indicator", "current_value", "alert_threshold", "review_date"],
-        "properties": {
-          "indicator": { "type": "string" },
-          "current_value": { "type": "string" },
-          "alert_threshold": { "type": "string" },
-          "review_date": { "type": "string", "format": "date" }
-        },
-        "additionalProperties": false
+        "$ref": "monitoring-checklist.schema.json#/items"
       },
       "minItems": 0
     },
     "data_gaps": {
       "type": "array",
-      "description": "数据缺口声明列表，引用 data-gap-report.schema.json",
+      "description": "数据缺口声明列表，引用 data-gap-report.schema.json。聚合规则：overall_confidence_impact = min(1, Σ(data_gaps[].confidence_impact))。",
       "items": {
         "type": "object",
-        "required": ["missing_field", "fallback_method", "confidence_impact"],
+        "required": [
+          "missing_field",
+          "fallback_method",
+          "confidence_impact"
+        ],
         "properties": {
-          "missing_field": { "type": "string", "description": "缺失字段或数据源" },
-          "fallback_method": { "type": "string", "description": "降级替代方法" },
-          "confidence_impact": { "type": "number", "minimum": 0, "maximum": 1, "description": "对置信度的负向影响（0=无影响，0.3=置信度下调30%）" }
+          "missing_field": {
+            "type": "string",
+            "description": "缺失字段或数据源"
+          },
+          "fallback_method": {
+            "type": "string",
+            "description": "降级替代方法"
+          },
+          "confidence_impact": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "对置信度的负向影响（0=无影响，0.3=置信度下调30%）"
+          }
         },
         "additionalProperties": false
       },
@@ -146,9 +261,21 @@
       "type": "object",
       "description": "QA 自检结果（由 qc-rules.schema.json 规则检验后填入）",
       "properties": {
-        "passed": { "type": "boolean" },
-        "errors": { "type": "array", "items": { "type": "string" } },
-        "warnings": { "type": "array", "items": { "type": "string" } }
+        "passed": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       },
       "additionalProperties": false
     }

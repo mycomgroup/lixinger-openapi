@@ -199,3 +199,29 @@ echo "token.cfg" >> .gitignore
 
 **文档版本**: v2.0  
 **更新时间**: 2026-02-24
+
+---
+
+## 9. 规则版本化（QC Rules Versioning）
+
+为避免规则结构定义与运行参数耦合，QC 规则拆分为两类文件：
+
+- `contracts/qc-rules.schema.json`：仅定义规则对象结构（schema）
+- `contracts/qc-rules.vX.Y.Z.json`：运行配置（阈值、触发条件、权重）
+
+### 升级流程
+
+1. **新增字段（向后兼容）**
+   - 先在 `qc-rules.schema.json` 以可选字段方式扩展。
+   - 生成新的运行配置版本（如 `qc-rules.v2.1.0.json`），并在灰度环境验证。
+
+2. **兼容策略**
+   - 遵循语义化版本：
+     - `MAJOR`：不兼容变更（字段删除/语义变化）。
+     - `MINOR`：向后兼容新增字段或规则。
+     - `PATCH`：阈值微调、说明修订。
+   - `plugin.json` 中通过 `quality_gates.qc_rules_ref` 明确当前生效版本，并保留 `quality_gates.qc_rules_schema_ref` 做合法性校验。
+
+3. **回滚方式**
+   - 回滚时仅切换 `plugin.json` 的 `quality_gates.qc_rules_ref` 到历史稳定版本（例如从 `v2.1.0` 回退到 `v2.0.0`）。
+   - 不回退 schema 文件，除非出现结构性不兼容；若需回退 schema，必须与运行配置版本成对回退并重新验证。

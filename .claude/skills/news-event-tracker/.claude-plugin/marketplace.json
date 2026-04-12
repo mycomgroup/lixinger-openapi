@@ -1,0 +1,19 @@
+{
+  "name": "news-event-tracker",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "跟踪最近新闻与事件，按时间线汇总关键进展、可信来源、影响评估与后续观察点。",
+    "created": "2026-03-26",
+    "language": "zh-CN"
+  },
+  "plugins": [
+    {
+      "name": "news-event-tracker-plugin",
+      "description": "跟踪最近新闻与事件，按时间线汇总关键进展、可信来源、影响评估与后续观察点。",
+      "source": "./",
+      "skills": [
+        "./SKILL.md"
+      ]
+    }
+  ]
+}
