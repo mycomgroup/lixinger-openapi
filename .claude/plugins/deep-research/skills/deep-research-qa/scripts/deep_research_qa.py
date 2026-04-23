@@ -17,6 +17,10 @@ _COMMON_NAME_TICKER_MAP = {
     "腾讯控股": "00700",
     "阿里巴巴": "BABA",
 }
+_COMPANY_SUFFIX_PATTERN = re.compile(
+    r"(?:股份有限公司|集团股份有限公司|集团有限公司|控股有限公司|控股集团|有限公司|股份公司|集团|公司)$"
+)
+_WS_PATTERN = re.compile(r"\s+")
 
 EXPECTED_SCORE_KEYS = {
     "earnings_quality",
@@ -841,21 +845,33 @@ def _normalize_subject_identifier(identifier: str) -> Dict[str, Any]:
     if not raw:
         return {"raw": raw, "type": "empty", "normalized": ""}
 
-    if raw.isdigit() and len(raw) == 6:
-        return {"raw": raw, "type": "ticker", "normalized": raw}
+    ticker = _normalize_ticker(raw)
+    if ticker:
+        return {"raw": raw, "type": "ticker", "normalized": ticker}
 
-    if raw.isdigit() and len(raw) == 5:
-        return {"raw": raw, "type": "ticker", "normalized": raw}
+    return {"raw": raw, "type": "company_name", "normalized": _normalize_company_name(raw)}
 
-    if raw.isdigit() and 4 <= len(raw) <= 7:
-        return {"raw": raw, "type": "ticker", "normalized": raw}
 
-    ticker_pattern = r"^[0-9]{4,7}(\.(SH|SZ|HK|US))?$"
-    if re.match(ticker_pattern, raw.upper()):
-        base = re.sub(r"\.(SH|SZ|HK|US)$", "", raw.upper())
-        return {"raw": raw, "type": "ticker", "normalized": base}
+def _normalize_ticker(value: str) -> str:
+    raw = str(value or "").strip().upper()
+    if not raw:
+        return ""
 
-    return {"raw": raw, "type": "company_name", "normalized": raw.lower()}
+    ticker_pattern = r"^[A-Z0-9]{1,10}(?:\.[A-Z]{1,4})?$"
+    if not re.match(ticker_pattern, raw):
+        return ""
+
+    base = raw.split(".", 1)[0]
+    if base.isdigit():
+        # A 股常见 6 位代码，港股常见 5 位代码（补齐时保持原位数）
+        return base.zfill(6) if len(base) <= 6 else base
+    return base
+
+
+def _normalize_company_name(name: str) -> str:
+    normalized = _WS_PATTERN.sub("", str(name or "").strip()).lower()
+    normalized = _COMPANY_SUFFIX_PATTERN.sub("", normalized)
+    return normalized
 
 
 def _check_subject_consistency(
@@ -867,94 +883,91 @@ def _check_subject_consistency(
     P1: 校验 FQE 和 CPE 是否研究同一个主体。
     FQE financial_facts.company vs CPE verdict.subject.ticker/name
 
-    改进逻辑：
-    1. 直接 ticker 匹配
-    2. 公司名称子串匹配（CPE subject.name 包含 FQE company）
-    3. 映射表匹配（常见公司名 <-> ticker）
+    匹配策略：
+    1) 多字段匹配：FQE financial_facts.company/(可选)ticker；CPE verdict.subject.ticker/name；
+    2) 明确不一致（ticker 冲突）才报 Critical；
+    3) 无法确认一致时报 Warning，提示补齐标准化标识字段。
     """
     issues: List[Issue] = []
     fq_company = str(financial_facts.get("company") or "").strip()
+    fq_ticker = str(financial_facts.get("ticker") or "").strip()
     cpe_subject = cpe_verdict_obj.get("subject") or {}
     cpe_ticker = str(cpe_subject.get("ticker") or "").strip()
     cpe_name = str(cpe_subject.get("name") or "").strip()
 
-    if not fq_company or not cpe_ticker:
+    fq_company_norm = _normalize_company_name(fq_company) if fq_company else ""
+    fq_ticker_norm = _normalize_ticker(fq_ticker)
+    fq_from_company = _normalize_subject_identifier(fq_company)
+    if fq_from_company["type"] == "ticker":
+        fq_ticker_norm = fq_ticker_norm or fq_from_company["normalized"]
+
+    cpe_ticker_norm = _normalize_ticker(cpe_ticker)
+    cpe_name_norm = _normalize_company_name(cpe_name) if cpe_name else ""
+
+    fq_tickers = {t for t in [fq_ticker_norm] if t}
+    cpe_tickers = {t for t in [cpe_ticker_norm] if t}
+    fq_names = {n for n in [fq_company_norm] if n}
+    cpe_names = {n for n in [cpe_name_norm] if n}
+
+    common_name_map_norm = {
+        _normalize_company_name(k): _normalize_ticker(v)
+        for k, v in _COMMON_NAME_TICKER_MAP.items()
+    }
+    reverse_map_norm = {v: k for k, v in common_name_map_norm.items() if v}
+
+    for n in list(fq_names):
+        mapped_ticker = common_name_map_norm.get(n)
+        if mapped_ticker:
+            fq_tickers.add(mapped_ticker)
+    for n in list(cpe_names):
+        mapped_ticker = common_name_map_norm.get(n)
+        if mapped_ticker:
+            cpe_tickers.add(mapped_ticker)
+    for t in list(fq_tickers):
+        mapped_name = reverse_map_norm.get(t)
+        if mapped_name:
+            fq_names.add(mapped_name)
+    for t in list(cpe_tickers):
+        mapped_name = reverse_map_norm.get(t)
+        if mapped_name:
+            cpe_names.add(mapped_name)
+
+    if not fq_company and not fq_ticker:
         return issues
 
-    fq_normalized = _normalize_subject_identifier(fq_company)
+    if fq_tickers and cpe_tickers and fq_tickers.intersection(cpe_tickers):
+        return issues
 
-    if fq_normalized["type"] == "ticker":
-        if fq_normalized["normalized"] == cpe_ticker:
-            return issues
+    if fq_names and cpe_names and fq_names.intersection(cpe_names):
+        return issues
 
-    if cpe_name and fq_normalized["type"] == "company_name":
-        fq_name_lower = fq_normalized["normalized"]
-        cpe_name_lower = cpe_name.lower().strip()
-        if fq_name_lower in cpe_name_lower or cpe_name_lower in fq_name_lower:
-            issues.append(
-                Issue(
-                    severity="Info",
-                    location=str(case_dir),
-                    description=(
-                        f"FQE 主体（financial_facts.company={fq_company!r}）与 "
-                        f"CPE 主体（name={cpe_name!r}, ticker={cpe_ticker!r}）通过公司名匹配，"
-                        f"格式不同但可能一致"
-                    ),
-                    impact="主体标识格式不同但内容匹配，建议人工确认",
-                    suggested_fix="建议在 FQE 中统一使用 ticker 作为 company 字段",
-                )
+    if fq_tickers and cpe_tickers and not fq_tickers.intersection(cpe_tickers):
+        issues.append(
+            Issue(
+                severity="Critical",
+                location=str(case_dir),
+                description=(
+                    f"FQE 主体（company={fq_company!r}, ticker={fq_ticker!r}）与 "
+                    f"CPE 主体（ticker={cpe_ticker!r}, name={cpe_name!r}）ticker 明确冲突，"
+                    f"标准化后 FQE={sorted(fq_tickers)}, CPE={sorted(cpe_tickers)}"
+                ),
+                impact="FQE 与 CPE 分析的可能不是同一家公司，交叉结论不可用",
+                suggested_fix="统一使用标准 ticker（去交易所后缀、统一大小写）并回溯 case 输入来源",
             )
-            return issues
-
-    if fq_company in _COMMON_NAME_TICKER_MAP:
-        mapped_ticker = _COMMON_NAME_TICKER_MAP[fq_company]
-        if mapped_ticker == cpe_ticker:
-            issues.append(
-                Issue(
-                    severity="Info",
-                    location=str(case_dir),
-                    description=(
-                        f"FQE 主体（financial_facts.company={fq_company!r}）与 "
-                        f"CPE 主体（ticker={cpe_ticker!r}）通过映射表匹配"
-                    ),
-                    impact="主体通过公司名-ticker 映射匹配，建议统一标识格式",
-                    suggested_fix="建议在 FQE 中使用标准 ticker 作为 company 字段",
-                )
-            )
-            return issues
-
-    reverse_map = {v: k for k, v in _COMMON_NAME_TICKER_MAP.items()}
-    if cpe_ticker in reverse_map:
-        expected_name = reverse_map[cpe_ticker]
-        if (
-            fq_company == expected_name
-            or fq_normalized["normalized"] == expected_name.lower()
-        ):
-            issues.append(
-                Issue(
-                    severity="Info",
-                    location=str(case_dir),
-                    description=(
-                        f"FQE 主体（financial_facts.company={fq_company!r}）与 "
-                        f"CPE 主体（ticker={cpe_ticker!r}）通过反向映射匹配"
-                    ),
-                    impact="主体通过 ticker-公司名映射匹配，建议统一标识格式",
-                    suggested_fix="建议在 FQE 中使用标准 ticker 作为 company 字段",
-                )
-            )
-            return issues
+        )
+        return issues
 
     issues.append(
         Issue(
-            severity="Critical",
+            severity="Warning",
             location=str(case_dir),
             description=(
-                f"FQE 主体（financial_facts.company={fq_company!r}）与 "
-                f"CPE 主体（ticker={cpe_ticker!r}, name={cpe_name!r}）不一致，"
-                f"case 可能混拼了不同公司的数据"
+                f"FQE 主体（company={fq_company!r}, ticker={fq_ticker!r}）与 "
+                f"CPE 主体（ticker={cpe_ticker!r}, name={cpe_name!r}）"
+                "暂无法确认一致（无明确冲突）"
             ),
-            impact="FQE 与 CPE 分析的不是同一家公司，所有交叉结论均无效",
-            suggested_fix="确认 case 目录下的 FQE 和 CPE 文件属于同一个研究对象",
+            impact="主体一致性不确定会降低交叉结论可信度，需要人工复核",
+            suggested_fix="建议所有产物同时携带标准化 ticker 与 name 字段（如 financial_facts.ticker / company, verdict.subject.ticker / name）",
         )
     )
     return issues

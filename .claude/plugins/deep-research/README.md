@@ -72,6 +72,19 @@ QA 检查项（v0.3）：
 - FQE × CPE 主体一致性与交叉一致性（如两者都存在）
 - 历史期间数量（< 5 年给 Warning）
 
+### 主体字段约定（推荐）
+
+为降低跨引擎拼接误差，建议所有产物同时携带 `ticker` 与 `name` 两类主体标识：
+
+- FQE (`normalized/financial_facts.json`)
+  - `company`：公司名称（建议与 `name` 同义，便于人工读写）
+  - `ticker`：标准化代码（建议去交易所后缀、统一大小写）
+- CPE (`competitive_positioning/verdict.json`)
+  - `subject.ticker`：标准化代码（建议去交易所后缀、统一大小写）
+  - `subject.name`：公司名称（建议去空白并统一后缀口径）
+
+> Deep Research QA 会优先用 ticker 判定“明确不一致”；仅在“无法确认一致”时降级为 Warning，并提示补齐上述标准化字段。
+
 ## 变更记录
 
 ### v0.3（当前）
