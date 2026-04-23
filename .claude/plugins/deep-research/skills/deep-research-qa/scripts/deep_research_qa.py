@@ -41,6 +41,28 @@ VALID_SOURCE_TYPES = {
     "structured_data",
     "reputable_media",
 }
+AUTHORITATIVE_SOURCE_TYPES = {"official_company", "regulator", "industry_association"}
+AUTHORITATIVE_SOURCE_KEYWORDS = (
+    "证监会",
+    "交易所",
+    "国家统计局",
+    "财政部",
+    "发改委",
+    "银保监",
+    "央行",
+    "公司公告",
+    "annual report",
+    "10-k",
+    "10-q",
+    "sec",
+    "csrc",
+    "hkex",
+    "sse",
+    "szse",
+)
+
+NUMERIC_PATTERN = re.compile(r"[-+]?\d+(?:[.,]\d+)?(?:%|倍|bp|bps|亿元|万元|万|亿)?")
+KEYWORD_PATTERN = re.compile(r"[A-Za-z][A-Za-z0-9_/-]{1,}|[\u4e00-\u9fff]{2,}")
 
 EXPECTED_FQE_VERSION = "0.3.0"
 EXPECTED_CPE_VERSION = "0.1.0"
@@ -65,6 +87,54 @@ class Issue:
             "impact": self.impact,
             "suggested_fix": self.suggested_fix,
         }
+
+
+def _new_constraint_coverage() -> Dict[str, Any]:
+    return {"evaluated": 0, "passed": 0, "by_rule": {}}
+
+
+def _record_constraint(
+    coverage: Optional[Dict[str, Any]], rule: str, passed: bool
+) -> None:
+    if coverage is None:
+        return
+    coverage["evaluated"] = coverage.get("evaluated", 0) + 1
+    if passed:
+        coverage["passed"] = coverage.get("passed", 0) + 1
+    by_rule = coverage.setdefault("by_rule", {})
+    stat = by_rule.setdefault(rule, {"evaluated": 0, "passed": 0})
+    stat["evaluated"] += 1
+    if passed:
+        stat["passed"] += 1
+
+
+def _is_authoritative_source(ev: Dict[str, Any]) -> bool:
+    if ev.get("source_type") in AUTHORITATIVE_SOURCE_TYPES:
+        return True
+    source = str(ev.get("source") or "").lower()
+    return any(k in source for k in AUTHORITATIVE_SOURCE_KEYWORDS)
+
+
+def _extract_numeric_keyword_fragments(text: str) -> Set[Tuple[str, str]]:
+    fragments: Set[Tuple[str, str]] = set()
+    if not text:
+        return fragments
+    keyword_matches = list(KEYWORD_PATTERN.finditer(text))
+    for n in NUMERIC_PATTERN.finditer(text):
+        num = n.group(0).replace(",", "").strip().lower()
+        if not num:
+            continue
+        anchor = n.start()
+        nearest_kw = ""
+        best_dist = None
+        for kw in keyword_matches:
+            dist = min(abs(anchor - kw.start()), abs(anchor - kw.end()))
+            if best_dist is None or dist < best_dist:
+                best_dist = dist
+                nearest_kw = kw.group(0).lower()
+        if nearest_kw:
+            fragments.add((num, nearest_kw))
+    return fragments
 
 
 def _read_json(path: Path) -> Any:
@@ -380,7 +450,11 @@ def _check_cpe_files(case_dir: Path) -> Tuple[List[Issue], Dict[str, Optional[Pa
     return issues, cpe_paths
 
 
-def _check_cpe_claims(claims_obj: Dict[str, Any], case_dir: Path) -> List[Issue]:
+def _check_cpe_claims(
+    claims_obj: Dict[str, Any],
+    case_dir: Path,
+    constraint_coverage: Optional[Dict[str, Any]] = None,
+) -> List[Issue]:
     """校验 claims.json 的结构完整性和证据链。"""
     issues: List[Issue] = []
     loc = str(case_dir / "competitive_positioning" / "claims.json")
@@ -523,22 +597,26 @@ def _check_cpe_claims(claims_obj: Dict[str, Any], case_dir: Path) -> List[Issue]
                             )
                         )
                 # 时间敏感事实的 as_of_date 检查
-                ev_type = ev.get("type")
-                if (
-                    ev_type in ("quantitative", "market_data")
-                    and "as_of_date" not in ev
-                ):
+                has_source = bool(str(ev.get("source") or "").strip())
+                has_as_of_date = bool(str(ev.get("as_of_date") or "").strip())
+                _record_constraint(
+                    constraint_coverage, "claims_evidence_source_as_of_required", has_source and has_as_of_date
+                )
+                if not has_source or not has_as_of_date:
                     issues.append(
                         Issue(
-                            severity="Info",
+                            severity="Warning",
                             location=loc,
-                            description=f"claim {cid} supporting_evidence[{i}]: type={ev_type} 但缺少 as_of_date",
-                            impact="定量/市场数据缺少时效性标注，影响数据有效性判断",
-                            suggested_fix="补充 as_of_date 字段，格式建议 YYYY-MM-DD",
+                            description=f"claim {cid} supporting_evidence[{i}] 缺少 {'source' if not has_source else ''}{' / ' if (not has_source and not has_as_of_date) else ''}{'as_of_date' if not has_as_of_date else ''}",
+                            impact="时间敏感 evidence 缺少来源或时点，主张时效性与可追溯性不足",
+                            suggested_fix="补充 source 与 as_of_date（YYYY-MM-DD）；并将该 claim.status 至少降级为 tentative 直至证据补齐",
                         )
                     )
             # 高 severity claims 的 evidence 数量和来源检查
             if severity == "high":
+                _record_constraint(
+                    constraint_coverage, "high_severity_min_supporting_evidence", len(supporting) >= 2
+                )
                 if len(supporting) < 2:
                     issues.append(
                         Issue(
@@ -549,22 +627,18 @@ def _check_cpe_claims(claims_obj: Dict[str, Any], case_dir: Path) -> List[Issue]
                             suggested_fix="补充至少 2 条 supporting_evidence",
                         )
                     )
-                authoritative_sources = {
-                    "official_company",
-                    "regulator",
-                    "industry_association",
-                }
-                has_authoritative = any(
-                    ev.get("source_type") in authoritative_sources for ev in supporting
+                has_authoritative = any(_is_authoritative_source(ev) for ev in supporting)
+                _record_constraint(
+                    constraint_coverage, "high_severity_authoritative_source_required", has_authoritative
                 )
                 if not has_authoritative:
                     issues.append(
                         Issue(
                             severity="Warning",
                             location=loc,
-                            description=f"claim {cid}: severity=high 但无权威来源 evidence（source_type 需为 {sorted(authoritative_sources)}）",
+                            description=f"claim {cid}: severity=high 但无官方/监管来源 evidence",
                             impact="高严重度主张缺乏官方/监管/行业协会等权威来源支撑",
-                            suggested_fix="补充至少 1 条来自官方公司、监管机构或行业协会的 evidence",
+                            suggested_fix=f"补充至少 1 条权威 evidence（source_type 属于 {sorted(AUTHORITATIVE_SOURCE_TYPES)}，或 source 命中监管/官方白名单）",
                         )
                     )
 
@@ -643,7 +717,12 @@ def _check_cpe_peer_clusters(
     return issues
 
 
-def _check_cpe_verdict(cpe_verdict_obj: Dict[str, Any], case_dir: Path) -> List[Issue]:
+def _check_cpe_verdict(
+    cpe_verdict_obj: Dict[str, Any],
+    claims_obj: Optional[Dict[str, Any]],
+    case_dir: Path,
+    constraint_coverage: Optional[Dict[str, Any]] = None,
+) -> List[Issue]:
     """校验 CPE verdict.json 的结构完整性与合理性。"""
     issues: List[Issue] = []
     loc = str(case_dir / "competitive_positioning" / "verdict.json")
@@ -703,7 +782,8 @@ def _check_cpe_verdict(cpe_verdict_obj: Dict[str, Any], case_dir: Path) -> List[
                 suggested_fix="修正 direction 字段",
             )
         )
-    if not pdv.get("key_drivers"):
+    key_drivers = pdv.get("key_drivers") or []
+    if not key_drivers:
         issues.append(
             Issue(
                 severity="Info",
@@ -721,6 +801,54 @@ def _check_cpe_verdict(cpe_verdict_obj: Dict[str, Any], case_dir: Path) -> List[
                 description="premium_discount_view.key_risks 为空",
                 impact="风险因素缺失，分析不平衡",
                 suggested_fix="填写至少 1 条 key_risks",
+            )
+        )
+
+    claim_fragments: Set[Tuple[str, str]] = set()
+    for claim in (claims_obj or {}).get("claims", []):
+        claim_fragments |= _extract_numeric_keyword_fragments(
+            json.dumps(claim, ensure_ascii=False)
+        )
+
+    verdict_fragments: Set[Tuple[str, str]] = set()
+    for idx, driver in enumerate(key_drivers):
+        driver_text = json.dumps(driver, ensure_ascii=False) if isinstance(driver, dict) else str(driver)
+        fragments = _extract_numeric_keyword_fragments(driver_text)
+        verdict_fragments |= fragments
+        if fragments:
+            source = ""
+            as_of_date = ""
+            if isinstance(driver, dict):
+                source = str(driver.get("source") or "").strip()
+                as_of_date = str(driver.get("as_of_date") or "").strip()
+            has_required_fields = bool(source and as_of_date)
+            _record_constraint(
+                constraint_coverage, "verdict_numeric_driver_source_as_of_required", has_required_fields
+            )
+            if not has_required_fields:
+                issues.append(
+                    Issue(
+                        severity="Warning",
+                        location=loc,
+                        description=f"premium_discount_view.key_drivers[{idx}] 含数字但缺少 source/as_of_date",
+                        impact="时间敏感驱动项不可追溯，verdict 可靠性下降",
+                        suggested_fix="补充 source 与 as_of_date（YYYY-MM-DD）；并将相关判断暂降为 tentative",
+                    )
+                )
+
+    unexpected_fragments = sorted(verdict_fragments - claim_fragments)
+    _record_constraint(
+        constraint_coverage, "verdict_no_new_numeric_fragments_vs_claims", len(unexpected_fragments) == 0
+    )
+    if unexpected_fragments:
+        pretty = [f"{num} + {kw}" for num, kw in unexpected_fragments[:5]]
+        issues.append(
+            Issue(
+                severity="Warning",
+                location=loc,
+                description=f"verdict 引入 claims 未出现的新关键数字片段：{pretty}",
+                impact="verdict 与 claims 证据链不闭合，可能存在未披露推导",
+                suggested_fix="将相关数字补充进 claims/evidence，或在 verdict 移除对应数字化断言",
             )
         )
 
@@ -1128,6 +1256,7 @@ def main() -> int:
     )
 
     all_issues: List[Issue] = []
+    constraint_coverage = _new_constraint_coverage()
 
     # --- FQE checks ---
     fq_file_issues, paths = _check_required_files(case_dir)
@@ -1154,6 +1283,7 @@ def main() -> int:
 
     # --- CPE checks ---
     cpe_verdict_obj: Dict[str, Any] = {}
+    claims_obj: Dict[str, Any] = {}
     if not args.skip_cpe:
         cpe_file_issues, cpe_paths = _check_cpe_files(case_dir)
         all_issues.extend(cpe_file_issues)
@@ -1165,7 +1295,9 @@ def main() -> int:
             and cpe_paths["claims"].exists()
         ):
             claims_obj = _read_json(cpe_paths["claims"])
-            all_issues.extend(_check_cpe_claims(claims_obj, case_dir))
+            all_issues.extend(
+                _check_cpe_claims(claims_obj, case_dir, constraint_coverage)
+            )
 
         if (
             cpe_dir.exists()
@@ -1181,7 +1313,11 @@ def main() -> int:
             and cpe_paths["cpe_verdict"].exists()
         ):
             cpe_verdict_obj = _read_json(cpe_paths["cpe_verdict"])
-            all_issues.extend(_check_cpe_verdict(cpe_verdict_obj, case_dir))
+            all_issues.extend(
+                _check_cpe_verdict(
+                    cpe_verdict_obj, claims_obj, case_dir, constraint_coverage
+                )
+            )
             all_issues.extend(_check_cpe_verdict_version(cpe_verdict_obj, case_dir))
 
         # FQE × CPE 交叉一致性（仅当两者都存在时）
@@ -1215,6 +1351,20 @@ def main() -> int:
         "qa_verdict": qa_verdict,
         "issue_count": len(all_issues),
         "severity_counts": severity_counts,
+        "constraint_coverage": {
+            "evaluated": constraint_coverage.get("evaluated", 0),
+            "passed": constraint_coverage.get("passed", 0),
+            "coverage_rate": (
+                round(
+                    constraint_coverage.get("passed", 0)
+                    / constraint_coverage.get("evaluated", 1),
+                    4,
+                )
+                if constraint_coverage.get("evaluated", 0) > 0
+                else 1.0
+            ),
+            "by_rule": constraint_coverage.get("by_rule", {}),
+        },
         "issues": [i.to_dict() for i in all_issues],
     }
 
