@@ -34,7 +34,7 @@
     },
     "lookback_window": "3d",
     "trigger_mode": "event",
-    "explain_template": "\u8fde\u7eed\u8dcc\u505c\u5e76\u4f34\u968f\u878d\u8d44\u4f59\u989d\u9aa4\u964d\uff0c\u7591\u4f3c\u88ab\u52a8\u5e73\u4ed3\u94fe\u6761\u542f\u52a8\u3002"
+    "explain_template": "连续跌停并伴随融资余额骤降，疑似被动平仓链条启动。"
   },
   "severity": {
     "mapping": [
@@ -81,5 +81,19 @@
     "reviewer": "trading-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-008",
+      "risk_dimension": "limit-up-limit-down-risk-checker",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/limit-up-limit-down-risk-checker",
+      "legacy_capability_unit": "涨跌停板流动性锁死风险检查"
+    },
+    {
+      "capability_id": "CAP-007",
+      "risk_dimension": "margin-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/margin-risk-monitor",
+      "legacy_capability_unit": "两融杠杆拥挤与踩踏风险监控"
+    }
+  ]
 }

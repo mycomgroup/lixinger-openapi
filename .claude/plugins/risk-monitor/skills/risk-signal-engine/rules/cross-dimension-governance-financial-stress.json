@@ -42,7 +42,7 @@
     },
     "lookback_window": "4q",
     "trigger_mode": "batch",
-    "explain_template": "\u80a1\u6743\u7ed3\u6784\u52a8\u8361\u3001\u5546\u8a89\u538b\u529b\u4e0e\u76c8\u5229\u6076\u5316\u540c\u65f6\u51fa\u73b0\uff0c\u57fa\u672c\u9762\u8106\u5f31\u6027\u9ad8\u3002"
+    "explain_template": "股权结构动荡、商誉压力与盈利恶化同时出现，基本面脆弱性高。"
   },
   "severity": {
     "mapping": [
@@ -89,5 +89,25 @@
     "reviewer": "fundamental-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-003",
+      "risk_dimension": "shareholder-structure-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-structure-monitor",
+      "legacy_capability_unit": "股东结构稳定性与筹码集中度监控"
+    },
+    {
+      "capability_id": "CAP-004",
+      "risk_dimension": "goodwill-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/goodwill-risk-monitor",
+      "legacy_capability_unit": "商誉减值与并购后遗症风险监控"
+    },
+    {
+      "capability_id": "CAP-005",
+      "risk_dimension": "st-delist-risk-scanner",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/st-delist-risk-scanner",
+      "legacy_capability_unit": "ST/退市触发条件扫描"
+    }
+  ]
 }

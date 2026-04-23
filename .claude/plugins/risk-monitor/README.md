@@ -36,6 +36,16 @@
 - 路径规范详见 `templates/path-conventions.md`。
 - 事件源定义详见 `templates/event-source-dictionary.json`。
 
+## 覆盖率统计口径
+
+能力矩阵中的 `gap_status` 统一按以下判定：
+
+- `match`：新引擎在输入要素、核心规则与输出结论上与 legacy 能力单元等价，且无已知关键缺口。
+- `partial`：已覆盖 legacy 的主干场景，但至少存在一个关键子能力（阈值分层、事件链路、输出字段或风控分支）未落地。
+- `missing`：当前无可执行规则，或规则无法对应该 legacy 能力单元的核心判定逻辑。
+- `enhanced`：完整覆盖 legacy 能力单元，并新增可验证增强（如跨维度联动、更多事件触发、解释性输出或更高精度阈值体系）。
+
+
 ## Event Source Dictionary
 
 ### 规范事件源枚举

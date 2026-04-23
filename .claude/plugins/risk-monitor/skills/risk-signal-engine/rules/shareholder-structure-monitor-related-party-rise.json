@@ -32,7 +32,7 @@
     },
     "lookback_window": "2q",
     "trigger_mode": "event",
-    "explain_template": "\u5173\u8054\u65b9\u6301\u80a1\u4e0a\u5347\u4e14\u72ec\u7acb\u8463\u4e8b\u79bb\u4efb\uff0c\u6cbb\u7406\u5236\u8861\u53ef\u80fd\u5f31\u5316\u3002"
+    "explain_template": "关联方持股上升且独立董事离任，治理制衡可能弱化。"
   },
   "severity": {
     "mapping": [
@@ -84,5 +84,13 @@
     "reviewer": "governance-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-003",
+      "risk_dimension": "shareholder-structure-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-structure-monitor",
+      "legacy_capability_unit": "股东结构稳定性与筹码集中度监控"
+    }
+  ]
 }

@@ -42,7 +42,7 @@
     },
     "lookback_window": "30d",
     "trigger_mode": "event",
-    "explain_template": "\u4f9b\u7ed9\u51b2\u51fb\u3001\u80a1\u4e1c\u8106\u5f31\u4e0e\u6267\u884c\u6d41\u52a8\u6027\u540c\u65f6\u6076\u5316\uff0c\u5f62\u6210\u590d\u5408\u8e29\u8e0f\u98ce\u9669\u3002"
+    "explain_template": "供给冲击、股东脆弱与执行流动性同时恶化，形成复合踩踏风险。"
   },
   "severity": {
     "mapping": [
@@ -95,5 +95,25 @@
     "reviewer": "cross-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-006",
+      "risk_dimension": "ipo-lockup-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/ipo-lockup-risk-monitor",
+      "legacy_capability_unit": "解禁供给冲击与减持压力预警"
+    },
+    {
+      "capability_id": "CAP-001",
+      "risk_dimension": "equity-pledge-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor",
+      "legacy_capability_unit": "控股股东高质押+平仓线预警"
+    },
+    {
+      "capability_id": "CAP-009",
+      "risk_dimension": "liquidity-impact-estimator",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/liquidity-impact-estimator",
+      "legacy_capability_unit": "交易冲击成本与流动性缺口评估"
+    }
+  ]
 }

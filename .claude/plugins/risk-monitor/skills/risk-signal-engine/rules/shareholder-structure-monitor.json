@@ -26,7 +26,7 @@
     },
     "lookback_window": "4q",
     "trigger_mode": "batch",
-    "explain_template": "\u63a7\u5236\u6743\u7a33\u5b9a\u6027\u4e0d\u8db3\uff0c\u5173\u952e\u80a1\u4e1c\u53d8\u52a8\u53ef\u80fd\u89e6\u53d1\u6cbb\u7406\u4e0d\u786e\u5b9a\u6027\u3002"
+    "explain_template": "控制权稳定性不足，关键股东变动可能触发治理不确定性。"
   },
   "severity": {
     "mapping": [
@@ -72,5 +72,13 @@
     "reviewer": "governance",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-003",
+      "risk_dimension": "shareholder-structure-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-structure-monitor",
+      "legacy_capability_unit": "股东结构稳定性与筹码集中度监控"
+    }
+  ]
 }

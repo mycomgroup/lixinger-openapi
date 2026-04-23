@@ -33,7 +33,7 @@
     },
     "lookback_window": "20d",
     "trigger_mode": "hybrid",
-    "explain_template": "\u63a7\u80a1\u80a1\u4e1c\u9ad8\u8d28\u62bc\u4e14\u63a5\u8fd1\u5e73\u4ed3\u7ebf\uff0c\u5b58\u5728\u88ab\u52a8\u51cf\u6301\u4e0e\u63a7\u5236\u6743\u6270\u52a8\u98ce\u9669\u3002"
+    "explain_template": "控股股东高质押且接近平仓线，存在被动减持与控制权扰动风险。"
   },
   "severity": {
     "mapping": [
@@ -79,12 +79,20 @@
       "invalidation_conditions",
       "monitor_next"
     ],
-    "narrative_policy": "\u5fc5\u987b\u7ed9\u51fa\u673a\u5236\u6027\u95ee\u9898\u5b9a\u4e49"
+    "narrative_policy": "必须给出机制性问题定义"
   },
   "ownership": {
     "owner": "risk-team",
     "reviewer": "quant-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-001",
+      "risk_dimension": "equity-pledge-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor",
+      "legacy_capability_unit": "控股股东高质押+平仓线预警"
+    }
+  ]
 }

@@ -32,7 +32,7 @@
     },
     "lookback_window": "3y",
     "trigger_mode": "batch",
-    "explain_template": "\u8fde\u7eed\u4e8f\u635f\u6216\u51c0\u8d44\u4ea7\u8f6c\u8d1f\uff0c\u89e6\u53caST/\u9000\u5e02\u524d\u7f6e\u98ce\u9669\u533a\u95f4\u3002"
+    "explain_template": "连续亏损或净资产转负，触及ST/退市前置风险区间。"
   },
   "severity": {
     "mapping": [
@@ -78,5 +78,13 @@
     "reviewer": "listing-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-005",
+      "risk_dimension": "st-delist-risk-scanner",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/st-delist-risk-scanner",
+      "legacy_capability_unit": "ST/退市触发条件扫描"
+    }
+  ]
 }

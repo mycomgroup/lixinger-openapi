@@ -33,7 +33,7 @@
     },
     "lookback_window": "4q",
     "trigger_mode": "batch",
-    "explain_template": "\u6838\u5fc3\u80a1\u4e1c\u66f4\u66ff\u9891\u7e41\u4e14\u673a\u6784\u64a4\u9000\uff0c\u80a1\u6743\u7ed3\u6784\u7a33\u5b9a\u6027\u4e0b\u964d\u3002"
+    "explain_template": "核心股东更替频繁且机构撤退，股权结构稳定性下降。"
   },
   "severity": {
     "mapping": [
@@ -79,5 +79,13 @@
     "reviewer": "governance-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-003",
+      "risk_dimension": "shareholder-structure-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-structure-monitor",
+      "legacy_capability_unit": "股东结构稳定性与筹码集中度监控"
+    }
+  ]
 }

@@ -33,7 +33,7 @@
     },
     "lookback_window": "5d",
     "trigger_mode": "event",
-    "explain_template": "\u8fde\u7eed\u8dcc\u505c\u53e0\u52a0\u6362\u624b\u4e0d\u8db3\uff0c\u6d41\u52a8\u6027\u9501\u6b7b\u5bfc\u81f4\u98ce\u9669\u65e0\u6cd5\u6709\u6548\u91ca\u653e\u3002"
+    "explain_template": "连续跌停叠加换手不足，流动性锁死导致风险无法有效释放。"
   },
   "severity": {
     "mapping": [
@@ -80,5 +80,13 @@
     "reviewer": "trading-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-008",
+      "risk_dimension": "limit-up-limit-down-risk-checker",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/limit-up-limit-down-risk-checker",
+      "legacy_capability_unit": "涨跌停板流动性锁死风险检查"
+    }
+  ]
 }

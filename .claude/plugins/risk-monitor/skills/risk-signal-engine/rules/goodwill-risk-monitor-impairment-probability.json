@@ -40,7 +40,7 @@
     },
     "lookback_window": "4q",
     "trigger_mode": "batch",
-    "explain_template": "\u5546\u8a89\u5360\u6bd4\u9ad8\u4e14\u5e76\u8d2d\u6807\u7684\u7ecf\u8425\u6076\u5316\uff0c\u51cf\u503c\u98ce\u9669\u4e0a\u5347\u3002"
+    "explain_template": "商誉占比高且并购标的经营恶化，减值风险上升。"
   },
   "severity": {
     "mapping": [
@@ -87,5 +87,13 @@
     "reviewer": "fundamental-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-004",
+      "risk_dimension": "goodwill-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/goodwill-risk-monitor",
+      "legacy_capability_unit": "商誉减值与并购后遗症风险监控"
+    }
+  ]
 }

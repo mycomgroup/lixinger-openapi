@@ -32,7 +32,7 @@
     },
     "lookback_window": "5d",
     "trigger_mode": "event",
-    "explain_template": "\u51fa\u73b0\u8d28\u62bc\u98ce\u9669\u63d0\u793a\u6216\u77ed\u671f\u6025\u8dcc\uff0c\u89e6\u53d1\u5f3a\u5236\u590d\u6838\u8d28\u62bc\u5e73\u4ed3\u94fe\u6761\u3002"
+    "explain_template": "出现质押风险提示或短期急跌，触发强制复核质押平仓链条。"
   },
   "severity": {
     "mapping": [
@@ -83,5 +83,13 @@
     "reviewer": "trading-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-001",
+      "risk_dimension": "equity-pledge-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor",
+      "legacy_capability_unit": "控股股东高质押+平仓线预警"
+    }
+  ]
 }

@@ -33,7 +33,7 @@
     },
     "lookback_window": "12m",
     "trigger_mode": "event",
-    "explain_template": "\u63a7\u80a1\u80a1\u4e1c\u80a1\u4efd\u51bb\u7ed3\u6216\u8bc9\u8bbc\u9891\u53d1\uff0c\u6cbb\u7406\u4e0e\u8d44\u91d1\u94fe\u98ce\u9669\u4e0a\u5347\u3002"
+    "explain_template": "控股股东股份冻结或诉讼频发，治理与资金链风险上升。"
   },
   "severity": {
     "mapping": [
@@ -85,5 +85,13 @@
     "reviewer": "governance-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-002",
+      "risk_dimension": "shareholder-risk-check",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-risk-check",
+      "legacy_capability_unit": "减持/冻结/质押综合股东风险检查"
+    }
+  ]
 }
