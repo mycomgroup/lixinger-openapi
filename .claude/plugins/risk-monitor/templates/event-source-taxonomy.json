@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lixinger-openapi/.claude/plugins/risk-monitor/templates/event-source-taxonomy.json",
+  "title": "Risk Monitor Event Source Taxonomy",
+  "description": "统一事件源规范：定义标准枚举、别名、命令层与规则层兼容映射。",
+  "version": "1.0.0",
+  "standard_sources": [
+    {
+      "name": "announcement",
+      "aliases": ["公告", "announcement_update", "company_announcement", "disclosure"],
+      "command_supported": true,
+      "rule_supported": true
+    },
+    {
+      "name": "news",
+      "aliases": ["新闻", "media_news", "press_release"],
+      "command_supported": true,
+      "rule_supported": true
+    },
+    {
+      "name": "market_anomaly",
+      "aliases": ["异动", "trading_anomaly", "price_anomaly", "market_abnormal"],
+      "command_supported": true,
+      "rule_supported": true
+    },
+    {
+      "name": "filing_update",
+      "aliases": ["备案更新", "filing", "registry_update"],
+      "command_supported": false,
+      "rule_supported": true
+    },
+    {
+      "name": "manual",
+      "aliases": ["手动", "manual_trigger", "user_trigger"],
+      "command_supported": false,
+      "rule_supported": true
+    }
+  ],
+  "compatibility_mapping": {
+    "command_input_normalization": {
+      "announcement_update": "announcement",
+      "company_announcement": "announcement",
+      "disclosure": "announcement",
+      "media_news": "news",
+      "press_release": "news",
+      "trading_anomaly": "market_anomaly",
+      "price_anomaly": "market_anomaly",
+      "market_abnormal": "market_anomaly",
+      "filing": "filing_update",
+      "registry_update": "filing_update",
+      "manual_trigger": "manual",
+      "user_trigger": "manual"
+    },
+    "command_to_rule_sources": {
+      "announcement": ["announcement", "filing_update"],
+      "news": ["news"],
+      "market_anomaly": ["market_anomaly"],
+      "filing_update": ["filing_update"],
+      "manual": ["manual"]
+    },
+    "rule_to_command_source_fallback": {
+      "filing_update": "announcement"
+    }
+  }
+}

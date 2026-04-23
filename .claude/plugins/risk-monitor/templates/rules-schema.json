@@ -186,7 +186,8 @@
         "properties": {
           "source": {
             "type": "string",
-            "enum": ["announcement", "news", "market_anomaly", "filing_update", "manual"]
+            "enum": ["announcement", "news", "market_anomaly", "filing_update", "manual"],
+            "description": "标准源枚举。命令层输入需先按 templates/event-source-taxonomy.json 做归一化与映射：如 announcement_update→announcement，且 announcement 可兼容触发 filing_update 规则。"
           },
           "event_type": { "type": "string" },
           "action": {

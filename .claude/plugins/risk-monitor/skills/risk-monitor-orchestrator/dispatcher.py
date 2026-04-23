@@ -30,6 +30,7 @@ PLUGIN_ROOT = Path(__file__).parent.parent.parent
 LEGACY_SKILLS_DIR = PLUGIN_ROOT / "skills" / "legacy"
 RULES_DIR = PLUGIN_ROOT / "skills" / "risk-signal-engine" / "rules"
 TEMPLATE_DIR = PLUGIN_ROOT / "templates"
+EVENT_TAXONOMY_PATH = TEMPLATE_DIR / "event-source-taxonomy.json"
 
 LEGACY_SKILL_MAP = {
     "equity-pledge-risk-monitor": "股权质押风险监控器",
@@ -53,6 +54,67 @@ EVENT_SOURCE_RULE_MAP = {
     "news": ["negative_news", "regulatory_action", "industry_warning"],
     "market_anomaly": ["volume_spike", "price_gap", "limit_up_down_chain"],
 }
+
+
+def load_event_source_taxonomy() -> dict[str, Any]:
+    """加载事件源分类与兼容映射配置"""
+    if not EVENT_TAXONOMY_PATH.exists():
+        return {}
+    try:
+        with open(EVENT_TAXONOMY_PATH) as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        print(f"[WARN] 事件源 taxonomy 解析失败: {EVENT_TAXONOMY_PATH}")
+        return {}
+
+
+def build_event_source_maps(taxonomy: dict[str, Any]) -> tuple[dict[str, str], dict[str, list[str]]]:
+    """构建 source 归一化与命令层到规则层映射"""
+    alias_map: dict[str, str] = {}
+    command_to_rule_map: dict[str, list[str]] = {}
+
+    for source in taxonomy.get("standard_sources", []):
+        canonical = source.get("name")
+        if not canonical:
+            continue
+        alias_map[canonical] = canonical
+        for alias in source.get("aliases", []):
+            alias_map[alias] = canonical
+
+    compatibility = taxonomy.get("compatibility_mapping", {})
+    for src, canonical in compatibility.get("command_input_normalization", {}).items():
+        alias_map[src] = canonical
+    for src, mapped in compatibility.get("command_to_rule_sources", {}).items():
+        if isinstance(mapped, list):
+            command_to_rule_map[src] = mapped
+
+    return alias_map, command_to_rule_map
+
+
+def normalize_event_sources(
+    event_sources: list[str], taxonomy: dict[str, Any]
+) -> tuple[list[str], list[str], list[str]]:
+    """归一化命令输入 source，并展开规则层兼容映射"""
+    alias_map, command_to_rule_map = build_event_source_maps(taxonomy)
+
+    normalized: list[str] = []
+    seen_normalized = set()
+    for source in event_sources:
+        canonical = alias_map.get(source, source)
+        if canonical not in seen_normalized:
+            normalized.append(canonical)
+            seen_normalized.add(canonical)
+
+    mapped_for_rules: list[str] = []
+    seen_mapped = set()
+    for source in normalized:
+        mapped = command_to_rule_map.get(source, [source])
+        for mapped_source in mapped:
+            if mapped_source not in seen_mapped:
+                mapped_for_rules.append(mapped_source)
+                seen_mapped.add(mapped_source)
+
+    return normalized, mapped_for_rules, sorted(set(mapped_for_rules) - set(normalized))
 
 
 def parse_watchlist(watchlist: str) -> list[str]:
@@ -233,6 +295,16 @@ def dispatch(
     event_sources: list[str] | None = None,
 ) -> dict:
     """核心调度函数"""
+    taxonomy = load_event_source_taxonomy()
+    normalized_sources: list[str] = []
+    mapped_rule_sources: list[str] = []
+    compatibility_expansion: list[str] = []
+
+    if event_sources:
+        normalized_sources, mapped_rule_sources, compatibility_expansion = (
+            normalize_event_sources(event_sources, taxonomy)
+        )
+
     result = {
         "dispatch_timestamp": datetime.now().isoformat(),
         "input": {
@@ -241,6 +313,9 @@ def dispatch(
             "watchlist_size": len(watchlist),
             "as_of_date": as_of_date,
             "event_sources": event_sources or [],
+            "event_sources_normalized": normalized_sources,
+            "event_sources_for_rule_match": mapped_rule_sources,
+            "event_sources_compatibility_expansion": compatibility_expansion,
         },
         "status": "plan_generated",
         "execution_plan": None,
@@ -249,8 +324,8 @@ def dispatch(
 
     rules = load_active_rules()
 
-    if event_sources:
-        rules = filter_rules_by_event(rules, event_sources)
+    if mapped_rule_sources:
+        rules = filter_rules_by_event(rules, mapped_rule_sources)
         result["rules_filtered_by_event"] = len(rules)
 
     if mode == "legacy_only":
@@ -304,7 +379,8 @@ def main():
         help="扫描日期 (YYYY-MM-DD)",
     )
     parser.add_argument(
-        "--event-sources", help="事件来源，逗号分隔 (announcement,news,market_anomaly)"
+        "--event-sources",
+        help="事件来源，逗号分隔（支持别名与标准源，如 announcement,news,market_anomaly,filing_update,manual）",
     )
     parser.add_argument(
         "--output-format", choices=["json", "markdown"], default="json", help="输出格式"
