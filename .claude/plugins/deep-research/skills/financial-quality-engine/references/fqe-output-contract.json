@@ -1,5 +1,4 @@
 {
-  "_version": "0.3.0",
   "_notes": "FQE verdict.json 输出契约。所有 score 字段值域 [0,1]，grade 取值 A/B/C/D。accrual_quality 为 v0.3 新增维度（Sloan 简化版，优先 total_assets/fallback equity）。",
   "company": "600519",
   "as_of_date": "2026-03-24",
@@ -44,8 +43,15 @@
   "key_uncertainties": [],
   "verdict": {
     "grade": "A/B/C/D",
-    "grade_thresholds": { "A": 0.80, "B": 0.65, "C": 0.45, "D": 0.0 },
+    "grade_thresholds": {
+      "A": 0.8,
+      "B": 0.65,
+      "C": 0.45,
+      "D": 0.0
+    },
     "summary": "",
     "confidence": 0
-  }
+  },
+  "schema_version": "0.3.0",
+  "rules_version": "0.3.0"
 }

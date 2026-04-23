@@ -1,12 +1,15 @@
 {
-  "version": "0.3.0",
   "notes": "FQE MVP ruleset v0.3. 趋势规则语义修正：改用 min_run（trailing run length）替代 window/min_periods_below，确保'连续'语义与实现一致。应计质量口径修正：优先 total_assets，fallback equity。",
   "rules": {
     "fq_cash_003": {
       "name": "经营现金流支撑不足（单期）",
       "severity": {
-        "high": { "ocf_to_ni_lt": 0.5 },
-        "medium": { "ocf_to_ni_lt": 0.8 }
+        "high": {
+          "ocf_to_ni_lt": 0.5
+        },
+        "medium": {
+          "ocf_to_ni_lt": 0.8
+        }
       }
     },
     "fq_cash_003t": {
@@ -20,15 +23,19 @@
     "fq_cash_005": {
       "name": "自由现金流覆盖不足",
       "severity": {
-        "high": { "fcf_to_ni_lt": 0.3 },
-        "medium": { "fcf_to_ni_lt": 0.6 }
+        "high": {
+          "fcf_to_ni_lt": 0.3
+        },
+        "medium": {
+          "fcf_to_ni_lt": 0.6
+        }
       }
     },
     "fq_rev_001": {
       "name": "应收增速显著快于收入增速（单期）",
       "params": {
         "delta_yoy_gt": {
-          "medium": 0.20,
+          "medium": 0.2,
           "high": 0.35
         }
       }
@@ -44,7 +51,7 @@
       "name": "存货增长显著快于收入增长",
       "params": {
         "delta_yoy_gt": {
-          "medium": 0.20,
+          "medium": 0.2,
           "high": 0.35
         }
       }
@@ -53,8 +60,8 @@
       "name": "商誉占净资产比例偏高",
       "params": {
         "goodwill_to_equity_gt": {
-          "medium": 0.30,
-          "high": 0.50
+          "medium": 0.3,
+          "high": 0.5
         }
       }
     },
@@ -62,8 +69,8 @@
       "name": "短债对现金压力偏高",
       "params": {
         "st_debt_to_cash_gt": {
-          "medium": 0.80,
-          "high": 1.20
+          "medium": 0.8,
+          "high": 1.2
         }
       }
     },
@@ -71,13 +78,20 @@
       "name": "净负债占净资产比例偏高",
       "params": {
         "net_debt_to_equity_gt": {
-          "medium": 0.60,
-          "high": 1.00
+          "medium": 0.6,
+          "high": 1.0
         }
       }
     },
-    "fq_gov_001": { "name": "审计意见非标准" },
-    "fq_gov_002": { "name": "近 5 年存在财务重述" },
-    "fq_gov_003": { "name": "近 3 年存在监管问询/关注函" }
-  }
+    "fq_gov_001": {
+      "name": "审计意见非标准"
+    },
+    "fq_gov_002": {
+      "name": "近 5 年存在财务重述"
+    },
+    "fq_gov_003": {
+      "name": "近 3 年存在监管问询/关注函"
+    }
+  },
+  "rules_version": "0.3.0"
 }

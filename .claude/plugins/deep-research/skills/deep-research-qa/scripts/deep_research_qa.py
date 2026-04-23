@@ -42,11 +42,11 @@ VALID_SOURCE_TYPES = {
     "reputable_media",
 }
 
-EXPECTED_FQE_VERSION = "0.3.0"
-EXPECTED_CPE_VERSION = "0.1.0"
-FQE_RULES_PATH = Path(
-    "/Users/fengzhi/Downloads/git/lixinger-openapi/.claude/plugins/deep-research/skills/financial-quality-engine/rules/fqe_mvp_rules.json"
-)
+SCRIPT_PATH = Path(__file__).resolve()
+SKILLS_ROOT = SCRIPT_PATH.parents[2]
+FQE_CONTRACT_PATH = SKILLS_ROOT / "financial-quality-engine" / "references" / "fqe-output-contract.json"
+CPE_CONTRACT_PATH = SKILLS_ROOT / "competitive-positioning-engine" / "references" / "cpe-output-contract.json"
+FQE_RULES_PATH = SKILLS_ROOT / "financial-quality-engine" / "rules" / "fqe_mvp_rules.json"
 
 
 @dataclass
@@ -69,6 +69,37 @@ class Issue:
 
 def _read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _parse_semver(version: Any) -> Optional[Tuple[int, int, int]]:
+    if not isinstance(version, str):
+        return None
+    m = re.match(r"^\s*(\d+)\.(\d+)\.(\d+)\s*$", version)
+    if not m:
+        return None
+    return (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+
+
+def _get_version(
+    obj: Dict[str, Any], keys: Tuple[str, ...], default: Optional[str] = None
+) -> Optional[str]:
+    for k in keys:
+        v = obj.get(k)
+        if isinstance(v, str) and v.strip():
+            return v.strip()
+    return default
+
+
+def _compare_versions(left: Optional[str], right: Optional[str]) -> Optional[int]:
+    left_sem = _parse_semver(left)
+    right_sem = _parse_semver(right)
+    if left_sem is None or right_sem is None:
+        return None
+    if left_sem < right_sem:
+        return -1
+    if left_sem > right_sem:
+        return 1
+    return 0
 
 
 def _read_evidence_ids(path: Path) -> Tuple[Set[str], List[Issue]]:
@@ -968,18 +999,17 @@ def _check_verdict_contract(fq_verdict: Dict[str, Any], case_dir: Path) -> List[
     issues: List[Issue] = []
     loc = str(case_dir / "financial_quality" / "verdict.json")
 
-    verdict_version = fq_verdict.get("_version")
-    if verdict_version is not None:
-        if verdict_version != EXPECTED_FQE_VERSION:
-            issues.append(
-                Issue(
-                    severity="Warning",
-                    location=loc,
-                    description=f"verdict.json _version={verdict_version!r} 与契约期望版本 {EXPECTED_FQE_VERSION!r} 不一致",
-                    impact="版本不匹配可能导致字段结构变化，下游解析可能出错",
-                    suggested_fix=f"升级到最新 fqe_mvp.py（v{EXPECTED_FQE_VERSION}+）重新生成，或更新契约版本定义",
-                )
+    schema_version = _get_version(fq_verdict, ("schema_version", "_version"))
+    if not schema_version:
+        issues.append(
+            Issue(
+                severity="Warning",
+                location=loc,
+                description="verdict.json 缺少 schema_version（兼容字段：_version）",
+                impact="无法进行输出契约版本治理",
+                suggested_fix="在产物中写入 schema_version（并保留 _version 兼容老流程）",
             )
+        )
 
     if "score_metadata" not in fq_verdict:
         issues.append(
@@ -1007,90 +1037,193 @@ def _check_verdict_contract(fq_verdict: Dict[str, Any], case_dir: Path) -> List[
     return issues
 
 
-def _check_rules_version_consistency(
-    fq_verdict: Dict[str, Any], case_dir: Path
-) -> List[Issue]:
-    """
-    检查 fqe_mvp_rules.json 的版本与 verdict.json _version 是否一致。
-    """
+def _run_version_governance_checks(
+    fq_verdict: Dict[str, Any], cpe_verdict_obj: Dict[str, Any], case_dir: Path
+) -> Tuple[List[Issue], Dict[str, Any]]:
     issues: List[Issue] = []
+    checks: List[Dict[str, Any]] = []
 
-    verdict_version = fq_verdict.get("_version")
-    if verdict_version is None:
-        return issues
+    minimum_supported: Dict[str, Optional[str]] = {
+        "fqe_schema_version": None,
+        "cpe_schema_version": None,
+        "fqe_rules_version": None,
+    }
+    detected_versions: Dict[str, Optional[str]] = {
+        "fqe_schema_version": _get_version(fq_verdict, ("schema_version", "_version")),
+        "fqe_rules_version": _get_version(fq_verdict, ("rules_version",)),
+        "cpe_schema_version": _get_version(cpe_verdict_obj, ("schema_version", "_version")),
+    }
 
-    if not FQE_RULES_PATH.exists():
+    # 读取治理基线：两个 output contract + FQE rules
+    if FQE_CONTRACT_PATH.exists():
+        fqe_contract = _read_json(FQE_CONTRACT_PATH)
+        minimum_supported["fqe_schema_version"] = _get_version(
+            fqe_contract, ("schema_version", "_version")
+        )
+        if not detected_versions["fqe_rules_version"]:
+            detected_versions["fqe_rules_version"] = _get_version(
+                fq_verdict, ("rules_version", "rule_version")
+            )
+    else:
+        issues.append(
+            Issue(
+                severity="Info",
+                location=str(FQE_CONTRACT_PATH),
+                description="未找到 fqe-output-contract.json，跳过 FQE schema 基线检查",
+                impact="无法确认 FQE 输出 schema 最低支持版本",
+                suggested_fix="恢复 financial-quality-engine/references/fqe-output-contract.json",
+            )
+        )
+    if CPE_CONTRACT_PATH.exists():
+        cpe_contract = _read_json(CPE_CONTRACT_PATH)
+        minimum_supported["cpe_schema_version"] = _get_version(
+            cpe_contract, ("schema_version", "_version")
+        )
+    else:
+        issues.append(
+            Issue(
+                severity="Info",
+                location=str(CPE_CONTRACT_PATH),
+                description="未找到 cpe-output-contract.json，跳过 CPE schema 基线检查",
+                impact="无法确认 CPE 输出 schema 最低支持版本",
+                suggested_fix="恢复 competitive-positioning-engine/references/cpe-output-contract.json",
+            )
+        )
+    if FQE_RULES_PATH.exists():
+        rules_obj = _read_json(FQE_RULES_PATH)
+        minimum_supported["fqe_rules_version"] = _get_version(
+            rules_obj, ("rules_version", "version")
+        )
+    else:
         issues.append(
             Issue(
                 severity="Info",
                 location=str(FQE_RULES_PATH),
-                description="fqe_mvp_rules.json 文件不存在，跳过规则版本检查",
-                impact="无法验证规则版本与输出版本的一致性",
-                suggested_fix="确保 rules 目录下存在 fqe_mvp_rules.json",
-            )
-        )
-        return issues
-
-    try:
-        rules_obj = _read_json(FQE_RULES_PATH)
-        rules_version = rules_obj.get("version")
-        if rules_version is None:
-            issues.append(
-                Issue(
-                    severity="Warning",
-                    location=str(FQE_RULES_PATH),
-                    description="fqe_mvp_rules.json 缺少 version 字段",
-                    impact="无法验证规则版本与输出版本的一致性",
-                    suggested_fix="在 fqe_mvp_rules.json 顶层添加 version 字段",
-                )
-            )
-        elif rules_version != verdict_version:
-            issues.append(
-                Issue(
-                    severity="Warning",
-                    location=str(case_dir / "financial_quality" / "verdict.json"),
-                    description=f"verdict.json _version={verdict_version!r} 与 rules version={rules_version!r} 不一致",
-                    impact="规则版本与输出版本不匹配，可能导致评分逻辑与预期不一致",
-                    suggested_fix=f"同步更新 fqe_mvp_rules.json 的 version 字段为 {verdict_version!r}，或重新运行对应版本的引擎",
-                )
-            )
-    except json.JSONDecodeError as e:
-        issues.append(
-            Issue(
-                severity="Warning",
-                location=str(FQE_RULES_PATH),
-                description=f"fqe_mvp_rules.json JSON 解析失败：{e}",
-                impact="无法验证规则版本",
-                suggested_fix="检查 fqe_mvp_rules.json 文件格式",
+                description="未找到 fqe_mvp_rules.json，跳过 rules_version 基线检查",
+                impact="无法确认 FQE 规则最低支持版本",
+                suggested_fix="恢复 financial-quality-engine/rules/fqe_mvp_rules.json",
             )
         )
 
-    return issues
+    def append_check(component: str, detected: Optional[str], minimum: Optional[str]) -> None:
+        if not detected:
+            checks.append(
+                {
+                    "component": component,
+                    "status": "missing",
+                    "severity": "Info",
+                    "detected": None,
+                    "minimum_supported": minimum,
+                    "message": "未检测到版本字段，跳过比较",
+                }
+            )
+            return
+        if not minimum:
+            checks.append(
+                {
+                    "component": component,
+                    "status": "unknown_minimum",
+                    "severity": "Info",
+                    "detected": detected,
+                    "minimum_supported": None,
+                    "message": "缺少最低支持版本定义，建议补齐契约文件",
+                }
+            )
+            return
+        comp = _compare_versions(detected, minimum)
+        if comp is None:
+            checks.append(
+                {
+                    "component": component,
+                    "status": "invalid",
+                    "severity": "Warning",
+                    "detected": detected,
+                    "minimum_supported": minimum,
+                    "message": "版本号不是 semver（x.y.z）格式",
+                }
+            )
+            return
+        if comp < 0:
+            detected_sem = _parse_semver(detected)
+            minimum_sem = _parse_semver(minimum)
+            severity = (
+                "Critical"
+                if detected_sem and minimum_sem and detected_sem[0] < minimum_sem[0]
+                else "Warning"
+            )
+            checks.append(
+                {
+                    "component": component,
+                    "status": "below_minimum",
+                    "severity": severity,
+                    "detected": detected,
+                    "minimum_supported": minimum,
+                    "message": "输出版本低于最低支持版本",
+                }
+            )
+            return
+        if comp > 0:
+            checks.append(
+                {
+                    "component": component,
+                    "status": "newer_than_known",
+                    "severity": "Info",
+                    "detected": detected,
+                    "minimum_supported": minimum,
+                    "message": "发现未知新版本，建议升级 QA 规则",
+                }
+            )
+            return
+        checks.append(
+            {
+                "component": component,
+                "status": "ok",
+                "severity": "Info",
+                "detected": detected,
+                "minimum_supported": minimum,
+                "message": "版本匹配",
+            }
+        )
 
+    append_check(
+        "fqe_schema_version",
+        detected_versions["fqe_schema_version"],
+        minimum_supported["fqe_schema_version"],
+    )
+    append_check(
+        "cpe_schema_version",
+        detected_versions["cpe_schema_version"],
+        minimum_supported["cpe_schema_version"],
+    )
+    append_check(
+        "fqe_rules_version",
+        detected_versions["fqe_rules_version"],
+        minimum_supported["fqe_rules_version"],
+    )
 
-def _check_cpe_verdict_version(
-    cpe_verdict_obj: Dict[str, Any], case_dir: Path
-) -> List[Issue]:
-    """
-    检查 CPE verdict.json 的 _version 是否与期望版本一致。
-    """
-    issues: List[Issue] = []
-    loc = str(case_dir / "competitive_positioning" / "verdict.json")
-
-    cpe_version = cpe_verdict_obj.get("_version")
-    if cpe_version is not None:
-        if cpe_version != EXPECTED_CPE_VERSION:
+    for check in checks:
+        if check["status"] in ("below_minimum", "invalid", "newer_than_known"):
             issues.append(
                 Issue(
-                    severity="Warning",
-                    location=loc,
-                    description=f"cpe verdict.json _version={cpe_version!r} 与契约期望版本 {EXPECTED_CPE_VERSION!r} 不一致",
-                    impact="版本不匹配可能导致字段结构变化，下游解析可能出错",
-                    suggested_fix=f"升级到最新 cpe 引擎（v{EXPECTED_CPE_VERSION}+）重新生成，或更新契约版本定义",
+                    severity=check["severity"],
+                    location=str(case_dir),
+                    description=(
+                        f"{check['component']}: detected={check['detected']!r}, "
+                        f"minimum_supported={check['minimum_supported']!r}, status={check['status']}"
+                    ),
+                    impact=check["message"],
+                    suggested_fix=(
+                        "低版本请升级引擎重跑；新版本请升级 QA 契约与规则；"
+                        "格式错误请改为 semver（x.y.z）"
+                    ),
                 )
             )
 
-    return issues
+    return issues, {
+        "minimum_supported": minimum_supported,
+        "detected_versions": detected_versions,
+        "checks": checks,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -1129,6 +1262,8 @@ def main() -> int:
 
     all_issues: List[Issue] = []
 
+    version_check: Dict[str, Any] = {}
+
     # --- FQE checks ---
     fq_file_issues, paths = _check_required_files(case_dir)
     all_issues.extend(fq_file_issues)
@@ -1147,7 +1282,6 @@ def main() -> int:
         all_issues.extend(_check_bridge(adjustments, fq_verdict, case_dir))
         all_issues.extend(_check_scores(fq_verdict, case_dir))
         all_issues.extend(_check_verdict_contract(fq_verdict, case_dir))
-        all_issues.extend(_check_rules_version_consistency(fq_verdict, case_dir))
         all_issues.extend(
             _check_red_flag_evidence_refs(red_flags_obj, evidence_ids, case_dir)
         )
@@ -1182,7 +1316,6 @@ def main() -> int:
         ):
             cpe_verdict_obj = _read_json(cpe_paths["cpe_verdict"])
             all_issues.extend(_check_cpe_verdict(cpe_verdict_obj, case_dir))
-            all_issues.extend(_check_cpe_verdict_version(cpe_verdict_obj, case_dir))
 
         # FQE × CPE 交叉一致性（仅当两者都存在时）
         if fq_verdict and cpe_verdict_obj:
@@ -1194,6 +1327,11 @@ def main() -> int:
                 all_issues.extend(
                     _check_cpe_fqe_consistency(fq_verdict, cpe_verdict_obj, case_dir)
                 )
+
+    version_issues, version_check = _run_version_governance_checks(
+        fq_verdict, cpe_verdict_obj, case_dir
+    )
+    all_issues.extend(version_issues)
 
     # --- Verdict ---
     has_critical = any(i.severity == "Critical" for i in all_issues)
@@ -1215,6 +1353,7 @@ def main() -> int:
         "qa_verdict": qa_verdict,
         "issue_count": len(all_issues),
         "severity_counts": severity_counts,
+        "version_check": version_check,
         "issues": [i.to_dict() for i in all_issues],
     }
 
