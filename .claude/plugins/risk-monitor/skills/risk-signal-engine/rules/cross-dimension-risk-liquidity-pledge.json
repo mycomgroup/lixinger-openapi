@@ -42,7 +42,7 @@
     },
     "lookback_window": "20d",
     "trigger_mode": "hybrid",
-    "explain_template": "\u9ad8\u8d28\u62bc+\u4f4e\u6d41\u52a8\u6027+\u8dcc\u505c\u5171\u632f\uff0c\u5c3e\u90e8\u98ce\u9669\u663e\u8457\u62ac\u5347\u3002"
+    "explain_template": "高质押+低流动性+跌停共振，尾部风险显著抬升。"
   },
   "severity": {
     "mapping": [
@@ -94,5 +94,25 @@
     "reviewer": "trading-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-001",
+      "risk_dimension": "equity-pledge-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor",
+      "legacy_capability_unit": "控股股东高质押+平仓线预警"
+    },
+    {
+      "capability_id": "CAP-009",
+      "risk_dimension": "liquidity-impact-estimator",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/liquidity-impact-estimator",
+      "legacy_capability_unit": "交易冲击成本与流动性缺口评估"
+    },
+    {
+      "capability_id": "CAP-008",
+      "risk_dimension": "limit-up-limit-down-risk-checker",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/limit-up-limit-down-risk-checker",
+      "legacy_capability_unit": "涨跌停板流动性锁死风险检查"
+    }
+  ]
 }

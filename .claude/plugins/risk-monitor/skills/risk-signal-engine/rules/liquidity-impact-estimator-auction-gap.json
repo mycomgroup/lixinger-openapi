@@ -33,7 +33,7 @@
     },
     "lookback_window": "1d",
     "trigger_mode": "event",
-    "explain_template": "\u4f4e\u627f\u63a5\u5f00\u76d8\u8df3\u7a7a\u4e0b\u8dcc\uff0c\u63d0\u793a\u6d41\u52a8\u6027\u771f\u7a7a\u98ce\u9669\u3002"
+    "explain_template": "低承接开盘跳空下跌，提示流动性真空风险。"
   },
   "severity": {
     "mapping": [
@@ -79,5 +79,13 @@
     "reviewer": "execution-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-009",
+      "risk_dimension": "liquidity-impact-estimator",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/liquidity-impact-estimator",
+      "legacy_capability_unit": "交易冲击成本与流动性缺口评估"
+    }
+  ]
 }

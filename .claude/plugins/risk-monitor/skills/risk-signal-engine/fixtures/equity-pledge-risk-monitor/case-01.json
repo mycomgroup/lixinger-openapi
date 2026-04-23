@@ -1,0 +1,18 @@
+{
+  "dimension": "equity-pledge-risk-monitor",
+  "input": {
+    "security_id": "000001.SZ",
+    "pledge_ratio_controller": 0.78,
+    "distance_to_margin_call": 0.15,
+    "recent_event": "pledge_update"
+  },
+  "expected_output_summary": {
+    "risk_type": "equity-pledge-risk-monitor",
+    "severity": "high",
+    "thesis": "高质押+接近平仓线，需跟踪被动减持风险",
+    "monitor_next": [
+      "追踪补充质押公告",
+      "复核平仓线安全垫"
+    ]
+  }
+}

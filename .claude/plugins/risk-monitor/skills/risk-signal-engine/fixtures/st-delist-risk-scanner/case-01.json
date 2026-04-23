@@ -1,0 +1,16 @@
+{
+  "dimension": "st-delist-risk-scanner",
+  "input": {
+    "security_id": "600333.SH",
+    "net_profit_3y": "negative",
+    "compliance_warnings": 2
+  },
+  "expected_output_summary": {
+    "risk_type": "st-delist-risk-scanner",
+    "severity": "critical",
+    "thesis": "连续财务压力并触发合规预警，退市风险升温",
+    "monitor_next": [
+      "更新交易所监管函进展"
+    ]
+  }
+}

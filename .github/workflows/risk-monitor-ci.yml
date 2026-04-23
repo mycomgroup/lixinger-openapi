@@ -16,28 +16,30 @@ on:
 
 jobs:
   validate-rules:
-    name: Validate Risk Rules Schema
+    name: Validate & Lint Risk Rules
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
-      - name: Install jsonschema
+
+      - name: Install dependencies
         run: pip install jsonschema
-      
-      - name: Run rules validation
-        run: |
-          cd .claude/plugins/risk-monitor
-          ./scripts/validate-rules.sh
-      
+
+      - name: Schema validation
+        run: python .claude/plugins/risk-monitor/skills/risk-signal-engine/scripts/validate_rules.py
+
+      - name: Semantic lint
+        run: python .claude/plugins/risk-monitor/skills/risk-signal-engine/scripts/lint_rules.py
+
       - name: Validation report
         if: always()
         run: |
           echo "## Risk Rules Validation Report" >> $GITHUB_STEP_SUMMARY
-          echo "Schema validation completed for all rule files." >> $GITHUB_STEP_SUMMARY
+          echo "- Schema validation: completed" >> $GITHUB_STEP_SUMMARY
+          echo "- Semantic lint: completed" >> $GITHUB_STEP_SUMMARY

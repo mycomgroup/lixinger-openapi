@@ -34,7 +34,7 @@
     },
     "lookback_window": "10d",
     "trigger_mode": "hybrid",
-    "explain_template": "\u878d\u8d44\u6269\u5f20\u4e0e\u76d8\u53e3\u6df1\u5ea6\u4e0b\u964d\u5e76\u5b58\uff0c\u8fb9\u9645\u51b2\u51fb\u6210\u672c\u62ac\u5347\u3002"
+    "explain_template": "融资扩张与盘口深度下降并存，边际冲击成本抬升。"
   },
   "severity": {
     "mapping": [
@@ -81,5 +81,19 @@
     "reviewer": "trading-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-007",
+      "risk_dimension": "margin-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/margin-risk-monitor",
+      "legacy_capability_unit": "两融杠杆拥挤与踩踏风险监控"
+    },
+    {
+      "capability_id": "CAP-009",
+      "risk_dimension": "liquidity-impact-estimator",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/liquidity-impact-estimator",
+      "legacy_capability_unit": "交易冲击成本与流动性缺口评估"
+    }
+  ]
 }

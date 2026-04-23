@@ -1,0 +1,16 @@
+{
+  "dimension": "liquidity-impact-estimator",
+  "input": {
+    "security_id": "300750.SZ",
+    "depth_impact_bps_per_1m": 42,
+    "auction_gap_bps": 95
+  },
+  "expected_output_summary": {
+    "risk_type": "liquidity-impact-estimator",
+    "severity": "medium",
+    "thesis": "冲击成本抬升且竞价跳空扩大，执行滑点风险提高",
+    "monitor_next": [
+      "调整下单分片与时段"
+    ]
+  }
+}

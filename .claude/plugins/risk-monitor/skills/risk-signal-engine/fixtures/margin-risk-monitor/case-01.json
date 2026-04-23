@@ -1,0 +1,16 @@
+{
+  "dimension": "margin-risk-monitor",
+  "input": {
+    "security_id": "600519.SH",
+    "financing_balance_change_5d": 0.29,
+    "broker_concentration": 0.41
+  },
+  "expected_output_summary": {
+    "risk_type": "margin-risk-monitor",
+    "severity": "high",
+    "thesis": "融资拥挤且券商集中度偏高，易出现共振去杠杆",
+    "monitor_next": [
+      "监控两融余额拐点"
+    ]
+  }
+}

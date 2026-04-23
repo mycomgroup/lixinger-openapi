@@ -1,0 +1,16 @@
+{
+  "dimension": "limit-up-limit-down-risk-checker",
+  "input": {
+    "security_id": "002555.SZ",
+    "consecutive_limit_up_days": 4,
+    "board_failure_count_5d": 2
+  },
+  "expected_output_summary": {
+    "risk_type": "limit-up-limit-down-risk-checker",
+    "severity": "high",
+    "thesis": "连板后开板失败次数增加，短线情绪退潮风险上升",
+    "monitor_next": [
+      "观察次日竞价与换手"
+    ]
+  }
+}

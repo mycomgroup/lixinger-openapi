@@ -26,7 +26,7 @@
     },
     "lookback_window": "5d",
     "trigger_mode": "event",
-    "explain_template": "\u89e6\u53d1ST\u76f8\u5173\u6807\u7b7e\uff0c\u4ea4\u6613\u9650\u5236\u4e0e\u4f30\u503c\u6298\u4ef7\u98ce\u9669\u663e\u8457\u62ac\u5347\u3002"
+    "explain_template": "触发ST相关标签，交易限制与估值折价风险显著抬升。"
   },
   "severity": {
     "mapping": [
@@ -72,5 +72,13 @@
     "reviewer": "compliance",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-005",
+      "risk_dimension": "st-delist-risk-scanner",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/st-delist-risk-scanner",
+      "legacy_capability_unit": "ST/退市触发条件扫描"
+    }
+  ]
 }

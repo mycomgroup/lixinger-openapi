@@ -40,7 +40,7 @@
     },
     "lookback_window": "20d",
     "trigger_mode": "hybrid",
-    "explain_template": "\u63a7\u80a1\u80a1\u4e1c\u9ad8\u8d28\u62bc\u53e0\u52a0\u9ad8\u6301\u80a1\u96c6\u4e2d\u548c\u4f4e\u6d41\u52a8\u6027\uff0c\u5b58\u5728\u8d28\u62bc\u5e73\u4ed3\u51b2\u51fb\u98ce\u9669\u3002"
+    "explain_template": "控股股东高质押叠加高持股集中和低流动性，存在质押平仓冲击风险。"
   },
   "severity": {
     "mapping": [
@@ -96,5 +96,13 @@
     "reviewer": "trading-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-001",
+      "risk_dimension": "equity-pledge-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor",
+      "legacy_capability_unit": "控股股东高质押+平仓线预警"
+    }
+  ]
 }

@@ -33,7 +33,7 @@
     },
     "lookback_window": "20d",
     "trigger_mode": "batch",
-    "explain_template": "\u51b2\u51fb\u6210\u672c\u62ac\u5347\u4e14\u76d8\u53e3\u6df1\u5ea6\u4e0d\u8db3\uff0c\u5927\u989d\u4ea4\u6613\u6267\u884c\u98ce\u9669\u663e\u8457\u3002"
+    "explain_template": "冲击成本抬升且盘口深度不足，大额交易执行风险显著。"
   },
   "severity": {
     "mapping": [
@@ -80,5 +80,13 @@
     "reviewer": "execution-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-009",
+      "risk_dimension": "liquidity-impact-estimator",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/liquidity-impact-estimator",
+      "legacy_capability_unit": "交易冲击成本与流动性缺口评估"
+    }
+  ]
 }

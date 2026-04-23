@@ -33,7 +33,7 @@
     },
     "lookback_window": "6m",
     "trigger_mode": "event",
-    "explain_template": "\u5927\u80a1\u4e1c\u51cf\u6301\u8ba1\u5212\u5360\u6bd4\u504f\u9ad8\u4e14\u6d41\u901a\u76d8\u504f\u5c0f\uff0c\u629b\u538b\u653e\u5927\u3002"
+    "explain_template": "大股东减持计划占比偏高且流通盘偏小，抛压放大。"
   },
   "severity": {
     "mapping": [
@@ -79,5 +79,13 @@
     "reviewer": "event-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-002",
+      "risk_dimension": "shareholder-risk-check",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-risk-check",
+      "legacy_capability_unit": "减持/冻结/质押综合股东风险检查"
+    }
+  ]
 }

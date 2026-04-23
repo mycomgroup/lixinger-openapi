@@ -1,0 +1,40 @@
+{
+  "fixtures": [
+    {
+      "dimension": "equity-pledge-risk-monitor",
+      "fixture": "equity-pledge-risk-monitor/case-01.json"
+    },
+    {
+      "dimension": "goodwill-risk-monitor",
+      "fixture": "goodwill-risk-monitor/case-01.json"
+    },
+    {
+      "dimension": "ipo-lockup-risk-monitor",
+      "fixture": "ipo-lockup-risk-monitor/case-01.json"
+    },
+    {
+      "dimension": "limit-up-limit-down-risk-checker",
+      "fixture": "limit-up-limit-down-risk-checker/case-01.json"
+    },
+    {
+      "dimension": "liquidity-impact-estimator",
+      "fixture": "liquidity-impact-estimator/case-01.json"
+    },
+    {
+      "dimension": "margin-risk-monitor",
+      "fixture": "margin-risk-monitor/case-01.json"
+    },
+    {
+      "dimension": "shareholder-risk-check",
+      "fixture": "shareholder-risk-check/case-01.json"
+    },
+    {
+      "dimension": "shareholder-structure-monitor",
+      "fixture": "shareholder-structure-monitor/case-01.json"
+    },
+    {
+      "dimension": "st-delist-risk-scanner",
+      "fixture": "st-delist-risk-scanner/case-01.json"
+    }
+  ]
+}

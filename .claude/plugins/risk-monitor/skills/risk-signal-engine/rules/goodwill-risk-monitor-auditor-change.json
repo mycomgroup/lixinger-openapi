@@ -33,7 +33,7 @@
     },
     "lookback_window": "12m",
     "trigger_mode": "event",
-    "explain_template": "\u5ba1\u8ba1\u673a\u6784\u53d8\u66f4\u53e0\u52a0\u51cf\u503c\u6d4b\u8bd5\u62ab\u9732\u5f02\u5e38\uff0c\u9700\u9632\u8303\u4e00\u6b21\u6027\u5546\u8a89\u51cf\u503c\u51b2\u51fb\u3002"
+    "explain_template": "审计机构变更叠加减值测试披露异常，需防范一次性商誉减值冲击。"
   },
   "severity": {
     "mapping": [
@@ -85,5 +85,13 @@
     "reviewer": "fundamental-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-004",
+      "risk_dimension": "goodwill-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/goodwill-risk-monitor",
+      "legacy_capability_unit": "商誉减值与并购后遗症风险监控"
+    }
+  ]
 }

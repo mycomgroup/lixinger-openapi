@@ -1,0 +1,16 @@
+{
+  "dimension": "ipo-lockup-risk-monitor",
+  "input": {
+    "security_id": "301888.SZ",
+    "unlock_ratio_90d": 0.34,
+    "vc_holding_ratio": 0.28
+  },
+  "expected_output_summary": {
+    "risk_type": "ipo-lockup-risk-monitor",
+    "severity": "high",
+    "thesis": "近期解禁比例较高，VC退出压力可能压制价格",
+    "monitor_next": [
+      "跟踪解禁窗口成交冲击"
+    ]
+  }
+}

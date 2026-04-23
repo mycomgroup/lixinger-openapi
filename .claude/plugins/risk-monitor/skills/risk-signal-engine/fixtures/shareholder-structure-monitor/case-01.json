@@ -1,0 +1,16 @@
+{
+  "dimension": "shareholder-structure-monitor",
+  "input": {
+    "security_id": "688111.SH",
+    "top10_holder_change_rate": 0.22,
+    "related_party_holding_ratio": 0.18
+  },
+  "expected_output_summary": {
+    "risk_type": "shareholder-structure-monitor",
+    "severity": "medium",
+    "thesis": "股东结构波动提升，相关方持股上升",
+    "monitor_next": [
+      "跟踪十大股东变动"
+    ]
+  }
+}

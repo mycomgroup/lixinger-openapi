@@ -42,7 +42,7 @@
     },
     "lookback_window": "1d",
     "trigger_mode": "hybrid",
-    "explain_template": "\u7ec4\u5408\u62e5\u6324\u6760\u6746\u655e\u53e3\u4e0e\u6d41\u52a8\u6027\u9000\u51fa\u5468\u671f\u9519\u914d\uff0c\u9700\u4e3b\u52a8\u964d\u98ce\u9669\u3002"
+    "explain_template": "组合拥挤杠杆敞口与流动性退出周期错配，需主动降风险。"
   },
   "severity": {
     "mapping": [
@@ -94,5 +94,25 @@
     "reviewer": "portfolio-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-007",
+      "risk_dimension": "margin-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/margin-risk-monitor",
+      "legacy_capability_unit": "两融杠杆拥挤与踩踏风险监控"
+    },
+    {
+      "capability_id": "CAP-009",
+      "risk_dimension": "liquidity-impact-estimator",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/liquidity-impact-estimator",
+      "legacy_capability_unit": "交易冲击成本与流动性缺口评估"
+    },
+    {
+      "capability_id": "CAP-008",
+      "risk_dimension": "limit-up-limit-down-risk-checker",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/limit-up-limit-down-risk-checker",
+      "legacy_capability_unit": "涨跌停板流动性锁死风险检查"
+    }
+  ]
 }

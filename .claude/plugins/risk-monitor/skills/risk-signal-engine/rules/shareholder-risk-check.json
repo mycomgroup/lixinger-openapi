@@ -33,7 +33,7 @@
     },
     "lookback_window": "90d",
     "trigger_mode": "hybrid",
-    "explain_template": "\u5927\u80a1\u4e1c\u51cf\u6301\u8ba1\u5212\u4e0e\u6210\u4ea4\u627f\u63a5\u80fd\u529b\u9519\u914d\uff0c\u77ed\u671f\u5b58\u5728\u4f9b\u7ed9\u51b2\u51fb\u3002"
+    "explain_template": "大股东减持计划与成交承接能力错配，短期存在供给冲击。"
   },
   "severity": {
     "mapping": [
@@ -80,5 +80,13 @@
     "reviewer": "governance",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-002",
+      "risk_dimension": "shareholder-risk-check",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-risk-check",
+      "legacy_capability_unit": "减持/冻结/质押综合股东风险检查"
+    }
+  ]
 }

@@ -33,7 +33,7 @@
     },
     "lookback_window": "4q",
     "trigger_mode": "batch",
-    "explain_template": "\u5546\u8a89\u5360\u51c0\u8d44\u4ea7\u504f\u9ad8\u4e14\u76c8\u5229\u627f\u538b\uff0c\u51cf\u503c\u98ce\u9669\u53ef\u80fd\u5728\u8d22\u62a5\u7a97\u53e3\u96c6\u4e2d\u91ca\u653e\u3002"
+    "explain_template": "商誉占净资产偏高且盈利承压，减值风险可能在财报窗口集中释放。"
   },
   "severity": {
     "mapping": [
@@ -80,5 +80,13 @@
     "reviewer": "financial-quality",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-004",
+      "risk_dimension": "goodwill-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/goodwill-risk-monitor",
+      "legacy_capability_unit": "商誉减值与并购后遗症风险监控"
+    }
+  ]
 }

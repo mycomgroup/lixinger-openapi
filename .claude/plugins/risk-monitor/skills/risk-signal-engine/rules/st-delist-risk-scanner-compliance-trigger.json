@@ -32,7 +32,7 @@
     },
     "lookback_window": "90d",
     "trigger_mode": "event",
-    "explain_template": "\u76d1\u7ba1\u95ee\u8be2\u957f\u671f\u672a\u56de\u590d\u6216\u91cd\u5927\u8fdd\u89c4\u7acb\u6848\uff0c\u9000\u5e02\u4e0e\u4ea4\u6613\u9650\u5236\u98ce\u9669\u5347\u6e29\u3002"
+    "explain_template": "监管问询长期未回复或重大违规立案，退市与交易限制风险升温。"
   },
   "severity": {
     "mapping": [
@@ -84,5 +84,13 @@
     "reviewer": "listing-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-005",
+      "risk_dimension": "st-delist-risk-scanner",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/st-delist-risk-scanner",
+      "legacy_capability_unit": "ST/退市触发条件扫描"
+    }
+  ]
 }

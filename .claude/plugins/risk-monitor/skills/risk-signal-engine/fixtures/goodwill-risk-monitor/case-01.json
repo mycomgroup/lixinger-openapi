@@ -1,0 +1,16 @@
+{
+  "dimension": "goodwill-risk-monitor",
+  "input": {
+    "security_id": "002222.SZ",
+    "goodwill_to_equity": 0.65,
+    "auditor_changed": true
+  },
+  "expected_output_summary": {
+    "risk_type": "goodwill-risk-monitor",
+    "severity": "high",
+    "thesis": "高商誉+审计变更，减值不确定性上升",
+    "monitor_next": [
+      "关注减值测试披露"
+    ]
+  }
+}

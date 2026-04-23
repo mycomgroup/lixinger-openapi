@@ -33,7 +33,7 @@
     },
     "lookback_window": "20d",
     "trigger_mode": "hybrid",
-    "explain_template": "\u6760\u6746\u6269\u5f20\u4e0e\u4ef7\u683c\u8d70\u5f31\u80cc\u79bb\uff0c\u5b58\u5728\u88ab\u52a8\u53bb\u6760\u6746\u8e29\u8e0f\u3002"
+    "explain_template": "杠杆扩张与价格走弱背离，存在被动去杠杆踩踏。"
   },
   "severity": {
     "mapping": [
@@ -80,5 +80,13 @@
     "reviewer": "trading-risk",
     "created_at": "2026-03-26",
     "last_validated_at": "2026-04-12"
-  }
+  },
+  "legacy_parity_refs": [
+    {
+      "capability_id": "CAP-007",
+      "risk_dimension": "margin-risk-monitor",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/margin-risk-monitor",
+      "legacy_capability_unit": "两融杠杆拥挤与踩踏风险监控"
+    }
+  ]
 }

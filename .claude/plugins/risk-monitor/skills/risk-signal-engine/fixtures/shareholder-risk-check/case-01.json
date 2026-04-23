@@ -1,0 +1,16 @@
+{
+  "dimension": "shareholder-risk-check",
+  "input": {
+    "security_id": "300123.SZ",
+    "share_freeze_ratio": 0.36,
+    "controller_reduction_plan": "active"
+  },
+  "expected_output_summary": {
+    "risk_type": "shareholder-risk-check",
+    "severity": "high",
+    "thesis": "股东冻结叠加减持计划，控制权与流动性承压",
+    "monitor_next": [
+      "核验减持进度公告"
+    ]
+  }
+}

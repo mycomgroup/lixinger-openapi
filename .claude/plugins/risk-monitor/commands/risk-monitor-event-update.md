@@ -1,6 +1,6 @@
 ---
 description: 持仓后事件驱动增量更新，识别新增事件并触发规则重算
-argument-hint: "[watchlist] [--event-window 24h|3d] [--event-sources announcement|news|market_anomaly]"
+argument-hint: "[watchlist] [--event-window 24h|3d] [--event-sources announcement|news|market_anomaly|filing_update|manual]"
 target-skill: "risk-monitor-orchestrator"
 output-format: "event-driven-risk-update-output-template"
 risk-level: "medium"
@@ -24,9 +24,10 @@ risk-level: "medium"
 |------|------|------|------|
 | `watchlist` | array/string | 是 | 股票代码列表 |
 | `event_window` | string | 否 | `24h` / `3d`，默认 `24h` |
-| `event_sources` | array | 否 | `announcement` / `news` / `market_anomaly`，默认全部 |
+| `event_sources` | array | 否 | 支持 `announcement` / `news` / `market_anomaly` / `filing_update` / `manual`，默认全部 |
 
-> 注：`filing_update` 和 `manual` 由规则引擎内部触发，不在命令层暴露。
+> 兼容策略：命令层会先做 source normalization（别名→标准源），再按兼容映射路由到规则层。  
+> 例如输入 `announcement_update` 会归一化为 `announcement`，并同时触发规则层 `announcement` + `filing_update`。
 
 ## 事件路由
 
@@ -35,6 +36,24 @@ risk-level: "medium"
 | announcement | pledge_update, unlock_notice, financial_report, major_event |
 | news | negative_news, regulatory_action, industry_warning |
 | market_anomaly | volume_spike, price_gap, limit_up_down_chain |
+| filing_update | shareholder_registry_change, equity_pledge_update, related_party_change |
+| manual | portfolio_rebalance, analyst_override, risk_recheck |
+
+## 全量 source 列表与兼容规则
+
+- 标准源全集：`announcement`, `news`, `market_anomaly`, `filing_update`, `manual`
+- 常见兼容输入（自动归一化）：
+  - `announcement_update` / `company_announcement` / `disclosure` → `announcement`
+  - `media_news` / `press_release` → `news`
+  - `trading_anomaly` / `price_anomaly` / `market_abnormal` → `market_anomaly`
+  - `filing` / `registry_update` → `filing_update`
+  - `manual_trigger` / `user_trigger` → `manual`
+- 路由兼容映射（命令层 → 规则层）：
+  - `announcement` → `announcement` + `filing_update`
+  - `news` → `news`
+  - `market_anomaly` → `market_anomaly`
+  - `filing_update` → `filing_update`
+  - `manual` → `manual`
 
 ## 输出契约
 

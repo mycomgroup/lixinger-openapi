@@ -1,0 +1,190 @@
+{
+  "metadata": {
+    "created_at": "2026-04-23",
+    "updated_at": "2026-04-23",
+    "source_template": "templates/capability-matrix-template.md",
+    "coverage_scale": [
+      "match",
+      "partial",
+      "missing",
+      "enhanced"
+    ]
+  },
+  "dimensions": [
+    {
+      "capability_id": "CAP-001",
+      "risk_dimension": "equity-pledge-risk-monitor",
+      "capability_unit": "控股股东高质押+平仓线预警",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor",
+      "engine_rules": [
+        "equity-pledge-risk-monitor.json",
+        "equity-pledge-risk-monitor-concentration.json",
+        "equity-pledge-risk-monitor-margin-call.json"
+      ],
+      "gap_status": "partial",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-1",
+      "gap_detail": [
+        "缺少质权人类型分层阈值(券商/银行/信托不同平仓线)",
+        "缺少完整质押链追踪(多笔质押组合)",
+        "缺少纾困基金介入判断"
+      ]
+    },
+    {
+      "capability_id": "CAP-002",
+      "risk_dimension": "shareholder-risk-check",
+      "capability_unit": "减持/冻结/质押综合股东风险检查",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-risk-check",
+      "engine_rules": [
+        "shareholder-risk-check.json",
+        "shareholder-risk-check-equity-freeze.json",
+        "shareholder-risk-check-reduction-plan.json"
+      ],
+      "gap_status": "partial",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-1",
+      "gap_detail": [
+        "缺少股权冻结风险监控",
+        "缺少司法拍卖追踪",
+        "缺少一致行动人关系判断",
+        "缺少高管增减持信号"
+      ]
+    },
+    {
+      "capability_id": "CAP-003",
+      "risk_dimension": "shareholder-structure-monitor",
+      "capability_unit": "股东结构稳定性与筹码集中度监控",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/shareholder-structure-monitor",
+      "engine_rules": [
+        "shareholder-structure-monitor.json",
+        "shareholder-structure-monitor-ownership-instability.json",
+        "shareholder-structure-monitor-related-party-rise.json"
+      ],
+      "gap_status": "partial",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-2",
+      "gap_detail": [
+        "缺少股东户数连续变化追踪",
+        "缺少筹码集中度代理计算",
+        "缺少机构持仓变化监控",
+        "缺少人均持股趋势判断"
+      ]
+    },
+    {
+      "capability_id": "CAP-004",
+      "risk_dimension": "goodwill-risk-monitor",
+      "capability_unit": "商誉减值与并购后遗症风险监控",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/goodwill-risk-monitor",
+      "engine_rules": [
+        "goodwill-risk-monitor.json",
+        "goodwill-risk-monitor-auditor-change.json",
+        "goodwill-risk-monitor-impairment-probability.json"
+      ],
+      "gap_status": "partial",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-2",
+      "gap_detail": [
+        "缺少并购标的分项追踪",
+        "缺少业绩承诺完成率监控",
+        "缺少历史减值记录聚合",
+        "缺少并购溢价率判断"
+      ]
+    },
+    {
+      "capability_id": "CAP-005",
+      "risk_dimension": "st-delist-risk-scanner",
+      "capability_unit": "ST/退市触发条件扫描",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/st-delist-risk-scanner",
+      "engine_rules": [
+        "st-delist-risk-scanner.json",
+        "st-delist-risk-scanner-compliance-trigger.json",
+        "st-delist-risk-scanner-financial-trigger.json"
+      ],
+      "gap_status": "match",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-1",
+      "gap_detail": [
+        "核心ST标志识别一致",
+        "engine 已覆盖关键触发条件"
+      ]
+    },
+    {
+      "capability_id": "CAP-006",
+      "risk_dimension": "ipo-lockup-risk-monitor",
+      "capability_unit": "解禁供给冲击与减持压力预警",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/ipo-lockup-risk-monitor",
+      "engine_rules": [
+        "ipo-lockup-risk-monitor.json",
+        "ipo-lockup-risk-monitor-near-term-unlock.json",
+        "ipo-lockup-risk-monitor-vc-exit-pressure.json"
+      ],
+      "gap_status": "partial",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-1",
+      "gap_detail": [
+        "缺少解禁类型分层(首发/定增/激励)",
+        "缺少解禁收益率计算",
+        "缺少实际减持追踪",
+        "缺少密集解禁判断"
+      ]
+    },
+    {
+      "capability_id": "CAP-007",
+      "risk_dimension": "margin-risk-monitor",
+      "capability_unit": "两融杠杆拥挤与踩踏风险监控",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/margin-risk-monitor",
+      "engine_rules": [
+        "margin-risk-monitor.json",
+        "margin-risk-monitor-crowded-long.json",
+        "margin-risk-monitor-financing-broker-divergence.json"
+      ],
+      "gap_status": "partial",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-2",
+      "gap_detail": [
+        "缺少融券维度监控",
+        "缺少杠杆拥挤度分位数判断",
+        "缺少顶背离信号识别",
+        "缺少融资买入额/成交额占比"
+      ]
+    },
+    {
+      "capability_id": "CAP-008",
+      "risk_dimension": "limit-up-limit-down-risk-checker",
+      "capability_unit": "涨跌停板流动性锁死风险检查",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/limit-up-limit-down-risk-checker",
+      "engine_rules": [
+        "limit-up-limit-down-risk-checker.json",
+        "limit-up-limit-down-risk-checker-board-failure.json",
+        "limit-up-limit-down-risk-checker-liquidation-chain.json"
+      ],
+      "gap_status": "match",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-1",
+      "gap_detail": [
+        "连续跌停识别一致",
+        "engine 已覆盖流动性锁死核心风险"
+      ]
+    },
+    {
+      "capability_id": "CAP-009",
+      "risk_dimension": "liquidity-impact-estimator",
+      "capability_unit": "交易冲击成本与流动性缺口评估",
+      "legacy_skill_path": ".claude/plugins/risk-monitor/skills/legacy/liquidity-impact-estimator",
+      "engine_rules": [
+        "liquidity-impact-estimator.json",
+        "liquidity-impact-estimator-auction-gap.json",
+        "liquidity-impact-estimator-depth-slippage.json"
+      ],
+      "gap_status": "partial",
+      "owner": "risk-team",
+      "target_milestone": "Sprint-2",
+      "gap_detail": [
+        "缺少盘口深度数据接入",
+        "缺少冲击成本精确估算",
+        "缺少执行方式优化建议",
+        "缺少组合层面相关性分析"
+      ]
+    }
+  ]
+}
