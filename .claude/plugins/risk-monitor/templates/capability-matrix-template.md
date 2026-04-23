@@ -1,5 +1,7 @@
 # 能力对照矩阵模板（Legacy 迁移 / New Engine 重开发）
 
+> ⚠️ 示例路径仅供演示，提交前必须替换为仓库内真实路径。
+>
 > 用途：逐项核对“旧 skill 迁移能力”与“新 risk-signal-engine 能力”，确保迁移不丢功能，并为后续整合建立可追踪基线。
 
 ---
@@ -15,6 +17,7 @@
   - `missing`：未覆盖
   - `enhanced`：覆盖且增强
 - 每行必须可落到具体规则、字段、脚本或输出段。
+- `engine_metrics_or_rules` 示例统一使用 **kebab-case**（短横线）命名，并与 `skills/risk-signal-engine/rules/*.json` 文件名保持一致。
 
 ---
 
@@ -36,7 +39,7 @@
 
 | id | risk_dimension | capability_unit | legacy_skill_path | legacy_input_contract | legacy_metrics_or_rules | legacy_output_shape | engine_module | engine_input_contract | engine_metrics_or_rules | engine_output_shape | event_trigger_support | gap_status | gap_detail | owner | priority | target_milestone | validation_case | notes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| CAP-001 | equity-pledge-risk-monitor | 控股股东高质押 + 平仓线预警 | .claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor | ticker, as_of_date | 控股股东质押比例/平仓线距离 | 风险等级+监控清单 | .claude/plugins/risk-monitor/skills/risk-signal-engine/rules/pledge_rules.json | ticker, as_of_date, price_feed | PLEDGE-001/PLEDGE-002 | alert + evidence + invalidation | yes | partial | 缺少质权人类型分层阈值 | @owner | P0 | Sprint-1 | case_600xxx_2026Q1 | |
+| CAP-001 | equity-pledge-risk-monitor | 控股股东高质押 + 平仓线预警 | .claude/plugins/risk-monitor/skills/legacy/equity-pledge-risk-monitor | ticker, as_of_date | 控股股东质押比例/平仓线距离 | 风险等级+监控清单 | .claude/plugins/risk-monitor/skills/risk-signal-engine/rules/equity-pledge-risk-monitor-margin-call.json | ticker, as_of_date, price_feed | equity-pledge-risk-monitor / equity-pledge-risk-monitor-margin-call | alert + evidence + invalidation | yes | partial | 缺少质权人类型分层阈值 | @owner | P0 | Sprint-1 | case_600xxx_2026Q1 | |
 
 ---
 
